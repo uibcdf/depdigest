@@ -1,5 +1,6 @@
 from importlib.util import find_spec
 from functools import lru_cache
+from typing import List, Dict, Any
 
 @lru_cache(maxsize=None)
 def is_installed(module_name: str) -> bool:
@@ -10,7 +11,6 @@ def check_dependency(module_name: str, pypi_name: str = None, caller: str = None
     """
     Check if a dependency is installed. Raises the specified exception if missing.
     """
-    # Import inside to allow mocking of depdigest.is_installed
     import depdigest
     if not depdigest.is_installed(module_name):
         lib_name = pypi_name or module_name
@@ -19,3 +19,24 @@ def check_dependency(module_name: str, pypi_name: str = None, caller: str = None
             msg += f" for '{caller}'"
         msg += ". Please install it."
         raise exception_class(msg)
+
+def get_info(module_path: str) -> List[Dict[str, Any]]:
+    """
+    Return raw dependency information for a given package root.
+    """
+    from .config import resolve_config
+    cfg = resolve_config(module_path)
+    
+    rows = []
+    for key, info in cfg.libraries.items():
+        pypi_name = info.get('pypi', key)
+        conda_name = info.get('conda', key)
+        installed = is_installed(pypi_name)
+        rows.append({
+            'Library': key,
+            'Status': 'Installed' if installed else 'Not Installed',
+            'Type': info.get('type', 'soft').capitalize(),
+            'Install (PyPI)': f"pip install {pypi_name}",
+            'Install (Conda)': f"conda install -c conda-forge {conda_name}"
+        })
+    return rows
