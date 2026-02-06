@@ -108,4 +108,6 @@ def dependency_status():
 ## 6. smonitor Integration
 
 DepDigest emits structured diagnostics for missing dependencies. Configuration
-is loaded from `_smonitor.py` in the package root (`depdigest/_smonitor.py`).
+is loaded from `_smonitor.py` in the package root (`depdigest/_smonitor.py`), and
+the catalog lives in `depdigest/_private/smonitor/catalog.py` with metadata in
+`depdigest/_private/smonitor/meta.py`.

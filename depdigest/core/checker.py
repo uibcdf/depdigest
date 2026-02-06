@@ -15,18 +15,18 @@ def check_dependency(module_name: str, pypi_name: str = None, caller: str = None
     if not depdigest.is_installed(module_name):
         lib_name = pypi_name or module_name
         try:
-            from smonitor.integrations import emit_from_catalog
-            from .._private.smonitor import CATALOG, PACKAGE_ROOT
+            from smonitor.integrations import emit_from_catalog, merge_extra
+            from .._private.smonitor import CATALOG, PACKAGE_ROOT, META
 
             emit_from_catalog(
                 CATALOG["missing_dependency"],
                 package_root=PACKAGE_ROOT,
-                extra={
+                extra=merge_extra(META, {
                     "library": lib_name,
                     "caller": caller or "",
                     "pip_install": f"pip install {lib_name}",
                     "conda_install": f"conda install -c conda-forge {lib_name}",
-                },
+                }),
             )
         except Exception:
             pass

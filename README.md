@@ -26,7 +26,9 @@ def simulate(system):
 ## smonitor
 
 DepDigest emits structured events when a dependency is missing. Configuration is
-loaded from `_smonitor.py` in the package root (`depdigest/_smonitor.py`).
+loaded from `_smonitor.py` in the package root (`depdigest/_smonitor.py`), and
+the catalog lives in `depdigest/_private/smonitor/catalog.py` with metadata in
+`depdigest/_private/smonitor/meta.py`.
 
 ## Installation
 
