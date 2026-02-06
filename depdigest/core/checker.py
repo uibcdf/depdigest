@@ -15,11 +15,19 @@ def check_dependency(module_name: str, pypi_name: str = None, caller: str = None
     if not depdigest.is_installed(module_name):
         lib_name = pypi_name or module_name
         try:
-            from .._private.smonitor.runtime import ensure_configured
-            from .._private.smonitor.emitter import emit_missing_dependency
+            from smonitor.integrations import emit_from_catalog
+            from .._private.smonitor import CATALOG, PACKAGE_ROOT
 
-            ensure_configured()
-            emit_missing_dependency(library=lib_name, caller=caller)
+            emit_from_catalog(
+                CATALOG["missing_dependency"],
+                package_root=PACKAGE_ROOT,
+                extra={
+                    "library": lib_name,
+                    "caller": caller or "",
+                    "pip_install": f"pip install {lib_name}",
+                    "conda_install": f"conda install -c conda-forge {lib_name}",
+                },
+            )
         except Exception:
             pass
         msg = f"The library '{lib_name}' is required"
