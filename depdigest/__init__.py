@@ -11,5 +11,5 @@ __all__ = [
     'LazyRegistry',
     'DepConfig',
     'resolve_config',
-    'register_package_config'
+    'register_package_config',
 ]

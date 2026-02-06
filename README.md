@@ -10,6 +10,7 @@ It helps maintain a "Zero-Cost Startup" by ensuring that heavy external librarie
 - **Lazy Loading**: Discover and load modules (plugins, forms) from directories only when accessed.
 - **Architecture Validation**: Tools to scan your codebase and ensure no top-level imports of soft dependencies leak into your core.
 - **Symmetry with ArgDigest**: Designed to work in tandem with argument validation frameworks.
+- **smonitor integration**: Structured diagnostics for missing dependencies.
 
 ## Quick Example
 
@@ -21,6 +22,11 @@ def simulate(system):
     import openmm
     # ...
 ```
+
+## smonitor
+
+DepDigest emits structured events when a dependency is missing. Configuration is
+loaded from `_smonitor.py` in the package root (`depdigest/_smonitor.py`).
 
 ## Installation
 

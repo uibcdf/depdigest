@@ -104,3 +104,8 @@ def dependency_status():
     # Format and display the data (e.g., using Pandas or Tabulate)
     ...
 ```
+
+## 6. smonitor Integration
+
+DepDigest emits structured diagnostics for missing dependencies. Configuration
+is loaded from `_smonitor.py` in the package root (`depdigest/_smonitor.py`).

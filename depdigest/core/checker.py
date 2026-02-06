@@ -14,6 +14,14 @@ def check_dependency(module_name: str, pypi_name: str = None, caller: str = None
     import depdigest
     if not depdigest.is_installed(module_name):
         lib_name = pypi_name or module_name
+        try:
+            from .._private.smonitor.runtime import ensure_configured
+            from .._private.smonitor.emitter import emit_missing_dependency
+
+            ensure_configured()
+            emit_missing_dependency(library=lib_name, caller=caller)
+        except Exception:
+            pass
         msg = f"The library '{lib_name}' is required"
         if caller:
             msg += f" for '{caller}'"
