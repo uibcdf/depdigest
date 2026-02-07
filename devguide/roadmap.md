@@ -8,6 +8,8 @@ DepDigest is currently in **v0.1.1 (Alpha)**. The following steps are planned to
     *   Create a standalone CLI command (`depdigest audit`) that wraps the AST tools.
 2.  **Sphinx Integration**:
     *   Develop a Sphinx extension to auto-document required dependencies.
+3.  **Comprehensive Error Context**:
+    *   Enhance the error messages to include installation instructions tailored to the OS.
 
 ## Current Progress
 
@@ -16,8 +18,6 @@ DepDigest is currently in **v0.1.1 (Alpha)**. The following steps are planned to
     - Unit test suite established with 100% core coverage.
     - Dynamic configuration resolution finalized.
     - Support for manual package configuration registration.
-3.  **Comprehensive Error Context**:
-    *   Enhance the error messages to include not just the missing library, but also installation instructions tailored to the OS (detected via `sys.platform`).
 
 ## Future Potential Steps
 
