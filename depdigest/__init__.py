@@ -1,7 +1,7 @@
 from .core.checker import is_installed, check_dependency, get_info
 from .core.decorator import dep_digest
 from .core.loader import LazyRegistry
-from .core.config import DepConfig, resolve_config, register_package_config
+from .core.config import DepConfig, resolve_config, register_package_config, clear_package_configs
 
 from smonitor.integrations import ensure_configured as _ensure_smonitor_configured
 from ._private.smonitor import PACKAGE_ROOT as _SMONITOR_PACKAGE_ROOT
@@ -17,4 +17,5 @@ __all__ = [
     'DepConfig',
     'resolve_config',
     'register_package_config',
+    'clear_package_configs',
 ]

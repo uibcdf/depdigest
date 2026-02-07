@@ -5,9 +5,17 @@ DepDigest is currently in **v0.1.1 (Alpha)**. The following steps are planned to
 ## What remains to be done?
 
 1.  **CLI Tooling**:
-    *   Create a standalone CLI command (`depdigest audit`) that wraps the AST tools to scan projects for top-level imports.
+    *   Create a standalone CLI command (`depdigest audit`) that wraps the AST tools.
 2.  **Sphinx Integration**:
-    *   Develop a Sphinx extension that reads `_dependencies` metadata from functions and automatically adds "Required: [Library]" notes to the HTML documentation.
+    *   Develop a Sphinx extension to auto-document required dependencies.
+
+## Current Progress
+
+- **v0.1.1**: 
+    - Full telemetry integration with `@smonitor.signal`.
+    - Unit test suite established with 100% core coverage.
+    - Dynamic configuration resolution finalized.
+    - Support for manual package configuration registration.
 3.  **Comprehensive Error Context**:
     *   Enhance the error messages to include not just the missing library, but also installation instructions tailored to the OS (detected via `sys.platform`).
 

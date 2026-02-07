@@ -2,11 +2,18 @@ from importlib.util import find_spec
 from functools import lru_cache
 from typing import List, Dict, Any
 
+try:
+    from smonitor import signal
+except ImportError:
+    def signal(*args, **kwargs):
+        return lambda f: f
+
 @lru_cache(maxsize=None)
 def is_installed(module_name: str) -> bool:
     """Check if a module is installed (cached)."""
     return find_spec(module_name) is not None
 
+@signal(tags=["dependency_check"])
 def check_dependency(module_name: str, pypi_name: str = None, caller: str = None, exception_class: type = ImportError):
     """
     Check if a dependency is installed. Raises the specified exception if missing.

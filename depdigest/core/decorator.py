@@ -4,6 +4,12 @@ from typing import Any, Callable, Dict, Optional
 from .checker import check_dependency
 from .config import resolve_config
 
+try:
+    from smonitor import signal
+except ImportError:
+    def signal(*args, **kwargs):
+        return lambda f: f
+
 def dep_digest(library: str, when: Optional[Dict[str, Any]] = None):
     """
     Decorator to declare and enforce a dependency.
@@ -20,6 +26,7 @@ def dep_digest(library: str, when: Optional[Dict[str, Any]] = None):
         module_path = func.__module__
 
         @wraps(func)
+        @signal(tags=["dependency"])
         def wrapper(*args, **kwargs):
             # 2. RESOLVE CONFIG AT RUNTIME
             # This allows tests to register config AFTER function definition

@@ -18,6 +18,11 @@ def register_package_config(package_name: str, config: DepConfig):
     _PACKAGE_CONFIGS[package_name] = config
     resolve_config.cache_clear()
 
+def clear_package_configs():
+    """Clear all manually registered configurations. Useful for testing."""
+    _PACKAGE_CONFIGS.clear()
+    resolve_config.cache_clear()
+
 @lru_cache(maxsize=128)
 def resolve_config(module_path: str) -> DepConfig:
     package_root = module_path.split('.')[0]

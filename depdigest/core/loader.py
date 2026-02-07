@@ -5,6 +5,12 @@ from typing import Dict, Any, Optional, Callable
 from .checker import is_installed
 from .config import resolve_config
 
+try:
+    from smonitor import signal
+except ImportError:
+    def signal(*args, **kwargs):
+        return lambda f: f
+
 logger = logging.getLogger(__name__)
 
 class LazyRegistry(dict):
@@ -32,6 +38,7 @@ class LazyRegistry(dict):
         finally:
             self._initializing = False
 
+    @signal(tags=["loader"])
     def _scan_and_load(self):
         if not os.path.exists(self._directory):
             return
