@@ -19,58 +19,102 @@ DepDigest is a lightweight infrastructure library designed to manage **optional 
 - **Dynamic Discovery**: Supports lazy plugin/form registries that respond to user-defined visibility settings.
 - **Auditability**: Provides tools to scan the codebase for "leaky" imports.
 
-## Required files in this library
+## 1. Required Configuration (`_depdigest.py`)
 
-- `_depdigest.py`: Package-level configuration (libraries, mappings, visibility).
+Create a file named `_depdigest.py` in your package root. DepDigest uses the module name of the decorated function to find this file automatically.
 
-## Core API for Developers
+```python
+# MyLibrary/_depdigest.py
 
-### 1. The `@dep_digest` Decorator
-Enforce a dependency just-in-time.
+# Define all external dependencies
+LIBRARIES = {
+    'numpy': {'type': 'hard', 'pypi': 'numpy'},
+    'mdtraj': {'type': 'soft', 'pypi': 'mdtraj'},
+    'openmm.unit': {'type': 'soft', 'pypi': 'openmm', 'conda': 'openmm'},
+}
+
+# Map sub-directories to their required library (for LazyRegistry)
+MAPPING = {
+    'mdtraj_Trajectory': 'mdtraj',
+    'openmm_Topology': 'openmm.unit',
+}
+
+# Global visibility toggle
+SHOW_ALL_CAPABILITIES = True
+
+# Custom exception class (Recommended for professional APIs)
+from .exceptions import MyLibraryNotFoundError
+EXCEPTION_CLASS = MyLibraryNotFoundError
+```
+
+## 2. Core API for Developers
+
+### 2.1 The `@dep_digest` Decorator
+Resolved at runtime. It checks `is_installed(pypi_name)` before executing the function.
 
 ```python
 from depdigest import dep_digest
 
-@dep_digest('openmm')
-def simulate(system):
-    import openmm # Safe lazy import
+@dep_digest('mdtraj')
+def to_mdtraj(item):
+    import mdtraj # Lazy import is MANDATORY
     ...
 ```
 
-**Conditional Check**:
+**Conditional Check**: Enforce the dependency only if a specific argument is passed.
 ```python
-@dep_digest('mdtraj', when={'to_form': 'mdtraj.Trajectory'})
+@dep_digest('openmm.unit', when={'to_form': 'openmm.unit'})
 def convert(item, to_form):
     ...
 ```
 
-### 2. The `LazyRegistry`
-Create a directory-based plugin system that doesn't load everything at once.
+### 2.2 The `LazyRegistry`
+Acts as a dictionary. It only imports a sub-module if its dependency (defined in `MAPPING`) is installed or if `SHOW_ALL_CAPABILITIES` is `True`.
 
 ```python
+# MyLibrary/plugins/__init__.py
 from depdigest import LazyRegistry
 
 registry = LazyRegistry(
-    package_prefix='A.plugins',
+    package_prefix='MyLibrary.plugins',
     directory='/path/to/plugins',
-    attr_name='plugin_id'
+    attr_name='plugin_name' # Each plugin file must have a 'plugin_name' variable
 )
+```
+
+## 3. Advanced Integration
+
+### 3.1 Manual Configuration Registration
+Useful for testing or dynamic plugin systems where a root `_depdigest.py` is not feasible.
+
+```python
+from depdigest import register_package_config, DepConfig
+
+register_package_config('my_dynamic_pkg', DepConfig(
+    libraries={'secret_lib': {'type': 'soft', 'pypi': 'secret'}},
+    exception_class=ValueError
+))
+```
+
+### 3.2 User Introspection
+Expose a function to let users know their environment's status:
+
+```python
+from depdigest import get_info
+
+def dependency_info():
+    return get_info('MyLibrary')
 ```
 
 ## Required behavior (non-negotiable)
 
-1.  **Lazy Imports**: Never import an optional dependency at the module top-level. Always import inside the function/method guarded by `@dep_digest`.
-2.  **Mapping Integrity**: Every form or plugin that requires an external library **MUST** be mapped in `_depdigest.py`.
-3.  **Use get_info**: Expose a user-facing function to report dependency status using `depdigest.get_info('A')`.
+1.  **Lazy Imports**: Never import a soft dependency at the module top-level. Always inside the guarded function.
+2.  **Package Identity**: Always use the importable package name as the key in `LIBRARIES` (e.g., `'openmm.unit'`).
+3.  **Standardization**: Use `@dep_digest` even for internal utility functions that depend on optional tools.
 
 ## SMonitor Integration
 
-DepDigest is instrumented with `@smonitor.signal(tags=["dependency"])`. Every dependency check and automated loading process is traceable.
-
-## Naming conventions
-
-- **Config symbols**: Use uppercase (`LIBRARIES`, `MAPPING`, `SHOW_ALL_CAPABILITIES`).
-- **Keys**: Use importable module names (e.g., `'openmm.unit'`, `'mdtraj'`).
+DepDigest is instrumented with `@smonitor.signal(tags=["dependency"])`. Every dependency check and automated loading process is traceable in the breadcrumb trail.
 
 ---
 *Document created on February 6, 2026, as the authority for DepDigest integration.*
