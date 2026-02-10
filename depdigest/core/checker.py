@@ -19,7 +19,7 @@ def check_dependency(module_name: str, pypi_name: str = None, caller: str = None
         lib_name = pypi_name or module_name
         try:
             from smonitor.integrations import emit_from_catalog, merge_extra
-            from .._private.smonitor import CATALOG, PACKAGE_ROOT, META
+            from .._private.smonitor.catalog import CATALOG, PACKAGE_ROOT, META
 
             emit_from_catalog(
                 CATALOG["missing_dependency"],
