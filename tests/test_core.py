@@ -135,3 +135,38 @@ def test_dep_digest_exception_contract_with_library_argument():
             func_needing_lib()
         assert excinfo.value.library == "missing_lib"
         assert excinfo.value.caller == "func_needing_lib"
+
+
+def test_missing_dependency_exception_has_readable_message():
+    from depdigest.core.checker import check_dependency
+
+    with pytest.raises(ImportError) as excinfo:
+        check_dependency("definitely_nonexistent_pkg_zzz", caller="demo")
+
+    message = str(excinfo.value)
+    assert isinstance(message, str)
+    assert message.strip() != ""
+    assert "required" in message.lower()
+
+
+def test_lazy_registry_plugin_import_failure_is_non_fatal():
+    """Plugin import failures should be skipped, not crash registry resolution."""
+    mock_cfg = DepConfig(
+        libraries={},
+        mapping={},
+        show_all_capabilities=True,
+    )
+
+    with patch("depdigest.core.loader.resolve_config", return_value=mock_cfg):
+        class MockEntry:
+            def __init__(self, name):
+                self.name = name
+
+            def is_dir(self):
+                return True
+
+        with patch("os.path.exists", return_value=True):
+            with patch("os.scandir", return_value=[MockEntry("broken_plugin")]):
+                with patch("depdigest.core.loader.import_module", side_effect=RuntimeError("boom")):
+                    registry = LazyRegistry("mylib.plugins", "/fake/path", attr_name="plugin_name")
+                    assert list(registry.keys()) == []
