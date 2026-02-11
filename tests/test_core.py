@@ -107,3 +107,31 @@ def test_dep_digest_conditional_logic():
     with patch('depdigest.core.checker.is_installed', return_value=False):
         with pytest.raises(ImportError):
             cond_func(mode='strict')
+
+
+def test_dep_digest_exception_contract_with_library_argument():
+    """
+    Verify compatibility with exception classes expecting (library, caller, message).
+    """
+
+    class LibraryStyleError(Exception):
+        def __init__(self, library, caller=None, message=None):
+            self.library = library
+            self.caller = caller
+            self.message = message
+            super().__init__(f"{library}|{caller}|{message}")
+
+    @dep_digest('missing_lib')
+    def func_needing_lib():
+        return "never"
+
+    module_root = __name__.split('.')[0]
+    register_package_config(module_root, DepConfig(
+        exception_class=LibraryStyleError
+    ))
+
+    with patch('depdigest.core.checker.is_installed', return_value=False):
+        with pytest.raises(LibraryStyleError) as excinfo:
+            func_needing_lib()
+        assert excinfo.value.library == "missing_lib"
+        assert excinfo.value.caller == "func_needing_lib"
