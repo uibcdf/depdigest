@@ -29,22 +29,5 @@ PROFILES = {
     },
 }
 
-CODES = {
-    "DEPDIGEST-MISSING-DEPENDENCY": {
-        "title": "Missing dependency",
-        "user_message": "La libreria '{library}' es necesaria y no esta instalada.",
-        "user_hint": "Instala '{library}' (pip: {pip_install}, conda: {conda_install}).",
-        "dev_message": "Missing dependency '{library}' required by '{caller}'.",
-        "dev_hint": "Install via {pip_install} or {conda_install}.",
-        "qa_message": "Missing dependency '{library}' required by '{caller}'.",
-        "qa_hint": "Install via {pip_install} or {conda_install}.",
-        "agent_message": "Missing dependency '{library}' required by '{caller}'.",
-        "agent_hint": "Install via {pip_install} or {conda_install}.",
-    }
-}
-
-SIGNALS = {
-    "depdigest.check_dependency": {
-        "extra_required": ["library", "caller", "pip_install", "conda_install"],
-    }
-}
+# Keep catalog templates as the single source of truth.
+from depdigest._private.smonitor.catalog import CODES, SIGNALS

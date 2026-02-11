@@ -8,4 +8,3 @@ bundle = DiagnosticBundle(CATALOG, META, PACKAGE_ROOT)
 warn = bundle.warn
 warn_once = bundle.warn_once
 resolve = bundle.resolve
-emit_from_catalog = bundle.warn # Fallback for now, though check_dependency emits directly
