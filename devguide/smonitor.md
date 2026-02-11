@@ -22,3 +22,13 @@ DepDigest is instrumented with `@smonitor.signal` to ensure that every dependenc
 - **Dependency Wrapper**: The `@dep_digest` decorator logic.
 - **Dependency Checker**: The `check_dependency` function.
 - **Lazy Loader**: The `_scan_and_load` method in `LazyRegistry`.
+
+## Exception signal level
+
+The `@signal` wrapper in `depdigest.core.decorator.dep_digest` uses
+`exception_level="DEBUG"`.
+
+Rationale:
+- dependency checks can intentionally branch through missing/unavailable states;
+- these transitions are part of normal decision flow and often recoverable;
+- reporting them as `ERROR` would reduce signal quality in telemetry.

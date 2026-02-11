@@ -26,7 +26,7 @@ def dep_digest(library: str, when: Optional[Dict[str, Any]] = None):
         module_path = func.__module__
 
         @wraps(func)
-        @signal(tags=["dependency"])
+        @signal(tags=["dependency"], exception_level="DEBUG")
         def wrapper(*args, **kwargs):
             # 2. RESOLVE CONFIG AT RUNTIME
             # This allows tests to register config AFTER function definition
