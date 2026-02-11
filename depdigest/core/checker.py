@@ -14,8 +14,7 @@ def check_dependency(module_name: str, pypi_name: str = None, caller: str = None
     """
     Check if a dependency is installed. Raises the specified exception if missing.
     """
-    import depdigest
-    if not depdigest.is_installed(module_name):
+    if not is_installed(module_name):
         lib_name = pypi_name or module_name
         from smonitor.integrations import emit_from_catalog, merge_extra
         from .._private.smonitor.catalog import CATALOG, PACKAGE_ROOT, META
@@ -53,7 +52,7 @@ def get_info(module_path: str) -> List[Dict[str, Any]]:
     for key, info in cfg.libraries.items():
         pypi_name = info.get('pypi', key)
         conda_name = info.get('conda', key)
-        installed = is_installed(pypi_name)
+        installed = is_installed(key)
         rows.append({
             'Library': key,
             'Status': 'Installed' if installed else 'Not Installed',

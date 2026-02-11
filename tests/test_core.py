@@ -2,6 +2,7 @@ import pytest
 import os
 from unittest.mock import patch
 from depdigest import is_installed, dep_digest, LazyRegistry, DepConfig, register_package_config, clear_package_configs
+from depdigest.core.config import resolve_config
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
@@ -170,3 +171,23 @@ def test_lazy_registry_plugin_import_failure_is_non_fatal():
                 with patch("depdigest.core.loader.import_module", side_effect=RuntimeError("boom")):
                     registry = LazyRegistry("mylib.plugins", "/fake/path", attr_name="plugin_name")
                     assert list(registry.keys()) == []
+
+
+def test_resolve_config_with_none_returns_default_config():
+    cfg = resolve_config(None)
+    assert isinstance(cfg, DepConfig)
+    assert cfg.libraries == {}
+
+
+def test_get_info_checks_installation_by_importable_name():
+    register_package_config("fakepkg", DepConfig(
+        libraries={"fake.module": {"type": "soft", "pypi": "FakeModule"}},
+    ))
+
+    with patch("depdigest.core.checker.is_installed") as mocked:
+        mocked.return_value = True
+        from depdigest import get_info
+        rows = get_info("fakepkg")
+
+    assert rows[0]["Library"] == "fake.module"
+    mocked.assert_called_once_with("fake.module")

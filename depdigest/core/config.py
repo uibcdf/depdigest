@@ -24,7 +24,10 @@ def clear_package_configs():
     resolve_config.cache_clear()
 
 @lru_cache(maxsize=128)
-def resolve_config(module_path: str) -> DepConfig:
+def resolve_config(module_path: Optional[str]) -> DepConfig:
+    if not module_path:
+        return DepConfig()
+
     package_root = module_path.split('.')[0]
     
     if package_root in _PACKAGE_CONFIGS:
