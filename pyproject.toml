@@ -12,7 +12,9 @@ license = {text = "MIT"}
 authors = [
     {name = "UIBCDF Development Team"}
 ]
-dependencies = []
+dependencies = [
+    "smonitor",
+]
 
 [project.urls]
 Homepage = "https://github.com/uibcdf/depdigest"

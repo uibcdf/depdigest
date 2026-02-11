@@ -2,6 +2,8 @@
 
 DepDigest uses SMonitor as the single diagnostics layer.
 
+SMonitor is a runtime dependency (hard dependency) in DepDigest releases.
+
 ## Files
 
 - `depdigest/_smonitor.py`

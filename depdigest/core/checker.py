@@ -17,27 +17,30 @@ def check_dependency(module_name: str, pypi_name: str = None, caller: str = None
     import depdigest
     if not depdigest.is_installed(module_name):
         lib_name = pypi_name or module_name
-        try:
-            from smonitor.integrations import emit_from_catalog, merge_extra
-            from .._private.smonitor.catalog import CATALOG, PACKAGE_ROOT, META
+        from smonitor.integrations import emit_from_catalog, merge_extra
+        from .._private.smonitor.catalog import CATALOG, PACKAGE_ROOT, META
 
-            emit_from_catalog(
-                CATALOG["missing_dependency"],
-                package_root=PACKAGE_ROOT,
-                extra=merge_extra(META, {
-                    "library": lib_name,
-                    "caller": caller or "",
-                    "pip_install": f"pip install {lib_name}",
-                    "conda_install": f"conda install -c conda-forge {lib_name}",
-                }),
-            )
-        except Exception:
-            pass
+        emit_from_catalog(
+            CATALOG["missing_dependency"],
+            package_root=PACKAGE_ROOT,
+            extra=merge_extra(META, {
+                "library": lib_name,
+                "caller": caller or "",
+                "pip_install": f"pip install {lib_name}",
+                "conda_install": f"conda install -c conda-forge {lib_name}",
+            }),
+        )
         msg = f"The library '{lib_name}' is required"
         if caller:
             msg += f" for '{caller}'"
         msg += ". Please install it."
-        raise exception_class(msg)
+        try:
+            raise exception_class(library=lib_name, caller=caller, message=msg)
+        except TypeError:
+            try:
+                raise exception_class(library=lib_name, caller=caller)
+            except TypeError:
+                raise exception_class(msg)
 
 def get_info(module_path: str) -> List[Dict[str, Any]]:
     """

@@ -4,12 +4,7 @@ from importlib import import_module
 from typing import Dict, Any, Optional, Callable
 from .checker import is_installed
 from .config import resolve_config
-
-try:
-    from smonitor import signal
-except ImportError:
-    def signal(*args, **kwargs):
-        return lambda f: f
+from smonitor import signal
 
 logger = logging.getLogger(__name__)
 

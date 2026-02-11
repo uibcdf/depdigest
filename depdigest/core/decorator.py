@@ -3,12 +3,7 @@ from functools import wraps
 from typing import Any, Callable, Dict, Optional
 from .checker import check_dependency
 from .config import resolve_config
-
-try:
-    from smonitor import signal
-except ImportError:
-    def signal(*args, **kwargs):
-        return lambda f: f
+from smonitor import signal
 
 def dep_digest(library: str, when: Optional[Dict[str, Any]] = None):
     """
