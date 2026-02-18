@@ -59,18 +59,25 @@ class LazyRegistry(dict):
                     from smonitor.integrations import emit_from_catalog, merge_extra
                     from .._private.smonitor.catalog import CATALOG, META, PACKAGE_ROOT
 
-                    emit_from_catalog(
-                        CATALOG["plugin_load_failed"],
-                        package_root=PACKAGE_ROOT,
-                        extra=merge_extra(
-                            META,
-                            {
-                                "plugin": entry.name,
-                                "caller": "depdigest.core.loader.LazyRegistry._scan_and_load",
-                                "error": str(e),
-                            },
-                        ),
-                    )
+                    try:
+                        emit_from_catalog(
+                            CATALOG["plugin_load_failed"],
+                            package_root=PACKAGE_ROOT,
+                            extra=merge_extra(
+                                META,
+                                {
+                                    "plugin": entry.name,
+                                    "caller": "depdigest.core.loader.LazyRegistry._scan_and_load",
+                                    "error": str(e),
+                                },
+                            ),
+                        )
+                    except Exception as emit_error:
+                        logger.warning(
+                            "SMonitor emission failed in LazyRegistry._scan_and_load: signal=plugin_load_failed plugin=%s error=%s",
+                            entry.name,
+                            emit_error,
+                        )
                     logger.debug(f"Failed to load plugin {entry.name}: {e}")
 
     def __getitem__(self, key):

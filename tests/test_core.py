@@ -1,5 +1,5 @@
 import pytest
-import os
+import sys
 from unittest.mock import patch
 from depdigest import is_installed, dep_digest, LazyRegistry, DepConfig, register_package_config, clear_package_configs
 from depdigest.core.config import resolve_config
@@ -173,6 +173,30 @@ def test_lazy_registry_plugin_import_failure_is_non_fatal():
                     assert list(registry.keys()) == []
 
 
+def test_lazy_registry_emission_failure_is_non_fatal():
+    """If diagnostics emission fails, plugin load failures must remain non-fatal."""
+    mock_cfg = DepConfig(
+        libraries={},
+        mapping={},
+        show_all_capabilities=True,
+    )
+
+    with patch("depdigest.core.loader.resolve_config", return_value=mock_cfg):
+        class MockEntry:
+            def __init__(self, name):
+                self.name = name
+
+            def is_dir(self):
+                return True
+
+        with patch("os.path.exists", return_value=True):
+            with patch("os.scandir", return_value=[MockEntry("broken_plugin")]):
+                with patch("depdigest.core.loader.import_module", side_effect=RuntimeError("boom")):
+                    with patch("smonitor.integrations.emit_from_catalog", side_effect=RuntimeError("emit_failed")):
+                        registry = LazyRegistry("mylib.plugins", "/fake/path", attr_name="plugin_name")
+                        assert list(registry.keys()) == []
+
+
 def test_resolve_config_with_none_returns_default_config():
     cfg = resolve_config(None)
     assert isinstance(cfg, DepConfig)
@@ -191,3 +215,34 @@ def test_get_info_checks_installation_by_importable_name():
 
     assert rows[0]["Library"] == "fake.module"
     mocked.assert_called_once_with("fake.module")
+
+
+def test_check_dependency_emission_failure_still_raises_dependency_error():
+    """Dependency errors should still be raised even if diagnostics emission fails."""
+    from depdigest.core.checker import check_dependency
+
+    with patch("depdigest.core.checker.is_installed", return_value=False):
+        with patch("smonitor.integrations.emit_from_catalog", side_effect=RuntimeError("emit_failed")):
+            with pytest.raises(ImportError) as excinfo:
+                check_dependency("missing_lib", caller="demo")
+    assert "missing_lib" in str(excinfo.value)
+
+
+def test_resolve_config_raises_for_internal_errors_in_depdigest_file(tmp_path):
+    package_name = "tmp_pkg_for_config_error"
+    package_dir = tmp_path / package_name
+    package_dir.mkdir()
+    (package_dir / "__init__.py").write_text("", encoding="utf-8")
+    (package_dir / "_depdigest.py").write_text(
+        "import non_existing_dependency_for_test\n",
+        encoding="utf-8",
+    )
+
+    sys.path.insert(0, str(tmp_path))
+    resolve_config.cache_clear()
+    try:
+        with pytest.raises(ModuleNotFoundError):
+            resolve_config(f"{package_name}.module")
+    finally:
+        resolve_config.cache_clear()
+        sys.path.remove(str(tmp_path))

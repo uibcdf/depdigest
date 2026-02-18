@@ -42,5 +42,7 @@ def resolve_config(module_path: Optional[str]) -> DepConfig:
             show_all_capabilities=getattr(module, "SHOW_ALL_CAPABILITIES", True),
             exception_class=getattr(module, "EXCEPTION_CLASS", ImportError)
         )
-    except (ImportError, ModuleNotFoundError):
-        return DepConfig()
+    except ModuleNotFoundError as exc:
+        if exc.name == config_module_path:
+            return DepConfig()
+        raise

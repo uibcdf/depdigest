@@ -1,6 +1,10 @@
 from importlib.util import find_spec
 from functools import lru_cache
 from typing import List, Dict, Any
+import logging
+from smonitor import signal
+
+logger = logging.getLogger(__name__)
 
 @lru_cache(maxsize=None)
 def is_installed(module_name: str) -> bool:
@@ -10,6 +14,7 @@ def is_installed(module_name: str) -> bool:
     except (ImportError, ModuleNotFoundError):
         return False
 
+@signal(tags=["dependency"], exception_level="DEBUG")
 def check_dependency(module_name: str, pypi_name: str = None, caller: str = None, exception_class: type = ImportError):
     """
     Check if a dependency is installed. Raises the specified exception if missing.
@@ -19,16 +24,24 @@ def check_dependency(module_name: str, pypi_name: str = None, caller: str = None
         from smonitor.integrations import emit_from_catalog, merge_extra
         from .._private.smonitor.catalog import CATALOG, PACKAGE_ROOT, META
 
-        emit_from_catalog(
-            CATALOG["missing_dependency"],
-            package_root=PACKAGE_ROOT,
-            extra=merge_extra(META, {
-                "library": lib_name,
-                "caller": caller or "",
-                "pip_install": f"pip install {lib_name}",
-                "conda_install": f"conda install -c conda-forge {lib_name}",
-            }),
-        )
+        try:
+            emit_from_catalog(
+                CATALOG["missing_dependency"],
+                package_root=PACKAGE_ROOT,
+                extra=merge_extra(META, {
+                    "library": lib_name,
+                    "caller": caller or "",
+                    "pip_install": f"pip install {lib_name}",
+                    "conda_install": f"conda install -c conda-forge {lib_name}",
+                }),
+            )
+        except Exception as emit_error:
+            logger.warning(
+                "SMonitor emission failed in check_dependency: signal=missing_dependency caller=%s library=%s error=%s",
+                caller or "",
+                lib_name,
+                emit_error,
+            )
         msg = f"The library '{lib_name}' is required"
         if caller:
             msg += f" for '{caller}'"
