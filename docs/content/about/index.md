@@ -1,47 +1,66 @@
 # About
 
-DepDigest is a dependency orchestration layer for Python libraries that need
-optional integrations without sacrificing startup performance.
+DepDigest is a dependency orchestration layer for Python libraries that rely on optional integrations and plugin ecosystems.
 
-The common problem in scientific and analytical packages is this:
-- users want many optional backends and formats;
-- developers add imports eagerly;
-- import time grows, and missing dependency errors appear in confusing places.
+Its goal is simple: keep import-time startup light, while making runtime dependency behavior explicit, actionable, and diagnosable.
 
-DepDigest addresses that with explicit runtime dependency guards and lazy loading.
+## Why DepDigest exists
 
-## The Problem It Solves
+In many scientific and analytical Python libraries, optional capabilities are added over time (backends, formats, connectors, acceleration engines). Without explicit dependency discipline, this usually leads to:
 
-- Avoids accidental heavy imports at module import time.
-- Enforces dependency checks only when code paths need them.
-- Supports lazy plugin/registry loading by dependency availability.
-- Emits structured diagnostics through SMonitor.
+- top-level imports of optional packages;
+- slow and fragile package initialization;
+- dependency failures surfacing far from the real call site;
+- inconsistent, low-context user messages.
 
-## How It Works
+DepDigest addresses this by centralizing dependency policy and enforcing it where execution actually happens.
 
-1. You declare dependency policy in `_depdigest.py`.
-2. You guard runtime entry points with `@dep_digest(...)`.
-3. You keep optional imports inside guarded functions.
-4. You use `LazyRegistry` to avoid eager plugin/module imports.
-5. You expose status via `get_info(...)` if desired.
+## What DepDigest provides
 
-## Design Tradeoffs
+1. Runtime dependency guards with `@dep_digest(...)`.
+2. A contract file (`_depdigest.py`) to declare hard and soft dependencies.
+3. Lazy loading patterns through `LazyRegistry`.
+4. Introspection utilities (for example `get_info(...)`) to expose current environment capability status.
+5. Structured diagnostics via SMonitor for traceable, actionable error/warning paths.
 
-- Zero-cost startup for optional integrations.
-- Runtime clarity over silent fallback.
-- Structured diagnostics instead of ad-hoc messages.
+## Design principles
 
-Tradeoff to accept:
-- You must be disciplined with lazy imports and dependency declarations.
-- In return, users get deterministic behavior and cleaner failure modes.
+1. Runtime clarity over implicit behavior.
 
-## Who Should Use DepDigest
+Dependency decisions should happen where execution happens, not at import time.
 
-Use it when:
-- your package has optional backends/tools;
-- import-time performance matters;
-- you want consistent dependency diagnostics.
+2. Fast default startup.
 
-You may not need it when:
-- your dependency graph is small and always mandatory;
-- import cost is negligible for your use case.
+Optional integrations should not penalize users who do not use them.
+
+3. Contract-driven integration.
+
+Dependency behavior should be declared once and reused consistently (`_depdigest.py` and `DEPDIGEST_GUIDE.md`).
+
+4. Diagnostics as product behavior.
+
+Missing dependencies are expected states in optional ecosystems. They should be explained clearly, with remediation hints.
+
+## What DepDigest is not
+
+DepDigest does not replace package managers, environment solvers, or full observability stacks.
+
+It is focused on one problem: robust optional-dependency orchestration inside Python libraries.
+
+## Who should use DepDigest
+
+DepDigest is a good fit when your library:
+
+- has optional engines, formats, or plugin integrations;
+- needs to keep import-time overhead low;
+- wants predictable dependency checks and high-quality diagnostics;
+- is maintained by multiple developers and benefits from a shared dependency contract.
+
+It may be unnecessary for very small packages with only mandatory dependencies and negligible startup/import cost.
+
+## Contracts and references
+
+- Integration contract: [DEPDIGEST_GUIDE.md](https://github.com/uibcdf/depdigest/blob/main/standards/DEPDIGEST_GUIDE.md)
+- SMonitor integration authority in this repository: [SMONITOR_GUIDE.md](https://github.com/uibcdf/depdigest/blob/main/SMONITOR_GUIDE.md)
+- User onboarding path: [User section](../user/index.md)
+- Contributor onboarding path: [Developers section](../developers/index.md)
