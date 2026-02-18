@@ -8,3 +8,5 @@ build/
 *.egg-info/
 .idea/
 .vscode/
+docs/_build/
+docs/api/autosummary/
