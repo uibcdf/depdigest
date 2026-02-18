@@ -1,6 +1,6 @@
 # Introduction to DepDigest
 
-**DepDigest** is a lightweight, zero-dependency infrastructure library designed to manage **optional dependencies** and **lazy loading** in complex Python ecosystems.
+**DepDigest** is a lightweight infrastructure library designed to manage **optional dependencies** and **lazy loading** in complex Python ecosystems.
 
 ## What is it?
 It is a "Dependency Orchestrator" that decouples the definition of a library's requirements from its execution logic. It provides decorators and registry proxies to ensure that external packages are only checked and loaded when strictly necessary.

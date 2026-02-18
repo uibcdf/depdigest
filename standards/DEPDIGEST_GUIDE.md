@@ -6,7 +6,7 @@ Metadata
 - Source repository: `depdigest`
 - Source document: `standards/DEPDIGEST_GUIDE.md`
 - Source version: `depdigest@0.1.1`
-- Last synced: 2026-02-06
+- Last synced: 2026-02-18
 
 ## What is DepDigest
 
@@ -50,7 +50,8 @@ EXCEPTION_CLASS = MyLibraryNotFoundError
 ## 2. Core API for Developers
 
 ### 2.1 The `@dep_digest` Decorator
-Resolved at runtime. It checks `is_installed(pypi_name)` before executing the function.
+Resolved at runtime. It checks `is_installed(library_key)` before executing the function.  
+The optional `pypi` field is used for installation hints/messages.
 
 ```python
 from depdigest import dep_digest
