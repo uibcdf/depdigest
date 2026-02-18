@@ -1,6 +1,7 @@
 from importlib.util import find_spec
 from functools import lru_cache
 from typing import List, Dict, Any
+import json
 import logging
 from smonitor import signal
 
@@ -54,23 +55,64 @@ def check_dependency(module_name: str, pypi_name: str = None, caller: str = None
             except TypeError:
                 raise exception_class(msg)
 
-def get_info(module_path: str) -> List[Dict[str, Any]]:
+def get_info(module_path: str, format: str = "table") -> Any:
     """
-    Return raw dependency information for a given package root.
+    Return dependency information for a given package root.
+
+    Parameters
+    ----------
+    module_path
+        Package root or module path used to resolve `_depdigest.py`.
+    format
+        One of:
+        - "table": legacy row-oriented output (default).
+        - "dict": structured dictionary output.
+        - "json": JSON string of the structured dictionary output.
     """
+    valid_formats = {"table", "dict", "json"}
+    if format not in valid_formats:
+        raise ValueError("Unsupported format. Use one of: 'table', 'dict', 'json'.")
+
     from .config import resolve_config
     cfg = resolve_config(module_path)
-    
-    rows = []
+
+    deps = []
     for key, info in cfg.libraries.items():
-        pypi_name = info.get('pypi', key)
-        conda_name = info.get('conda', key)
+        pypi_name = info.get("pypi", key)
+        conda_name = info.get("conda", key)
         installed = is_installed(key)
-        rows.append({
-            'Library': key,
-            'Status': 'Installed' if installed else 'Not Installed',
-            'Type': info.get('type', 'soft').capitalize(),
-            'Install (PyPI)': f"pip install {pypi_name}",
-            'Install (Conda)': f"conda install -c conda-forge {conda_name}"
-        })
-    return rows
+        deps.append(
+            {
+                "library": key,
+                "installed": installed,
+                "status": "Installed" if installed else "Not Installed",
+                "type": info.get("type", "soft"),
+                "install": {
+                    "pypi": f"pip install {pypi_name}",
+                    "conda": f"conda install -c conda-forge {conda_name}",
+                },
+            }
+        )
+
+    output = {
+        "module_path": module_path,
+        "dependencies": deps,
+    }
+
+    if format == "table":
+        rows = []
+        for dep in deps:
+            rows.append(
+                {
+                    "Library": dep["library"],
+                    "Status": dep["status"],
+                    "Type": dep["type"].capitalize(),
+                    "Install (PyPI)": dep["install"]["pypi"],
+                    "Install (Conda)": dep["install"]["conda"],
+                }
+            )
+        return rows
+    if format == "dict":
+        return output
+    if format == "json":
+        return json.dumps(output, indent=2, sort_keys=True)

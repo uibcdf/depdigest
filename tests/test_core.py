@@ -1,5 +1,6 @@
 import pytest
 import sys
+import json
 from unittest.mock import patch
 from depdigest import is_installed, dep_digest, LazyRegistry, DepConfig, register_package_config, clear_package_configs
 from depdigest.core.config import resolve_config
@@ -221,6 +222,31 @@ def test_get_info_checks_installation_by_importable_name():
     mocked.assert_called_once_with("fake.module")
 
 
+def test_get_info_supports_dict_and_json_formats():
+    register_package_config(
+        "fakepkg",
+        DepConfig(libraries={"fake.module": {"type": "soft", "pypi": "FakeModule"}}),
+    )
+
+    with patch("depdigest.core.checker.is_installed", return_value=True):
+        from depdigest import get_info
+
+        as_dict = get_info("fakepkg", format="dict")
+        as_json = get_info("fakepkg", format="json")
+
+    assert as_dict["module_path"] == "fakepkg"
+    assert as_dict["dependencies"][0]["library"] == "fake.module"
+    parsed_json = json.loads(as_json)
+    assert parsed_json["dependencies"][0]["installed"] is True
+
+
+def test_get_info_rejects_unsupported_format():
+    from depdigest import get_info
+
+    with pytest.raises(ValueError):
+        get_info("fakepkg", format="yaml")
+
+
 def test_check_dependency_emission_failure_still_raises_dependency_error():
     """Dependency errors should still be raised even if diagnostics emission fails."""
     from depdigest.core.checker import check_dependency
@@ -248,6 +274,32 @@ def test_resolve_config_raises_for_internal_errors_in_depdigest_file(tmp_path):
         with pytest.raises(ModuleNotFoundError):
             resolve_config(f"{package_name}.module")
     finally:
+        resolve_config.cache_clear()
+        sys.path.remove(str(tmp_path))
+
+
+def test_register_package_config_overrides_file_based_config(tmp_path):
+    package_name = "tmp_pkg_for_override"
+    package_dir = tmp_path / package_name
+    package_dir.mkdir()
+    (package_dir / "__init__.py").write_text("", encoding="utf-8")
+    (package_dir / "_depdigest.py").write_text(
+        "LIBRARIES = {'from_file': {'type': 'soft', 'pypi': 'from-file'}}\n",
+        encoding="utf-8",
+    )
+
+    sys.path.insert(0, str(tmp_path))
+    resolve_config.cache_clear()
+    try:
+        register_package_config(
+            package_name,
+            DepConfig(libraries={"from_register": {"type": "soft", "pypi": "from-register"}}),
+        )
+        cfg = resolve_config(f"{package_name}.module")
+        assert "from_register" in cfg.libraries
+        assert "from_file" not in cfg.libraries
+    finally:
+        clear_package_configs()
         resolve_config.cache_clear()
         sys.path.remove(str(tmp_path))
 

@@ -18,6 +18,22 @@ for row in rows:
     )
 ```
 
+## Output Formats
+
+`get_info(...)` supports multiple formats:
+- `format="table"` (default): list of readable rows.
+- `format="dict"`: structured dictionary for programmatic use.
+- `format="json"`: JSON string for CI logs, agents, or tooling.
+
+Example:
+
+```python
+from depdigest import get_info
+
+payload = get_info("my_package", format="dict")
+payload_json = get_info("my_package", format="json")
+```
+
 ## Typical Use Cases
 
 - CLI command like `mytool deps`.

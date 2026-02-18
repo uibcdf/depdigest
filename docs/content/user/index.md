@@ -27,8 +27,9 @@ Recommended practice:
 9. [SMonitor Integration](smonitor.md): understand diagnostics behavior and controls.
 10. [Edge Cases](edge-cases.md): recovecos you should know before production.
 11. [Troubleshooting](troubleshooting.md): fast diagnosis for common integration failures.
-12. [Production Checklist](production-checklist.md): final verification before release.
-13. [FAQ](faq.md): short answers to common integration questions.
+12. [Audit CLI](audit-cli.md): detect top-level imports of soft dependencies before release.
+13. [Production Checklist](production-checklist.md): final verification before release.
+14. [FAQ](faq.md): short answers to common integration questions.
 
 ```{toctree}
 :maxdepth: 1
@@ -45,6 +46,7 @@ introspection.md
 smonitor.md
 edge-cases.md
 troubleshooting.md
+audit-cli.md
 production-checklist.md
 faq.md
 ```

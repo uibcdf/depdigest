@@ -31,6 +31,7 @@ Use this checklist before releasing a library integrated with DepDigest.
 - [ ] Tests cover conditional dependency paths.
 - [ ] Tests cover lazy registry non-fatal plugin import failures.
 - [ ] Tests cover `_depdigest.py` missing vs broken behavior.
+- [ ] `depdigest audit` is run on source tree for soft dependency import leaks.
 - [ ] Coverage is tracked in CI.
 
 ## Diagnostics

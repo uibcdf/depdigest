@@ -14,7 +14,13 @@ pytest -q
 pytest --cov=depdigest --cov-report=term-missing
 ```
 
-## 3. Areas that should always be covered
+## 3. Architecture audit command
+
+```bash
+depdigest audit --src-root depdigest --soft-deps openmm,mdtraj
+```
+
+## 4. Areas that should always be covered
 
 1. Missing dependency behavior in `check_dependency`.
 2. Conditional decorator paths (`when={...}`) in `@dep_digest`.
@@ -25,7 +31,7 @@ pytest --cov=depdigest --cov-report=term-missing
 - broken `_depdigest.py`.
 5. Diagnostics emission and fallback paths for SMonitor integration.
 
-## 4. Test design guidance
+## 5. Test design guidance
 
 Prefer tests that assert user-visible behavior:
 - exception class and message quality;

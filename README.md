@@ -18,6 +18,7 @@ Understand your dependencies. Trust your code.
 - **`@dep_digest` Decorator**: Enforce dependency availability at runtime with clear error messages.
 - **Lazy Loading**: Discover and load modules (plugins, forms) from directories only when accessed.
 - **Architecture Validation**: Tools to scan your codebase and ensure no top-level imports of soft dependencies leak into your core.
+- **Audit CLI**: `depdigest audit` command for CI-friendly lazy-import checks.
 - **Symmetry with ArgDigest**: Designed to work in tandem with argument validation frameworks.
 - **smonitor integration**: Structured diagnostics for missing dependencies.
 - **Runtime config discovery**: Automatically resolves package `_depdigest.py`.
@@ -67,6 +68,12 @@ Run tests with coverage:
 
 ```bash
 pytest --cov=depdigest --cov-report=term-missing
+```
+
+Run architecture audit:
+
+```bash
+depdigest audit --src-root depdigest --soft-deps openmm,mdtraj
 ```
 
 Build docs locally:

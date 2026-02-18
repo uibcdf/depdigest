@@ -44,3 +44,13 @@ Contract reference:
 If this boundary is wrong, users either get unnecessary hard requirements or unclear runtime failures.
 
 For detailed semantics, see [Hard vs Soft](../user/hard-vs-soft.md).
+
+## 5. Enforce lazy-import architecture continuously
+
+Use the CLI audit in local checks and CI:
+
+```bash
+depdigest audit --src-root my_pkg --soft-deps openmm,mdtraj
+```
+
+This catches top-level imports of soft dependencies before they become startup regressions.
