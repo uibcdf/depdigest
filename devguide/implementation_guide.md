@@ -57,18 +57,22 @@ plugins = LazyRegistry(
 )
 ```
 
-## 4. Expose introspection for users
+## 4. Expose introspection for users and tools
 
 ```python
 from depdigest import get_info
 
-def dependency_status():
-    return get_info("my_pkg")
+human_rows = get_info("my_pkg")
+machine_payload = get_info("my_pkg", format="dict")
 ```
 
 ## 5. Validate architecture in CI
 
-Use AST tools to detect top-level imports of soft dependencies and prevent startup regressions.
+Use the CLI audit to detect top-level imports of soft dependencies:
+
+```bash
+depdigest audit --src-root my_pkg --soft-deps openmm,mdtraj
+```
 
 ## 6. Follow the guided docs
 
