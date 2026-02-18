@@ -1,85 +1,38 @@
-# Developer
+# Developers
 
-This section documents integration details, contracts, and operational practices
-for maintainers embedding DepDigest in their own library.
+Welcome. This section is for contributors who want to develop, maintain, or extend DepDigest.
 
-## 1. Configuration Contract (`_depdigest.py`)
+The path below is intentionally ordered. If you follow it in sequence, you will go from a local setup to production-ready contributions with the same conventions used in this repository.
 
-Create `_depdigest.py` in your package root:
+## Developer Path
 
-```python
-LIBRARIES = {
-    "numpy": {"type": "hard", "pypi": "numpy"},
-    "mdtraj": {"type": "soft", "pypi": "mdtraj"},
-    "openmm.unit": {"type": "soft", "pypi": "openmm", "conda": "openmm"},
-}
+1. [Contributing Workflow](contributing-workflow.md): branch, commit, and PR expectations.
+2. [Development Environment](development-environment.md): local setup, test commands, and docs build.
+3. [Architecture](architecture.md): how DepDigest is structured and why key design decisions were made.
+4. [Implementation Patterns](implementation-patterns.md): how to implement features without breaking runtime behavior.
+5. [SMonitor for Contributors](smonitor-for-contributors.md): diagnostics contract and emission rules.
+6. [Testing and Coverage](testing-and-coverage.md): required test strategy and coverage workflow.
+7. [Editorial Guide](editorial-guide.md): style and structure rules for docs and developer-facing text.
+8. [Release and Versioning](release-and-versioning.md): practical release flow and tagging checks.
+9. [Contributor Checklist](contributor-checklist.md): final pre-PR and pre-release checklist.
 
-MAPPING = {
-    "mdtraj_form": "mdtraj",
-    "openmm_form": "openmm.unit",
-}
+## Canonical References
 
-SHOW_ALL_CAPABILITIES = True
+- Project-level implementation contract: [DEPDIGEST_GUIDE.md](https://github.com/uibcdf/depdigest/blob/main/standards/DEPDIGEST_GUIDE.md)
+- SMonitor integration authority for this repository: [SMONITOR_GUIDE.md](https://github.com/uibcdf/depdigest/blob/main/SMONITOR_GUIDE.md)
+- Internal design notes used to build this section: `devguide/`
+
+```{toctree}
+:maxdepth: 1
+:hidden:
+
+contributing-workflow.md
+development-environment.md
+architecture.md
+implementation-patterns.md
+smonitor-for-contributors.md
+testing-and-coverage.md
+editorial-guide.md
+release-and-versioning.md
+contributor-checklist.md
 ```
-
-Recommended additions:
-- `EXCEPTION_CLASS = YourDependencyError`
-- clear `MAPPING` entries for plugin directories
-
-## 2. Runtime Resolution Model
-
-DepDigest resolves config at runtime (call time), not at decoration time.
-This is important for:
-- test overrides after import;
-- dynamic package registration in plugin environments.
-
-## 3. Runtime Registration (Testing / Dynamic Packages)
-
-```python
-from depdigest import DepConfig, register_package_config
-
-register_package_config(
-    "my_dynamic_pkg",
-    DepConfig(
-        libraries={"toolkit": {"type": "soft", "pypi": "toolkit"}},
-        show_all_capabilities=False,
-    ),
-)
-```
-
-Use `clear_package_configs()` in tests to avoid cross-test leakage.
-
-## 4. SMonitor Integration Contract
-
-DepDigest uses SMonitor as diagnostics backend. Catalog and templates live in:
-
-- `depdigest/_private/smonitor/catalog.py`
-- `depdigest/_smonitor.py`
-
-Practical rules:
-- emit diagnostics through catalog entries;
-- keep `CODES`/`SIGNALS` wired from catalog as single source of truth;
-- preserve fallback behavior if emission fails in non-critical paths.
-
-## 5. Testing Checklist
-
-```bash
-pytest -q
-```
-
-```bash
-pytest --cov=depdigest --cov-report=term-missing
-```
-
-Minimum coverage targets for integrations:
-- dependency missing path (`check_dependency`);
-- conditional decorator behavior (`when=...`);
-- lazy registry non-fatal behavior on plugin errors;
-- config resolution behavior when `_depdigest.py` is missing vs broken.
-
-## 6. Frequent Integration Mistakes
-
-- Top-level import of soft dependencies.
-- Using non-importable keys in `LIBRARIES` (must be importable module names).
-- Forgetting to map plugin directories in `MAPPING`.
-- Assuming default exception constructor signature only.
