@@ -4,6 +4,8 @@
 
 It helps maintain a "Zero-Cost Startup" by ensuring that heavy external libraries are only checked and imported when actually needed.
 
+Understand your dependencies. Trust your code.
+
 ## Key Features
 
 - **`@dep_digest` Decorator**: Enforce dependency availability at runtime with clear error messages.
@@ -38,7 +40,7 @@ the catalog lives in `depdigest/_private/smonitor/catalog.py` with metadata in
 ## Installation
 
 ```bash
-pip install depdigest
+conda install -c uibcdf depdigest
 ```
 
 ## Requirements
