@@ -4,6 +4,8 @@ Use this checklist before releasing a library integrated with DepDigest.
 
 ## Dependency Policy
 
+- [ ] `DEPDIGEST_GUIDE.md` is present in project root and reviewed by the team.
+- [ ] The project root keeps `DEPDIGEST_GUIDE.md` near package `_depdigest.py`.
 - [ ] `_depdigest.py` exists in package root.
 - [ ] `LIBRARIES` keys are importable module names.
 - [ ] `type` values (`hard`/`soft`) reflect real policy.
@@ -37,3 +39,6 @@ Use this checklist before releasing a library integrated with DepDigest.
 - [ ] No silent diagnostic failure hides critical behavior.
 
 If all boxes are checked, your integration is typically ready for release.
+
+Canonical source for the latest contract:
+- [DEPDIGEST_GUIDE.md](https://github.com/uibcdf/depdigest/blob/main/standards/DEPDIGEST_GUIDE.md)

@@ -55,4 +55,5 @@ pay the dependency cost.
 
 ## Next
 
-Continue with `Configuration` to centralize dependency policy in `_depdigest.py`.
+Continue with [Configuration](configuration.md) to centralize dependency policy
+in `_depdigest.py`.

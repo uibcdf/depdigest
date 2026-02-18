@@ -6,20 +6,27 @@ DepDigest in your library without friction.
 If you follow the pages in order, you will go from a minimal setup to advanced
 patterns and edge cases.
 
+Before implementing, keep this contract at hand:
+- [DEPDIGEST_GUIDE.md](https://github.com/uibcdf/depdigest/blob/main/standards/DEPDIGEST_GUIDE.md)
+
+Recommended practice:
+- place a copy of `DEPDIGEST_GUIDE.md` in your project root, so humans and AI agents follow the same contract.
+
 ## Learning Path
 
-1. `Quick Start`: first working integration in minutes.
-2. `Mini Library Walkthrough`: complete narrative from zero to production.
-3. `Configuration`: how `_depdigest.py` defines your dependency policy.
-4. `Hard vs Soft`: what each dependency type means in practice.
-5. `Integrating in Your Library`: implementation blueprint for real codebases.
-6. `Conditional Dependencies`: enforce dependencies only when needed.
-7. `Lazy Registry`: lazy plugin/module loading at scale.
-8. `Introspection`: expose dependency status to your users.
-9. `Edge Cases`: recovecos you should know before production.
-10. `Troubleshooting`: fast diagnosis for common integration failures.
-11. `Production Checklist`: final verification before release.
-12. `FAQ`: short answers to common integration questions.
+1. [Quick Start](quickstart.md): first working integration in minutes.
+2. [Mini Library Walkthrough](mini-library-walkthrough.md): complete narrative from zero to production.
+3. [Configuration](configuration.md): how `_depdigest.py` defines your dependency policy.
+4. [Hard vs Soft](hard-vs-soft.md): what each dependency type means in practice.
+5. [Integrating in Your Library](integrating-your-library.md): implementation blueprint for real codebases.
+6. [Conditional Dependencies](conditional-deps.md): enforce dependencies only when needed.
+7. [Lazy Registry](lazy-registry.md): lazy plugin/module loading at scale.
+8. [Introspection](introspection.md): expose dependency status to your users.
+9. [SMonitor Integration](smonitor.md): understand diagnostics behavior and controls.
+10. [Edge Cases](edge-cases.md): recovecos you should know before production.
+11. [Troubleshooting](troubleshooting.md): fast diagnosis for common integration failures.
+12. [Production Checklist](production-checklist.md): final verification before release.
+13. [FAQ](faq.md): short answers to common integration questions.
 
 ```{toctree}
 :maxdepth: 1
@@ -33,6 +40,7 @@ integrating-your-library.md
 conditional-deps.md
 lazy-registry.md
 introspection.md
+smonitor.md
 edge-cases.md
 troubleshooting.md
 production-checklist.md

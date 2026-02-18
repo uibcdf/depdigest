@@ -63,5 +63,5 @@ Create a minimal reproducer with:
 - exact call that fails
 
 Then compare against:
-- `standards/DEPDIGEST_GUIDE.md`
-- `https://github.com/uibcdf/molsysmt`
+- [DEPDIGEST_GUIDE.md](https://github.com/uibcdf/depdigest/blob/main/standards/DEPDIGEST_GUIDE.md)
+- [MolSysMT](https://github.com/uibcdf/molsysmt)

@@ -134,4 +134,4 @@ Test these scenarios:
 Before release, run the `Production Checklist` page in this section.
 
 For a large real-world implementation reference:
-- `https://github.com/uibcdf/molsysmt`
+- [MolSysMT](https://github.com/uibcdf/molsysmt)

@@ -12,12 +12,20 @@ This one helps you map that flow onto a real existing codebase.
 
 In this repository, the canonical integration contract is:
 
-- `standards/DEPDIGEST_GUIDE.md`
+- [DEPDIGEST_GUIDE.md](https://github.com/uibcdf/depdigest/blob/main/standards/DEPDIGEST_GUIDE.md)
 
 Use that file as the source of truth for:
 - expected configuration structure,
 - required lazy-import behavior,
 - recommended integration patterns.
+
+Strong recommendation:
+- copy this guide into your project root as `DEPDIGEST_GUIDE.md`;
+- keep it next to your package `_depdigest.py`.
+
+Why:
+- it becomes the implementation contract for both human developers and AI
+  agents working in your repository.
 
 ## 2. Integration Blueprint (Copy Then Adapt)
 
@@ -73,4 +81,4 @@ This reduces migration risk and makes regressions easier to isolate.
 
 For a complete ecosystem implementation example, you can review:
 
-- `https://github.com/uibcdf/molsysmt`
+- [MolSysMT](https://github.com/uibcdf/molsysmt)

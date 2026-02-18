@@ -36,4 +36,5 @@ def convert(value, engine="native"):
 
 ## Next
 
-Continue with `Lazy Registry` to scale this approach to plugin-style modules.
+Continue with [Lazy Registry](lazy-registry.md) to scale this approach to
+plugin-style modules.

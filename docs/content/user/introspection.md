@@ -34,4 +34,5 @@ Each row includes:
 
 ## Next
 
-Continue with `Edge Cases` to avoid common integration pitfalls before release.
+Continue with [SMonitor Integration](smonitor.md) to understand diagnostics
+behavior and controls.

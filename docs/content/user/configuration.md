@@ -52,5 +52,5 @@ message when needed.
 
 ## Next
 
-Continue with `Conditional Dependencies` to enforce dependencies only for
-specific argument combinations.
+Continue with [Conditional Dependencies](conditional-deps.md) to enforce
+dependencies only for specific argument combinations.

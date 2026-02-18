@@ -46,4 +46,5 @@ MAPPING = {
 
 ## Next
 
-Continue with `Introspection` to show dependency status to your users.
+Continue with [Introspection](introspection.md) to show dependency status to
+your users.
