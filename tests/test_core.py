@@ -8,9 +8,13 @@ from depdigest.core.config import resolve_config
 def run_around_tests():
     # Code that will run before each test
     clear_package_configs()
+    is_installed.cache_clear()
+    resolve_config.cache_clear()
     yield
     # Code that will run after each test
     clear_package_configs()
+    is_installed.cache_clear()
+    resolve_config.cache_clear()
 
 def test_is_installed_caching():
     """Verify that is_installed results are cached."""
@@ -246,3 +250,101 @@ def test_resolve_config_raises_for_internal_errors_in_depdigest_file(tmp_path):
     finally:
         resolve_config.cache_clear()
         sys.path.remove(str(tmp_path))
+
+
+def test_resolve_config_raises_for_syntax_errors_in_depdigest_file(tmp_path):
+    package_name = "tmp_pkg_for_config_syntax_error"
+    package_dir = tmp_path / package_name
+    package_dir.mkdir()
+    (package_dir / "__init__.py").write_text("", encoding="utf-8")
+    (package_dir / "_depdigest.py").write_text(
+        "LIBRARIES = {\n",
+        encoding="utf-8",
+    )
+
+    sys.path.insert(0, str(tmp_path))
+    resolve_config.cache_clear()
+    try:
+        with pytest.raises(SyntaxError):
+            resolve_config(f"{package_name}.module")
+    finally:
+        resolve_config.cache_clear()
+        sys.path.remove(str(tmp_path))
+
+
+def test_smonitor_dev_profile_has_clean_contract_for_missing_dependency():
+    import smonitor
+    from smonitor.handlers.memory import MemoryHandler
+    from depdigest.core.checker import check_dependency
+
+    memory = MemoryHandler(max_events=100)
+    smonitor.configure(
+        profile="dev",
+        handlers=[memory],
+        level="INFO",
+        strict_signals=False,
+        strict_schema=False,
+        event_buffer_size=100,
+    )
+
+    with pytest.raises(ImportError):
+        check_dependency("definitely_nonexistent_pkg_zzz", caller="dev_case")
+
+    dep_events = [e for e in memory.events if e.get("code") == "DEP-ERR-MISS-001"]
+    assert dep_events
+    assert all("contract_warning" not in (e.get("extra") or {}) for e in dep_events)
+    assert all("schema_warning" not in (e.get("extra") or {}) for e in dep_events)
+
+
+def test_smonitor_qa_profile_has_clean_schema_for_missing_dependency():
+    import smonitor
+    from smonitor.handlers.memory import MemoryHandler
+    from depdigest.core.checker import check_dependency
+
+    memory = MemoryHandler(max_events=100)
+    smonitor.configure(
+        profile="qa",
+        handlers=[memory],
+        level="INFO",
+        strict_signals=False,
+        strict_schema=False,
+        event_buffer_size=100,
+    )
+
+    with pytest.raises(ImportError):
+        check_dependency("definitely_nonexistent_pkg_zzz", caller="qa_case")
+
+    dep_events = [e for e in memory.events if e.get("code") == "DEP-ERR-MISS-001"]
+    assert dep_events
+    assert all("contract_warning" not in (e.get("extra") or {}) for e in dep_events)
+    assert all("schema_warning" not in (e.get("extra") or {}) for e in dep_events)
+
+
+def test_lazy_registry_methods_trigger_single_initialization():
+    registry = LazyRegistry("mylib.plugins", "/fake/path", attr_name="plugin_name")
+
+    def fake_scan():
+        registry["p1"] = "module"
+
+    with patch.object(registry, "_scan_and_load", side_effect=fake_scan) as mocked_scan:
+        assert registry.get("p1") == "module"
+        assert registry["p1"] == "module"
+        assert list(registry.values()) == ["module"]
+        assert list(registry.items()) == [("p1", "module")]
+        assert mocked_scan.call_count == 1
+
+
+def test_lazy_registry_ensure_initialized_returns_if_already_initializing():
+    registry = LazyRegistry("mylib.plugins", "/fake/path", attr_name="plugin_name")
+    registry._initializing = True
+
+    with patch.object(registry, "_scan_and_load") as mocked_scan:
+        registry._ensure_initialized()
+        mocked_scan.assert_not_called()
+
+
+def test_lazy_registry_scan_returns_when_directory_missing():
+    registry = LazyRegistry("mylib.plugins", "/missing/path", attr_name="plugin_name")
+    with patch("os.path.exists", return_value=False):
+        registry._scan_and_load()
+    assert list(registry.keys()) == []

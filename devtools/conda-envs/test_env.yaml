@@ -1,0 +1,9 @@
+channels:
+- conda-forge
+dependencies:
+- python
+- smonitor
+- pytest
+- pytest-cov
+- pytest-xdist
+- codecov

@@ -1,0 +1,14 @@
+channels:
+- conda-forge
+dependencies:
+- python
+- smonitor
+- sphinx
+- pydata-sphinx-theme
+- sphinxcontrib-bibtex
+- sphinx-remove-toctrees
+- sphinx-copybutton
+- sphinx-design
+- sphinx-favicon
+- sphinx-tabs
+- myst-nb
