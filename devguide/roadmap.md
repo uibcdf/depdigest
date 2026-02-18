@@ -1,34 +1,42 @@
 # Roadmap & Future Steps
 
-DepDigest is currently in **v0.1.1 (Alpha)**. The following steps are planned to move it toward a stable release.
+DepDigest is currently at release **0.3.0**.
 
-## What remains to be done?
+This roadmap captures potential next increments toward a broader, stable adoption path.
 
-1.  **CLI Tooling**:
-    *   Create a standalone CLI command (`depdigest audit`) that wraps the AST tools.
-2.  **Sphinx Integration**:
-    *   Develop a Sphinx extension to auto-document required dependencies.
-3.  **Comprehensive Error Context**:
-    *   Enhance the error messages to include installation instructions tailored to the OS.
+## Candidate priorities
 
-## Current Progress
+1. CLI auditing workflow
 
-- **v0.1.1**: 
-    - Full telemetry integration with `@smonitor.signal`.
-    - Unit test suite established with 100% core coverage.
-    - Dynamic configuration resolution finalized.
-    - Support for manual package configuration registration.
+Create a `depdigest audit` command that wraps AST validation utilities and reports import-leak violations in a CI-friendly format.
 
-## Future Potential Steps
+2. Docs automation helpers
 
-1.  **Dynamic Installation Hints**:
-    *   Allow the configuration to define alternative PyPI/Conda names or specific channels.
-2.  **Performance Profiling Mode**:
-    *   A mode that reports how much time is being "saved" by not importing optional dependencies.
-3.  **Integration with standard packaging**:
-    *   Potentially reading optional dependencies directly from `pyproject.toml` (extra requirements).
+Evaluate Sphinx helpers/extensions that can auto-extract dependency contracts from `_depdigest.py` examples.
 
-## Critical Next Decisions
+3. Richer remediation hints
 
-*   **Standardization of `LazyRegistry`**: Should it support non-directory based plugins (e.g. entry points)?
-*   **Dependency on Pandas**: Should we offer a built-in `info()` function that doesn't require Pandas for environments that don't have it?
+Improve dependency-missing guidance with clearer package-manager hints and project-specific URLs.
+
+## Already in place
+
+- Runtime dependency enforcement through `@dep_digest`.
+- Conditional enforcement support via `when={...}`.
+- Lazy plugin/module loading through `LazyRegistry`.
+- Runtime configuration resolution and registration (`register_package_config`).
+- Structured diagnostics integrated through SMonitor.
+- User and Developer docs expanded into guided learning paths.
+
+## Open design questions
+
+1. Version constraints policy
+
+Should DepDigest support optional minimum-version checks as part of dependency declarations?
+
+2. Plugin discovery scope
+
+Should `LazyRegistry` support additional discovery mechanisms (for example entry points) beyond filesystem scanning?
+
+3. Output ergonomics
+
+Should introspection output include an optional machine-readable profile optimized for CI checks and agents?

@@ -1,38 +1,24 @@
-# SMonitor integration
+# SMonitor Integration
 
-DepDigest uses SMonitor as the single diagnostics layer.
+DepDigest uses SMonitor as the diagnostics backend for dependency orchestration.
 
-SMonitor is a runtime dependency (hard dependency) in DepDigest releases.
+## Canonical reference
 
-## Files
+- `SMONITOR_GUIDE.md` (repository root)
+
+## Relevant files
 
 - `depdigest/_smonitor.py`
 - `depdigest/_private/smonitor/catalog.py`
 - `depdigest/_private/smonitor/meta.py`
 
-## Rules
+## Integration rules
 
-- Emit through catalog entries only.
-- Keep user messages explicit and helpful.
-- Keep URLs in `meta.py` so hints remain consistent.
-- Keep `CODES` and `SIGNALS` wired from `depdigest/_private/smonitor/catalog.py` as the single source of truth.
-- Do not silence emission failures with `except Exception: pass`; use a fallback warning/log instead.
+1. Emit diagnostics through catalog entries (no ad-hoc hardcoded diagnostic strings).
+2. Keep catalog/template wiring coherent.
+3. Do not silence emission failures with empty exception blocks.
+4. Keep traceability for key orchestration paths using `@signal`.
 
-## Telemetry & Traceability
+## Exception-level policy
 
-DepDigest is instrumented with `@smonitor.signal` to ensure that every dependency check and automated loading process is visible in the diagnostic trace.
-
-**Instrumented areas:**
-- **Dependency Wrapper**: The `@dep_digest` decorator logic.
-- **Dependency Checker**: The `check_dependency` function.
-- **Lazy Loader**: The `_scan_and_load` method in `LazyRegistry`.
-
-## Exception signal level
-
-The `@signal` wrapper in `depdigest.core.decorator.dep_digest` uses
-`exception_level="DEBUG"`.
-
-Rationale:
-- dependency checks can intentionally branch through missing/unavailable states;
-- these transitions are part of normal decision flow and often recoverable;
-- reporting them as `ERROR` would reduce signal quality in telemetry.
+Some dependency checks intentionally explore unavailable states; these paths can use `exception_level="DEBUG"` to avoid noisy false-positive error telemetry.
