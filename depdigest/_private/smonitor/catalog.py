@@ -31,6 +31,7 @@ CODES = {
     "DEP-ERR-MISS-001": {
         "title": "Missing Dependency",
         "user_message": "Required library '{library}' not found.",
+        "qa_message": "Dependency '{library}' missing in '{caller}'.",
         "user_hint": "Install it via:\n  {pip_install}\n  {conda_install}\nDocs: {doc_url}",
         "dev_message": "Dependency '{library}' missing in '{caller}'.",
         "dev_hint": "Add to requirements or environment. Docs: {doc_url}",
@@ -38,6 +39,7 @@ CODES = {
     "DEP-DBG-LOAD-001": {
         "title": "Plugin load failed",
         "user_message": "An optional plugin failed to load and was skipped.",
+        "qa_message": "Plugin '{plugin}' failed to load in '{caller}': {error}.",
         "user_hint": "No action is required unless you expected that plugin to be available.",
         "dev_message": "Plugin '{plugin}' failed to load in '{caller}': {error}.",
         "dev_hint": "Check dependency gates and import errors for optional plugins.",
