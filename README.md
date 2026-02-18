@@ -6,6 +6,13 @@ It helps maintain a "Zero-Cost Startup" by ensuring that heavy external librarie
 
 Understand your dependencies. Trust your code.
 
+## Documentation
+
+- User guide: `docs/content/user/index.md`
+- Developer guide: `docs/content/developers/index.md`
+- Contribution guide: `CONTRIBUTING.md`
+- Implementation contract: `standards/DEPDIGEST_GUIDE.md`
+
 ## Key Features
 
 - **`@dep_digest` Decorator**: Enforce dependency availability at runtime with clear error messages.
@@ -60,6 +67,12 @@ Run tests with coverage:
 
 ```bash
 pytest --cov=depdigest --cov-report=term-missing
+```
+
+Build docs locally:
+
+```bash
+make -C docs html
 ```
 
 ## License

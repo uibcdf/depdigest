@@ -9,6 +9,8 @@ patterns and edge cases.
 Before implementing, keep this contract at hand:
 - [DEPDIGEST_GUIDE.md](https://github.com/uibcdf/depdigest/blob/main/standards/DEPDIGEST_GUIDE.md)
 
+If you want to contribute to DepDigest itself (not only integrate it in your own library), continue in the [Developers section](../developers/index.md).
+
 Recommended practice:
 - place a copy of `DEPDIGEST_GUIDE.md` in your project root, so humans and AI agents follow the same contract.
 

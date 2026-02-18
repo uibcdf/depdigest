@@ -4,6 +4,8 @@ Welcome. This section is for contributors who want to develop, maintain, or exte
 
 The path below is intentionally ordered. If you follow it in sequence, you will go from a local setup to production-ready contributions with the same conventions used in this repository.
 
+If your goal is integrating DepDigest into your own package (not contributing to this repository), start in the [User section](../user/index.md).
+
 ## Developer Path
 
 1. [Contributing Workflow](contributing-workflow.md): branch, commit, and PR expectations.

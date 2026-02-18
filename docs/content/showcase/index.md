@@ -1,55 +1,20 @@
 # Showcase
 
-This page highlights common usage patterns.
+This section provides three realistic integration showcases. Each example targets a different use case so you can adapt the pattern that best matches your library.
 
-## Pattern 1: Optional Backend Conversion
+## Example Catalog
 
-Use `@dep_digest` so optional backends are only required when selected:
+| Showcase | What you will find |
+|---|---|
+| [Optional Backend Routing](optional-backend-routing.md) | Conditional dependency enforcement with `@dep_digest(..., when=...)` and lazy imports for backend-specific execution paths. |
+| [Plugin Ecosystem with LazyRegistry](plugin-ecosystem-lazyregistry.md) | A scalable plugin architecture where discovery is cheap and optional plugin dependencies are enforced only on access. |
+| [User-Facing Dependency Diagnostics](dependency-diagnostics-reporting.md) | A practical pattern to expose dependency status to end users (CLI/notebook/support workflows) using introspection APIs. |
 
-```python
-@dep_digest("openmm", when={"backend": "openmm"})
-def run(job, backend="native"):
-    if backend == "openmm":
-        import openmm
-    return job
+```{toctree}
+:maxdepth: 1
+:hidden:
+
+optional-backend-routing.md
+plugin-ecosystem-lazyregistry.md
+dependency-diagnostics-reporting.md
 ```
-
-What this gives you:
-- fast default path;
-- explicit optional-path enforcement;
-- clearer user feedback when backend is unavailable.
-
-## Pattern 2: Lazy Plugin Registry
-
-Use `LazyRegistry` to avoid importing all plugins at startup:
-
-```python
-from depdigest import LazyRegistry
-
-plugins = LazyRegistry(
-    package_prefix="my_pkg.plugins",
-    directory="my_pkg/plugins",
-    attr_name="plugin_name",
-)
-```
-
-When this helps most:
-- many plugin folders;
-- only a small subset used per session;
-- optional plugin dependencies.
-
-## Pattern 3: Environment Status Reporting
-
-Surface user-facing dependency status:
-
-```python
-from depdigest import get_info
-
-def dependency_status():
-    return get_info("my_pkg")
-```
-
-Typical place to use it:
-- CLI command (`my_pkg deps`);
-- diagnostics section in notebooks;
-- support/debug output for users.

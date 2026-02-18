@@ -1,12 +1,21 @@
-## Description
-Provide a brief description of the PR's purpose here.
+## Scope
+Describe the purpose of this PR in 2-4 lines.
 
-## Todos
-Notable points that this PR has either accomplished or will accomplish.
-  - [ ] TODO 1
+## Behavior Changes
+- What changes for users or integrators?
+- Any compatibility considerations?
 
-## Questions
-- [ ] Question1
+## Validation
+- [ ] `pytest -q`
+- [ ] `pytest --cov=depdigest --cov-report=term-missing` (if behavior changed)
+- [ ] `make -C docs html` (if docs changed)
 
-## Status
-- [ ] Ready to go
+## Documentation Impact
+- [ ] User docs updated (if integration behavior changed)
+- [ ] Developer docs updated (if contributor workflow/architecture changed)
+- [ ] Contract docs updated (`standards/DEPDIGEST_GUIDE.md` / `SMONITOR_GUIDE.md`) when needed
+
+## Checklist
+- [ ] Changes are focused and reviewable
+- [ ] Added/updated tests for new behavior
+- [ ] No generated artifacts accidentally tracked
