@@ -1,5 +1,16 @@
 # DepDigest
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![DOI](https://zenodo.org/badge/137937243.svg)](https://zenodo.org/badge/latestdoi/137937243)
+[![](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/downloads/)
+[![CI](https://github.com/uibcdf/depdigest/actions/workflows/CI.yaml/badge.svg)](https://github.com/uibcdf/depdigest/actions/workflows/CI.yaml)
+[![codecov](https://codecov.io/github/uibcdf/depdigest/graph/badge.svg?token=tfPUOXP0tW)](https://codecov.io/github/uibcdf/depdigest)
+[![Install with conda](https://img.shields.io/badge/Install%20with-conda-brightgreen.svg)](https://conda.anaconda.org/uibcdf/depdigest)
+
+*Digesting dependencies into clear, actionable insight.*
+
+## Overview
+
 **DepDigest** is a lightweight Python library for managing **optional dependencies** and **lazy loading** in large analytical or scientific projects.
 
 It helps maintain a "Zero-Cost Startup" by ensuring that heavy external libraries are only checked and imported when actually needed.
@@ -53,7 +64,7 @@ conda install -c uibcdf depdigest
 
 ## Requirements
 
-- Python `>=3.10,<3.14`
+- Python `>=3.11,<3.14`
 - Runtime dependency: `smonitor`
 
 ## Development

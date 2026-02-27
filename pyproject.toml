@@ -7,7 +7,7 @@ name = "depdigest"
 dynamic = ["version"]
 description = "Lightweight dependency management and lazy loading for Python libraries."
 readme = "README.md"
-requires-python = ">=3.10.0,<3.14.0"
+requires-python = ">=3.11.0,<3.14.0"
 license = {text = "MIT"}
 authors = [
     {name = "UIBCDF Development Team"}

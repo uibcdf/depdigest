@@ -15,11 +15,11 @@ requirements:
   - python
   - smonitor
 about:
-  home: https://uibcdf.org
+  home: "https://www.uibcdf.org"
   license: MIT License
   summary: ''
   description: 'This library provides some useful methods to work with quantities
 
     '
-  dev_url: https://github.com/uibcdf/depdigest
-  doc_url: https://uibcdf.org/depdigest
+  dev_url: "https://www.github.com/uibcdf/depdigest"
+  doc_url: "https://www.uibcdf.org/depdigest"

@@ -10,8 +10,8 @@
 
 Digesting dependencies into clear, actionable insight.
 
-```{image} https://img.shields.io/badge/release-0.3.0-white.svg
-:target: https://github.com/uibcdf/depdigest/releases/tag/0.3.0
+```{image} https://img.shields.io/github/v/release/uibcdf/depdigest?color=white&label=release
+:target: https://github.com/uibcdf/smonitor/releases
 ```
 ```{image} https://img.shields.io/badge/license-MIT-white.svg
 :target: https://github.com/uibcdf/depdigest/blob/main/LICENSE

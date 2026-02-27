@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false  # do not cancel all in-progress jobs if any job variation fails
       matrix:
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.11", "3.12", "3.13"]
 
     steps:
       
@@ -39,6 +39,7 @@ jobs:
 
           create-args: >-
             python=${{ matrix.python-version }}
+          cache-downloads: true
 
       - name: Info conda
         shell: bash -l {0}
