@@ -11,6 +11,20 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 - None.
 
+## [0.9.0] - RC (in progress)
+
+### Added
+
+- RC execution checklist for release `0.9.0` in `devguide/release_0.9.0_checklist.md`.
+
+### Changed
+
+- Roadmap now tracks `0.9.0` as the active release-candidate cycle.
+
+### Migration Notes
+
+- None at this stage.
+
 ## [0.8.0] - 2026-02-27
 
 ### Added
