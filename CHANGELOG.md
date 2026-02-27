@@ -11,6 +11,23 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 - None.
 
+## [0.9.1] - 2026-02-27
+
+### Added
+
+- `0.10.0` stabilization checklist in `devguide/release_0.10.0_stabilization_checklist.md`.
+
+### Changed
+
+- Split CI into fast `CI.yaml` (push/PR) and scheduled/manual `CI_full_matrix.yaml`.
+- Removed coverage and JUnit report generation from `CI_full_matrix.yaml`.
+- Documentation build version now resolves from repository-local `depdigest/_version.py`.
+- Developer release gates section expanded to include stabilization phase naming.
+
+### Migration Notes
+
+- No breaking API changes introduced in `0.9.1`.
+
 ## [0.9.0] - 2026-02-27
 
 ### Added

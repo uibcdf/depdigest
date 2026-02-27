@@ -39,22 +39,23 @@ This roadmap captures likely next increments toward broader stable adoption.
 
 ### 0.10.0 (in progress)
 
+- Execute stabilization checklist from `devguide/release_0.10.0_stabilization_checklist.md`.
 - Run external integrator validation cycle as stabilization milestone.
 - Accept stabilization fixes from real-world feedback and CI usage.
 
 ## Candidate priorities for next cycle
 
-1. Docs automation helpers
+1. External validation and triage
 
-Evaluate Sphinx helpers/extensions that can auto-extract dependency contracts from `_depdigest.py` examples.
+Collect and classify real integrator findings (`blocking` vs `non-blocking`) from downstream projects.
 
-2. Richer remediation hints
+2. Stabilization-only corrections
 
-Improve dependency-missing guidance with clearer package-manager hints and project-specific URLs.
+Apply minimal, high-signal fixes focused on contract stability and CI reliability.
 
-3. Support and deprecation policy rollout
+3. 1.0.0 readiness framing
 
-Define, document, and enforce contributor-facing rules for Python support windows and deprecation lifecycle.
+Prepare final readiness criteria and release narrative for the `1.0.0` transition.
 
 ## Open design questions
 
@@ -98,10 +99,10 @@ This is the working milestone path toward a stable `1.0.0` release.
 - Focus on bug fixing, API/docs consistency, and release quality.
 - Finalize deprecation/support policy notes for the stable line.
 
-### 0.9.x - Release candidates
+### 0.10.0 - Stabilization
 
-- Keep `0.9.0` as baseline RC snapshot.
-- Use `0.10.0` as stabilization pass before final `1.0.0` readiness checks.
+- Run external validation and address stabilization fixes only.
+- Keep contracts stable while gathering final confidence before `1.0.0`.
 
 ### 1.0.0 - Stable release
 

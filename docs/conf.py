@@ -21,6 +21,7 @@ import sys
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
 import depdigest
+from depdigest import _version as depdigest_version_file
 
 # -- Project information -----------------------------------------------------
 
@@ -29,8 +30,9 @@ copyright = ''
 
 
 # The short X.Y version
-version = depdigest.__version__.split('+')[0]
-release = depdigest.__version__.split('+')[0]
+# Prefer repository-local version file for docs, to avoid stale installed metadata.
+version = depdigest_version_file.__version__.split('+')[0]
+release = depdigest_version_file.__version__.split('+')[0]
 
 print(f'version {version}, release {release}')
 

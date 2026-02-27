@@ -29,7 +29,7 @@ After pushing a tag:
 - verify docs references to release when applicable;
 - confirm no local drift remains.
 
-## 5. Pre-RC quality gates (`0.8.0`/`0.9.x`)
+## 5. Pre-RC and Stabilization Quality Gates (`0.8.0`/`0.9.x`/`0.10.x`)
 
 When preparing release candidates:
 - accept only bug fixes and documentation consistency changes;
