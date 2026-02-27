@@ -9,6 +9,7 @@ Before tagging:
 - ensure public API contract tests pass;
 - ensure docs build;
 - ensure README and docs reflect actual behavior;
+- ensure `CHANGELOG.md` has release notes for the target version;
 - ensure `devguide/roadmap.md` reflects delivered vs in-progress milestones;
 - ensure support/deprecation notes are updated when compatibility changed;
 - verify ignored/generated files are not accidentally tracked.
@@ -34,4 +35,5 @@ When preparing release candidates:
 - accept only bug fixes and documentation consistency changes;
 - avoid feature additions unless they unblock release quality;
 - require explicit migration notes for any contract-affecting change;
+- keep migration notes centralized in `CHANGELOG.md`;
 - keep contract tests green before tagging.

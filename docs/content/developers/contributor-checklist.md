@@ -24,6 +24,7 @@ Use this checklist before opening a PR or creating a release commit.
 
 - [ ] User docs updated for integration-facing changes.
 - [ ] Developers docs updated for contributor-facing changes.
+- [ ] `CHANGELOG.md` updated when behavior/contracts change.
 - [ ] Contract links point to canonical sources (`main` branch URLs when remote links are needed).
 - [ ] `make -C docs html` succeeds.
 
@@ -37,4 +38,5 @@ Use this checklist before opening a PR or creating a release commit.
 
 - [ ] `devguide/roadmap.md` marks delivered milestones correctly.
 - [ ] Compatibility-impacting changes include migration notes.
+- [ ] Migration notes are recorded in `CHANGELOG.md`.
 - [ ] Support/deprecation policy updates are reflected in docs when needed.
