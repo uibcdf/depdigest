@@ -78,4 +78,4 @@ jobs:
       shell: bash -l {0}
       run: |
         export PYTHONPATH=$PYTHONPATH:$(pwd)
-        pytest -n logical -v --cov-config=.coveragerc --cov=depdigest --cov-report=xml --junitxml=junit.xml --color=yes
+        pytest -n logical -v --junitxml=junit.xml --color=yes
