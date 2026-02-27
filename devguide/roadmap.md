@@ -1,6 +1,6 @@
 # Roadmap & Future Steps
 
-DepDigest is currently at release **0.6.0-dev**.
+DepDigest is currently at release **0.6.0**.
 
 This roadmap captures likely next increments toward broader stable adoption.
 
@@ -12,10 +12,11 @@ This roadmap captures likely next increments toward broader stable adoption.
 - Structured introspection output in `get_info(..., format="table|dict|json")`.
 - Expanded docs and tests around dependency introspection and architecture verification.
 
-### 0.6.0 (in progress)
+### 0.6.0
 
 - `LazyRegistry` now supports optional `entry_points` discovery mode.
 - `entrypoint_group` support added for plugin ecosystems using Python entry points.
+- Dynamic runtime registration now includes scoped overrides (`temporary_package_config`) and explicit unregister support.
 - User/contract docs updated for entry-point-based discovery.
 
 ## Candidate priorities for next cycle
