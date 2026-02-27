@@ -15,6 +15,27 @@ formats = LazyRegistry(
 )
 ```
 
+## Entry Point Mode (Optional)
+
+If your plugin ecosystem uses Python entry points, you can switch discovery mode:
+
+```python
+from depdigest import LazyRegistry
+
+formats = LazyRegistry(
+    package_prefix="my_package.formats",
+    directory="/unused",
+    attr_name="format_name",
+    discovery_mode="entry_points",
+    entrypoint_group="my_package.formats",
+)
+```
+
+Key points:
+- `entrypoint_group` is required for `discovery_mode="entry_points"`.
+- `MAPPING` still applies, using entry point names as mapping keys.
+- Soft-dependency visibility filtering remains the same.
+
 ## What Happens Under the Hood
 
 - Directory entries are scanned lazily.

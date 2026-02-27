@@ -180,6 +180,107 @@ def test_lazy_registry_plugin_import_failure_is_non_fatal():
                     assert list(registry.keys()) == []
 
 
+def test_lazy_registry_entry_points_loads_objects():
+    class Plugin:
+        plugin_name = "entry_plugin"
+
+    class FakeEP:
+        name = "ep_plugin"
+
+        def load(self):
+            return Plugin()
+
+    class FakeEPCollection:
+        def select(self, group):
+            assert group == "mylib.plugins"
+            return [FakeEP()]
+
+    mock_cfg = DepConfig(libraries={}, mapping={}, show_all_capabilities=True)
+    with patch("depdigest.core.loader.resolve_config", return_value=mock_cfg):
+        with patch("depdigest.core.loader.entry_points", return_value=FakeEPCollection()):
+            registry = LazyRegistry(
+                "mylib.plugins",
+                "/unused",
+                attr_name="plugin_name",
+                discovery_mode="entry_points",
+                entrypoint_group="mylib.plugins",
+            )
+            assert "entry_plugin" in registry
+
+
+def test_lazy_registry_entry_points_filters_by_mapping():
+    class Plugin:
+        plugin_name = "entry_plugin"
+
+    class FakeEP:
+        name = "ep_plugin"
+
+        def load(self):
+            return Plugin()
+
+    class FakeEPCollection:
+        def select(self, group):
+            return [FakeEP()]
+
+    mock_cfg = DepConfig(
+        libraries={"soft_lib": {"type": "soft"}},
+        mapping={"ep_plugin": "soft_lib"},
+        show_all_capabilities=False,
+    )
+    with patch("depdigest.core.loader.resolve_config", return_value=mock_cfg):
+        with patch("depdigest.core.loader.entry_points", return_value=FakeEPCollection()):
+            with patch("depdigest.core.loader.is_installed", return_value=False):
+                registry = LazyRegistry(
+                    "mylib.plugins",
+                    "/unused",
+                    attr_name="plugin_name",
+                    discovery_mode="entry_points",
+                    entrypoint_group="mylib.plugins",
+                )
+                assert list(registry.keys()) == []
+
+
+def test_lazy_registry_entry_points_load_failure_is_non_fatal():
+    class FakeEP:
+        name = "broken_entrypoint"
+
+        def load(self):
+            raise RuntimeError("boom")
+
+    class FakeEPCollection:
+        def select(self, group):
+            return [FakeEP()]
+
+    mock_cfg = DepConfig(libraries={}, mapping={}, show_all_capabilities=True)
+    with patch("depdigest.core.loader.resolve_config", return_value=mock_cfg):
+        with patch("depdigest.core.loader.entry_points", return_value=FakeEPCollection()):
+            registry = LazyRegistry(
+                "mylib.plugins",
+                "/unused",
+                discovery_mode="entry_points",
+                entrypoint_group="mylib.plugins",
+            )
+            assert list(registry.keys()) == []
+
+
+def test_lazy_registry_requires_entrypoint_group_for_entry_point_mode():
+    with pytest.raises(ValueError):
+        LazyRegistry(
+            "mylib.plugins",
+            "/unused",
+            discovery_mode="entry_points",
+        )
+
+
+def test_lazy_registry_rejects_invalid_discovery_mode():
+    with pytest.raises(ValueError):
+        LazyRegistry(
+            "mylib.plugins",
+            "/unused",
+            discovery_mode="invalid",
+        )
+
+
 def test_lazy_registry_emission_failure_is_non_fatal():
     """If diagnostics emission fails, plugin load failures must remain non-fatal."""
     mock_cfg = DepConfig(

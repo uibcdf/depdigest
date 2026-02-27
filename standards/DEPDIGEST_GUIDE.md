@@ -83,6 +83,18 @@ registry = LazyRegistry(
 )
 ```
 
+Optional entry-point mode:
+
+```python
+registry = LazyRegistry(
+    package_prefix='MyLibrary.plugins',
+    directory='/unused',
+    attr_name='plugin_name',
+    discovery_mode='entry_points',
+    entrypoint_group='MyLibrary.plugins',
+)
+```
+
 ## 3. Advanced Integration
 
 ### 3.1 Manual Configuration Registration
