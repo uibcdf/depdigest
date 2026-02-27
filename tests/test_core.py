@@ -19,7 +19,7 @@ def run_around_tests():
 
 def test_is_installed_caching():
     """Verify that is_installed results are cached."""
-    assert is_installed('numpy') is True
+    assert is_installed('json') is True
 
 def test_dep_digest_metadata():
     """Verify that @dep_digest attaches metadata correctly."""
