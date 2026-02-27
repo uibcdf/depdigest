@@ -7,18 +7,25 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+### Migration Notes
+
+- None.
+
+## [0.8.0] - 2026-02-27
+
 ### Added
 
 - Developer-facing support and deprecation policy documentation.
 - Explicit pre-RC quality gates in the release workflow docs.
+- Changelog workflow with centralized migration notes for release-impacting changes.
 
 ### Changed
 
-- Roadmap status aligned to mark `0.7.0` as delivered and `0.8.0` as in progress.
+- Roadmap status updated to close `0.8.0` release-preparation tasks.
 
 ### Migration Notes
 
-- None.
+- No breaking API changes introduced in `0.8.0`.
 
 ## [0.7.0] - 2026-02-27
 

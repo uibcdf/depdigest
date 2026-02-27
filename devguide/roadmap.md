@@ -1,6 +1,6 @@
 # Roadmap & Future Steps
 
-DepDigest is currently at release **0.7.0**.
+DepDigest is currently at release **0.8.0**.
 
 This roadmap captures likely next increments toward broader stable adoption.
 
@@ -25,11 +25,12 @@ This roadmap captures likely next increments toward broader stable adoption.
 - CLI contract tests added for baseline command behavior.
 - Developer docs now include explicit API stability guarantees.
 
-### 0.8.0 (in progress)
+### 0.8.0
 
 - Freeze feature intake and prioritize release-quality hardening.
 - Focus on API/docs consistency and bug fixing only.
 - Finalize deprecation and support policy notes for the stable line.
+- Add changelog-based migration notes as a release gate.
 
 ## Candidate priorities for next cycle
 
