@@ -32,6 +32,11 @@ This roadmap captures likely next increments toward broader stable adoption.
 - Finalize deprecation and support policy notes for the stable line.
 - Add changelog-based migration notes as a release gate.
 
+### 0.9.0 (in progress)
+
+- Execute RC checklist from `devguide/release_0.9.0_checklist.md`.
+- Validate contracts with external integrator feedback before final stabilization.
+
 ## Candidate priorities for next cycle
 
 1. Docs automation helpers
