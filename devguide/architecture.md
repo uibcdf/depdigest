@@ -47,3 +47,16 @@ This keeps tests and dynamic package contexts flexible.
 - DepDigest does not replace environment/package managers.
 - Version-range enforcement is not a first-class policy yet.
 - Cross-soft-dependency transitive modeling remains explicit in host library code.
+
+## Public contract guarantees
+
+Current hardening policy treats the following as public contracts:
+
+1. Exported API surface from `depdigest.__all__`.
+2. `get_info(format="dict|json")` schema `depdigest.get_info@1.0`.
+3. `depdigest audit` exit-code behavior for CI integration.
+
+Any incompatible change to these contracts requires:
+- explicit migration notes;
+- corresponding contract-test updates;
+- release-note visibility.

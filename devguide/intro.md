@@ -34,6 +34,10 @@ SMonitor integration emits actionable dependency diagnostics with traceability.
 
 `get_info(..., format="table|dict|json")` supports both human-readable and automation-ready dependency reporting.
 
+8. Contract hardening
+
+Public API exports, CLI behavior, and `get_info` schema are validated through dedicated contract tests.
+
 ## Canonical docs
 
 - User integration path: `docs/content/user/index.md`

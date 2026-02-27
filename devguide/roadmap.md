@@ -1,6 +1,6 @@
 # Roadmap & Future Steps
 
-DepDigest is currently at release **0.6.0**.
+DepDigest is currently at release **0.7.0-dev**.
 
 This roadmap captures likely next increments toward broader stable adoption.
 
@@ -18,6 +18,12 @@ This roadmap captures likely next increments toward broader stable adoption.
 - `entrypoint_group` support added for plugin ecosystems using Python entry points.
 - Dynamic runtime registration now includes scoped overrides (`temporary_package_config`) and explicit unregister support.
 - User/contract docs updated for entry-point-based discovery.
+
+### 0.7.0 (in progress)
+
+- Public API contract tests added for exported symbols and `get_info` schema.
+- CLI contract tests added for baseline command behavior.
+- Developer docs now include explicit API stability guarantees.
 
 ## Candidate priorities for next cycle
 
