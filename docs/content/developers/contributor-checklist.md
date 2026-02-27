@@ -32,3 +32,9 @@ Use this checklist before opening a PR or creating a release commit.
 - [ ] Commits are focused and well named.
 - [ ] No generated artifacts accidentally tracked.
 - [ ] Branch is ready for review or release tagging.
+
+## Pre-RC / release gates
+
+- [ ] `devguide/roadmap.md` marks delivered milestones correctly.
+- [ ] Compatibility-impacting changes include migration notes.
+- [ ] Support/deprecation policy updates are reflected in docs when needed.

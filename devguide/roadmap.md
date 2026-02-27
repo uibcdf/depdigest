@@ -1,6 +1,6 @@
 # Roadmap & Future Steps
 
-DepDigest is currently at release **0.7.0-dev**.
+DepDigest is currently at release **0.7.0**.
 
 This roadmap captures likely next increments toward broader stable adoption.
 
@@ -19,11 +19,17 @@ This roadmap captures likely next increments toward broader stable adoption.
 - Dynamic runtime registration now includes scoped overrides (`temporary_package_config`) and explicit unregister support.
 - User/contract docs updated for entry-point-based discovery.
 
-### 0.7.0 (in progress)
+### 0.7.0
 
 - Public API contract tests added for exported symbols and `get_info` schema.
 - CLI contract tests added for baseline command behavior.
 - Developer docs now include explicit API stability guarantees.
+
+### 0.8.0 (in progress)
+
+- Freeze feature intake and prioritize release-quality hardening.
+- Focus on API/docs consistency and bug fixing only.
+- Finalize deprecation and support policy notes for the stable line.
 
 ## Candidate priorities for next cycle
 
@@ -35,9 +41,9 @@ Evaluate Sphinx helpers/extensions that can auto-extract dependency contracts fr
 
 Improve dependency-missing guidance with clearer package-manager hints and project-specific URLs.
 
-3. Plugin discovery evolution
+3. Support and deprecation policy rollout
 
-Evaluate whether `LazyRegistry` should support non-filesystem discovery modes (for example entry points).
+Define, document, and enforce contributor-facing rules for Python support windows and deprecation lifecycle.
 
 ## Open design questions
 
