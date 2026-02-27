@@ -57,6 +57,18 @@ plugins = LazyRegistry(
 )
 ```
 
+Optional entry-point mode:
+
+```python
+plugins = LazyRegistry(
+    package_prefix="my_pkg.plugins",
+    directory="/unused",
+    attr_name="plugin_name",
+    discovery_mode="entry_points",
+    entrypoint_group="my_pkg.plugins",
+)
+```
+
 ## 4. Expose introspection for users and tools
 
 ```python

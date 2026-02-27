@@ -1,14 +1,22 @@
 # Roadmap & Future Steps
 
-DepDigest is currently at release **0.4.0**.
+DepDigest is currently at release **0.6.0-dev**.
 
 This roadmap captures likely next increments toward broader stable adoption.
 
-## Recently delivered in 0.4.0
+## Recently delivered
+
+### 0.5.0
 
 - CLI auditing workflow (`depdigest audit`) with CI-friendly exit behavior and JSON output.
 - Structured introspection output in `get_info(..., format="table|dict|json")`.
 - Expanded docs and tests around dependency introspection and architecture verification.
+
+### 0.6.0 (in progress)
+
+- `LazyRegistry` now supports optional `entry_points` discovery mode.
+- `entrypoint_group` support added for plugin ecosystems using Python entry points.
+- User/contract docs updated for entry-point-based discovery.
 
 ## Candidate priorities for next cycle
 
@@ -50,7 +58,7 @@ This is the working milestone path toward a stable `1.0.0` release.
 
 ### 0.6.0 - Controlled extension
 
-- Decide and implement (or explicitly reject) non-filesystem plugin discovery evolution for `LazyRegistry`.
+- Deliver non-filesystem plugin discovery evolution for `LazyRegistry` (entry points).
 - Harden dynamic config and runtime registration edge cases.
 - Expand advanced integration docs around these behaviors.
 
