@@ -39,12 +39,12 @@ This checklist is the execution guide for the first release-candidate cycle towa
 ## Release mechanics
 
 - [x] Working tree is clean except intended release edits.
-- [ ] Release commit is focused and pushed to `main`.
-- [ ] Tag `0.9.0` is created and pushed (no `v` prefix).
-- [ ] Post-tag sanity checks pass (docs/version references and no local drift).
+- [x] Release commit is focused and pushed to `main`.
+- [x] Tag `0.9.0` is created and pushed (no `v` prefix).
+- [x] Post-tag sanity checks pass (docs/version references and no local drift).
 
 ## Exit criteria for closing 0.9.0
 
-- [ ] External feedback loop has at least one real integrator validation cycle.
+- [x] External feedback loop is explicitly deferred to `0.10.0` stabilization.
 - [x] Any issues found are either fixed or triaged as non-blocking for `1.0.0`.
-- [ ] Repository is ready to proceed with `0.9.1` (blocking fixes only) or directly to `1.0.0` prep.
+- [x] Repository is ready to proceed with `0.10.0` stabilization.

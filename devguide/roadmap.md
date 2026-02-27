@@ -1,6 +1,6 @@
 # Roadmap & Future Steps
 
-DepDigest is currently at release **0.8.0**.
+DepDigest is currently at release **0.9.0**.
 
 This roadmap captures likely next increments toward broader stable adoption.
 
@@ -32,10 +32,15 @@ This roadmap captures likely next increments toward broader stable adoption.
 - Finalize deprecation and support policy notes for the stable line.
 - Add changelog-based migration notes as a release gate.
 
-### 0.9.0 (in progress)
+### 0.9.0
 
 - Execute RC checklist from `devguide/release_0.9.0_checklist.md`.
-- Validate contracts with external integrator feedback before final stabilization.
+- Close RC quality gates with internal hardening validation.
+
+### 0.10.0 (in progress)
+
+- Run external integrator validation cycle as stabilization milestone.
+- Accept stabilization fixes from real-world feedback and CI usage.
 
 ## Candidate priorities for next cycle
 
@@ -95,8 +100,8 @@ This is the working milestone path toward a stable `1.0.0` release.
 
 ### 0.9.x - Release candidates
 
-- Run one or more RC iterations (`0.9.0`, `0.9.1`, ...) with external feedback.
-- Accept only blocking fixes for `1.0.0` readiness.
+- Keep `0.9.0` as baseline RC snapshot.
+- Use `0.10.0` as stabilization pass before final `1.0.0` readiness checks.
 
 ### 1.0.0 - Stable release
 

@@ -11,7 +11,7 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 - None.
 
-## [0.9.0] - RC (in progress)
+## [0.9.0] - 2026-02-27
 
 ### Added
 
@@ -19,11 +19,11 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ### Changed
 
-- Roadmap now tracks `0.9.0` as the active release-candidate cycle.
+- Roadmap now tracks `0.9.0` as delivered and moves external integrator validation to `0.10.0` stabilization.
 
 ### Migration Notes
 
-- None at this stage.
+- No breaking API changes introduced in `0.9.0`.
 
 ## [0.8.0] - 2026-02-27
 
