@@ -2,7 +2,16 @@ import pytest
 import sys
 import json
 from unittest.mock import patch
-from depdigest import is_installed, dep_digest, LazyRegistry, DepConfig, register_package_config, clear_package_configs
+from depdigest import (
+    is_installed,
+    dep_digest,
+    LazyRegistry,
+    DepConfig,
+    register_package_config,
+    unregister_package_config,
+    temporary_package_config,
+    clear_package_configs,
+)
 from depdigest.core.config import resolve_config
 
 @pytest.fixture(autouse=True)
@@ -431,6 +440,67 @@ def test_register_package_config_overrides_file_based_config(tmp_path):
         clear_package_configs()
         resolve_config.cache_clear()
         sys.path.remove(str(tmp_path))
+
+
+def test_unregister_package_config_restores_default_resolution(tmp_path):
+    package = "fakepkg_unregister"
+    package_dir = tmp_path / package
+    package_dir.mkdir()
+    (package_dir / "__init__.py").write_text("", encoding="utf-8")
+    sys.path.insert(0, str(tmp_path))
+
+    register_package_config(package, DepConfig(libraries={"x": {"type": "soft"}}))
+    assert "x" in resolve_config(f"{package}.module").libraries
+
+    unregister_package_config(package)
+    try:
+        cfg = resolve_config(f"{package}.module")
+        assert cfg.libraries == {}
+    finally:
+        resolve_config.cache_clear()
+        sys.path.remove(str(tmp_path))
+
+
+def test_temporary_package_config_restores_previous_state():
+    package = "fakepkg_temp"
+    original = DepConfig(libraries={"base": {"type": "soft"}})
+    override = DepConfig(libraries={"override": {"type": "soft"}})
+    register_package_config(package, original)
+
+    with temporary_package_config(package, override):
+        cfg = resolve_config(package)
+        assert "override" in cfg.libraries
+        assert "base" not in cfg.libraries
+
+    cfg = resolve_config(package)
+    assert "base" in cfg.libraries
+    assert "override" not in cfg.libraries
+
+
+def test_temporary_package_config_without_previous_state_clears_on_exit(tmp_path):
+    package = "fakepkg_temp_no_prev"
+    package_dir = tmp_path / package
+    package_dir.mkdir()
+    (package_dir / "__init__.py").write_text("", encoding="utf-8")
+    sys.path.insert(0, str(tmp_path))
+    override = DepConfig(libraries={"override": {"type": "soft"}})
+
+    try:
+        with temporary_package_config(package, override):
+            assert "override" in resolve_config(f"{package}.module").libraries
+
+        assert resolve_config(f"{package}.module").libraries == {}
+    finally:
+        resolve_config.cache_clear()
+        sys.path.remove(str(tmp_path))
+
+
+def test_register_package_config_validates_inputs():
+    with pytest.raises(ValueError):
+        register_package_config("", DepConfig())
+
+    with pytest.raises(TypeError):
+        register_package_config("fakepkg", {"libraries": {}})
 
 
 def test_resolve_config_raises_for_syntax_errors_in_depdigest_file(tmp_path):

@@ -38,6 +38,8 @@ falls back to a plain message if necessary.
 
 For tests/dynamic packages:
 - `register_package_config(...)`
+- `unregister_package_config(...)`
+- `temporary_package_config(...)`
 - `clear_package_configs()`
 
 Clear state between tests to avoid leakage.

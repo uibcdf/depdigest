@@ -109,6 +109,17 @@ register_package_config('my_dynamic_pkg', DepConfig(
 ))
 ```
 
+You can remove or scope these overrides:
+
+```python
+from depdigest import unregister_package_config, temporary_package_config
+
+unregister_package_config('my_dynamic_pkg')
+
+with temporary_package_config('my_dynamic_pkg', DepConfig(libraries={})):
+    ...
+```
+
 ### 3.2 User Introspection
 Expose a function to let users know their environment's status:
 

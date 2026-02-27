@@ -36,6 +36,8 @@ Contract reference:
 
 `register_package_config` is useful for tests and dynamic package systems. Avoid overusing it for static packages where `_depdigest.py` is available.
 
+When you need scoped overrides in tests, prefer `temporary_package_config(...)` to avoid state leaks.
+
 ## 4. Treat hard vs soft correctly
 
 - Hard dependencies: required for base package behavior.

@@ -2,7 +2,14 @@ from importlib.metadata import version, PackageNotFoundError
 from .core.checker import is_installed, check_dependency, get_info
 from .core.decorator import dep_digest
 from .core.loader import LazyRegistry
-from .core.config import DepConfig, resolve_config, register_package_config, clear_package_configs
+from .core.config import (
+    DepConfig,
+    resolve_config,
+    register_package_config,
+    unregister_package_config,
+    temporary_package_config,
+    clear_package_configs,
+)
 
 try:
     __version__ = version("depdigest")
@@ -27,5 +34,7 @@ __all__ = [
     'DepConfig',
     'resolve_config',
     'register_package_config',
+    'unregister_package_config',
+    'temporary_package_config',
     'clear_package_configs',
 ]
