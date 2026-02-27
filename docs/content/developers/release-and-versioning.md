@@ -6,6 +6,7 @@ This page summarizes the practical release flow used in this repository.
 
 Before tagging:
 - ensure tests pass;
+- ensure public API contract tests pass;
 - ensure docs build;
 - ensure README and docs reflect actual behavior;
 - verify ignored/generated files are not accidentally tracked.

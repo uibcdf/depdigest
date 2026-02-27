@@ -14,9 +14,10 @@ If your goal is integrating DepDigest into your own package (not contributing to
 4. [Implementation Patterns](implementation-patterns.md): how to implement features without breaking runtime behavior.
 5. [SMonitor for Contributors](smonitor-for-contributors.md): diagnostics contract and emission rules.
 6. [Testing and Coverage](testing-and-coverage.md): required test strategy and coverage workflow.
-7. [Editorial Guide](editorial-guide.md): style and structure rules for docs and developer-facing text.
-8. [Release and Versioning](release-and-versioning.md): practical release flow and tagging checks.
-9. [Contributor Checklist](contributor-checklist.md): final pre-PR and pre-release checklist.
+7. [API Stability](api-stability.md): public contract guarantees and compatibility rules.
+8. [Editorial Guide](editorial-guide.md): style and structure rules for docs and developer-facing text.
+9. [Release and Versioning](release-and-versioning.md): practical release flow and tagging checks.
+10. [Contributor Checklist](contributor-checklist.md): final pre-PR and pre-release checklist.
 
 ## Canonical References
 
@@ -34,6 +35,7 @@ architecture.md
 implementation-patterns.md
 smonitor-for-contributors.md
 testing-and-coverage.md
+api-stability.md
 editorial-guide.md
 release-and-versioning.md
 contributor-checklist.md
