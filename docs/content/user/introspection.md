@@ -34,6 +34,28 @@ payload = get_info("my_package", format="dict")
 payload_json = get_info("my_package", format="json")
 ```
 
+## Stable Schema Contract
+
+For `dict/json` outputs, DepDigest uses schema:
+- name: `depdigest.get_info`
+- version: `1.0`
+
+Top-level keys:
+- `schema`
+- `module_path`
+- `dependency_count`
+- `installed_count`
+- `missing_count`
+- `dependencies`
+
+Each dependency entry includes:
+- `library`
+- `installed`
+- `status` (`installed` or `missing`)
+- `type` (`hard` or `soft`)
+- `package_name` (`pypi`, `conda`)
+- `install` (`pypi`, `conda`)
+
 ## Typical Use Cases
 
 - CLI command like `mytool deps`.

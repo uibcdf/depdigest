@@ -20,6 +20,8 @@ pytest --cov=depdigest --cov-report=term-missing
 depdigest audit --src-root depdigest --soft-deps openmm,mdtraj
 ```
 
+For downstream integrators, provide the same baseline in their CI (see [User CI Profile](../user/ci-profile.md)).
+
 ## 4. Areas that should always be covered
 
 1. Missing dependency behavior in `check_dependency`.

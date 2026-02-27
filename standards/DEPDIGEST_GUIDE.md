@@ -5,8 +5,8 @@ Source of truth for integrating and using **DepDigest** in this library.
 Metadata
 - Source repository: `depdigest`
 - Source document: `standards/DEPDIGEST_GUIDE.md`
-- Source version: `depdigest@0.1.1`
-- Last synced: 2026-02-18
+- Source version: `depdigest@0.5.0-dev`
+- Last synced: 2026-02-27
 
 ## What is DepDigest
 
@@ -107,6 +107,21 @@ def dependency_info():
     return get_info('MyLibrary')
 ```
 
+Machine-readable status is also available:
+
+```python
+payload = get_info('MyLibrary', format='dict')  # or format='json'
+```
+
+`dict/json` outputs follow schema `depdigest.get_info@1.0`.
+
+### 3.3 Architecture Audit in CI
+Use the audit command to detect top-level imports of soft dependencies:
+
+```bash
+depdigest audit --src-root MyLibrary --soft-deps mdtraj,openmm
+```
+
 ## Required behavior (non-negotiable)
 
 1.  **Lazy Imports**: Never import a soft dependency at the module top-level. Always inside the guarded function.
@@ -118,4 +133,4 @@ def dependency_info():
 DepDigest is instrumented with `@smonitor.signal(tags=["dependency"])`. Every dependency check and automated loading process is traceable in the breadcrumb trail.
 
 ---
-*Document created on February 6, 2026, as the authority for DepDigest integration.*
+*Document created on February 6, 2026, as the authority for DepDigest integration. Updated on February 27, 2026.*

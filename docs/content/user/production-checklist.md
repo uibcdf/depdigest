@@ -33,6 +33,7 @@ Use this checklist before releasing a library integrated with DepDigest.
 - [ ] Tests cover `_depdigest.py` missing vs broken behavior.
 - [ ] `depdigest audit` is run on source tree for soft dependency import leaks.
 - [ ] Coverage is tracked in CI.
+- [ ] CI baseline follows the [CI Profile](ci-profile.md).
 
 ## Diagnostics
 

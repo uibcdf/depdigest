@@ -28,8 +28,9 @@ Recommended practice:
 10. [Edge Cases](edge-cases.md): recovecos you should know before production.
 11. [Troubleshooting](troubleshooting.md): fast diagnosis for common integration failures.
 12. [Audit CLI](audit-cli.md): detect top-level imports of soft dependencies before release.
-13. [Production Checklist](production-checklist.md): final verification before release.
-14. [FAQ](faq.md): short answers to common integration questions.
+13. [CI Profile](ci-profile.md): recommended pipeline checks for integrators.
+14. [Production Checklist](production-checklist.md): final verification before release.
+15. [FAQ](faq.md): short answers to common integration questions.
 
 ```{toctree}
 :maxdepth: 1
@@ -47,6 +48,7 @@ smonitor.md
 edge-cases.md
 troubleshooting.md
 audit-cli.md
+ci-profile.md
 production-checklist.md
 faq.md
 ```

@@ -153,6 +153,8 @@ def test_missing_dependency_exception_has_readable_message():
     assert isinstance(message, str)
     assert message.strip() != ""
     assert "required" in message.lower()
+    assert "pip install definitely_nonexistent_pkg_zzz" in message
+    assert "conda install -c conda-forge definitely_nonexistent_pkg_zzz" in message
 
 
 def test_lazy_registry_plugin_import_failure_is_non_fatal():
@@ -225,19 +227,33 @@ def test_get_info_checks_installation_by_importable_name():
 def test_get_info_supports_dict_and_json_formats():
     register_package_config(
         "fakepkg",
-        DepConfig(libraries={"fake.module": {"type": "soft", "pypi": "FakeModule"}}),
+        DepConfig(
+            libraries={
+                "z.module": {"type": "soft", "pypi": "zlib"},
+                "a.module": {"type": "hard", "conda": "a-conda"},
+            }
+        ),
     )
 
-    with patch("depdigest.core.checker.is_installed", return_value=True):
+    with patch("depdigest.core.checker.is_installed", side_effect=lambda module: module == "a.module"):
         from depdigest import get_info
 
         as_dict = get_info("fakepkg", format="dict")
         as_json = get_info("fakepkg", format="json")
 
     assert as_dict["module_path"] == "fakepkg"
-    assert as_dict["dependencies"][0]["library"] == "fake.module"
+    assert as_dict["schema"]["name"] == "depdigest.get_info"
+    assert as_dict["schema"]["version"] == "1.0"
+    assert as_dict["dependency_count"] == 2
+    assert as_dict["installed_count"] == 1
+    assert as_dict["missing_count"] == 1
+    assert [dep["library"] for dep in as_dict["dependencies"]] == ["a.module", "z.module"]
+    assert as_dict["dependencies"][0]["status"] == "installed"
+    assert as_dict["dependencies"][1]["status"] == "missing"
     parsed_json = json.loads(as_json)
+    assert parsed_json["schema"]["version"] == "1.0"
     assert parsed_json["dependencies"][0]["installed"] is True
+    assert parsed_json["dependencies"][1]["installed"] is False
 
 
 def test_get_info_rejects_unsupported_format():
@@ -256,6 +272,18 @@ def test_check_dependency_emission_failure_still_raises_dependency_error():
             with pytest.raises(ImportError) as excinfo:
                 check_dependency("missing_lib", caller="demo")
     assert "missing_lib" in str(excinfo.value)
+
+
+def test_check_dependency_uses_root_package_name_for_install_hint():
+    from depdigest.core.checker import check_dependency
+
+    with patch("depdigest.core.checker.is_installed", return_value=False):
+        with pytest.raises(ImportError) as excinfo:
+            check_dependency("openmm.unit", caller="demo")
+
+    message = str(excinfo.value)
+    assert "pip install openmm" in message
+    assert "conda install -c conda-forge openmm" in message
 
 
 def test_resolve_config_raises_for_internal_errors_in_depdigest_file(tmp_path):
