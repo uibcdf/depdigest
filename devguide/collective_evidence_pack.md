@@ -76,7 +76,7 @@ Status note (YYYY-MM-DD):
 - smonitor: pending
 - depdigest: in progress (`devguide/roadmap.md`, `0.10.0` stabilization stage)
 - argdigest: in progress (remediation-hint path pending collective evidence)
-- pyunitwizard: done locally (`pyunitwizard/devguide/collective_evidence_pack.md`)
+- pyunitwizard: done locally (`pyunitwizard@48be457`, devguide checkpoint/policy aligned)
 - collective validation: pending
 
 ## 6. Pending collective closures (from DepDigest perspective)
