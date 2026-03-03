@@ -43,6 +43,7 @@ DepDigest head reference for this pack: `d0f93b4`
 ## 2. Contract evidence index (DepDigest)
 
 Use this section to keep concrete, local references for:
+- shared collective error-path E2E module: `tests/e2e/test_collective_error_path.py`,
 - `_depdigest.py` hard/soft policy contract,
 - `depdigest audit` behavior and coverage,
 - `get_info` schema contract and compatibility,
