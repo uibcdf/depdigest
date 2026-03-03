@@ -32,7 +32,7 @@ This document is the cross-repo handoff artifact for collective validation with:
 
 Date: `2026-03-03`
 DepDigest baseline: `0.10.x` stabilization window
-DepDigest head reference for this pack: `update-with-commit`
+DepDigest head reference for this pack: `d0f93b4`
 
 ## 1. Local quality baseline (DepDigest)
 
