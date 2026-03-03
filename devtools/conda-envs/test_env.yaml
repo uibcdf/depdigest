@@ -1,9 +1,10 @@
 channels:
-- conda-forge
+  - uibcdf
+  - conda-forge
 dependencies:
-- python
-- smonitor
-- pytest
-- pytest-cov
-- pytest-xdist
-- codecov
+  - python
+  - smonitor
+  - pytest
+  - pytest-cov
+  - pytest-xdist
+  - codecov

@@ -11,7 +11,7 @@
 Digesting dependencies into clear, actionable insight.
 
 ```{image} https://img.shields.io/github/v/release/uibcdf/depdigest?color=white&label=release
-:target: https://github.com/uibcdf/smonitor/releases
+:target: https://github.com/uibcdf/depdigest/releases
 ```
 ```{image} https://img.shields.io/badge/license-MIT-white.svg
 :target: https://github.com/uibcdf/depdigest/blob/main/LICENSE
