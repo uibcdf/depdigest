@@ -43,3 +43,5 @@ Public API exports, CLI behavior, and `get_info` schema are validated through de
 - User integration path: `docs/content/user/index.md`
 - Contributor path: `docs/content/developers/index.md`
 - Integration contract: `standards/DEPDIGEST_GUIDE.md`
+
+- Collective evidence handoff: `devguide/collective_evidence_pack.md`
