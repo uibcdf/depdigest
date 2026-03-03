@@ -8,6 +8,7 @@ This checklist captures the external-validation stabilization cycle after `0.9.0
 - [ ] Run downstream CI flows that include dependency-gated paths.
 - [ ] Confirm `depdigest audit` integration works in downstream CI.
 - [ ] Record feedback issues with severity (`blocking` vs `non-blocking`).
+- [x] Shared collective E2E module exists and runs locally (`tests/e2e/test_collective_error_path.py`).
 
 ## Contract stability checks
 

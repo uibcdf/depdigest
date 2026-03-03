@@ -42,6 +42,7 @@ This roadmap captures likely next increments toward broader stable adoption.
 - Execute stabilization checklist from `devguide/release_0.10.0_stabilization_checklist.md`.
 - Run external integrator validation cycle as stabilization milestone.
 - Accept stabilization fixes from real-world feedback and CI usage.
+- Shared collective E2E module added: `tests/e2e/test_collective_error_path.py` (cross-repo error-path baseline).
 
 ## Candidate priorities for next cycle
 
