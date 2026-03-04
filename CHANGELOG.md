@@ -11,6 +11,22 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 - None.
 
+## [0.10.0] - 2026-03-04
+
+### Added
+
+- Collective stabilization evidence synced through shared E2E module usage across sibling repositories.
+
+### Changed
+
+- Stabilization checklist for `0.10.0` completed and recorded.
+- Roadmap advanced from `0.9.x` closure to `0.10.0` delivered state and `1.0.0` active preparation.
+- CI split model retained (`CI.yaml` fast path + `CI_full_matrix.yaml` scheduled matrix) as stabilized release behavior.
+
+### Migration Notes
+
+- No breaking API changes introduced in `0.10.0`.
+
 ## [0.9.1] - 2026-02-27
 
 ### Added

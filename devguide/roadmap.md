@@ -1,6 +1,6 @@
 # Roadmap & Future Steps
 
-DepDigest is currently at release **0.9.0**.
+DepDigest is currently at release **0.10.0**.
 
 This roadmap captures likely next increments toward broader stable adoption.
 
@@ -37,26 +37,31 @@ This roadmap captures likely next increments toward broader stable adoption.
 - Execute RC checklist from `devguide/release_0.9.0_checklist.md`.
 - Close RC quality gates with internal hardening validation.
 
-### 0.10.0 (in progress)
+### 0.10.0
 
 - Execute stabilization checklist from `devguide/release_0.10.0_stabilization_checklist.md`.
 - Run external integrator validation cycle as stabilization milestone.
 - Accept stabilization fixes from real-world feedback and CI usage.
 - Shared collective E2E module added: `tests/e2e/test_collective_error_path.py` (cross-repo error-path baseline).
 
+### 1.0.0 (in progress)
+
+- Prepare final release narrative and final go/no-go checklist.
+- Keep contract stability and release-gate reproducibility as hard blockers.
+
 ## Candidate priorities for next cycle
 
-1. External validation and triage
+1. 1.0.0 release narrative closure
 
-Collect and classify real integrator findings (`blocking` vs `non-blocking`) from downstream projects.
+Consolidate final migration notes and ecosystem compatibility statements.
 
-2. Stabilization-only corrections
+2. Final contract verification
 
-Apply minimal, high-signal fixes focused on contract stability and CI reliability.
+Re-validate API/CLI/schema contracts and release-gate consistency before tagging.
 
-3. 1.0.0 readiness framing
+3. Ecosystem sign-off traceability
 
-Prepare final readiness criteria and release narrative for the `1.0.0` transition.
+Link collective evidence artifacts for final pre-1.0 confidence.
 
 ## Open design questions
 
