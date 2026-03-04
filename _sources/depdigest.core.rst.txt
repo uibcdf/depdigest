@@ -1,0 +1,45 @@
+depdigest.core package
+======================
+
+Submodules
+----------
+
+depdigest.core.checker module
+-----------------------------
+
+.. automodule:: depdigest.core.checker
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+depdigest.core.config module
+----------------------------
+
+.. automodule:: depdigest.core.config
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+depdigest.core.decorator module
+-------------------------------
+
+.. automodule:: depdigest.core.decorator
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+depdigest.core.loader module
+----------------------------
+
+.. automodule:: depdigest.core.loader
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: depdigest.core
+   :members:
+   :show-inheritance:
+   :undoc-members:
