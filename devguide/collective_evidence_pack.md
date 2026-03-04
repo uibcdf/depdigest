@@ -30,7 +30,7 @@ This document is the cross-repo handoff artifact for collective validation with:
 3. Keep only reproducible, in-repo references.
 4. Do not mark collective closure from local-only evidence.
 
-Date: `2026-03-03`
+Date: `2026-03-04`
 DepDigest baseline: `0.10.x` stabilization window
 DepDigest head reference for this pack: `d0f93b4`
 
@@ -71,13 +71,13 @@ Status note (YYYY-MM-DD):
 - collective validation: <pending|in progress|done> (<evidence>)
 ```
 
-## 5. Status note (2026-03-03)
+## 5. Status note (2026-03-04)
 
 - smonitor: pending
 - depdigest: in progress (`devguide/roadmap.md`, `0.10.0` stabilization stage)
 - argdigest: in progress (remediation-hint path pending collective evidence)
-- pyunitwizard: done locally (`pyunitwizard@48be457`, devguide checkpoint/policy aligned)
-- collective validation: pending
+- pyunitwizard: done locally (`pyunitwizard@0.21.0` tag at `49494d5`, RC-close checklist complete)
+- collective validation: in progress (PyUnitWizard RC closure synced; collective finality still pending)
 
 ## 6. Pending collective closures (from DepDigest perspective)
 
