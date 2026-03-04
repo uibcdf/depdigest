@@ -4,6 +4,7 @@
 [![DOI](https://zenodo.org/badge/137937243.svg)](https://zenodo.org/badge/latestdoi/137937243)
 [![](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/downloads/)
 [![CI](https://github.com/uibcdf/depdigest/actions/workflows/CI.yaml/badge.svg)](https://github.com/uibcdf/depdigest/actions/workflows/CI.yaml)
+[![CI Full Matrix](https://github.com/uibcdf/depdigest/actions/workflows/CI_full_matrix.yaml/badge.svg)](https://github.com/uibcdf/depdigest/actions/workflows/CI_full_matrix.yaml)
 [![codecov](https://codecov.io/github/uibcdf/depdigest/graph/badge.svg?token=tfPUOXP0tW)](https://codecov.io/github/uibcdf/depdigest)
 [![Install with conda](https://img.shields.io/badge/Install%20with-conda-brightgreen.svg)](https://conda.anaconda.org/uibcdf/depdigest)
 
@@ -16,6 +17,10 @@
 It helps maintain a "Zero-Cost Startup" by ensuring that heavy external libraries are only checked and imported when actually needed.
 
 Understand your dependencies. Trust your code.
+
+Current release line:
+- `0.10.0` delivered (stabilization complete)
+- `1.0.0` preparation in progress
 
 ## Documentation
 

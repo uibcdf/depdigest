@@ -31,8 +31,8 @@ This document is the cross-repo handoff artifact for collective validation with:
 4. Do not mark collective closure from local-only evidence.
 
 Date: `2026-03-04`
-DepDigest baseline: `0.10.x` stabilization window
-DepDigest head reference for this pack: `d0f93b4`
+DepDigest baseline: `0.10.0` delivered, `1.0.0` preparation window
+DepDigest head reference for this pack: `09b2302` (`0.10.0`)
 
 ## 1. Local quality baseline (DepDigest)
 
@@ -73,11 +73,11 @@ Status note (YYYY-MM-DD):
 
 ## 5. Status note (2026-03-04)
 
-- smonitor: pending
-- depdigest: in progress (`devguide/roadmap.md`, `0.10.0` stabilization stage)
-- argdigest: in progress (remediation-hint path pending collective evidence)
-- pyunitwizard: done locally (`pyunitwizard@0.21.0` tag at `49494d5`, RC-close checklist complete)
-- collective validation: in progress (PyUnitWizard RC closure synced; collective finality still pending)
+- smonitor: in progress (`0.11.4-16-ge0e1a8c`, collective closure still pending)
+- depdigest: done locally (`0.10.0`, stabilization checklist closed and tagged)
+- argdigest: in progress (`0.9.0-9-gc543c1a`, remediation-hint path pending collective closure)
+- pyunitwizard: done locally (`0.21.1-1-g9fd9b46`, post-RC stabilization active)
+- collective validation: in progress (shared E2E green; collective finality criteria still pending in molsyssuite)
 
 ## 6. Pending collective closures (from DepDigest perspective)
 
