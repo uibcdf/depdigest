@@ -89,7 +89,8 @@ def test_dep_digest_runtime_error():
     """
     Verify that calling a decorated function without the library raises the configured exception.
     """
-    class CustomError(Exception): pass
+    class CustomError(Exception):
+        pass
     
     # Register config for this test module
     module_root = __name__.split('.')[0]
@@ -122,6 +123,32 @@ def test_dep_digest_conditional_logic():
     with patch('depdigest.core.checker.is_installed', return_value=False):
         with pytest.raises(ImportError):
             cond_func(mode='strict')
+
+
+def test_dep_digest_conditional_logic_handles_array_like_arguments():
+    """Conditional checks must not crash on array-like comparisons."""
+
+    class AmbiguousComparison:
+        def __bool__(self):
+            raise ValueError('truth value is ambiguous')
+
+        def all(self):
+            return False
+
+    class ArrayLike:
+        def __eq__(self, other):
+            return AmbiguousComparison()
+
+    @dep_digest('opt_lib', when={'neighbor_pairs': None})
+    def cond_func(neighbor_pairs=None):
+        return 'Success'
+
+    with patch('depdigest.core.checker.is_installed', return_value=False):
+        assert cond_func(neighbor_pairs=ArrayLike()) == 'Success'
+
+    with patch('depdigest.core.checker.is_installed', return_value=False):
+        with pytest.raises(ImportError):
+            cond_func(neighbor_pairs=None)
 
 
 def test_dep_digest_exception_contract_with_library_argument():

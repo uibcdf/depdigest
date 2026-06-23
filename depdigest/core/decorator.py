@@ -5,6 +5,41 @@ from .checker import check_dependency
 from .config import resolve_config
 from smonitor import signal
 
+
+def _condition_value_matches(value: Any, expected: Any) -> bool:
+    """Return whether a runtime argument satisfies a conditional dependency.
+
+    Scientific arguments can define vectorized equality. In those cases, ``==``
+    returns an array-like object whose truth value is ambiguous. Treat those
+    results as matching only when every comparison element is true.
+    """
+
+    if expected is None or value is None:
+        return value is expected
+
+    try:
+        comparison = value == expected
+    except Exception:
+        return False
+
+    if isinstance(comparison, bool):
+        return comparison
+
+    try:
+        return bool(comparison)
+    except (TypeError, ValueError):
+        pass
+
+    all_method = getattr(comparison, "all", None)
+    if callable(all_method):
+        try:
+            return bool(all_method())
+        except (TypeError, ValueError):
+            return False
+
+    return False
+
+
 def dep_digest(library: str, when: Optional[Dict[str, Any]] = None):
     """
     Decorator to declare and enforce a dependency.
@@ -33,7 +68,10 @@ def dep_digest(library: str, when: Optional[Dict[str, Any]] = None):
                 bound.apply_defaults()
                 args_dict = bound.arguments
                 for k, v in when.items():
-                    if k not in args_dict or args_dict[k] != v:
+                    if k not in args_dict or not _condition_value_matches(
+                        args_dict[k],
+                        v,
+                    ):
                         should_check = False
                         break
             
