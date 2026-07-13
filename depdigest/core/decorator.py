@@ -3,7 +3,6 @@ from functools import wraps
 from typing import Any, Callable, Dict, Optional
 from .checker import check_dependency
 from .config import resolve_config
-from smonitor import signal
 
 
 def _condition_value_matches(value: Any, expected: Any) -> bool:
@@ -40,6 +39,35 @@ def _condition_value_matches(value: Any, expected: Any) -> bool:
     return False
 
 
+def _condition_parameter_sources(sig: inspect.Signature, names: set[str]):
+    sources = {}
+    positional_index = 0
+    for name, parameter in sig.parameters.items():
+        if parameter.kind in (
+            inspect.Parameter.POSITIONAL_ONLY,
+            inspect.Parameter.POSITIONAL_OR_KEYWORD,
+        ):
+            if name in names:
+                sources[name] = (positional_index, parameter.default)
+            positional_index += 1
+        elif parameter.kind is inspect.Parameter.KEYWORD_ONLY and name in names:
+            sources[name] = (None, parameter.default)
+    return sources
+
+
+def _resolve_condition_value(source, name, args, kwargs):
+    position, default = source
+    if name in kwargs:
+        if position is not None and position < len(args):
+            return False, None
+        return True, kwargs[name]
+    if position is not None and position < len(args):
+        return True, args[position]
+    if default is not inspect.Parameter.empty:
+        return True, default
+    return False, None
+
+
 def dep_digest(library: str, when: Optional[Dict[str, Any]] = None):
     """
     Decorator to declare and enforce a dependency.
@@ -53,10 +81,10 @@ def dep_digest(library: str, when: Optional[Dict[str, Any]] = None):
 
         # Pre-compute signature
         sig = inspect.signature(func)
+        condition_sources = _condition_parameter_sources(sig, set(when or {}))
         module_path = func.__module__
 
         @wraps(func)
-        @signal(tags=["dependency"], exception_level="DEBUG")
         def wrapper(*args, **kwargs):
             # 2. RESOLVE CONFIG AT RUNTIME
             # This allows tests to register config AFTER function definition
@@ -64,14 +92,20 @@ def dep_digest(library: str, when: Optional[Dict[str, Any]] = None):
             
             should_check = True
             if when is not None:
-                bound = sig.bind(*args, **kwargs)
-                bound.apply_defaults()
-                args_dict = bound.arguments
                 for k, v in when.items():
-                    if k not in args_dict or not _condition_value_matches(
-                        args_dict[k],
-                        v,
-                    ):
+                    source = condition_sources.get(k)
+                    if source is None:
+                        bound = sig.bind(*args, **kwargs)
+                        bound.apply_defaults()
+                        matched = k in bound.arguments and _condition_value_matches(
+                            bound.arguments[k], v
+                        )
+                    else:
+                        found, value = _resolve_condition_value(
+                            source, k, args, kwargs
+                        )
+                        matched = found and _condition_value_matches(value, v)
+                    if not matched:
                         should_check = False
                         break
             

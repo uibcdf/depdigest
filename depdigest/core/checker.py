@@ -3,7 +3,6 @@ from functools import lru_cache
 from typing import List, Dict, Any
 import json
 import logging
-from smonitor import signal
 
 logger = logging.getLogger(__name__)
 GET_INFO_SCHEMA_VERSION = "1.0"
@@ -20,7 +19,6 @@ def is_installed(module_name: str) -> bool:
     except (ImportError, ModuleNotFoundError):
         return False
 
-@signal(tags=["dependency"], exception_level="DEBUG")
 def check_dependency(module_name: str, pypi_name: str = None, caller: str = None, exception_class: type = ImportError):
     """
     Check if a dependency is installed. Raises the specified exception if missing.

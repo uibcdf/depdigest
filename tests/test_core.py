@@ -125,6 +125,20 @@ def test_dep_digest_conditional_logic():
             cond_func(mode='strict')
 
 
+def test_dep_digest_condition_resolves_positional_keyword_and_default_values():
+    @dep_digest("definitely_missing_dep", when={"mode": "strict"})
+    def conditional(value, mode="relaxed"):
+        return value
+
+    assert conditional(1) == 1
+    assert conditional(2, "relaxed") == 2
+    assert conditional(3, mode="relaxed") == 3
+
+    with pytest.raises(ImportError):
+        conditional(4, "strict")
+    with pytest.raises(ImportError):
+        conditional(5, mode="strict")
+
 def test_dep_digest_conditional_logic_handles_array_like_arguments():
     """Conditional checks must not crash on array-like comparisons."""
 
