@@ -1,0 +1,30 @@
+depdigest package
+=================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   depdigest.core
+   depdigest.utils
+
+Submodules
+----------
+
+depdigest.cli module
+--------------------
+
+.. automodule:: depdigest.cli
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: depdigest
+   :members:
+   :show-inheritance:
+   :undoc-members:

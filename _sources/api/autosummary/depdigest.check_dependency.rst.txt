@@ -1,0 +1,6 @@
+﻿depdigest.check\_dependency
+===========================
+
+.. currentmodule:: depdigest
+
+.. autofunction:: check_dependency

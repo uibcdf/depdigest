@@ -1,0 +1,30 @@
+﻿depdigest.DepConfig
+===================
+
+.. currentmodule:: depdigest
+
+.. autoclass:: DepConfig
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~DepConfig.__init__
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~DepConfig.show_all_capabilities
+      ~DepConfig.libraries
+      ~DepConfig.mapping
+   
+   
