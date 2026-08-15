@@ -135,12 +135,23 @@ settled deliberately.
 ```bash
 # per-wrapper overhead as it stands
 python benchmarks/decorator_overhead.py
+
+# every figure in section 2, plus the two correctness checks
+python benchmarks/decorator_fast_path_probe.py
 ```
 
-The fast-path prototypes behind section 2 were written as throwaway probes and are not part of the
-repository. Reproducing them needs only the epoch counter described there, applied to a copy of the
-wrapper; both the timing figures and the two correctness checks (a missing dependency raising on
-every call, and re-verification after an epoch bump) come from that prototype.
+`benchmarks/decorator_fast_path_probe.py` carries the prototype decorators behind section 2. They
+are **prototypes, not shipped code**: nothing in the package imports them, and they exist so these
+figures can be re-measured on any host before the deferred decision is taken. The script also
+asserts the two properties the proposal relies on — a missing dependency raising on *every* call,
+and re-verification after an epoch bump — so a change that quietly broke either would fail loudly
+rather than produce an optimistic number.
+
+Confirmation run of that script on the provenance host, reported as
+`overhead_*` keys: floor 124 ns, current 500 ns, epoch-cached 155 ns, DepDigest's own work above the
+floor 31 ns, reachable saving 345 ns. Those differ from section 2 by a few nanoseconds in each row,
+which is the run-to-run spread on a shared host — the ratios hold, the absolutes should not be
+quoted to the nanosecond.
 
 ## 7. Provenance
 
