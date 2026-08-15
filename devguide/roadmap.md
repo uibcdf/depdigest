@@ -44,6 +44,16 @@ This roadmap captures likely next increments toward broader stable adoption.
 - Accept stabilization fixes from real-world feedback and CI usage.
 - Shared collective E2E module added: `tests/e2e/test_collective_error_path.py` (cross-repo error-path baseline).
 
+### Unreleased (post-0.10.0)
+
+- Decorator hot-path performance work delivered: internal `@signal` self-instrumentation
+  removed from `dep_digest` / `check_dependency`, and `when={...}` condition parameters
+  precomputed at decoration time.
+- Conditional dependency checks made array-safe for arguments with vectorized `==`.
+- Reproducible benchmark added: `python benchmarks/decorator_overhead.py`.
+- Delivered proposals are now archived under `devguide/delivered_proposals/`;
+  `devguide/pending_proposals/` holds only open work.
+
 ### 1.0.0 (in progress)
 
 - Prepare final release narrative and final go/no-go checklist.
@@ -115,3 +125,10 @@ This is the working milestone path toward a stable `1.0.0` release.
 - Public API and documented contracts are treated as stable.
 - User and developer documentation are complete and consistent.
 - CI/release workflows are considered production-stable.
+
+### 1.1.0 - Post-stable diagnostics
+
+- Instrument successful `LazyRegistry` loads with a catalog-driven `lazy_load` signal
+  (`devguide/pending_proposals/lazy_registry_smonitor.md`, reduced scope A).
+- Deferred out of the 1.0.0 line on purpose: useful but not blocking, and the full-fidelity
+  variant would change observable `LazyRegistry` semantics during the contract freeze.

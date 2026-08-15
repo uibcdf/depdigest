@@ -1,5 +1,11 @@
 # Proposal: High-Frequency In-Memory Dependency Caching
 
+> **Estado: ENTREGADA.** Cerrada el 2026-08-15 y archivada desde
+> `devguide/pending_proposals/`. Implementada en `4f2fbec` (condiciones array-safe) y
+> `4fccafd` (retirada del auto-instrumentado con `@signal`, precálculo de la firma de
+> `when=`, benchmark). Ver la sección «Auditoría e implementación» al final para el
+> alcance real y las mediciones. Benchmark: `python benchmarks/decorator_overhead.py`.
+
 ## Abstract
 
 We propose introducing a thread-safe, sub-microsecond in-memory caching mechanism for `@dep_digest` checks. This guarantees that repeated dependency checks inside hot scientific loops (e.g., rendering loops or coordinate-update steps) have absolutely zero latency overhead.

@@ -7,9 +7,33 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+### Added
+
+- Decorator overhead benchmark in `benchmarks/decorator_overhead.py`.
+
+### Changed
+
+- `@dep_digest` and `check_dependency` no longer instrument themselves with SMonitor's
+  `@signal`. Missing dependencies keep their catalog-driven diagnostic; successful calls
+  no longer emit duplicated internal telemetry.
+- Conditional dependency checks (`when={...}`) now precompute the position and default of
+  each condition parameter at decoration time, so the common path avoids
+  `Signature.bind()`/`apply_defaults()` per call (`bind()` remains as fallback for
+  non-ordinary signatures).
+
+### Fixed
+
+- Conditional dependency checks are array-safe: arguments whose `==` returns a vectorized
+  result no longer raise an ambiguous-truth-value error; they match only when every
+  comparison element is true.
+- CI/Conda workflows updated to maintained action versions.
+
 ### Migration Notes
 
-- None.
+- No breaking API changes. Behavior change to be aware of: successful `@dep_digest` calls
+  no longer emit internal SMonitor events. Integrators asserting on `dependency`-tagged
+  signals for successful calls must update those assertions; missing-dependency
+  diagnostics (`DEP-ERR-MISS-001`) are unchanged.
 
 ## [0.10.0] - 2026-03-04
 
