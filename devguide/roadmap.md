@@ -51,8 +51,9 @@ This roadmap captures likely next increments toward broader stable adoption.
   precomputed at decoration time.
 - Conditional dependency checks made array-safe for arguments with vectorized `==`.
 - Reproducible benchmark added: `python benchmarks/decorator_overhead.py`.
-- Delivered proposals are now archived under `devguide/delivered_proposals/`;
-  `devguide/pending_proposals/` holds only open work.
+- Completed proposals are now archived under `devguide/completed_proposals/`, matching the
+  PyUnitWizard convention; `devguide/pending_proposals/` holds only open work and carries a
+  `README.md` index of what each open document is waiting on.
 
 ### 1.0.0 (in progress)
 
