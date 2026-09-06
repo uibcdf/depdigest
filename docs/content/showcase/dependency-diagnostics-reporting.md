@@ -13,6 +13,7 @@ Expose dependency status from your package API or CLI:
 ```python
 from depdigest import get_info
 
+
 def dependency_status():
     return get_info("my_pkg")
 ```

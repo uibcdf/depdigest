@@ -45,10 +45,12 @@ Current release line:
 ```python
 from depdigest import dep_digest, get_info
 
-@dep_digest('openmm')
+
+@dep_digest("openmm")
 def simulate(system):
     import openmm
     # ...
+
 
 def dependency_info():
     return get_info("my_package")

@@ -69,9 +69,10 @@ cada llamada y que el cache no elimina.**
 
 ```python
 @wraps(func)
-@signal(tags=["dependency"], exception_level="DEBUG")   # ← @signal DE SMONITOR, sobre el wrapper
-def wrapper(*args, **kwargs):
-    ...
+@signal(
+    tags=["dependency"], exception_level="DEBUG"
+)  # ← @signal DE SMONITOR, sobre el wrapper
+def wrapper(*args, **kwargs): ...
 ```
 
 **Cada función con `@digest` paga, además de su propio wrapper, el decorador de SMonitor
@@ -87,7 +88,7 @@ Así que el coste se **multiplica**: DepDigest paga SMonitor, y SMonitor no tien
 def wrapper(*args, **kwargs):
     # 2. RESOLVE CONFIG AT RUNTIME
     # This allows tests to register config AFTER function definition
-    cfg = resolve_config(module_path)      # ← en CADA invocación
+    cfg = resolve_config(module_path)  # ← en CADA invocación
 ```
 
 El comentario explica **por qué** (permitir que los tests registren config a posteriori), y es una

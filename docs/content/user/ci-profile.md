@@ -28,6 +28,7 @@ depdigest audit --src-root your_package --soft-deps openmm,mdtraj
 
 ```python
 from depdigest import get_info
+
 payload = get_info("your_package", format="json")
 ```
 

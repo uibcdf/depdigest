@@ -74,4 +74,3 @@ def test_get_info_json_and_dict_are_semantically_equivalent():
     as_json = depdigest.get_info("contract_pkg_json", format="json")
 
     assert json.loads(as_json) == as_dict
-

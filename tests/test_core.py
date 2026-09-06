@@ -1,18 +1,21 @@
-import pytest
-import sys
 import json
+import sys
 from unittest.mock import patch
+
+import pytest
+
 from depdigest import (
-    is_installed,
-    dep_digest,
-    LazyRegistry,
     DepConfig,
-    register_package_config,
-    unregister_package_config,
-    temporary_package_config,
+    LazyRegistry,
     clear_package_configs,
+    dep_digest,
+    is_installed,
+    register_package_config,
+    temporary_package_config,
+    unregister_package_config,
 )
 from depdigest.core.config import resolve_config
+
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
@@ -26,18 +29,22 @@ def run_around_tests():
     is_installed.cache_clear()
     resolve_config.cache_clear()
 
+
 def test_is_installed_caching():
     """Verify that is_installed results are cached."""
-    assert is_installed('json') is True
+    assert is_installed("json") is True
+
 
 def test_dep_digest_metadata():
     """Verify that @dep_digest attaches metadata correctly."""
-    @dep_digest('mdtraj')
+
+    @dep_digest("mdtraj")
     def dummy_func():
         pass
-    
-    assert hasattr(dummy_func, '_dependencies')
-    assert dummy_func._dependencies[0]['library'] == 'mdtraj'
+
+    assert hasattr(dummy_func, "_dependencies")
+    assert dummy_func._dependencies[0]["library"] == "mdtraj"
+
 
 def test_lazy_registry_filtering():
     """
@@ -49,80 +56,90 @@ def test_lazy_registry_filtering():
     #   plugins/
     #     __init__.py
     #     p1/ (__init__.py with plugin_name='p1')
-    
+
     # But instead of real files, let's mock resolve_config
     from depdigest.core.config import DepConfig
-    
+
     mock_cfg = DepConfig(
-        libraries={'lib1': {'type': 'soft'}},
-        mapping={'p1': 'lib1'},
-        show_all_capabilities=False
+        libraries={"lib1": {"type": "soft"}},
+        mapping={"p1": "lib1"},
+        show_all_capabilities=False,
     )
-    
-    with patch('depdigest.core.loader.resolve_config', return_value=mock_cfg):
+
+    with patch("depdigest.core.loader.resolve_config", return_value=mock_cfg):
         # Mock os.scandir to simulate a directory entry 'p1'
         class MockEntry:
-            def __init__(self, name): self.name = name
-            def is_dir(self): return True
-            
-        with patch('os.path.exists', return_value=True):
-            with patch('os.scandir', return_value=[MockEntry('p1')]):
+            def __init__(self, name):
+                self.name = name
+
+            def is_dir(self):
+                return True
+
+        with patch("os.path.exists", return_value=True):
+            with patch("os.scandir", return_value=[MockEntry("p1")]):
                 # Mock is_installed to return False for 'lib1'
-                with patch('depdigest.core.loader.is_installed', return_value=False):
-                    registry = LazyRegistry('mylib.plugins', '/fake/path', attr_name='plugin_name')
+                with patch("depdigest.core.loader.is_installed", return_value=False):
+                    registry = LazyRegistry(
+                        "mylib.plugins", "/fake/path", attr_name="plugin_name"
+                    )
                     # Should be empty because p1 is filtered out
                     assert len(registry.keys()) == 0
-                
+
                 # Mock is_installed to return True
-                with patch('depdigest.core.loader.is_installed', return_value=True):
+                with patch("depdigest.core.loader.is_installed", return_value=True):
                     # We need to mock the import too
                     import sys
                     from types import ModuleType
-                    mock_mod = ModuleType('mylib.plugins.p1')
-                    mock_mod.plugin_name = 'p1'
-                    sys.modules['mylib.plugins.p1'] = mock_mod
-                    
-                    registry = LazyRegistry('mylib.plugins', '/fake/path', attr_name='plugin_name')
-                    assert 'p1' in registry
+
+                    mock_mod = ModuleType("mylib.plugins.p1")
+                    mock_mod.plugin_name = "p1"
+                    sys.modules["mylib.plugins.p1"] = mock_mod
+
+                    registry = LazyRegistry(
+                        "mylib.plugins", "/fake/path", attr_name="plugin_name"
+                    )
+                    assert "p1" in registry
+
 
 def test_dep_digest_runtime_error():
     """
     Verify that calling a decorated function without the library raises the configured exception.
     """
+
     class CustomError(Exception):
         pass
-    
+
     # Register config for this test module
-    module_root = __name__.split('.')[0]
-    register_package_config(module_root, DepConfig(
-        exception_class=CustomError
-    ))
-    
-    @dep_digest('missing_lib')
+    module_root = __name__.split(".")[0]
+    register_package_config(module_root, DepConfig(exception_class=CustomError))
+
+    @dep_digest("missing_lib")
     def func_needing_lib():
         pass
-        
-    with patch('depdigest.core.checker.is_installed', return_value=False):
+
+    with patch("depdigest.core.checker.is_installed", return_value=False):
         with pytest.raises(CustomError) as excinfo:
             func_needing_lib()
         assert "missing_lib" in str(excinfo.value)
+
 
 def test_dep_digest_conditional_logic():
     """
     Verify that conditional requirements (when={...}) work correctly.
     """
-    @dep_digest('opt_lib', when={'mode': 'strict'})
-    def cond_func(mode='relaxed'):
+
+    @dep_digest("opt_lib", when={"mode": "strict"})
+    def cond_func(mode="relaxed"):
         return "Success"
 
     # Case 1: Condition not met
-    with patch('depdigest.core.checker.is_installed', return_value=False):
-        assert cond_func(mode='relaxed') == "Success"
+    with patch("depdigest.core.checker.is_installed", return_value=False):
+        assert cond_func(mode="relaxed") == "Success"
 
     # Case 2: Condition met
-    with patch('depdigest.core.checker.is_installed', return_value=False):
+    with patch("depdigest.core.checker.is_installed", return_value=False):
         with pytest.raises(ImportError):
-            cond_func(mode='strict')
+            cond_func(mode="strict")
 
 
 def test_dep_digest_condition_resolves_positional_keyword_and_default_values():
@@ -139,12 +156,13 @@ def test_dep_digest_condition_resolves_positional_keyword_and_default_values():
     with pytest.raises(ImportError):
         conditional(5, mode="strict")
 
+
 def test_dep_digest_conditional_logic_handles_array_like_arguments():
     """Conditional checks must not crash on array-like comparisons."""
 
     class AmbiguousComparison:
         def __bool__(self):
-            raise ValueError('truth value is ambiguous')
+            raise ValueError("truth value is ambiguous")
 
         def all(self):
             return False
@@ -153,14 +171,14 @@ def test_dep_digest_conditional_logic_handles_array_like_arguments():
         def __eq__(self, other):
             return AmbiguousComparison()
 
-    @dep_digest('opt_lib', when={'neighbor_pairs': None})
+    @dep_digest("opt_lib", when={"neighbor_pairs": None})
     def cond_func(neighbor_pairs=None):
-        return 'Success'
+        return "Success"
 
-    with patch('depdigest.core.checker.is_installed', return_value=False):
-        assert cond_func(neighbor_pairs=ArrayLike()) == 'Success'
+    with patch("depdigest.core.checker.is_installed", return_value=False):
+        assert cond_func(neighbor_pairs=ArrayLike()) == "Success"
 
-    with patch('depdigest.core.checker.is_installed', return_value=False):
+    with patch("depdigest.core.checker.is_installed", return_value=False):
         with pytest.raises(ImportError):
             cond_func(neighbor_pairs=None)
 
@@ -177,16 +195,14 @@ def test_dep_digest_exception_contract_with_library_argument():
             self.message = message
             super().__init__(f"{library}|{caller}|{message}")
 
-    @dep_digest('missing_lib')
+    @dep_digest("missing_lib")
     def func_needing_lib():
         return "never"
 
-    module_root = __name__.split('.')[0]
-    register_package_config(module_root, DepConfig(
-        exception_class=LibraryStyleError
-    ))
+    module_root = __name__.split(".")[0]
+    register_package_config(module_root, DepConfig(exception_class=LibraryStyleError))
 
-    with patch('depdigest.core.checker.is_installed', return_value=False):
+    with patch("depdigest.core.checker.is_installed", return_value=False):
         with pytest.raises(LibraryStyleError) as excinfo:
             func_needing_lib()
         assert excinfo.value.library == "missing_lib"
@@ -216,6 +232,7 @@ def test_lazy_registry_plugin_import_failure_is_non_fatal():
     )
 
     with patch("depdigest.core.loader.resolve_config", return_value=mock_cfg):
+
         class MockEntry:
             def __init__(self, name):
                 self.name = name
@@ -225,8 +242,13 @@ def test_lazy_registry_plugin_import_failure_is_non_fatal():
 
         with patch("os.path.exists", return_value=True):
             with patch("os.scandir", return_value=[MockEntry("broken_plugin")]):
-                with patch("depdigest.core.loader.import_module", side_effect=RuntimeError("boom")):
-                    registry = LazyRegistry("mylib.plugins", "/fake/path", attr_name="plugin_name")
+                with patch(
+                    "depdigest.core.loader.import_module",
+                    side_effect=RuntimeError("boom"),
+                ):
+                    registry = LazyRegistry(
+                        "mylib.plugins", "/fake/path", attr_name="plugin_name"
+                    )
                     assert list(registry.keys()) == []
 
 
@@ -247,7 +269,9 @@ def test_lazy_registry_entry_points_loads_objects():
 
     mock_cfg = DepConfig(libraries={}, mapping={}, show_all_capabilities=True)
     with patch("depdigest.core.loader.resolve_config", return_value=mock_cfg):
-        with patch("depdigest.core.loader.entry_points", return_value=FakeEPCollection()):
+        with patch(
+            "depdigest.core.loader.entry_points", return_value=FakeEPCollection()
+        ):
             registry = LazyRegistry(
                 "mylib.plugins",
                 "/unused",
@@ -278,7 +302,9 @@ def test_lazy_registry_entry_points_filters_by_mapping():
         show_all_capabilities=False,
     )
     with patch("depdigest.core.loader.resolve_config", return_value=mock_cfg):
-        with patch("depdigest.core.loader.entry_points", return_value=FakeEPCollection()):
+        with patch(
+            "depdigest.core.loader.entry_points", return_value=FakeEPCollection()
+        ):
             with patch("depdigest.core.loader.is_installed", return_value=False):
                 registry = LazyRegistry(
                     "mylib.plugins",
@@ -303,7 +329,9 @@ def test_lazy_registry_entry_points_load_failure_is_non_fatal():
 
     mock_cfg = DepConfig(libraries={}, mapping={}, show_all_capabilities=True)
     with patch("depdigest.core.loader.resolve_config", return_value=mock_cfg):
-        with patch("depdigest.core.loader.entry_points", return_value=FakeEPCollection()):
+        with patch(
+            "depdigest.core.loader.entry_points", return_value=FakeEPCollection()
+        ):
             registry = LazyRegistry(
                 "mylib.plugins",
                 "/unused",
@@ -340,6 +368,7 @@ def test_lazy_registry_emission_failure_is_non_fatal():
     )
 
     with patch("depdigest.core.loader.resolve_config", return_value=mock_cfg):
+
         class MockEntry:
             def __init__(self, name):
                 self.name = name
@@ -349,9 +378,17 @@ def test_lazy_registry_emission_failure_is_non_fatal():
 
         with patch("os.path.exists", return_value=True):
             with patch("os.scandir", return_value=[MockEntry("broken_plugin")]):
-                with patch("depdigest.core.loader.import_module", side_effect=RuntimeError("boom")):
-                    with patch("smonitor.integrations.emit_from_catalog", side_effect=RuntimeError("emit_failed")):
-                        registry = LazyRegistry("mylib.plugins", "/fake/path", attr_name="plugin_name")
+                with patch(
+                    "depdigest.core.loader.import_module",
+                    side_effect=RuntimeError("boom"),
+                ):
+                    with patch(
+                        "smonitor.integrations.emit_from_catalog",
+                        side_effect=RuntimeError("emit_failed"),
+                    ):
+                        registry = LazyRegistry(
+                            "mylib.plugins", "/fake/path", attr_name="plugin_name"
+                        )
                         assert list(registry.keys()) == []
 
 
@@ -362,13 +399,17 @@ def test_resolve_config_with_none_returns_default_config():
 
 
 def test_get_info_checks_installation_by_importable_name():
-    register_package_config("fakepkg", DepConfig(
-        libraries={"fake.module": {"type": "soft", "pypi": "FakeModule"}},
-    ))
+    register_package_config(
+        "fakepkg",
+        DepConfig(
+            libraries={"fake.module": {"type": "soft", "pypi": "FakeModule"}},
+        ),
+    )
 
     with patch("depdigest.core.checker.is_installed") as mocked:
         mocked.return_value = True
         from depdigest import get_info
+
         rows = get_info("fakepkg")
 
     assert rows[0]["Library"] == "fake.module"
@@ -386,7 +427,10 @@ def test_get_info_supports_dict_and_json_formats():
         ),
     )
 
-    with patch("depdigest.core.checker.is_installed", side_effect=lambda module: module == "a.module"):
+    with patch(
+        "depdigest.core.checker.is_installed",
+        side_effect=lambda module: module == "a.module",
+    ):
         from depdigest import get_info
 
         as_dict = get_info("fakepkg", format="dict")
@@ -398,7 +442,10 @@ def test_get_info_supports_dict_and_json_formats():
     assert as_dict["dependency_count"] == 2
     assert as_dict["installed_count"] == 1
     assert as_dict["missing_count"] == 1
-    assert [dep["library"] for dep in as_dict["dependencies"]] == ["a.module", "z.module"]
+    assert [dep["library"] for dep in as_dict["dependencies"]] == [
+        "a.module",
+        "z.module",
+    ]
     assert as_dict["dependencies"][0]["status"] == "installed"
     assert as_dict["dependencies"][1]["status"] == "missing"
     parsed_json = json.loads(as_json)
@@ -419,7 +466,10 @@ def test_check_dependency_emission_failure_still_raises_dependency_error():
     from depdigest.core.checker import check_dependency
 
     with patch("depdigest.core.checker.is_installed", return_value=False):
-        with patch("smonitor.integrations.emit_from_catalog", side_effect=RuntimeError("emit_failed")):
+        with patch(
+            "smonitor.integrations.emit_from_catalog",
+            side_effect=RuntimeError("emit_failed"),
+        ):
             with pytest.raises(ImportError) as excinfo:
                 check_dependency("missing_lib", caller="demo")
     assert "missing_lib" in str(excinfo.value)
@@ -472,7 +522,9 @@ def test_register_package_config_overrides_file_based_config(tmp_path):
     try:
         register_package_config(
             package_name,
-            DepConfig(libraries={"from_register": {"type": "soft", "pypi": "from-register"}}),
+            DepConfig(
+                libraries={"from_register": {"type": "soft", "pypi": "from-register"}}
+            ),
         )
         cfg = resolve_config(f"{package_name}.module")
         assert "from_register" in cfg.libraries
@@ -567,6 +619,7 @@ def test_resolve_config_raises_for_syntax_errors_in_depdigest_file(tmp_path):
 def test_smonitor_dev_profile_has_clean_contract_for_missing_dependency():
     import smonitor
     from smonitor.handlers.memory import MemoryHandler
+
     from depdigest.core.checker import check_dependency
 
     memory = MemoryHandler(max_events=100)
@@ -591,6 +644,7 @@ def test_smonitor_dev_profile_has_clean_contract_for_missing_dependency():
 def test_smonitor_qa_profile_has_clean_schema_for_missing_dependency():
     import smonitor
     from smonitor.handlers.memory import MemoryHandler
+
     from depdigest.core.checker import check_dependency
 
     memory = MemoryHandler(max_events=100)

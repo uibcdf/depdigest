@@ -18,4 +18,3 @@ def test_cli_rejects_missing_soft_deps_argument():
 def test_cli_rejects_empty_soft_deps_values():
     with pytest.raises(SystemExit):
         main(["audit", "--src-root", ".", "--soft-deps", " , "])
-

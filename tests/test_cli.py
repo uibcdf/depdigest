@@ -49,4 +49,3 @@ def test_cli_audit_allow_violations_returns_zero(tmp_path):
         ]
     )
     assert rc == 0
-

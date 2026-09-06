@@ -29,9 +29,11 @@ For the full contract, use:
 ```python
 from depdigest import dep_digest
 
+
 @dep_digest("openmm")
 def run_simulation(system):
     import openmm
+
     ...
 ```
 
@@ -42,6 +44,7 @@ Use conditional checks when dependency use depends on runtime arguments:
 def compute_energy(item, engine="Native"):
     if engine == "OpenMM":
         import openmm
+
         ...
 ```
 

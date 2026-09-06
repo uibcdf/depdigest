@@ -1,8 +1,8 @@
-from importlib.util import find_spec
-from functools import lru_cache
-from typing import List, Dict, Any
 import json
 import logging
+from functools import lru_cache
+from importlib.util import find_spec
+from typing import Any
 
 logger = logging.getLogger(__name__)
 GET_INFO_SCHEMA_VERSION = "1.0"
@@ -10,6 +10,7 @@ GET_INFO_SCHEMA_VERSION = "1.0"
 
 def _default_package_name(module_name: str) -> str:
     return module_name.split(".")[0]
+
 
 @lru_cache(maxsize=None)
 def is_installed(module_name: str) -> bool:
@@ -19,7 +20,13 @@ def is_installed(module_name: str) -> bool:
     except (ImportError, ModuleNotFoundError):
         return False
 
-def check_dependency(module_name: str, pypi_name: str = None, caller: str = None, exception_class: type = ImportError):
+
+def check_dependency(
+    module_name: str,
+    pypi_name: str = None,
+    caller: str = None,
+    exception_class: type = ImportError,
+):
     """
     Check if a dependency is installed. Raises the specified exception if missing.
     """
@@ -28,18 +35,22 @@ def check_dependency(module_name: str, pypi_name: str = None, caller: str = None
         conda_name = _default_package_name(module_name)
         lib_name = pypi_name or module_name
         from smonitor.integrations import emit_from_catalog, merge_extra
-        from .._private.smonitor.catalog import CATALOG, PACKAGE_ROOT, META
+
+        from .._private.smonitor.catalog import CATALOG, META, PACKAGE_ROOT
 
         try:
             emit_from_catalog(
                 CATALOG["missing_dependency"],
                 package_root=PACKAGE_ROOT,
-                extra=merge_extra(META, {
-                    "library": lib_name,
-                    "caller": caller or "",
-                    "pip_install": f"pip install {install_name}",
-                    "conda_install": f"conda install -c conda-forge {conda_name}",
-                }),
+                extra=merge_extra(
+                    META,
+                    {
+                        "library": lib_name,
+                        "caller": caller or "",
+                        "pip_install": f"pip install {install_name}",
+                        "conda_install": f"conda install -c conda-forge {conda_name}",
+                    },
+                ),
             )
         except Exception as emit_error:
             logger.warning(
@@ -72,6 +83,7 @@ def check_dependency(module_name: str, pypi_name: str = None, caller: str = None
             except TypeError:
                 raise exception_class(msg)
 
+
 def get_info(module_path: str, format: str = "table") -> Any:
     """
     Return dependency information for a given package root.
@@ -91,6 +103,7 @@ def get_info(module_path: str, format: str = "table") -> Any:
         raise ValueError("Unsupported format. Use one of: 'table', 'dict', 'json'.")
 
     from .config import resolve_config
+
     cfg = resolve_config(module_path)
 
     deps = []

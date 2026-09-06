@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .meta import DOC_URL, ISSUES_URL, API_URL
+from .meta import API_URL, DOC_URL, ISSUES_URL
 
 PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 
@@ -47,6 +47,10 @@ CODES = {
 }
 
 SIGNALS = {
-    "depdigest.error.missing_dependency": {"extra_required": ["library", "caller", "pip_install", "conda_install"]},
-    "depdigest.debug.plugin_load_failed": {"extra_required": ["plugin", "caller", "error"]},
+    "depdigest.error.missing_dependency": {
+        "extra_required": ["library", "caller", "pip_install", "conda_install"]
+    },
+    "depdigest.debug.plugin_load_failed": {
+        "extra_required": ["plugin", "caller", "error"]
+    },
 }

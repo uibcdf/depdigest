@@ -8,6 +8,7 @@ formats. Use `when=...` to express that directly.
 ```python
 from depdigest import dep_digest
 
+
 @dep_digest("openmm.unit", when={"engine": "openmm"})
 def convert(value, engine="native"):
     if engine == "openmm":

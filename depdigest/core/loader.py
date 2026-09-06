@@ -1,29 +1,37 @@
-import os
 import logging
+import os
 from importlib import import_module
 from importlib.metadata import entry_points
-from typing import Dict, Any, Optional, Callable, Iterable
-from .checker import is_installed
-from .config import resolve_config
+from typing import Any, Iterable, Optional
+
 from smonitor import signal
 
+from .checker import is_installed
+from .config import resolve_config
+
 logger = logging.getLogger(__name__)
+
 
 class LazyRegistry(dict):
     """
     A dictionary-like registry that populates itself lazily.
     """
-    def __init__(self, 
-                 package_prefix: str, 
-                 directory: str, 
-                 attr_name: str = 'form_name',
-                 discovery_mode: str = "filesystem",
-                 entrypoint_group: Optional[str] = None):
+
+    def __init__(
+        self,
+        package_prefix: str,
+        directory: str,
+        attr_name: str = "form_name",
+        discovery_mode: str = "filesystem",
+        entrypoint_group: Optional[str] = None,
+    ):
         super().__init__()
         if discovery_mode not in {"filesystem", "entry_points"}:
             raise ValueError("discovery_mode must be 'filesystem' or 'entry_points'")
         if discovery_mode == "entry_points" and not entrypoint_group:
-            raise ValueError("entrypoint_group is required when discovery_mode='entry_points'")
+            raise ValueError(
+                "entrypoint_group is required when discovery_mode='entry_points'"
+            )
         self._package_prefix = package_prefix
         self._directory = directory
         self._attr_name = attr_name
@@ -49,7 +57,7 @@ class LazyRegistry(dict):
                 return
             cfg = resolve_config(self._package_prefix)
             for entry in os.scandir(self._directory):
-                if entry.is_dir() and entry.name not in ['__pycache__']:
+                if entry.is_dir() and entry.name not in ["__pycache__"]:
                     if not self._plugin_allowed(entry.name, cfg):
                         continue
                     try:
@@ -77,7 +85,7 @@ class LazyRegistry(dict):
         lib_key = cfg.mapping.get(plugin_key)
         if lib_key and not cfg.show_all_capabilities:
             lib_info = cfg.libraries.get(lib_key, {})
-            if lib_info.get('type') == 'soft' and not is_installed(lib_key):
+            if lib_info.get("type") == "soft" and not is_installed(lib_key):
                 return False
         return True
 
@@ -89,6 +97,7 @@ class LazyRegistry(dict):
 
     def _emit_plugin_load_failed(self, plugin_name: str, error: Exception):
         from smonitor.integrations import emit_from_catalog, merge_extra
+
         from .._private.smonitor.catalog import CATALOG, META, PACKAGE_ROOT
 
         try:

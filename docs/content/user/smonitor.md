@@ -38,7 +38,7 @@ SMonitor explicitly:
 import smonitor
 
 smonitor.configure(
-    profile="user",   # or dev / qa / debug
+    profile="user",  # or dev / qa / debug
     level="WARNING",
 )
 ```
@@ -47,6 +47,7 @@ Example to reduce diagnostics side effects in specific contexts:
 
 ```python
 import smonitor
+
 smonitor.configure(enabled=False)
 ```
 

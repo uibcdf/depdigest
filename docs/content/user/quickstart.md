@@ -26,9 +26,11 @@ Copy this:
 ```python
 from depdigest import dep_digest
 
+
 @dep_digest("openmm")
 def run_simulation(system):
     import openmm
+
     return openmm.Platform.getNumPlatforms()
 ```
 

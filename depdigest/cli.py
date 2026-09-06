@@ -107,4 +107,3 @@ def main(argv: List[str] = None) -> int:
 
     parser.print_help()
     return 0
-

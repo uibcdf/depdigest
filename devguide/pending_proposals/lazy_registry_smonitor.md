@@ -32,6 +32,7 @@ Whenever `LazyRegistry` resolves and imports a module (or encounters a dynamic e
 # Inside depdigest/registry.py (Concept)
 from smonitor import signal
 
+
 @signal(tags=["dependency", "lazy_load"])
 def _load_module(self, module_name):
     # Core lazy import logic

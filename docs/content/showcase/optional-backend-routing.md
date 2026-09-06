@@ -13,10 +13,12 @@ Use a conditional dependency check and keep backend import lazy:
 ```python
 from depdigest import dep_digest
 
+
 @dep_digest("openmm", when={"backend": "openmm"})
 def run(job, backend="native"):
     if backend == "openmm":
         import openmm
+
         return run_openmm(job)
     return run_native(job)
 ```

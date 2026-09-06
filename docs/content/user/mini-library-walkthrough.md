@@ -54,9 +54,11 @@ Copy this:
 # mylib/api/convert.py
 from depdigest import dep_digest
 
+
 @dep_digest("openmm.unit")
 def to_openmm(value):
     import openmm.unit
+
     return value * openmm.unit.nanometer
 ```
 
@@ -73,6 +75,7 @@ Copy this:
 
 ```python
 from depdigest import dep_digest
+
 
 @dep_digest("openmm.unit", when={"backend": "openmm"})
 def convert(value, backend="native"):
@@ -112,6 +115,7 @@ Copy this:
 
 ```python
 from depdigest import get_info
+
 
 def dependency_status():
     return get_info("mylib")

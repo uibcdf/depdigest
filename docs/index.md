@@ -45,9 +45,11 @@ only when they are really needed.
 ```python
 from depdigest import dep_digest
 
+
 @dep_digest("openmm")
 def run_simulation(system):
     import openmm  # lazy import: only executed when function is called
+
     ...
 ```
 

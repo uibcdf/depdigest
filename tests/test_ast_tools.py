@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from depdigest.utils.ast_tools import check_top_level_imports, validate_codebase
 
 
