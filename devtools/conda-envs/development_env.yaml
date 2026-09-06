@@ -1,4 +1,5 @@
 channels:
+- uibcdf
 - conda-forge
 dependencies:
 - python
@@ -16,5 +17,7 @@ dependencies:
 - sphinx-favicon
 - sphinx-tabs
 - myst-nb
+- python =3.13
 - pyyaml
+- ruff =0.16.5
 - mamba

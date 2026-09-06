@@ -3,6 +3,8 @@
 Documents in this directory still require implementation, validation, or an
 explicit promotion decision.
 
+- `adopt_molsyssuite_policy_v1.md`: adopt the shared suite governance and executable
+  Ruff gate; tracked by `uibcdf/depdigest#3` and `uibcdf/molsyssuite#6`.
 - `lazy_registry_smonitor.md`: scope reduced to the no-contract-change variant
   and deferred to 1.1.0; the per-entry loading variant remains undecided because
   it would change observable `LazyRegistry` semantics.

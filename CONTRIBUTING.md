@@ -20,6 +20,8 @@ Work in one branch per topic (feature, fix, docs, or tests). Keep scope tight so
 Minimum checks before opening a PR:
 
 ```bash
+ruff check .
+ruff format --check .
 pytest -q
 ```
 

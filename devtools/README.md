@@ -49,9 +49,9 @@ Finnally, to create a conda environment use the script 'create_conda_env.py' the
 
 ```bash
 # In this case the name of the environment is also "depdigest-dev"
-# the Python version of our new environment is 3.12
+# the Python version of our new environment is 3.13
 # and the yaml file will be the one to work on the library development
-python create_conda_env.py -n depdigest-dev -p 3.12 development_env.yaml
+python create_conda_env.py -n depdigest-dev -p 3.13 development_env.yaml
 ```
 
 You can already activate the environment to start working in the library development:

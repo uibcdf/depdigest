@@ -27,6 +27,16 @@ depdigest = "depdigest.cli:main"
 [tool.setuptools.packages.find]
 include = ["depdigest*"]
 
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+"depdigest/_smonitor.py" = ["E402", "F401"]
+
 [tool.versioningit]
 default-version = "1+unknown"
 
