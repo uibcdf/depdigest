@@ -1,6 +1,6 @@
 # Adopt the shared MolSysSuite policy and Ruff gate
 
-**Status:** Active since 2026-09-06.
+**Status:** Completed on 2026-09-06 at `107aa92`.
 **Issue:** `uibcdf/depdigest#3`.
 **Suite rollout:** `uibcdf/molsyssuite#6`.
 
@@ -31,3 +31,10 @@ and format baseline in an isolated mechanical commit.
   settings from a parent directory.
 - Ruff lint and format checks pass without changing DepDigest behavior.
 - The 49-test suite and the shared MolSysSuite workflow pass.
+
+## Resolution evidence
+
+Ruff 0.16.5 fixed 34 safe lint findings and established the format baseline in a
+dedicated mechanical commit. Ruff lint and format checks pass, all 49 local tests pass,
+and the Sphinx build succeeds with two pre-existing heading warnings. GitHub Actions
+policy run `34061109678` and repository CI run `34061109432` both pass on `main`.
