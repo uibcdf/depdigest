@@ -5,6 +5,8 @@
 These guides are required reading for anyone developing this library. They describe how external tools must be used here.
 
 - `SMONITOR_GUIDE.md` — Required guide for SMonitor integration and diagnostics.
+- `MOLSYSSUITE_GUIDE.md` — Required suite-governance guide; this synchronized copy must
+  not be edited locally.
 
 ## MolSysSuite coordination
 
