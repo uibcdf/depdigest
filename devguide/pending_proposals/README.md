@@ -3,6 +3,21 @@
 Documents in this directory still require implementation, validation, or an
 explicit promotion decision.
 
+See [`../reporting_protocol.md`](../reporting_protocol.md). The entries below are
+generated from report metadata.
+
+<!-- generated: devguide_index -->
+
+### Open (3)
+
+- [`decorator_fast_path_and_observability_boundary.md`](decorator_fast_path_and_observability_boundary.md) — [#6](https://github.com/uibcdf/depdigest/issues/6) — Evaluate an epoch-cached decorator fast path and its observability cost. *(open, measured)*
+- [`lazy_registry_smonitor.md`](lazy_registry_smonitor.md) — [#7](https://github.com/uibcdf/depdigest/issues/7) — Instrument LazyRegistry with SMonitor without changing observable semantics. *(open, inspected)*
+- [`mapped_dependency_declaration.md`](mapped_dependency_declaration.md) — [#8](https://github.com/uibcdf/depdigest/issues/8) — Declare mapped optional dependencies through one conditional wrapper. *(open, measured)*
+
+<!-- /generated -->
+
+## Context
+
 - `lazy_registry_smonitor.md`: scope reduced to the no-contract-change variant
   and deferred to 1.1.0; the per-entry loading variant remains undecided because
   it would change observable `LazyRegistry` semantics.

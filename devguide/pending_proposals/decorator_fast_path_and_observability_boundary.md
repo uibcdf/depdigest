@@ -1,3 +1,17 @@
+---
+summary: Evaluate an epoch-cached decorator fast path and its observability cost.
+issue: uibcdf/depdigest#6
+status: open
+opened: 2026-09-07
+closed:
+verification: measured
+area: [performance, observability]
+guard:
+normative:
+blocked_by: []
+supersedes: []
+---
+
 # Proposal: an epoch-cached fast path for `@dep_digest`, and the observability it would cost
 
 **Status:** proposal (2026-08-15). Measured on this host, with the command next to each figure.

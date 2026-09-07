@@ -1,3 +1,17 @@
+---
+summary: Instrument LazyRegistry with SMonitor without changing observable semantics.
+issue: uibcdf/depdigest#7
+status: open
+opened: 2026-09-07
+closed:
+verification: inspected
+area: [observability, registry]
+guard:
+normative:
+blocked_by: []
+supersedes: []
+---
+
 # Proposal: LazyRegistry SMonitor Instrumentation
 
 > **Estado: ABIERTA, alcance recortado y diferida a 1.1.0** (revisión 2026-08-15).

@@ -1,3 +1,17 @@
+---
+summary: Adopt the shared MolSysSuite policy and Ruff gate.
+issue: uibcdf/depdigest#3
+status: resolved
+opened: 2026-09-06
+closed: 2026-09-06
+verification: measured
+area: [governance, tooling]
+guard: .github/workflows/molsyssuite-policy.yml
+normative: AGENTS.md
+blocked_by: []
+supersedes: []
+---
+
 # Adopt the shared MolSysSuite policy and Ruff gate
 
 **Status:** Completed on 2026-09-06 at `107aa92`.

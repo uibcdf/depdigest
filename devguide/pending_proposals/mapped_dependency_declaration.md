@@ -1,3 +1,17 @@
+---
+summary: Declare mapped optional dependencies through one conditional wrapper.
+issue: uibcdf/depdigest#8
+status: open
+opened: 2026-09-07
+closed:
+verification: measured
+area: [api, performance]
+guard:
+normative:
+blocked_by: []
+supersedes: []
+---
+
 # Proposal: declaring N backends with one wrapper instead of N
 
 **Status:** proposal (2026-08-15). Measured on this host, with the command next to each figure.
