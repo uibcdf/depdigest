@@ -1,3 +1,8 @@
+<!--
+SYNCHRONIZED MOLSYSSUITE GUIDE — DO NOT EDIT COMPONENT COPIES.
+Canonical source: https://github.com/uibcdf/depdigest/blob/main/standards/DEPDIGEST_GUIDE.md
+-->
+
 # DepDigest Guide (Canonical)
 
 Source of truth for integrating and using **DepDigest** in this library.
@@ -51,7 +56,7 @@ EXCEPTION_CLASS = MyLibraryNotFoundError
 ## 2. Core API for Developers
 
 ### 2.1 The `@dep_digest` Decorator
-Resolved at runtime. It checks `is_installed(library_key)` before executing the function.  
+Resolved at runtime. It checks `is_installed(library_key)` before executing the function.
 The optional `pypi` field is used for installation hints/messages.
 
 ```python
