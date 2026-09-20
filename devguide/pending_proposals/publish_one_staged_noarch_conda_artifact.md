@@ -49,3 +49,16 @@ implementation under `uibcdf/molsyssuite#27`.
 - Clean off-checkout Python 3.11 and 3.13 environments install the coordinate with staged
   SMonitor and import exact DepDigest metadata and module versions.
 - The main UIBCDF channel receives no candidate package.
+
+## First hosted attempt
+
+Run `35505813369` failed during recipe rendering, before compilation or upload. The
+dependency broadcaster had serialized the parametrized build number as a single-quoted
+YAML scalar with doubled inner quotes. YAML could load it, but Jinja rejected it with
+`expected token ',', got 'DEPDIGEST_CONDA_BUILD_NUMBER'`.
+
+The broadcaster now restores both version and build-number Jinja expressions after YAML
+serialization and resolves all paths from its own location, so the root-level invocation
+documented in `devtools/AGENTS.md` works. A test executes it from a temporary repository
+root and checks the resulting recipe. Because no coordinate was uploaded, the next
+candidate remains build 0.

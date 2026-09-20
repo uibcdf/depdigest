@@ -10,7 +10,9 @@ def test_recipe_declares_one_supported_noarch_python_artifact():
 
     assert "noarch: python" in recipe
     assert recipe.count("python >=3.11,<3.14") == 2
-    assert "DEPDIGEST_CONDA_BUILD_NUMBER" in recipe
+    assert (
+        "number: \"{{ environ.get('DEPDIGEST_CONDA_BUILD_NUMBER', '0') }}\"" in recipe
+    )
 
 
 def test_manual_candidates_are_exact_and_staging_only():

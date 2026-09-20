@@ -4,7 +4,7 @@ package:
 source:
   path: ../../
 build:
-  number: '{{ environ.get(''DEPDIGEST_CONDA_BUILD_NUMBER'', ''0'') }}'
+  number: "{{ environ.get('DEPDIGEST_CONDA_BUILD_NUMBER', '0') }}"
   noarch: python
 requirements:
   build:

@@ -1,4 +1,9 @@
+import os
+from pathlib import Path
+
 import yaml
+
+os.chdir(Path(__file__).resolve().parent)
 
 
 def heal(arg):
@@ -55,6 +60,10 @@ with open("conda-build/meta.yaml", "w") as fff:
     for line in meta_lines:
         if line.startswith("  version:"):
             line = "  version: \"{{ environ['GIT_DESCRIBE_TAG'] }}\"\n"
+        elif line.startswith("  number:") and "DEPDIGEST_CONDA_BUILD_NUMBER" in line:
+            line = (
+                "  number: \"{{ environ.get('DEPDIGEST_CONDA_BUILD_NUMBER', '0') }}\"\n"
+            )
         fff.write(line)
 
 print("conda-build/meta.yaml... updated")
