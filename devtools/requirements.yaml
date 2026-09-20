@@ -3,7 +3,7 @@ setup:
     - uibcdf
     - conda-forge
   dependencies: &setup_dependencies
-    - python
+    - python >=3.11,<3.14
     - pip
     - setuptools >=61.0
     - versioningit >=3.0
@@ -12,8 +12,8 @@ production:
   channels: &production_channels
     - *setup_channels
   dependencies: &production_dependencies
-    - python
-    - smonitor
+    - python >=3.11,<3.14
+    - smonitor >=0.13.0
 
 test:
   channels: &test_channels

@@ -4,16 +4,24 @@ package:
 source:
   path: ../../
 build:
-  number: 1
+  number: '{{ environ.get(''DEPDIGEST_CONDA_BUILD_NUMBER'', ''0'') }}'
+  noarch: python
 requirements:
   build:
-  - python
+  - python >=3.11,<3.14
   - pip
   - setuptools >=61.0
   - versioningit >=3.0
   run:
-  - python
+  - python >=3.11,<3.14
   - smonitor >=0.13.0
+test:
+  imports:
+  - depdigest
+  commands:
+  - python -c "import importlib.metadata as md, os, depdigest; expected=os.environ['PKG_VERSION'];
+    assert md.version('depdigest') == expected; assert depdigest.__version__ == expected"
+  - depdigest --help
 about:
   home: https://www.uibcdf.org
   license: MIT License

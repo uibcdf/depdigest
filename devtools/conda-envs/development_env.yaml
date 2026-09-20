@@ -2,8 +2,8 @@ channels:
 - uibcdf
 - conda-forge
 dependencies:
-- python
-- smonitor
+- python >=3.11,<3.14
+- smonitor >=0.13.0
 - pytest
 - pytest-cov
 - pytest-xdist

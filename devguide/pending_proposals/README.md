@@ -8,6 +8,10 @@ generated from report metadata.
 
 <!-- generated: devguide_index -->
 
+### Active (1)
+
+- [`publish_one_staged_noarch_conda_artifact.md`](publish_one_staged_noarch_conda_artifact.md) — [#13](https://github.com/uibcdf/depdigest/issues/13) — Publish one staged noarch Conda artifact instead of interpreter-platform duplicates *(active, measured)*
+
 ### Open (3)
 
 - [`decorator_fast_path_and_observability_boundary.md`](decorator_fast_path_and_observability_boundary.md) — [#6](https://github.com/uibcdf/depdigest/issues/6) — Evaluate an epoch-cached decorator fast path and its observability cost. *(open, measured)*
