@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use DepDigest, please cite the software using this metadata."
+title: DepDigest
+type: software
+authors:
+  - family-names: Prada-Gracia
+    given-names: Diego
+    orcid: "https://orcid.org/0000-0003-3375-870X"
+    affiliation: Hospital Infantil de México Federico Gómez (HIMFG) – UIBCDF
+  - family-names: Moreno-Vargas
+    given-names: Liliana M.
+    orcid: "https://orcid.org/0000-0003-2812-1499"
+    affiliation: Hospital Infantil de México Federico Gómez (HIMFG) – UIBCDF
+version: 0.10.1
+date-released: 2026-08-08
+url: "https://github.com/uibcdf/depdigest"
+repository-code: "https://github.com/uibcdf/depdigest"
+license: MIT
+abstract: >-
+  Lightweight dependency management and lazy loading for scientific Python libraries.
+keywords:
+  - dependency management
+  - lazy loading
+  - scientific Python
+  - optional dependencies
+  - MolSysSuite
