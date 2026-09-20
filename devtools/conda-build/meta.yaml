@@ -13,7 +13,7 @@ requirements:
   - versioningit >=3.0
   run:
   - python
-  - smonitor
+  - smonitor >=0.13.0
 about:
   home: https://www.uibcdf.org
   license: MIT License
