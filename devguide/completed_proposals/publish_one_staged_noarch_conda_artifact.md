@@ -1,12 +1,12 @@
 ---
 summary: Publish one staged noarch Conda artifact instead of interpreter-platform duplicates
 issue: uibcdf/depdigest#13
-status: active
+status: resolved
 opened: 2026-09-20
-closed:
+closed: 2026-09-20
 verification: measured
 area: [packaging, release, tooling]
-guard:
+guard: tests/test_noarch_conda_publication.py
 normative:
 blocked_by: []
 supersedes: []
@@ -62,3 +62,26 @@ serialization and resolves all paths from its own location, so the root-level in
 documented in `devtools/AGENTS.md` works. A test executes it from a temporary repository
 root and checks the resulting recipe. Because no coordinate was uploaded, the next
 candidate remains build 0.
+
+## Hosted verification
+
+Run `35506310258` built, tested, and uploaded one noarch artifact from exact commit
+`5695ca43ddae31b6f7be70a287b940ee0b99a5d2`. GH Run Receptor reported one successful
+noarch job and one structured producer-evidence artifact.
+
+Clean off-checkout environments invoked with isolated Python installed
+`depdigest-0.10.2-py_0` on Python 3.11 and 3.13. In both environments, distribution
+metadata and `depdigest.__version__` were exactly `0.10.2`, and dependency resolution
+selected staged `smonitor 0.15.1`. The staging channel lists that single coordinate; the
+main UIBCDF channel returns no match for DepDigest 0.10.2.
+
+## Resolution
+
+Implemented in `7a0b45a` and corrected in `5695ca4`. DepDigest now publishes one bounded
+noarch package, uses exact-SHA staging dispatch and release-only main publication, freezes
+and tests its installed version identity, retains action v2.1 evidence, and advertises the
+noarch package kind to GH Run Receptor. Its dependency broadcaster is root-invocable and
+preserves both recipe Jinja expressions.
+
+Local validation passed 67 tests with 12 workers plus Ruff, formatting, devguide, and
+receptor configuration gates. The guard is `tests/test_noarch_conda_publication.py`.
