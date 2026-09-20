@@ -28,6 +28,13 @@ How / Why, and regenerate indexes. On closure, set the closed status and date, c
 test in `guard` or a durable rule in `normative` for resolved work, move the record to
 its mapped archive, regenerate, and close the issue with the outcome and record path.
 
+For reports resolved on or after 2026-09-20, the local validator applies the default
+Python guard profile defined by MolSysSuite: one addressable pytest module, function, or
+class-method selector under `tests/` or `devtools/tests/`. This mechanical check proves
+addressability, not relevance; the resolution must explain why the selected assertion
+protects the reported failure mechanism. See `MOLSYSSUITE_GUIDE.md` and the canonical
+`uibcdf/molsyssuite` reporting protocol for the complete contract.
+
 **Archive, never delete.** Correct open reports in place. Append a dated correction to
 an archived report instead of rewriting its historical claim. GitHub and report state
 must agree after filing and closing; board operations remain manual and authenticated,
