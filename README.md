@@ -1,11 +1,14 @@
 # DepDigest
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/downloads/)
-[![CI](https://github.com/uibcdf/depdigest/actions/workflows/CI.yaml/badge.svg)](https://github.com/uibcdf/depdigest/actions/workflows/CI.yaml)
-[![CI Full Matrix](https://github.com/uibcdf/depdigest/actions/workflows/CI_full_matrix.yaml/badge.svg)](https://github.com/uibcdf/depdigest/actions/workflows/CI_full_matrix.yaml)
-[![codecov](https://codecov.io/github/uibcdf/depdigest/graph/badge.svg?token=tfPUOXP0tW)](https://codecov.io/github/uibcdf/depdigest)
-[![Install with conda](https://img.shields.io/badge/Install%20with-conda-brightgreen.svg)](https://conda.anaconda.org/uibcdf/depdigest)
+[![MolSysSuite: Support Library](https://img.shields.io/badge/MolSysSuite-support%20library-2563eb?labelColor=24292f)](https://github.com/uibcdf/molsyssuite/blob/main/devguide/repository_badges.md#support-library)
+[![MolSysSuite policy](https://github.com/uibcdf/depdigest/actions/workflows/molsyssuite-policy.yml/badge.svg?branch=main)](https://github.com/uibcdf/depdigest/actions/workflows/molsyssuite-policy.yml)
+[![Python 3.11 | 3.12 | 3.13](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md)
+[![License](https://img.shields.io/github/license/uibcdf/depdigest)](https://github.com/uibcdf/depdigest/blob/main/LICENSE)
+[![Tests](https://github.com/uibcdf/depdigest/actions/workflows/CI.yaml/badge.svg?branch=main)](https://github.com/uibcdf/depdigest/actions/workflows/CI.yaml)
+[![Codecov](https://codecov.io/github/uibcdf/depdigest/graph/badge.svg)](https://codecov.io/github/uibcdf/depdigest)
+[![Documentation](https://github.com/uibcdf/depdigest/actions/workflows/sphinx_docs_to_gh_pages.yaml/badge.svg)](https://www.uibcdf.org/depdigest/)
+[![GitHub release](https://img.shields.io/github/v/release/uibcdf/depdigest)](https://github.com/uibcdf/depdigest/releases/latest)
+[![Conda](https://img.shields.io/conda/vn/uibcdf/depdigest)](https://anaconda.org/uibcdf/depdigest)
 
 *Digesting dependencies into clear, actionable insight.*
 
