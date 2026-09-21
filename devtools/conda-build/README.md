@@ -1,27 +1,14 @@
-# Instructions
+# DepDigest Conda recipe
 
-## Conda packages required
+`meta.yaml` is derived from `devtools/requirements.yaml` by
+`python devtools/broadcast_requirements.py`; edit the source requirements and
+regenerate the recipe instead of changing dependency lines here by hand.
 
-```bash
-conda install anaconda-client conda-build
-```
+Publication is owned by the repository workflows, not by a local `anaconda
+upload` command. Read `devguide/conda_release_routes.md` before preparing a tag:
+the committed plan chooses either a guarded direct release or an exact-file
+staging and promotion route. The workflow uses one noarch build and retains
+evidence; a local render is only a recipe check and never a publication gate.
 
-## Building and pushing to https://anaconda.org/uibcdf
-
-```bash
-conda config --set anaconda_upload no
-conda build .
-PACKAGE_OUTPUT=`conda build . --output`
-anaconda login
-anaconda upload --user uibcdf $PACKAGE_OUTPUT --label main #label:main, dev, tests
-conda build purge
-anaconda logout
-```
-## Install
-
-```
-conda install -c uibcdf depdigest
-```
-
-## Additional Info
-https://docs.anaconda.com/anaconda-cloud/user-guide/tasks/work-with-packages
+Do not use `--force`, rebuild a staged filename for another label, or place the
+staging channel ahead of the public channel in ordinary consumer environments.

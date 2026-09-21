@@ -45,9 +45,11 @@ must satisfy `uibcdf/molsyssuite#27`; Zenodo readiness is separately tracked in
 
 ## Why
 
-DepDigest currently declares `>=3.11,<3.14` in project metadata and its Conda
-dependency source. ArgDigest, PyUnitWizard, and incubating Ackredit consume it;
-leaving this boundary unchanged prevents clean 3.14 environments for that chain.
+Published DepDigest 0.10.1 declares `>=3.11,<3.14`. The authorized development
+candidate now declares `>=3.11,<3.15` in metadata and its Conda dependency source,
+but this is not yet a public 3.14 package. ArgDigest, PyUnitWizard, and incubating
+Ackredit consume DepDigest; the older public boundary prevents clean 3.14
+environments for that chain.
 
 ## Acceptance criteria
 
@@ -61,9 +63,15 @@ leaving this boundary unchanged prevents clean 3.14 environments for that chain.
 
 ## Current status
 
-Local Linux and three-platform hosted source feasibility passed. Packaged, public,
-and archival gates remain open. No release, tag, or Python 3.14 support claim has
-been made.
+Local Linux and three-platform hosted source feasibility passed. MolSysSuite commit
+`10c0948` records DepDigest as `authorized`, not `admitted`. The target-range
+metadata, derived noarch recipe/environments, twelve-cell required CI matrix, and
+candidate documentation are prepared locally. The complete source suite passed
+88 tests on both Python 3.13 and 3.14 with 12 workers. The central repository
+checker accepts the candidate; a local Conda render for Python 3.14 succeeded,
+but derived the latest existing tag `0.10.1` because no new candidate tag exists.
+Packaged, public, and archival gates remain open. No release, tag, or public
+Python 3.14 support claim has been made.
 
 ## Hosted feasibility evidence
 

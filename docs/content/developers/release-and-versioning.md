@@ -6,6 +6,8 @@ This page summarizes the practical release flow used in this repository.
 
 Before tagging:
 - ensure tests pass;
+- decide and record the Conda route in `devtools/conda-build/release_plan.toml`;
+- run the full Python/platform matrix on the exact candidate commit;
 - ensure public API contract tests pass;
 - ensure docs build;
 - ensure README and docs reflect actual behavior;
@@ -20,12 +22,20 @@ Create coherent commits and push `main`.
 
 ## 3. Create and push tag
 
-Use semantic version tags (for example `0.2.0`) when release scope is clear and repository state is stable.
+Use canonical three-part tags (for example `0.2.0`) without a `v` prefix or
+prerelease suffix. The tag must identify the commit that passed the release
+gates. Candidate testing takes place in the Conda staging label; it does not
+create a public prerelease tag. Follow the two procedures in
+`devguide/conda_release_routes.md`: an unstaged release can publish Conda
+automatically after its preflight, while a staged release must promote the
+exact tested file and SHA-256. Do not re-upload the staged filename.
 
 ## 4. Post-tag validation
 
 After pushing a tag:
 - verify release badge/version links;
+- verify the exact public Conda coordinate and digest independently;
+- verify the public Zenodo archival record and file inventory when required;
 - verify docs references to release when applicable;
 - confirm no local drift remains.
 

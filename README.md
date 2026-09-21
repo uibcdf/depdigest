@@ -21,7 +21,7 @@ It helps maintain a "Zero-Cost Startup" by ensuring that heavy external librarie
 Understand your dependencies. Trust your code.
 
 Current release line:
-- `0.10.0` delivered (stabilization complete)
+- `0.10.1` delivered; Python 3.14 remains in candidate validation
 - `1.0.0` preparation in progress
 
 ## Documentation
@@ -30,6 +30,7 @@ Current release line:
 - Developer guide: `docs/content/developers/index.md`
 - Contribution guide: `CONTRIBUTING.md`
 - Implementation contract: `standards/DEPDIGEST_GUIDE.md`
+- Conda release routes: `devguide/conda_release_routes.md`
 
 ## Key Features
 
@@ -73,7 +74,10 @@ conda install -c uibcdf depdigest
 
 ## Requirements
 
-- Python `>=3.11,<3.14`
+- Published `0.10.1`: Python `>=3.11,<3.14`.
+- Development candidate: Python `>=3.11,<3.15`; this is not a published 3.14
+  support claim until the installed-package and release gates in
+  `uibcdf/depdigest#14` pass.
 - Runtime dependency: `smonitor`
 
 ## Development
@@ -81,13 +85,13 @@ conda install -c uibcdf depdigest
 Run tests:
 
 ```bash
-pytest -q
+pytest --receptor=llm -n 12
 ```
 
 Run tests with coverage:
 
 ```bash
-pytest --cov=depdigest --cov-report=term-missing
+pytest --receptor=llm -n 12 --cov=depdigest --cov-report=term-missing
 ```
 
 Run architecture audit:

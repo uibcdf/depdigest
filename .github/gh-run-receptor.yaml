@@ -15,6 +15,9 @@ workflows:
     settings:
       package_kind: noarch
   - match:
+      path: .github/workflows/promote_conda_package.yaml
+    profile: release
+  - match:
       path: .github/workflows/install_macos_latest.yaml
     profile: generic
   - match:

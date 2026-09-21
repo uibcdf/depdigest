@@ -21,6 +21,11 @@ on:
 
 permissions:
   contents: read
+  actions: read
+
+concurrency:
+  group: depdigest-conda-${{ inputs.version || github.event.release.tag_name }}
+  cancel-in-progress: false
 
 jobs:
   conda_deployment_with_new_tag:
@@ -62,11 +67,39 @@ jobs:
           test "$(git rev-parse HEAD)" = "$(git rev-list -n 1 "$RELEASE_VERSION")"
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.13"
 
-      - name: Setup conda env
+      - name: Verify the staged candidate decision and exact CI gates
+        id: route_staged
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ inputs.version }}
+          CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+        run: |
+          python devtools/conda-build/release_route.py check \
+            --version "$RELEASE_VERSION" --route staged \
+            --sha "$CANDIDATE_SHA" --repository "$GITHUB_REPOSITORY" \
+            --receipt "$RUNNER_TEMP/depdigest-conda-route.json"
+
+      - name: Verify the direct release decision and empty registry coordinate
+        id: route_direct
+        if: github.event_name == 'release'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+        run: |
+          python devtools/conda-build/release_route.py check \
+            --version "$RELEASE_VERSION" --route direct \
+            --sha "$(git rev-parse HEAD)" --repository "$GITHUB_REPOSITORY" \
+            --receipt "$RUNNER_TEMP/depdigest-conda-route.json"
+
+      - name: Setup the candidate build environment
+        if: github.event_name == 'workflow_dispatch'
         uses: mamba-org/setup-micromamba@v3.2.1
         with:
           environment-file: devtools/conda-envs/build_env.yaml
@@ -74,6 +107,20 @@ jobs:
           condarc: |
             channels:
               - uibcdf/label/staging
+              - uibcdf
+              - conda-forge
+            channel_priority: strict
+          create-args: >-
+            python=3.13
+
+      - name: Setup the public release build environment
+        if: github.event_name == 'release'
+        uses: mamba-org/setup-micromamba@v3.2.1
+        with:
+          environment-file: devtools/conda-envs/build_env.yaml
+          environment-name: build
+          condarc: |
+            channels:
               - uibcdf
               - conda-forge
             channel_priority: strict
@@ -111,7 +158,7 @@ jobs:
           platform_osx-arm64: false
           platform_win-64: false
 
-      - name: Build, test, and upload the released package
+      - name: Build, test, and upload the unstaged release
         id: conda_release
         if: github.event_name == 'release'
         uses: uibcdf/action-build-and-upload-conda-packages@v2.1.0
@@ -128,6 +175,26 @@ jobs:
           platform_osx-64: false
           platform_osx-arm64: false
           platform_win-64: false
+
+      - name: Independently verify the exact public release file
+        if: github.event_name == 'release'
+        shell: bash -l {0}
+        env:
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+          BUILT_PATHS: ${{ steps.conda_release.outputs.built_paths }}
+        run: |
+          python devtools/conda-build/release_route.py verify-public \
+            --version "$RELEASE_VERSION" --built-paths "$BUILT_PATHS" \
+            --receipt "$RUNNER_TEMP/depdigest-conda-route.json"
+
+      - name: Retain the release-route decision and registry receipt
+        if: ${{ always() && (steps.route_staged.outcome == 'success' || steps.route_direct.outcome == 'success') }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: depdigest-conda-route-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/depdigest-conda-route.json
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Upload staging producer evidence
         if: ${{ always() && steps.conda_staging.outputs.evidence_path != '' }}

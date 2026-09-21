@@ -10,6 +10,10 @@ Each release should include a **Migration Notes** section when compatibility-sen
 ### Added
 
 - Decorator overhead benchmark in `benchmarks/decorator_overhead.py`.
+- Python 3.14 candidate metadata and a twelve-cell Linux/macOS/Windows compatibility
+  matrix. Public 3.14 support remains pending installed-package and release evidence.
+- A guarded direct Conda route and exact-file staging promotion procedure; neither
+  route constitutes publication until its hosted gates and public postcheck pass.
 
 ### Changed
 
