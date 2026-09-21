@@ -18,6 +18,9 @@ workflows:
       path: .github/workflows/promote_conda_package.yaml
     profile: release
   - match:
+      path: .github/workflows/test_staged_conda_package.yaml
+    profile: ci
+  - match:
       path: .github/workflows/install_macos_latest.yaml
     profile: generic
   - match:

@@ -53,6 +53,16 @@ A repair increments the build number and never overwrites an existing coordinate
 
 Verify the exact staged file and SHA-256, clean off-checkout installation on the
 supported interpreters and platforms, dependencies, and any consumer gates.
+For DepDigest, dispatch `.github/workflows/test_staged_conda_package.yaml` with
+the candidate SHA, version, build number, and successful staging run ID. Its
+producer gate cross-checks the GitHub run and both retained receipts; the
+12-cell matrix then installs the exact package from staging with SMonitor
+channel-qualified from public `uibcdf`. Each cell verifies Conda's installed
+record (including SHA-256 and channel), Python and package versions, off-checkout
+import, and CLI. A failed or missing cell is not evidence of support. The
+validation workflow may be added after a staged artifact was built, provided it
+checks the immutable candidate SHA and artifact digest; do not mistake the
+validation workflow's newer HEAD for a change to the staged candidate.
 Only then tag the **same SHA** and publish its stable GitHub Release. The direct
 uploader rejects its staged plan; the release-triggered build workflow will show
 an incomplete publication until promotion succeeds. Dispatch
@@ -68,5 +78,10 @@ Retain the route receipt, producer or promotion evidence, full GitHub workflow
 conclusions, and exact registry coordinate/digest. GH Run Receptor provides the
 compact first inspection; it cannot replace GitHub or Anaconda source facts.
 The 0.10.2 `py_0` candidate predates this release-plan gate and is not a Python
-3.14 artifact. The new routes have local tests but no hosted release proof yet;
-do not call them publicly validated until a future release exercises them.
+3.14 artifact. For `0.11.0`, candidate commit `9913c1e` passed the 12-cell
+source matrix (run `35646637134`); staging run `35646813805` uploaded
+`depdigest-0.11.0-py_0.tar.bz2` with SHA-256
+`ac41c5bd79eea47c3206efb58aede50da0e2f1f10b5791f000bd2f3df1d19082`.
+A disposable Linux/Python 3.14 installation passed the exact-package checks.
+Hosted installed-package and consumer gates remain pending. No public release
+or promotion has occurred; the routes have no hosted *release* proof yet.

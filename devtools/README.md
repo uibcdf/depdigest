@@ -78,6 +78,23 @@ python update_conda_env.py development_env.yaml
 - Make a PR on GitHub with your changes
 - We'll review the changes and get your code into the repo after lively discussion!
 
+## Validating a staged Conda package
+
+For a staged release candidate, use the exact commit, version, build number,
+and successful producer run ID with the manual **Test staged Conda package**
+workflow. It verifies the retained route and producer receipts and installs the
+immutable artifact in clean Python 3.11–3.14 environments on Linux, macOS, and
+Windows. It checks the installed SHA-256, source channels, import, and CLI.
+SMonitor is explicitly selected from the public channel to avoid accidentally
+testing a staged dependency. See `devguide/conda_release_routes.md` for the
+release route and promotion rules.
+
+`devtools/conda-build/verify_staged_install.py receipts --help` lists the
+producer-receipt inputs; `verify_staged_install.py installed --help` lists the
+off-checkout installed-package checks. The validation workflow may be newer
+than the candidate commit because it validates the immutable producer evidence,
+not its own checkout as the package under test.
+
 ## Checklist for updates
 - [ ] Make sure there is an/are issue(s) opened for your specific update
 - [ ] Create the PR, referencing the issue
