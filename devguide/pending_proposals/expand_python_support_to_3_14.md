@@ -98,6 +98,14 @@ import check meaningful; a new exact-commit hosted matrix is required before
 counting the twelve jobs as release-gate evidence. The pilot and its hosted
 result should be reported to the central issue for reuse by other members.
 
+The first pilot run, `35604512974`, passed all eight Ubuntu/macOS cells and failed
+the four Windows cells only in the new regression test. On the hosted Windows
+Python process, bare `bash` resolved to the WSL launcher, which had no Linux
+distribution, rather than to the Git Bash executable used by the workflow's
+`shell: bash -l {0}` steps. The test now locates Git Bash relative to Git on
+Windows and invokes that executable explicitly. The hosted result remains red;
+the corrected pilot needs another exact-commit matrix run.
+
 ## Hosted feasibility evidence
 
 Commit `cd4680a653942c4cace7e8ae89b9cc623242f12c` added the non-claiming source

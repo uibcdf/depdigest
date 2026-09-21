@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import os
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -13,6 +15,21 @@ IMPORT_PROBE = (
     'import depdigest; print("Version of the package: {}".format('
     "depdigest.__version__))"
 )
+
+
+def _runner_bash() -> str:
+    if os.name != "nt":
+        return "bash"
+    git = shutil.which("git")
+    assert git is not None, "Git Bash is required by the Windows CI workflow"
+    git_path = Path(git).resolve()
+    candidates = [git_path.parent / "bash.exe"] + [
+        parent / "bin" / "bash.exe" for parent in list(git_path.parents)[:3]
+    ]
+    for candidate in candidates:
+        if candidate.is_file():
+            return str(candidate)
+    raise AssertionError(f"Git Bash not found beside {git_path}")
 
 
 @pytest.mark.parametrize(
@@ -31,7 +48,7 @@ def test_failed_import_cannot_be_hidden_by_trailing_echo(filename, job_name):
 
     failing_script = script.replace(IMPORT_PROBE, "raise SystemExit(17)")
     completed = subprocess.run(
-        ["bash", "-c", failing_script],
+        [_runner_bash(), "-c", failing_script],
         cwd=ROOT,
         capture_output=True,
         check=False,
