@@ -162,7 +162,7 @@ def verify_public(
         raise ReleaseRouteError(
             "public verification requires the matching direct receipt"
         )
-    paths = shlex.split(built_paths)
+    paths = shlex.split(built_paths, posix=os.name != "nt")
     if len(paths) != 1:
         raise ReleaseRouteError("DepDigest noarch release must build exactly one file")
     package = Path(paths[0])

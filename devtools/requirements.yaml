@@ -24,6 +24,7 @@ test:
     - pytest-cov
     - pytest-xdist
     - pytest-receptor >=1.1.0
+    - pyyaml
     - codecov
 
 docs:
@@ -50,7 +51,6 @@ development:
     - *test_dependencies
     - *docs_dependencies
     - python =3.13
-    - pyyaml
     - ruff =0.16.5
     - mamba
 

@@ -73,6 +73,19 @@ but derived the latest existing tag `0.10.1` because no new candidate tag exists
 Packaged, public, and archival gates remain open. No release, tag, or public
 Python 3.14 support claim has been made.
 
+The first required twelve-cell matrix run, `35601640919`, at candidate commit
+`ea57f821a3eb174360657ea1c7bde48bb7d7d42c` failed in all twelve jobs during
+the test step. The shared failure was the requirements broadcaster test: the
+test environment omitted PyYAML, which that script imports. Windows additionally
+exposed a Unix-only `PYTHONPATH` separator in the workflow and POSIX `shlex`
+parsing of Windows temporary paths in the new Conda release-route tests. GH Run
+Receptor identified the test failures; the native failed-step log was consulted
+for the platform-specific details. These are CI/test-environment defects, not
+evidence that the DepDigest runtime fails on Python 3.14. The corrections now
+pass all 89 source tests locally on both Python 3.13 and 3.14 with 12 workers;
+the required hosted matrix must be repeated at the new exact commit before any
+compatibility claim advances.
+
 ## Hosted feasibility evidence
 
 Commit `cd4680a653942c4cace7e8ae89b9cc623242f12c` added the non-claiming source

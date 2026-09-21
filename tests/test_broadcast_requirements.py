@@ -11,13 +11,14 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_broadcast_runs_from_repo_root_and_preserves_jinja(tmp_path):
     shutil.copytree(ROOT / "devtools", tmp_path / "devtools")
 
-    subprocess.run(
+    completed = subprocess.run(
         [sys.executable, "devtools/broadcast_requirements.py"],
         cwd=tmp_path,
-        check=True,
+        check=False,
         capture_output=True,
         text=True,
     )
+    assert completed.returncode == 0, completed.stdout + completed.stderr
 
     recipe = (tmp_path / "devtools" / "conda-build" / "meta.yaml").read_text(
         encoding="utf-8"

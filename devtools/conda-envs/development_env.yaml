@@ -8,6 +8,7 @@ dependencies:
 - pytest-cov
 - pytest-xdist
 - pytest-receptor >=1.1.0
+- pyyaml
 - codecov
 - sphinx
 - pydata-sphinx-theme
@@ -19,6 +20,5 @@ dependencies:
 - sphinx-tabs
 - myst-nb
 - python =3.13
-- pyyaml
 - ruff =0.16.5
 - mamba

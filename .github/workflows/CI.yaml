@@ -94,8 +94,7 @@ jobs:
       shell: bash -l {0}
 
       run: |
-        export PYTHONPATH=$PYTHONPATH:$(pwd)
-        pytest --receptor=llm -n 4 -v --cov-config=.coveragerc --cov=depdigest --cov-report=xml --junitxml=junit.xml --color=yes
+        python -m pytest --receptor=llm -n 4 -v --cov-config=.coveragerc --cov=depdigest --cov-report=xml --junitxml=junit.xml --color=yes
 
     - name: Check coverage
       shell: bash -l {0}
