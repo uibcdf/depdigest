@@ -8,6 +8,10 @@ generated from report metadata.
 
 <!-- generated: devguide_index -->
 
+### Active (1)
+
+- [`expand_python_support_to_3_14.md`](expand_python_support_to_3_14.md) — [#14](https://github.com/uibcdf/depdigest/issues/14) — Expand DepDigest support to Python 3.14 after hosted and package evidence. *(active, measured)*
+
 ### Open (3)
 
 - [`decorator_fast_path_and_observability_boundary.md`](decorator_fast_path_and_observability_boundary.md) — [#6](https://github.com/uibcdf/depdigest/issues/6) — Evaluate an epoch-cached decorator fast path and its observability cost. *(open, measured)*
