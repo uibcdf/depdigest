@@ -61,5 +61,21 @@ leaving this boundary unchanged prevents clean 3.14 environments for that chain.
 
 ## Current status
 
-Local Linux source feasibility passed. Hosted, packaged, public, and archival gates
-remain open. No release, tag, or Python 3.14 support claim has been made.
+Local Linux and three-platform hosted source feasibility passed. Packaged, public,
+and archival gates remain open. No release, tag, or Python 3.14 support claim has
+been made.
+
+## Hosted feasibility evidence
+
+Commit `cd4680a653942c4cace7e8ae89b9cc623242f12c` added the non-claiming source
+matrix and its GH Run Receptor rule. Workflow run `35595697428` completed successfully
+on Ubuntu, macOS, and Windows with Python 3.14, public SMonitor 0.16.0 build `py_1`,
+and public Pytest Receptor 1.1.0 build `py_1`. GH Run Receptor reported `PASS`,
+`conclusion=success`, and 3/3 jobs. A separate GitHub run query confirmed the exact
+commit SHA and success for each named platform job. The workflow tests checkout
+source through `PYTHONPATH` without installing a DepDigest distribution, so package
+metadata, off-checkout installation, Conda publication, and Zenodo remain unproven.
+
+This is sufficient feasibility evidence to request central `authorized` status, not
+`admitted` status. The next local step is a consistent target-range candidate and
+its required hosted CI matrix.
