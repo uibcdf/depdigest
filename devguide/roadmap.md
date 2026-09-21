@@ -1,6 +1,7 @@
 # Roadmap & Future Steps
 
-DepDigest is currently at release **0.10.0**.
+DepDigest is currently at public release **0.10.1**. Version **0.11.0** is a
+staging candidate for Python 3.14, not yet a public release.
 
 This roadmap captures likely next increments toward broader stable adoption.
 
@@ -44,7 +45,7 @@ This roadmap captures likely next increments toward broader stable adoption.
 - Accept stabilization fixes from real-world feedback and CI usage.
 - Shared collective E2E module added: `tests/e2e/test_collective_error_path.py` (cross-repo error-path baseline).
 
-### Unreleased (post-0.10.0)
+### Unreleased (post-0.10.1; 0.11.0 candidate)
 
 - Decorator hot-path performance work delivered: internal `@signal` self-instrumentation
   removed from `dep_digest` / `check_dependency`, and `when={...}` condition parameters
@@ -54,6 +55,9 @@ This roadmap captures likely next increments toward broader stable adoption.
 - Completed proposals are now archived under `devguide/completed_proposals/`, matching the
   PyUnitWizard convention; `devguide/pending_proposals/` holds only open work and carries a
   `README.md` index of what each open document is waiting on.
+- The first Python 3.14 package follows the staged Conda route; the source and pip-install
+  matrix passed on Python 3.11--3.14 across Ubuntu, macOS, and Windows. The noarch Conda
+  artifact and consumer installations remain the next gates.
 
 ### 1.0.0 (in progress)
 

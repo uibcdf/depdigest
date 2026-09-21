@@ -5,7 +5,7 @@ All notable changes to this project are documented in this file.
 The format is intentionally simple and release-oriented.
 Each release should include a **Migration Notes** section when compatibility-sensitive behavior changes.
 
-## [Unreleased]
+## [Unreleased] — 0.11.0 staging candidate
 
 ### Added
 

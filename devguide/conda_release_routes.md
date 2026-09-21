@@ -8,9 +8,10 @@ template for native packages. Python 3.14 preparation is tracked in
 ## Decide before tagging
 
 The release owner completes `devtools/conda-build/release_plan.toml` **in the
-candidate commit**. The repository carries an intentionally incomplete template:
-it cannot publish a package until `version`, `route`, `reason`, `decision_by`, and
-`required_workflows` are reviewed. Keep
+candidate commit**. The `0.11.0` candidate selects the `staged` route; this
+decision does not publish or promote a package. For a later version, reset and
+review `version`, `route`, `reason`, `decision_by`, and `required_workflows`
+before any tag or dispatch. Keep
 `.github/workflows/CI_full_matrix.yaml` among the gates. Run that full matrix on
 the final candidate commit; any later commit needs a new exact-commit run. The
 workflow records the final tag SHA and gate run IDs in its retained receipt, so

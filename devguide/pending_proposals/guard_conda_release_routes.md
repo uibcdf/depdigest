@@ -65,10 +65,13 @@ making staged releases exact-file promotions.
 
 ## Current status
 
-The two-route code, explicit promotion workflow, release-plan template, local
-procedure, and negative tests are implemented locally. The full source suite passed
-88 tests on both Python 3.13 and 3.14 with 12 workers; Ruff, YAML parsing, guide
-index, and central conformance checks passed. The plan template remains intentionally
-incomplete. No direct or staged release has exercised the new routes on GitHub, so
-hosted publication proof remains pending. No release or registry mutation is
-authorized by this report.
+The two-route code, explicit promotion workflow, local procedure, and negative
+tests are committed. The full source suite passed 91 tests on both Python 3.13
+and 3.14 with 12 workers; Ruff, YAML parsing, guide index, and central
+conformance checks passed. The required 12-cell source and pip-install matrix
+passed at `d82f387049acadaf414755dbcfa4ebb602d04f80` in run `35645517041`.
+The candidate release plan now selects `0.11.0` and `staged` because the first
+Python 3.14 artifact needs installed-package and consumer checks before public
+visibility. The exact-commit matrix must run again after this plan change.
+No direct or staged package has exercised the new routes on GitHub yet; neither
+a public release nor promotion is authorized by this report.
