@@ -87,5 +87,7 @@ source matrix (run `35646637134`); staging run `35646813805` uploaded
 `depdigest-0.11.0-py_0.tar.bz2` with SHA-256
 `ac41c5bd79eea47c3206efb58aede50da0e2f1f10b5791f000bd2f3df1d19082`.
 A disposable Linux/Python 3.14 installation passed the exact-package checks.
-Hosted installed-package and consumer gates remain pending. No public release
-or promotion has occurred; the routes have no hosted *release* proof yet.
+The hosted installed-package gate passed its producer check and all twelve
+Linux/macOS/Windows × Python 3.11--3.14 cells in run `35660591628`.
+Consumer gates remain pending. No public release or promotion has occurred;
+the routes have no hosted *release* proof yet.

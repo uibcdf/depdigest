@@ -66,12 +66,18 @@ making staged releases exact-file promotions.
 ## Current status
 
 The two-route code, explicit promotion workflow, local procedure, and negative
-tests are committed. The full source suite passed 91 tests on both Python 3.13
-and 3.14 with 12 workers; Ruff, YAML parsing, guide index, and central
-conformance checks passed. The required 12-cell source and pip-install matrix
-passed at `d82f387049acadaf414755dbcfa4ebb602d04f80` in run `35645517041`.
-The candidate release plan now selects `0.11.0` and `staged` because the first
-Python 3.14 artifact needs installed-package and consumer checks before public
-visibility. The exact-commit matrix must run again after this plan change.
-No direct or staged package has exercised the new routes on GitHub yet; neither
-a public release nor promotion is authorized by this report.
+tests are committed. The candidate release plan selects `0.11.0` and `staged`
+because the first Python 3.14 artifact needs installed-package and consumer
+checks before public visibility. The exact candidate
+`9913c1e2041494dc01cd85d3173d9e8675ad5df8` passed its required 12-cell
+source matrix in run `35646637134`. Hosted staging run `35646813805`
+exercised the guarded staged route successfully and retained route/producer
+receipts; the independently queried `noarch` file has SHA-256
+`ac41c5bd79eea47c3206efb58aede50da0e2f1f10b5791f000bd2f3df1d19082`.
+The clean installed-package gate then passed producer verification and all
+12 Linux/macOS/Windows × Python 3.11--3.14 jobs in run `35660591628`.
+The workflow and negative provenance tests passed locally (104/104 tests on
+Python 3.13 and 3.14 with 12 workers; Ruff clean). The staged route is now
+hosted-proven up to installed-package testing. The direct route and promotion
+remain unexercised; consumer gates, stable release, public promotion, public
+install and Zenodo verification remain open.

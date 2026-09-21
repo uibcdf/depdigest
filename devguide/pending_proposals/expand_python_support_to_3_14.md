@@ -120,10 +120,43 @@ named successful jobs.
 The full matrix installs DepDigest with pip from this checkout, performs the
 off-checkout import smoke under fail-fast Bash, and runs the source test suite
 on Python 3.11--3.14 on Ubuntu, macOS, and Windows. It does **not** build or
-validate a Conda artifact. The next gate is an exact-SHA staging build followed
-by clean installed-package tests from the Conda artifact and its public SMonitor
-dependency. Until those pass and the release and archival gates complete,
-DepDigest remains centrally `authorized`, not `admitted`, for Python 3.14.
+validate a Conda artifact. The later staging and installed-package evidence is
+recorded below. Until consumer, release, public-install and archival gates
+complete, DepDigest remains centrally `authorized`, not `admitted`, for 3.14.
+
+## Staged Conda artifact and installed-package evidence
+
+Candidate `0.11.0` was frozen at `9913c1e2041494dc01cd85d3173d9e8675ad5df8`.
+Its source matrix passed 12/12 in run `35646637134`. Staging run `35646813805`
+built and uploaded one `noarch` file, `depdigest-0.11.0-py_0.tar.bz2`, with
+SHA-256 `ac41c5bd79eea47c3206efb58aede50da0e2f1f10b5791f000bd2f3df1d19082`.
+The producer and route receipts agree on the candidate commit, version, route,
+file, and successful upload; an independent registry query found the same digest
+under `uibcdf/label/staging`. A disposable Linux/Python 3.14 installation
+confirmed the staged package and public SMonitor 0.16.0 off-checkout.
+
+The separate installed-package gate at run `35660591628` passed its producer
+verification and all twelve clean Linux/macOS/Windows × Python 3.11--3.14 jobs.
+Each cell installed the exact staged DepDigest coordinate and public SMonitor
+build, then checked SHA-256, exact source URLs, interpreter and distribution
+versions, off-checkout import, and CLI. The gate was added after the candidate
+commit and validates its immutable artifact rather than treating the gate's own
+HEAD as the package under test. Local regression tests for provenance and the
+workflow passed 104/104 on Python 3.13 and 3.14 with 12 workers; Ruff passed.
+
+Two initial gate attempts remain red in the history. Run `35659370222` failed
+at environment creation because libmamba's strict channel priority masked the
+public SMonitor build when staging also contained SMonitor. Run `35660085653`
+installed packages but rejected every cell because micromamba formatted the
+Conda `channel` metadata differently from Conda. Flexible priority with
+channel-qualified coordinates and exact installed URL/digest checks resolved
+both issues without relaxing package identity. These are gate-implementation
+failures, not package defects. The pattern and caveats were shared in
+`uibcdf/molsyssuite#27`; 3.14 status was updated in `uibcdf/molsyssuite#29`.
+
+Remaining gates are consumer compatibility, stable tag/GitHub Release,
+exact-file Conda promotion, clean public-channel installation, and Zenodo
+verification. No public 0.11.0 or central 3.14 admission is claimed.
 
 ## Hosted feasibility evidence
 
