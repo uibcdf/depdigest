@@ -5,15 +5,19 @@ All notable changes to this project are documented in this file.
 The format is intentionally simple and release-oriented.
 Each release should include a **Migration Notes** section when compatibility-sensitive behavior changes.
 
-## [Unreleased] — 0.11.0 staging candidate
+## [Unreleased]
+
+## [0.11.0] - 2026-09-21
 
 ### Added
 
 - Decorator overhead benchmark in `benchmarks/decorator_overhead.py`.
-- Python 3.14 candidate metadata and a twelve-cell Linux/macOS/Windows compatibility
-  matrix. Public 3.14 support remains pending installed-package and release evidence.
-- A guarded direct Conda route and exact-file staging promotion procedure; neither
-  route constitutes publication until its hosted gates and public postcheck pass.
+- Python 3.14 metadata and a twelve-cell Linux/macOS/Windows compatibility
+  matrix, with a separate twelve-cell clean installation gate for the staged
+  Conda artifact. Public 3.14 support depends on the release and public-channel
+  postchecks.
+- A guarded direct Conda route and exact-file staging promotion procedure,
+  together with producer-receipt and installed-artifact verification.
 
 ### Changed
 
