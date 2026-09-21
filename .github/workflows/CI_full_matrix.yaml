@@ -74,6 +74,7 @@ jobs:
     - name: Test import module
       shell: bash -l {0}
       run: |
+        set -euo pipefail
         echo "::group::Importing module from home directory"
         cd
         pwd

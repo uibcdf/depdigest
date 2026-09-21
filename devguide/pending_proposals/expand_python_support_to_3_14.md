@@ -86,6 +86,18 @@ pass all 89 source tests locally on both Python 3.13 and 3.14 with 12 workers;
 the required hosted matrix must be repeated at the new exact commit before any
 compatibility claim advances.
 
+The corrected matrix run `35603608717` at
+`2e7abd4cceae8df925eb6a4607416118ba07ab47` passed all twelve jobs across
+Ubuntu, macOS, Windows, and Python 3.11--3.14. Review then found that both
+off-checkout import smoke steps still ended with an `echo` and did not enforce
+failure of the preceding Python command, the suite-wide defect tracked by
+`uibcdf/molsyssuite#33`. DepDigest is piloting `set -euo pipefail` in both steps
+and an executable regression test that substitutes a failing import and requires
+the job script to exit nonzero before the trailing echo. This makes the installed
+import check meaningful; a new exact-commit hosted matrix is required before
+counting the twelve jobs as release-gate evidence. The pilot and its hosted
+result should be reported to the central issue for reuse by other members.
+
 ## Hosted feasibility evidence
 
 Commit `cd4680a653942c4cace7e8ae89b9cc623242f12c` added the non-claiming source
