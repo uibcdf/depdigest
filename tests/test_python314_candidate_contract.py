@@ -51,7 +51,7 @@ def test_ci_invokes_pytest_as_a_module_without_platform_specific_pythonpath():
         assert "export PYTHONPATH" not in workflow
 
 
-def test_public_badge_remains_at_delivered_range_until_admission():
+def test_public_badge_and_requirements_reflect_admitted_python314():
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    assert "Python-3.11%20%7C%203.12%20%7C%203.13-" in readme
-    assert "Development candidate: Python `>=3.11,<3.15`" in readme
+    assert "Python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-" in readme
+    assert "Published `0.11.0`: Python `>=3.11,<3.15`" in readme

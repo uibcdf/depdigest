@@ -2,13 +2,14 @@
 
 [![MolSysSuite: Support Library](https://img.shields.io/badge/MolSysSuite-support%20library-2563eb?labelColor=24292f)](https://github.com/uibcdf/molsyssuite/blob/main/devguide/repository_badges.md#support-library)
 [![MolSysSuite policy](https://github.com/uibcdf/depdigest/actions/workflows/molsyssuite-policy.yml/badge.svg?branch=main)](https://github.com/uibcdf/depdigest/actions/workflows/molsyssuite-policy.yml)
-[![Python 3.11 | 3.12 | 3.13](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md)
+[![Python 3.11 | 3.12 | 3.13 | 3.14](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-3776AB?logo=python&logoColor=white)](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md)
 [![License](https://img.shields.io/github/license/uibcdf/depdigest)](https://github.com/uibcdf/depdigest/blob/main/LICENSE)
 [![Tests](https://github.com/uibcdf/depdigest/actions/workflows/CI.yaml/badge.svg?branch=main)](https://github.com/uibcdf/depdigest/actions/workflows/CI.yaml)
 [![Codecov](https://codecov.io/github/uibcdf/depdigest/graph/badge.svg)](https://codecov.io/github/uibcdf/depdigest)
 [![Documentation](https://github.com/uibcdf/depdigest/actions/workflows/sphinx_docs_to_gh_pages.yaml/badge.svg)](https://www.uibcdf.org/depdigest/)
 [![GitHub release](https://img.shields.io/github/v/release/uibcdf/depdigest)](https://github.com/uibcdf/depdigest/releases/latest)
 [![Conda](https://img.shields.io/conda/vn/uibcdf/depdigest)](https://anaconda.org/uibcdf/depdigest)
+[![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22884368.svg)](https://doi.org/10.5281/zenodo.22884368)
 
 *Digesting dependencies into clear, actionable insight.*
 
@@ -21,7 +22,7 @@ It helps maintain a "Zero-Cost Startup" by ensuring that heavy external librarie
 Understand your dependencies. Trust your code.
 
 Current release line:
-- `0.10.1` delivered; Python 3.14 remains in candidate validation
+- `0.11.0` delivered with Python 3.14 support on the published noarch Conda package
 - `1.0.0` preparation in progress
 
 ## Documentation
@@ -74,10 +75,9 @@ conda install -c uibcdf depdigest
 
 ## Requirements
 
-- Published `0.10.1`: Python `>=3.11,<3.14`.
-- Development candidate: Python `>=3.11,<3.15`; this is not a published 3.14
-  support claim until the installed-package and release gates in
-  `uibcdf/depdigest#14` pass.
+- Published `0.11.0`: Python `>=3.11,<3.15`. Its public Conda build was
+  independently installed on Python 3.14 after twelve-cell staged-package
+  testing on Linux, macOS, and Windows.
 - Runtime dependency: `smonitor`
 
 ## Development

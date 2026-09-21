@@ -82,12 +82,24 @@ Retain the route receipt, producer or promotion evidence, full GitHub workflow
 conclusions, and exact registry coordinate/digest. GH Run Receptor provides the
 compact first inspection; it cannot replace GitHub or Anaconda source facts.
 The 0.10.2 `py_0` candidate predates this release-plan gate and is not a Python
-3.14 artifact. For `0.11.0`, candidate commit `9913c1e` passed the 12-cell
-source matrix (run `35646637134`); staging run `35646813805` uploaded
-`depdigest-0.11.0-py_0.tar.bz2` with SHA-256
-`ac41c5bd79eea47c3206efb58aede50da0e2f1f10b5791f000bd2f3df1d19082`.
-A disposable Linux/Python 3.14 installation passed the exact-package checks.
-The hosted installed-package gate passed its producer check and all twelve
-Linux/macOS/Windows × Python 3.11--3.14 cells in run `35660591628`.
-Consumer gates remain pending. No public release or promotion has occurred;
-the routes have no hosted *release* proof yet.
+3.14 artifact. During 0.11.0 preparation, staging builds `py_0` and `py_1`
+provided earlier evidence but were superseded after release metadata and
+formatting changes; neither was promoted. The final tagged commit
+`d5b259a0f4ab00756858869061604fd64d561850` passed the 12-cell source
+matrix in run `35664438560` and suite policy in run `35664438912`.
+Staging run `35664759083` uploaded `depdigest-0.11.0-py_2.tar.bz2` with SHA-256
+`b6ba665d9125f49506b7e4231e6065f164d3b643117a22288b44baafceff270f`.
+Run `35665346654` passed producer verification and all twelve clean installed
+Linux/macOS/Windows × Python 3.11--3.14 cells. Published ArgDigest 0.12.1 passed
+a Linux/Python 3.13 consumer smoke with the same staged DepDigest file.
+
+GitHub Release 0.11.0 is public. Promotion run `35665723593` added `main` to
+the same `py_2` file; its receipt and independent public/staging queries agree
+on the digest. A new Linux/Python 3.14 environment installed DepDigest and
+SMonitor exclusively from public channels, imported from `site-packages`,
+and ran the CLI. Zenodo record `22884369` archived the source snapshot and its
+downloaded bytes matched the public file size and checksum; it does not claim
+that Zenodo archived the Conda artifact. The release-triggered *direct* uploader
+failed its route guard as designed; the separate promotion is the authoritative
+Conda publication path for this staged release. The direct route remains
+unexercised and should not be called hosted-proven.

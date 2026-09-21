@@ -65,19 +65,22 @@ making staged releases exact-file promotions.
 
 ## Current status
 
-The two-route code, explicit promotion workflow, local procedure, and negative
-tests are committed. The candidate release plan selects `0.11.0` and `staged`
-because the first Python 3.14 artifact needs installed-package and consumer
-checks before public visibility. The exact candidate
-`9913c1e2041494dc01cd85d3173d9e8675ad5df8` passed its required 12-cell
-source matrix in run `35646637134`. Hosted staging run `35646813805`
-exercised the guarded staged route successfully and retained route/producer
-receipts; the independently queried `noarch` file has SHA-256
-`ac41c5bd79eea47c3206efb58aede50da0e2f1f10b5791f000bd2f3df1d19082`.
-The clean installed-package gate then passed producer verification and all
-12 Linux/macOS/Windows × Python 3.11--3.14 jobs in run `35660591628`.
-The workflow and negative provenance tests passed locally (104/104 tests on
-Python 3.13 and 3.14 with 12 workers; Ruff clean). The staged route is now
-hosted-proven up to installed-package testing. The direct route and promotion
-remain unexercised; consumer gates, stable release, public promotion, public
-install and Zenodo verification remain open.
+The `0.11.0` staged route has now passed the entire hosted path. Candidate
+`d5b259a0f4ab00756858869061604fd64d561850` passed the 12-cell source
+matrix (`35664438560`) and suite policy (`35664438912`). Staging run
+`35664759083` produced `noarch/depdigest-0.11.0-py_2.tar.bz2` with SHA-256
+`b6ba665d9125f49506b7e4231e6065f164d3b643117a22288b44baafceff270f`.
+Installed-package run `35665346654` passed its producer check and all 12
+Linux/macOS/Windows × Python 3.11--3.14 cells. A public ArgDigest 0.12.1
+consumer smoke passed against the exact staged file. The `0.11.0` tag and
+GitHub Release identify that candidate; promotion run `35665723593` copied
+the exact file and digest to the public channel without rebuilding. A clean
+public-channel Python 3.14 installation and CLI smoke passed. Zenodo archived
+the release source snapshot as record `22884369`.
+
+The direct route remains unexercised on a release candidate and is not
+claimed proven. The release-triggered direct-build workflow correctly failed
+its route guard for this staged release; this produces a visible red run even
+though the explicit promotion succeeded. Keep this proposal open until the
+direct route is exercised and the staged-release trigger is made neutral
+without weakening the guard against unsafe publication.

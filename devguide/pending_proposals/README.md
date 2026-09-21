@@ -8,9 +8,8 @@ generated from report metadata.
 
 <!-- generated: devguide_index -->
 
-### Active (2)
+### Active (1)
 
-- [`expand_python_support_to_3_14.md`](expand_python_support_to_3_14.md) — [#14](https://github.com/uibcdf/depdigest/issues/14) — Expand DepDigest support to Python 3.14 after hosted and package evidence. *(active, measured)*
 - [`guard_conda_release_routes.md`](guard_conda_release_routes.md) — [#15](https://github.com/uibcdf/depdigest/issues/15) — Guard direct Conda releases and promote exact staged files. *(active, inspected)*
 
 ### Open (3)
