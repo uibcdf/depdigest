@@ -122,9 +122,9 @@ def test_staged_matrix_checks_twelve_clean_installs_and_no_pip_source_install():
 @pytest.mark.parametrize(
     ("record_name", "field", "bad_value"),
     [
-        ("depdigest", "channel", "https://conda.anaconda.org/uibcdf/noarch"),
+        ("depdigest", "url", "https://conda.anaconda.org/uibcdf/noarch/depdigest-0.11.0-py_0.tar.bz2"),
         ("depdigest", "sha256", "c" * 64),
-        ("smonitor", "channel", verifier.STAGING_CHANNEL),
+        ("smonitor", "url", f"{verifier.STAGING_CHANNEL}/smonitor-0.16.0-py_1.tar.bz2"),
     ],
 )
 def test_installed_gate_rejects_wrong_artifact_or_dependency_source(
@@ -146,6 +146,7 @@ def test_installed_gate_rejects_wrong_artifact_or_dependency_source(
         "version": "0.16.0",
         "build": "py_1",
         "channel": verifier.PUBLIC_CHANNEL,
+        "url": "https://conda.anaconda.org/uibcdf/noarch/smonitor-0.16.0-py_1.tar.bz2",
     }
     records = {"depdigest": package, "smonitor": dependency}
     records[record_name][field] = bad_value

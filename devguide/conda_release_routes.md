@@ -61,7 +61,8 @@ channel-qualified from public `uibcdf`. The solver uses flexible priority
 because strict priority masks that public SMonitor build when staging also has
 the same package name; explicit coordinates and installed-record checks keep
 both package origins exact. Each cell verifies Conda's installed
-record (including SHA-256 and channel), Python and package versions, off-checkout
+record (including SHA-256 and exact download URLs, rather than solver-specific
+`channel` field formatting), Python and package versions, off-checkout
 import, and CLI. A failed or missing cell is not evidence of support. The
 validation workflow may be added after a staged artifact was built, provided it
 checks the immutable candidate SHA and artifact digest; do not mistake the

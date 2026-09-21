@@ -97,7 +97,6 @@ def verify_installed(
     _require(package_record.get("name") == PACKAGE, "Wrong package record")
     _require(package_record.get("version") == version, "Wrong installed package version")
     _require(package_record.get("build") == build, "Wrong installed package build")
-    _require(package_record.get("channel") == STAGING_CHANNEL, "Package not from staging")
     _require(package_record.get("subdir") == "noarch", "Package not noarch")
     _require(package_record.get("sha256") == sha256, "Installed package digest mismatch")
     _require(
@@ -107,7 +106,11 @@ def verify_installed(
     _require(dependency_record.get("name") == PUBLIC_DEPENDENCY, "Wrong dependency record")
     _require(dependency_record.get("version") == PUBLIC_DEPENDENCY_VERSION, "Wrong dependency version")
     _require(dependency_record.get("build") == PUBLIC_DEPENDENCY_BUILD, "Wrong dependency build")
-    _require(dependency_record.get("channel") == PUBLIC_CHANNEL, "Dependency not from public channel")
+    _require(
+        dependency_record.get("url")
+        == f"{PUBLIC_CHANNEL}/{PUBLIC_DEPENDENCY}-{PUBLIC_DEPENDENCY_VERSION}-{PUBLIC_DEPENDENCY_BUILD}.tar.bz2",
+        "Dependency not from public channel",
+    )
 
     _require(importlib.metadata.version(PACKAGE) == version, "Distribution version mismatch")
     import depdigest

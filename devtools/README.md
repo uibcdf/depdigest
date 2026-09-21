@@ -84,7 +84,7 @@ For a staged release candidate, use the exact commit, version, build number,
 and successful producer run ID with the manual **Test staged Conda package**
 workflow. It verifies the retained route and producer receipts and installs the
 immutable artifact in clean Python 3.11–3.14 environments on Linux, macOS, and
-Windows. It checks the installed SHA-256, source channels, import, and CLI.
+Windows. It checks the installed SHA-256, exact source URLs, import, and CLI.
 SMonitor is explicitly selected from the public channel to avoid accidentally
 testing a staged dependency. See `devguide/conda_release_routes.md` for the
 release route and promotion rules.
