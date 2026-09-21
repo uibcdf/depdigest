@@ -48,17 +48,23 @@ def _fixtures(tmp_path: Path) -> tuple[dict, Path]:
             "run_attempt": 1,
             "job_key": "conda_deployment_with_new_tag",
         },
-        "events": [{
-            "kind": "conda.package",
-            "artifact": "depdigest-0.11.0-py_0.tar.bz2",
-            "platform": "noarch",
-            "build": "success",
-            "upload": "success",
-            "sha256": DIGEST,
-        }],
+        "events": [
+            {
+                "kind": "conda.package",
+                "artifact": "depdigest-0.11.0-py_0.tar.bz2",
+                "platform": "noarch",
+                "build": "success",
+                "upload": "success",
+                "sha256": DIGEST,
+            }
+        ],
     }
-    (tmp_path / "depdigest-conda-route.json").write_text(json.dumps(route), encoding="utf-8")
-    (tmp_path / "gh-run-receptor-events.json").write_text(json.dumps(producer), encoding="utf-8")
+    (tmp_path / "depdigest-conda-route.json").write_text(
+        json.dumps(route), encoding="utf-8"
+    )
+    (tmp_path / "gh-run-receptor-events.json").write_text(
+        json.dumps(producer), encoding="utf-8"
+    )
     return run, tmp_path
 
 
@@ -80,7 +86,9 @@ def test_exact_producer_receipts_yield_expected_digest(tmp_path):
         ("producer", "artifact", "depdigest-0.11.0-py_1.tar.bz2"),
     ],
 )
-def test_wrong_or_failed_producer_evidence_is_rejected(tmp_path, surface, field, bad_value):
+def test_wrong_or_failed_producer_evidence_is_rejected(
+    tmp_path, surface, field, bad_value
+):
     run, evidence = _fixtures(tmp_path)
     if surface == "run":
         run[field] = bad_value
@@ -109,20 +117,26 @@ def test_staged_matrix_checks_twelve_clean_installs_and_no_pip_source_install():
     assert matrix["os"] == ["ubuntu-latest", "macos-latest", "windows-latest"]
     assert matrix["python"] == ["3.11", "3.12", "3.13", "3.14"]
     steps = jobs["install"]["steps"]
-    setup = next(step for step in steps if step.get("name", "").startswith("Create a clean"))
+    setup = next(
+        step for step in steps if step.get("name", "").startswith("Create a clean")
+    )
     args = setup["with"]["create-args"]
     assert "channel_priority: flexible" in setup["with"]["condarc"]
     assert "uibcdf/label/staging::depdigest=" in args
     assert "uibcdf::smonitor=0.16.0=py_1" in args
     assert all("pip install" not in step.get("run", "") for step in steps)
-    assert "cd \"$RUNNER_TEMP\"" in steps[-1]["run"]
+    assert 'cd "$RUNNER_TEMP"' in steps[-1]["run"]
     assert "cygpath -u" in steps[-1]["run"]
 
 
 @pytest.mark.parametrize(
     ("record_name", "field", "bad_value"),
     [
-        ("depdigest", "url", "https://conda.anaconda.org/uibcdf/noarch/depdigest-0.11.0-py_0.tar.bz2"),
+        (
+            "depdigest",
+            "url",
+            "https://conda.anaconda.org/uibcdf/noarch/depdigest-0.11.0-py_0.tar.bz2",
+        ),
         ("depdigest", "sha256", "c" * 64),
         ("smonitor", "url", f"{verifier.STAGING_CHANNEL}/smonitor-0.16.0-py_1.tar.bz2"),
     ],
@@ -150,12 +164,19 @@ def test_installed_gate_rejects_wrong_artifact_or_dependency_source(
     }
     records = {"depdigest": package, "smonitor": dependency}
     records[record_name][field] = bad_value
-    (meta / "depdigest-0.11.0-py_0.json").write_text(json.dumps(package), encoding="utf-8")
-    (meta / "smonitor-0.16.0-py_1.json").write_text(json.dumps(dependency), encoding="utf-8")
+    (meta / "depdigest-0.11.0-py_0.json").write_text(
+        json.dumps(package), encoding="utf-8"
+    )
+    (meta / "smonitor-0.16.0-py_1.json").write_text(
+        json.dumps(dependency), encoding="utf-8"
+    )
     monkeypatch.setattr(sys, "prefix", str(tmp_path))
 
     with pytest.raises(ValueError):
         verifier.verify_installed(
-            tmp_path, DIGEST, "0.11.0", 0,
+            tmp_path,
+            DIGEST,
+            "0.11.0",
+            0,
             f"{sys.version_info.major}.{sys.version_info.minor}",
         )
