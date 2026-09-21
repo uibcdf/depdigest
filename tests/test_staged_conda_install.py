@@ -111,6 +111,7 @@ def test_staged_matrix_checks_twelve_clean_installs_and_no_pip_source_install():
     steps = jobs["install"]["steps"]
     setup = next(step for step in steps if step.get("name", "").startswith("Create a clean"))
     args = setup["with"]["create-args"]
+    assert "channel_priority: flexible" in setup["with"]["condarc"]
     assert "uibcdf/label/staging::depdigest=" in args
     assert "uibcdf::smonitor=0.16.0=py_1" in args
     assert all("pip install" not in step.get("run", "") for step in steps)

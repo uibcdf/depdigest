@@ -57,7 +57,10 @@ For DepDigest, dispatch `.github/workflows/test_staged_conda_package.yaml` with
 the candidate SHA, version, build number, and successful staging run ID. Its
 producer gate cross-checks the GitHub run and both retained receipts; the
 12-cell matrix then installs the exact package from staging with SMonitor
-channel-qualified from public `uibcdf`. Each cell verifies Conda's installed
+channel-qualified from public `uibcdf`. The solver uses flexible priority
+because strict priority masks that public SMonitor build when staging also has
+the same package name; explicit coordinates and installed-record checks keep
+both package origins exact. Each cell verifies Conda's installed
 record (including SHA-256 and channel), Python and package versions, off-checkout
 import, and CLI. A failed or missing cell is not evidence of support. The
 validation workflow may be added after a staged artifact was built, provided it
