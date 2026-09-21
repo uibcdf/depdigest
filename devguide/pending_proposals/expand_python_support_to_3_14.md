@@ -66,8 +66,8 @@ environments for that chain.
 Local Linux and three-platform hosted source feasibility passed. MolSysSuite commit
 `10c0948` records DepDigest as `authorized`, not `admitted`. The target-range
 metadata, derived noarch recipe/environments, twelve-cell required CI matrix, and
-candidate documentation are prepared locally. The complete source suite passed
-88 tests on both Python 3.13 and 3.14 with 12 workers. The central repository
+candidate documentation are committed. The complete source suite passed
+91 tests on both Python 3.13 and 3.14 with 12 workers. The central repository
 checker accepts the candidate; a local Conda render for Python 3.14 succeeded,
 but derived the latest existing tag `0.10.1` because no new candidate tag exists.
 Packaged, public, and archival gates remain open. No release, tag, or public
@@ -82,9 +82,8 @@ parsing of Windows temporary paths in the new Conda release-route tests. GH Run
 Receptor identified the test failures; the native failed-step log was consulted
 for the platform-specific details. These are CI/test-environment defects, not
 evidence that the DepDigest runtime fails on Python 3.14. The corrections now
-pass all 89 source tests locally on both Python 3.13 and 3.14 with 12 workers;
-the required hosted matrix must be repeated at the new exact commit before any
-compatibility claim advances.
+passed all 89 source tests locally on both Python 3.13 and 3.14 with 12 workers
+at that revision. A later exact-commit hosted matrix is recorded below.
 
 The corrected matrix run `35603608717` at
 `2e7abd4cceae8df925eb6a4607416118ba07ab47` passed all twelve jobs across
@@ -96,15 +95,35 @@ and an executable regression test that substitutes a failing import and requires
 the job script to exit nonzero before the trailing echo. This makes the installed
 import check meaningful; a new exact-commit hosted matrix is required before
 counting the twelve jobs as release-gate evidence. The pilot and its hosted
-result should be reported to the central issue for reuse by other members.
+result are recorded below for reuse by other members.
 
 The first pilot run, `35604512974`, passed all eight Ubuntu/macOS cells and failed
 the four Windows cells only in the new regression test. On the hosted Windows
 Python process, bare `bash` resolved to the WSL launcher, which had no Linux
 distribution, rather than to the Git Bash executable used by the workflow's
 `shell: bash -l {0}` steps. The test now locates Git Bash relative to Git on
-Windows and invokes that executable explicitly. The hosted result remains red;
-the corrected pilot needs another exact-commit matrix run.
+Windows and invokes that executable explicitly. That hosted attempt remains red;
+the corrected pilot was checked in the later matrix below.
+
+## Required hosted matrix evidence
+
+The final pilot commit `05af5f879ea0c4d098b8dcfaf35841a13d584b1b` passed
+the full 12-cell matrix in run `35642619746`, attempt 2. Attempt 1 passed ten
+jobs, including all Windows and macOS cells; Ubuntu 3.11 and 3.13 stopped before
+environment creation because the micromamba download endpoint returned HTTP 500
+twice. Their post-step `Unexpected end of JSON input` was a consequence of that
+failed download, not a DepDigest test failure. Only the two failed jobs were
+rerun. GH Run Receptor reported `PASS` and 12/12 jobs at the final attempt;
+a separate GitHub query confirmed the exact SHA, overall `success`, and twelve
+named successful jobs.
+
+The full matrix installs DepDigest with pip from this checkout, performs the
+off-checkout import smoke under fail-fast Bash, and runs the source test suite
+on Python 3.11--3.14 on Ubuntu, macOS, and Windows. It does **not** build or
+validate a Conda artifact. The next gate is an exact-SHA staging build followed
+by clean installed-package tests from the Conda artifact and its public SMonitor
+dependency. Until those pass and the release and archival gates complete,
+DepDigest remains centrally `authorized`, not `admitted`, for Python 3.14.
 
 ## Hosted feasibility evidence
 
@@ -117,6 +136,6 @@ commit SHA and success for each named platform job. The workflow tests checkout
 source through `PYTHONPATH` without installing a DepDigest distribution, so package
 metadata, off-checkout installation, Conda publication, and Zenodo remain unproven.
 
-This is sufficient feasibility evidence to request central `authorized` status, not
-`admitted` status. The next local step is a consistent target-range candidate and
-its required hosted CI matrix.
+That feasibility run justified central `authorized` status, not `admitted` status.
+The later required hosted CI matrix is recorded above; packaged and public
+evidence remains pending.
