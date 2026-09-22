@@ -35,6 +35,7 @@ line-length = 88
 extend-exclude = [
     "GH_RUN_RECEPTOR_GUIDE.md",
     "MOLSYSSUITE_GUIDE.md",
+    "PYTEST_RECEPTOR_GUIDE.md",
     "SMONITOR_GUIDE.md",
 ]
 
