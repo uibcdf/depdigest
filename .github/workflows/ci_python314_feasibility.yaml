@@ -50,4 +50,4 @@ jobs:
         shell: bash -l {0}
         run: |
           export PYTHONPATH="$GITHUB_WORKSPACE"
-          python -m pytest --receptor=llm -n 4
+          python -m pytest --receptor=ci -n 4

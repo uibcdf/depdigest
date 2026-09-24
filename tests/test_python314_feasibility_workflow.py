@@ -16,7 +16,7 @@ def test_python314_probe_is_source_only_and_non_claiming():
     assert "ubuntu-latest, macos-latest, windows-latest" in workflow
     assert 'export PYTHONPATH="$GITHUB_WORKSPACE"' in workflow
     assert "pip install" not in workflow
-    assert "--receptor=llm" in workflow
+    assert "--receptor=ci" in workflow
     assert "uibcdf/label/staging" not in workflow
 
 
