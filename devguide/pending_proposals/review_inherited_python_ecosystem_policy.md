@@ -4,7 +4,7 @@ issue: uibcdf/depdigest#18
 status: active
 opened: 2026-09-24
 closed:
-verification: inspected
+verification: measured
 area: [governance, dependencies, ci]
 guard:
 normative:
@@ -53,6 +53,24 @@ Review the inherited support-library boundaries independently:
 The CI profile and exact release pin make the inherited developer-tools rule
 observable. Keeping the support-library review partial prevents a false claim
 that a known applicability question has been resolved.
+
+## Evidence and current state
+
+Commit `19a478ba5e2b99a65de71616d6a920f02866253f` contains the developer-tool
+changes. The isolated local checkout passed 104 tests with
+`python -m pytest --receptor=llm -q tests`, full-tree Ruff check and format, the
+developer-guide index check, and MolSysSuite's repository checker. The local
+receptor build was `1.1.0+13.g43d37d6`; hosted CI independently resolved the
+exact published `pytest-receptor 1.1.0 py_1` from `uibcdf`.
+
+Exact-commit routine CI `36063274018` passed with `--receptor=ci` (103 passed,
+one skip). The shared policy run `36063275021` passed. Full Python/OS matrix
+`36063283769` passed 12/12 cells, and the separate Python 3.14 feasibility
+run `36063283598` passed 3/3. GH Run Receptor inspected all four runs; native
+CI logs confirmed the exact package pin and command. The inherited
+developer-tools review is therefore adopted. The support-library review is
+partial while the ArgDigest boundary and dependency cycle remain unresolved
+under `uibcdf/depdigest#18`.
 
 ## Acceptance criteria
 

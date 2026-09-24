@@ -11,7 +11,7 @@ generated from report metadata.
 ### Active (2)
 
 - [`guard_conda_release_routes.md`](guard_conda_release_routes.md) — [#15](https://github.com/uibcdf/depdigest/issues/15) — Guard direct Conda releases and promote exact staged files. *(active, inspected)*
-- [`review_inherited_python_ecosystem_policy.md`](review_inherited_python_ecosystem_policy.md) — [#18](https://github.com/uibcdf/depdigest/issues/18) — Review inherited Python ecosystem policy in DepDigest. *(active, inspected)*
+- [`review_inherited_python_ecosystem_policy.md`](review_inherited_python_ecosystem_policy.md) — [#18](https://github.com/uibcdf/depdigest/issues/18) — Review inherited Python ecosystem policy in DepDigest. *(active, measured)*
 
 ### Open (3)
 
