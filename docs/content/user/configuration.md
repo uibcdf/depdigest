@@ -19,7 +19,9 @@ LIBRARIES = {
     "numpy": {"type": "hard", "pypi": "numpy"},
     "mdtraj": {"type": "soft", "pypi": "mdtraj"},
     "openmm.unit": {
-        "type": "soft", "pypi": "openmm", "conda": "openmm",
+        "type": "soft",
+        "pypi": "openmm",
+        "conda": "openmm",
         "channel": "conda-forge",
     },
 }
