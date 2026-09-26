@@ -1,6 +1,6 @@
 # Reviewed candidate decision. No public tag or promotion is authorized by this file.
-version = "0.11.1"
-route = "staged"
-reason = "Verify the repaired noarch CLI launcher in clean Windows installations before any public release."
-decision_by = "DepDigest staged candidate preparation, 2026-09-26"
+version = "0.11.2"
+route = "direct"
+reason = "Routine noarch patch with no new packaging layout, support claim, staged file, or coupled consumer gate; require exact-commit full matrix, empty-version preflight, package tests, and public digest verification."
+decision_by = "DepDigest direct-route candidate review, 2026-09-26"
 required_workflows = [".github/workflows/CI_full_matrix.yaml"]

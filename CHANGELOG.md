@@ -7,6 +7,28 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+## [0.11.2] - 2026-09-26
+
+### Fixed
+
+- Missing-dependency diagnostics now use the consumer's documentation URL and
+  one Conda-first installation hint in both SMonitor and the exception.
+- Installed imports read the generated version file without eagerly loading
+  `importlib.metadata`; entry-point discovery is loaded only when requested.
+- A staged GitHub Release now skips the direct Conda uploader while preserving
+  fail-closed route validation.
+
+### Added
+
+- `LazyRegistry` emits a DEBUG diagnostic for each successful plugin load on
+  its first scan, including the initiating access and call site.
+
+### Migration Notes
+
+- A plain `check_dependency(...)` call without a declared PyPI package no longer
+  suggests pip. Supply `pypi_name` when a pip installation route is supported.
+- Consumers can set `DOC_URL` in `_depdigest.py` or pass `doc_url` to `DepConfig`.
+
 ## [0.11.1] - 2026-09-26
 
 ### Fixed

@@ -130,3 +130,13 @@ commit; the promotion run is the Conda publication path. Later release tags use
 the route selector to leave this workflow green for a valid staged decision
 without uploading. An invalid or mismatched decision still fails closed. The
 direct route still needs a real release to prove its hosted publication path.
+
+## 0.11.2 direct candidate
+
+The candidate selects `direct` in `devtools/conda-build/release_plan.toml`.
+This patch does not change the package layout or claimed Python/platform
+support, and its dependencies are already public. The exact candidate commit
+must pass the full source matrix; release automation must also confirm that
+Anaconda has no file for 0.11.2 in any label before building, testing, and
+uploading its single noarch file. A public digest comparison is required before
+calling this route proven. Committing this plan does not publish the release.
