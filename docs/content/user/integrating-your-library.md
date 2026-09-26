@@ -39,8 +39,13 @@ Template:
 LIBRARIES = {
     "numpy": {"type": "hard", "pypi": "numpy"},
     "mdtraj": {"type": "soft", "pypi": "mdtraj"},
-    "openmm.unit": {"type": "soft", "pypi": "openmm", "conda": "openmm"},
+    "openmm.unit": {
+        "type": "soft", "pypi": "openmm", "conda": "openmm",
+        "channel": "conda-forge",
+    },
 }
+
+DOC_URL = "https://your-project.example/docs/dependencies"
 
 MAPPING = {
     "mdtraj_form": "mdtraj",

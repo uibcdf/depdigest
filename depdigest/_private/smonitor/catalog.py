@@ -32,9 +32,9 @@ CODES = {
         "title": "Missing Dependency",
         "user_message": "Required library '{library}' not found.",
         "qa_message": "Dependency '{library}' missing in '{caller}'.",
-        "user_hint": "Install it via:\n  {pip_install}\n  {conda_install}\nDocs: {doc_url}",
+        "user_hint": "{install_hint}",
         "dev_message": "Dependency '{library}' missing in '{caller}'.",
-        "dev_hint": "Add to requirements or environment. Docs: {doc_url}",
+        "dev_hint": "{install_hint}",
     },
     "DEP-DBG-LOAD-001": {
         "title": "Plugin load failed",
@@ -48,7 +48,7 @@ CODES = {
 
 SIGNALS = {
     "depdigest.error.missing_dependency": {
-        "extra_required": ["library", "caller", "pip_install", "conda_install"]
+        "extra_required": ["library", "caller", "install_hint"]
     },
     "depdigest.debug.plugin_load_failed": {
         "extra_required": ["plugin", "caller", "error"]

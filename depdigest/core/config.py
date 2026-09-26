@@ -13,6 +13,7 @@ class DepConfig:
     mapping: Dict[str, str] = field(default_factory=dict)
     show_all_capabilities: bool = True
     exception_class: Type[Exception] = ImportError
+    doc_url: Optional[str] = None
 
 
 _PACKAGE_CONFIGS: Dict[str, DepConfig] = {}
@@ -78,6 +79,7 @@ def resolve_config(module_path: Optional[str]) -> DepConfig:
             mapping=getattr(module, "MAPPING", {}),
             show_all_capabilities=getattr(module, "SHOW_ALL_CAPABILITIES", True),
             exception_class=getattr(module, "EXCEPTION_CLASS", ImportError),
+            doc_url=getattr(module, "DOC_URL", None),
         )
     except ModuleNotFoundError as exc:
         if exc.name == config_module_path:

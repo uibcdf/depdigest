@@ -26,17 +26,29 @@ def check_dependency(
     pypi_name: str = None,
     caller: str = None,
     exception_class: type = ImportError,
+    *,
+    conda_name: str = None,
+    conda_channel: str = None,
+    doc_url: str = None,
 ):
     """
     Check if a dependency is installed. Raises the specified exception if missing.
     """
     if not is_installed(module_name):
-        install_name = pypi_name or _default_package_name(module_name)
-        conda_name = _default_package_name(module_name)
+        conda_package = conda_name or _default_package_name(module_name)
+        channel = conda_channel or "conda-forge"
         lib_name = pypi_name or module_name
         from smonitor.integrations import emit_from_catalog, merge_extra
 
         from .._private.smonitor.catalog import CATALOG, META, PACKAGE_ROOT
+
+        documentation = doc_url or META.get("doc_url")
+        commands = [f"conda install -c {channel} {conda_package}"]
+        if pypi_name:
+            commands.append(f"pip install {pypi_name}")
+        install_hint = "Install with:\n  " + "\n  ".join(commands)
+        if documentation:
+            install_hint += f"\nDocumentation: {documentation}"
 
         try:
             emit_from_catalog(
@@ -47,8 +59,8 @@ def check_dependency(
                     {
                         "library": lib_name,
                         "caller": caller or "",
-                        "pip_install": f"pip install {install_name}",
-                        "conda_install": f"conda install -c conda-forge {conda_name}",
+                        "doc_url": documentation,
+                        "install_hint": install_hint,
                     },
                 ),
             )
@@ -63,17 +75,7 @@ def check_dependency(
         msg = f"The library '{module_name}' is required"
         if caller:
             msg += f" for '{caller}'"
-        if install_name != module_name:
-            msg += f". Install package '{install_name}'."
-        else:
-            msg += "."
-        msg += (
-            f"\nInstall with:\n"
-            f"  conda install -c conda-forge {conda_name}\n"
-            f"  pip install {install_name}"
-        )
-        if META.get("doc_url"):
-            msg += f"\nDocumentation: {META['doc_url']}"
+        msg += f".\n{install_hint}"
 
         try:
             raise exception_class(library=lib_name, caller=caller, message=msg)

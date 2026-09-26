@@ -115,6 +115,9 @@ def dep_digest(library: str, when: Optional[Dict[str, Any]] = None):
                 check_dependency(
                     library,
                     pypi_name=pypi_name,
+                    conda_name=lib_info.get("conda"),
+                    conda_channel=lib_info.get("channel"),
+                    doc_url=cfg.doc_url,
                     caller=func.__name__,
                     exception_class=cfg.exception_class,
                 )

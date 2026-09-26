@@ -18,8 +18,13 @@ Place this file in your package root:
 LIBRARIES = {
     "numpy": {"type": "hard", "pypi": "numpy"},
     "mdtraj": {"type": "soft", "pypi": "mdtraj"},
-    "openmm.unit": {"type": "soft", "pypi": "openmm", "conda": "openmm"},
+    "openmm.unit": {
+        "type": "soft", "pypi": "openmm", "conda": "openmm",
+        "channel": "conda-forge",
+    },
 }
+
+DOC_URL = "https://your-project.example/docs/dependencies"
 
 MAPPING = {
     "mdtraj_form": "mdtraj",
@@ -35,7 +40,12 @@ SHOW_ALL_CAPABILITIES = True
 - `type`:
   - `hard`: expected as mandatory.
   - `soft`: optional integration.
-- `pypi` / `conda`: install names shown in hints.
+- `conda`: Conda package name shown in missing-dependency hints; defaults to
+  the import root when omitted.
+- `channel`: Conda channel for that package; defaults to `conda-forge`.
+- `pypi`: optional PyPI package name. The pip command appears only when set.
+- `DOC_URL`: your library's dependency documentation URL, used by both the
+  SMonitor event and exception. Without it, the link falls back to DepDigest.
 - `MAPPING`: connects plugin folders to dependency keys (used by `LazyRegistry`).
 - `SHOW_ALL_CAPABILITIES`: if `False`, unavailable soft capabilities can be hidden.
 
@@ -49,6 +59,9 @@ EXCEPTION_CLASS = MyDependencyError
 
 DepDigest supports multiple constructor contracts and falls back to a plain
 message when needed.
+
+For packages registered in code instead of `_depdigest.py`, pass the same
+documentation value as `DepConfig(doc_url="https://your-project.example/docs")`.
 
 ## Next
 

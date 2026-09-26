@@ -213,7 +213,11 @@ def test_missing_dependency_exception_has_readable_message():
     from depdigest.core.checker import check_dependency
 
     with pytest.raises(ImportError) as excinfo:
-        check_dependency("definitely_nonexistent_pkg_zzz", caller="demo")
+        check_dependency(
+            "definitely_nonexistent_pkg_zzz",
+            pypi_name="definitely_nonexistent_pkg_zzz",
+            caller="demo",
+        )
 
     message = str(excinfo.value)
     assert isinstance(message, str)
@@ -480,11 +484,124 @@ def test_check_dependency_uses_root_package_name_for_install_hint():
 
     with patch("depdigest.core.checker.is_installed", return_value=False):
         with pytest.raises(ImportError) as excinfo:
-            check_dependency("openmm.unit", caller="demo")
+            check_dependency("openmm.unit", pypi_name="openmm", caller="demo")
 
     message = str(excinfo.value)
     assert "pip install openmm" in message
     assert "conda install -c conda-forge openmm" in message
+
+
+def test_consumer_dependency_hint_is_shared_by_event_and_exception():
+    import smonitor
+    from smonitor.handlers.memory import MemoryHandler
+
+    from depdigest.core.checker import check_dependency
+
+    memory = MemoryHandler(max_events=10)
+    smonitor.configure(
+        profile="user",
+        handlers=[memory],
+        level="INFO",
+        strict_signals=False,
+        strict_schema=False,
+    )
+    with (
+        patch("depdigest.core.checker.is_installed", return_value=False),
+        pytest.raises(ImportError) as excinfo,
+    ):
+        check_dependency(
+            "pandas",
+            pypi_name="pandas",
+            conda_name="pandas",
+            conda_channel="uibcdf",
+            doc_url="https://consumer.example/docs/dataframe",
+            caller="to_dataframe",
+        )
+
+    event = next(e for e in memory.events if e.get("code") == "DEP-ERR-MISS-001")
+    hint = event["extra"]["hint"]
+    assert hint == (
+        "Install with:\n"
+        "  conda install -c uibcdf pandas\n"
+        "  pip install pandas\n"
+        "Documentation: https://consumer.example/docs/dataframe"
+    )
+    assert hint in str(excinfo.value)
+    assert event["extra"]["doc_url"] == ("https://consumer.example/docs/dataframe")
+
+
+def test_missing_pypi_name_omits_pip_and_uses_default_docs():
+    from depdigest.core.checker import check_dependency
+
+    with (
+        patch("depdigest.core.checker.is_installed", return_value=False),
+        patch("smonitor.integrations.emit_from_catalog") as emit,
+        pytest.raises(ImportError) as excinfo,
+    ):
+        check_dependency("openmm.unit", caller="demo")
+
+    hint = emit.call_args.kwargs["extra"]["install_hint"]
+    assert "conda install -c conda-forge openmm" in hint
+    assert "pip install" not in hint
+    assert "Documentation: https://github.com/uibcdf/depdigest" in hint
+    assert hint in str(excinfo.value)
+
+
+def test_file_config_supplies_consumer_docs_and_channel(tmp_path):
+    package_name = "tmp_pkg_for_dependency_hint"
+    package_dir = tmp_path / package_name
+    package_dir.mkdir()
+    (package_dir / "__init__.py").write_text("", encoding="utf-8")
+    (package_dir / "_depdigest.py").write_text(
+        'DOC_URL = "https://consumer.example/docs"\n'
+        'LIBRARIES = {"pandas": {"type": "soft", "pypi": "pandas", '
+        '"conda": "pandas", "channel": "uibcdf"}}\n',
+        encoding="utf-8",
+    )
+    sys.path.insert(0, str(tmp_path))
+    resolve_config.cache_clear()
+    try:
+        cfg = resolve_config(f"{package_name}.module")
+        assert cfg.doc_url == "https://consumer.example/docs"
+        assert cfg.libraries["pandas"]["channel"] == "uibcdf"
+    finally:
+        resolve_config.cache_clear()
+        sys.path.remove(str(tmp_path))
+
+
+def test_decorator_passes_registered_consumer_hint_to_checker():
+    module_root = __name__.split(".")[0]
+    register_package_config(
+        module_root,
+        DepConfig(
+            libraries={
+                "missing_backend": {
+                    "type": "soft",
+                    "pypi": "backend-pip",
+                    "conda": "backend-conda",
+                    "channel": "uibcdf",
+                }
+            },
+            doc_url="https://consumer.example/backend",
+        ),
+    )
+
+    @dep_digest("missing_backend")
+    def guarded():
+        return "unreachable"
+
+    with (
+        patch("depdigest.core.checker.is_installed", return_value=False),
+        patch("smonitor.integrations.emit_from_catalog") as emit,
+        pytest.raises(ImportError) as excinfo,
+    ):
+        guarded()
+
+    hint = emit.call_args.kwargs["extra"]["install_hint"]
+    assert "conda install -c uibcdf backend-conda" in hint
+    assert "pip install backend-pip" in hint
+    assert "Documentation: https://consumer.example/backend" in hint
+    assert hint in str(excinfo.value)
 
 
 def test_resolve_config_raises_for_internal_errors_in_depdigest_file(tmp_path):
