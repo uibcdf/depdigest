@@ -6,6 +6,8 @@ source:
 build:
   number: "{{ environ.get('DEPDIGEST_CONDA_BUILD_NUMBER', '0') }}"
   noarch: python
+  entry_points:
+  - depdigest = depdigest.cli:main
 requirements:
   build:
   - python >=3.11,<3.15

@@ -6,6 +6,7 @@ import argparse
 import importlib.metadata
 import json
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -158,14 +159,25 @@ def verify_installed(
         Path(depdigest.__file__).resolve().is_relative_to(prefix.resolve()),
         "Imported the source checkout instead of the installed package",
     )
+    verify_launcher(prefix)
+
+
+def verify_launcher(prefix: Path) -> None:
+    """Run the command installed by Conda, including its Windows launcher."""
+    launcher = shutil.which(PACKAGE)
+    _require(launcher is not None, "Installed depdigest launcher is missing")
+    _require(
+        Path(launcher).resolve().is_relative_to(prefix.resolve()),
+        "depdigest launcher is outside the installed environment",
+    )
     command = subprocess.run(
-        [sys.executable, "-m", PACKAGE, "--help"],
+        [launcher, "--help"],
         capture_output=True,
         text=True,
         check=False,
         timeout=30,
     )
-    _require(command.returncode == 0, f"Installed CLI failed: {command.stderr}")
+    _require(command.returncode == 0, f"Installed launcher failed: {command.stderr}")
 
 
 def main() -> None:

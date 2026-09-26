@@ -129,6 +129,17 @@ def test_staged_matrix_checks_twelve_clean_installs_and_no_pip_source_install():
     assert "cygpath -u" in steps[-1]["run"]
 
 
+def test_installed_gate_requires_a_conda_environment_launcher(tmp_path, monkeypatch):
+    monkeypatch.setattr(verifier.shutil, "which", lambda _name: None)
+    with pytest.raises(ValueError, match="launcher is missing"):
+        verifier.verify_launcher(tmp_path)
+
+    outside = tmp_path.parent / "depdigest"
+    monkeypatch.setattr(verifier.shutil, "which", lambda _name: str(outside))
+    with pytest.raises(ValueError, match="outside the installed environment"):
+        verifier.verify_launcher(tmp_path)
+
+
 @pytest.mark.parametrize(
     ("record_name", "field", "bad_value"),
     [
