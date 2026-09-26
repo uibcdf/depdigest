@@ -1,5 +1,3 @@
-from importlib.metadata import PackageNotFoundError, version
-
 from .core.checker import check_dependency, get_info, is_installed
 from .core.config import (
     DepConfig,
@@ -13,12 +11,14 @@ from .core.decorator import dep_digest
 from .core.loader import LazyRegistry
 
 try:
-    __version__ = version("depdigest")
-except PackageNotFoundError:
-    # Package is not installed
+    from ._version import __version__
+except ImportError:
+    # Source checkouts may not contain the generated version file.
+    from importlib.metadata import PackageNotFoundError, version
+
     try:
-        from ._version import __version__
-    except ImportError:
+        __version__ = version("depdigest")
+    except PackageNotFoundError:
         __version__ = "0.0.0+unknown"
 
 from smonitor.integrations import ensure_configured as _ensure_smonitor_configured

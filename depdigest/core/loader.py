@@ -1,7 +1,6 @@
 import logging
 import os
 from importlib import import_module
-from importlib.metadata import entry_points
 from typing import Any, Iterable, Optional
 
 from smonitor import signal
@@ -10,6 +9,13 @@ from .checker import is_installed
 from .config import resolve_config
 
 logger = logging.getLogger(__name__)
+
+
+def entry_points():
+    """Load entry-point discovery only when a registry requests that mode."""
+    from importlib.metadata import entry_points as discover
+
+    return discover()
 
 
 class LazyRegistry(dict):
