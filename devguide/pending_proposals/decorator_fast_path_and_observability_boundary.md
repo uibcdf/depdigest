@@ -16,7 +16,7 @@ supersedes: []
 
 **Status:** proposal (2026-08-15). Measured on this host, with the command next to each figure.
 **Recommendation:** do not implement before 1.0.0, and decide it **jointly** with
-[`lazy_registry_smonitor.md`](lazy_registry_smonitor.md) — see section 5, they are the same
+[`lazy_registry_smonitor.md`](../completed_proposals/lazy_registry_smonitor.md) — see section 5, they are the same
 decision seen from two sides.
 **Origin:** follow-up to `../completed_proposals/fast_dependency_cache.md`, which took the per-call
 overhead from 1198 ns to 631 ns. This document asks how much of the remainder is reachable.
@@ -175,3 +175,18 @@ control stayed at 66-71 ns across every run.
 
 Per-call figures at this scale are sensitive to the host and to what else it is doing: treat them as
 ratios between rows measured in the same session, not as absolutes.
+
+## 2026-09-26 reevaluation
+
+The bounded successful-load instrumentation in `uibcdf/depdigest#7` is now
+implemented without changing LazyRegistry's scan semantics. It does not add
+success-path events to `@dep_digest`, so this proposal still needs an explicit
+decision about losing the per-wrapper cache-hit observation and about safe
+invalidation when configuration changes. On the 0.11.2 preparation checkout,
+`python benchmarks/decorator_fast_path_probe.py` measured 600 ns for the
+current wrapper and 278 ns for the closure-cell prototype in one 300,000-call
+run; `python benchmarks/decorator_overhead.py` measured 567 ns of current
+overhead. These are same-host samples, not a cross-platform guarantee. The
+prototype saves roughly 0.3 microseconds but still lacks the observable
+invalidation contract and regression tests required for production. This
+proposal remains deferred rather than entering the pre-1.0 stable API now.

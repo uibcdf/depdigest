@@ -1,12 +1,12 @@
 ---
 summary: Instrument LazyRegistry with SMonitor without changing observable semantics.
 issue: uibcdf/depdigest#7
-status: open
+status: resolved
 opened: 2026-09-07
-closed:
+closed: 2026-09-26
 verification: inspected
 area: [observability, registry]
-guard:
+guard: tests/test_core.py::test_lazy_registry_success_signal_identifies_trigger_and_caller
 normative:
 blocked_by: []
 supersedes: []
@@ -14,11 +14,8 @@ supersedes: []
 
 # Proposal: LazyRegistry SMonitor Instrumentation
 
-> **Estado: ABIERTA, alcance recortado y diferida a 1.1.0** (revisión 2026-08-15).
-> Útil pero no necesaria: nada está roto hoy. Se difiere por el congelamiento de entrada
-> de features vigente desde 0.8.0 y por «contract stability» como bloqueante duro de
-> 1.0.0. Ver «Revisión 2026-08-15» al final para el alcance real y la decisión de diseño
-> pendiente.
+> **Estado: RESUELTA** (2026-09-26). La revisión 2026-08-15 que sigue conserva el
+> razonamiento previo; la resolución y su alcance se describen al final.
 
 ## Abstract
 
@@ -78,16 +75,17 @@ The emitted signal will record:
 error (`:90-113`). **Solo se observa el fallo, nunca la carga exitosa**, que es
 justamente el caso que la propuesta quiere auditar.
 
-### La premisa de «Zero Overhead» ahora se sostiene
+### La premisa de «Zero Overhead» para la señal existente
 
 Cuando se escribió esta propuesta, el `@signal` de SMonitor construía el manager y leía su
 config **antes** de comprobar si la telemetría estaba activa. Ya no: en SMonitor 0.12.0,
 `smonitor/core/decorator.py:72` abre el wrapper con
 `if not runtime.signals_enabled: return fn(*args, **kwargs)`, y el plan por-llamada se
 cachea por identidad del `ManagerConfig`. El coste con SMonitor desactivado es una lectura
-de bandera. La afirmación de esta propuesta era optimista entonces; hoy es correcta.
+de bandera. Este análisis previo no incluye la captura de `caller` ni la señal de éxito
+que se implementaron después.
 
-### Decisión de diseño pendiente (bloquea la implementación)
+### Decisión de diseño pendiente en 2026-08-15
 
 La propuesta asume un `_load_module(module_name)` por módulo, **pero no existe**:
 `_scan_and_load` importa todos los plugins de golpe en el primer acceso, y
@@ -101,7 +99,7 @@ propagar la clave accedida. Por tanto no hay de dónde sacar `trigger`. Dos cami
   solo al acceder. **Cambia semántica pública observable** — hoy `keys()` / `values()`
   fuerzan la importación de todo.
 
-### Alcance acordado
+### Alcance previsto en 2026-08-15
 
 - **1.1.0 (post-estable):** camino (A). Entrada `lazy_load` en `CATALOG` + `CODES` +
   `SIGNALS` (`extra_required: ["module", "trigger", "caller"]`, nivel `DEBUG`), `caller`
@@ -112,3 +110,19 @@ propagar la clave accedida. Por tanto no hay de dónde sacar `trigger`. Dos cami
 Separar (A) de (B) es lo que convierte esta propuesta de bloqueada en entregable.
 Complementa a `depdigest audit`, que detecta imports top-level de forma estática pero no
 puede ver una importación disparada en runtime.
+
+## Resolución 2026-09-26
+
+Se implementó el camino (A), acotado y sin cambiar el contrato de carga:
+`LazyRegistry` sigue importando todos los plugins permitidos en el primer
+acceso. El catálogo emite `DEP-DBG-LOAD-002` en `DEBUG` por cada carga exitosa,
+con `plugin`, `module`, `trigger` y la ubicación real del acceso que inició el
+escaneo. `trigger` identifica ese acceso, no afirma que cada plugin fuera
+solicitado individualmente. La emisión fallida no impide cargar el plugin.
+
+`tests/test_core.py::test_lazy_registry_success_signal_identifies_trigger_and_caller`
+protege la carga diferida, el evento renderizado y la atribución del acceso.
+Una prueba adyacente protege el comportamiento cuando SMonitor falla. La
+suite local pasó 114 pruebas con una omisión dependiente del entorno. La carga
+por entrada del camino (B) queda fuera de este resultado y requeriría un caso
+real y una propuesta distinta por su cambio observable de semántica.

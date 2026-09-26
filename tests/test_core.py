@@ -286,6 +286,77 @@ def test_lazy_registry_entry_points_loads_objects():
             assert "entry_plugin" in registry
 
 
+def test_lazy_registry_success_signal_identifies_trigger_and_caller():
+    from types import ModuleType
+
+    import smonitor
+    from smonitor.handlers.memory import MemoryHandler
+
+    class Entry:
+        name = "plugin_directory"
+
+        def is_dir(self):
+            return True
+
+    plugin = ModuleType("sample.plugins.plugin_directory")
+    plugin.plugin_name = "plugin_identity"
+    memory = MemoryHandler(max_events=20)
+    smonitor.configure(
+        profile="dev",
+        handlers=[memory],
+        level="DEBUG",
+        strict_signals=False,
+        strict_schema=False,
+    )
+
+    with (
+        patch("os.path.exists", return_value=True),
+        patch("os.scandir", return_value=[Entry()]),
+        patch("depdigest.core.loader.resolve_config", return_value=DepConfig()),
+        patch("depdigest.core.loader.import_module", return_value=plugin) as importer,
+    ):
+        registry = LazyRegistry(
+            "sample.plugins", "/sample/plugins", attr_name="plugin_name"
+        )
+        importer.assert_not_called()
+        assert "plugin_identity" in registry
+
+    event = next(e for e in memory.events if e.get("code") == "DEP-DBG-LOAD-002")
+    assert event["extra"]["plugin"] == "plugin_directory"
+    assert event["extra"]["module"] == "sample.plugins.plugin_directory"
+    assert event["extra"]["trigger"] == "plugin_identity"
+    assert event["extra"]["caller"].startswith(__file__ + ":")
+    assert "contract_warning" not in event["extra"]
+    assert "schema_warning" not in event["extra"]
+
+
+def test_lazy_registry_success_signal_failure_keeps_loaded_plugin():
+    from types import ModuleType
+
+    class Entry:
+        name = "plugin_directory"
+
+        def is_dir(self):
+            return True
+
+    plugin = ModuleType("sample.plugins.plugin_directory")
+    plugin.plugin_name = "plugin_identity"
+    with (
+        patch("os.path.exists", return_value=True),
+        patch("os.scandir", return_value=[Entry()]),
+        patch("depdigest.core.loader.resolve_config", return_value=DepConfig()),
+        patch("depdigest.core.loader.import_module", return_value=plugin),
+        patch(
+            "smonitor.integrations.emit_from_catalog",
+            side_effect=RuntimeError("diagnostics unavailable"),
+        ),
+    ):
+        registry = LazyRegistry(
+            "sample.plugins", "/sample/plugins", attr_name="plugin_name"
+        )
+        assert registry["plugin_identity"] is plugin
+
+
 def test_lazy_registry_entry_points_filters_by_mapping():
     class Plugin:
         plugin_name = "entry_plugin"

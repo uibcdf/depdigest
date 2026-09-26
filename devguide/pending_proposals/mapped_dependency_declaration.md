@@ -138,3 +138,11 @@ entirely, on the ground that they were misplaced rather than merely expensive: `
 no backend, so the enforcement already belonged to its `load_library()`. This proposal matters for
 the case that motivates it honestly — a function that *does* import the optional dependency it
 dispatches on, and so genuinely needs the declaration at that boundary.
+
+## 2026-09-26 reevaluation
+
+No current consumer demonstrates a dispatch function that both imports the selected backend and
+needs a mapped declaration. PyUnitWizard's former `convert()` example no longer meets that test.
+The existing `MAPPING` key describes plugin discovery, so reusing it for a public decorator would
+assign a second meaning without a consumer contract. Keep `uibcdf/depdigest#8` open and defer an
+implementation until a consumer provides that boundary and the mapping semantics are settled.

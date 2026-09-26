@@ -25,6 +25,12 @@ CATALOG = {
         "category": "loader",
         "level": "DEBUG",
     },
+    "plugin_loaded": {
+        "code": "DEP-DBG-LOAD-002",
+        "source": "depdigest.debug.plugin_loaded",
+        "category": "loader",
+        "level": "DEBUG",
+    },
 }
 
 CODES = {
@@ -44,6 +50,11 @@ CODES = {
         "dev_message": "Plugin '{plugin}' failed to load in '{caller}': {error}.",
         "dev_hint": "Check dependency gates and import errors for optional plugins.",
     },
+    "DEP-DBG-LOAD-002": {
+        "title": "Plugin loaded",
+        "dev_message": "Plugin '{plugin}' loaded from '{module}' after '{trigger}' access.",
+        "dev_hint": "The first registry scan was triggered at {caller}.",
+    },
 }
 
 SIGNALS = {
@@ -52,5 +63,8 @@ SIGNALS = {
     },
     "depdigest.debug.plugin_load_failed": {
         "extra_required": ["plugin", "caller", "error"]
+    },
+    "depdigest.debug.plugin_loaded": {
+        "extra_required": ["plugin", "module", "trigger", "caller"]
     },
 }

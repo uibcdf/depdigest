@@ -27,6 +27,13 @@ If a dependency is missing in a guarded path:
 
 If diagnostics emission fails, core DepDigest behavior remains robust.
 
+When `LazyRegistry` performs its first scan, successful plugin loads can emit
+`DEP-DBG-LOAD-002` at `DEBUG` level. Its fields identify the loaded plugin,
+module, the registry access that started the scan, and that access's file and
+line. A `keys()` or `values()` access still scans all entries; the trigger
+names the access, not an individual plugin request. Failed loads retain their
+separate `DEP-DBG-LOAD-001` diagnostic.
+
 ## Do I Need to Configure SMonitor?
 
 Usually no.

@@ -45,16 +45,35 @@ class LazyRegistry(dict):
         self._entrypoint_group = entrypoint_group
         self._initialized = False
         self._initializing = False
+        self._load_trigger = "<direct scan>"
+        self._load_caller = "<unknown>"
 
-    def _ensure_initialized(self):
+    def _ensure_initialized(self, trigger: str = "<unknown>"):
         if self._initialized or self._initializing:
             return
+        from inspect import currentframe
+
+        frame = currentframe()
+        try:
+            accessor = frame.f_back if frame is not None else None
+            caller = accessor.f_back if accessor is not None else None
+            location = (
+                f"{caller.f_code.co_filename}:{caller.f_lineno}"
+                if caller is not None
+                else "<unknown>"
+            )
+        finally:
+            del frame
         self._initializing = True
+        self._load_trigger = trigger
+        self._load_caller = location
         try:
             self._scan_and_load()
             self._initialized = True
         finally:
             self._initializing = False
+            self._load_trigger = "<direct scan>"
+            self._load_caller = "<unknown>"
 
     @signal(tags=["loader"])
     def _scan_and_load(self):
@@ -72,6 +91,7 @@ class LazyRegistry(dict):
                         identity = getattr(mod, self._attr_name, None)
                         if identity:
                             self[identity] = mod
+                            self._emit_plugin_loaded(entry.name, module_path)
                     except Exception as e:
                         self._emit_plugin_load_failed(entry.name, e)
             return
@@ -84,6 +104,7 @@ class LazyRegistry(dict):
                 loaded = ep.load()
                 identity = getattr(loaded, self._attr_name, None) or ep.name
                 self[identity] = loaded
+                self._emit_plugin_loaded(ep.name, getattr(ep, "value", ep.name))
             except Exception as e:
                 self._emit_plugin_load_failed(ep.name, e)
 
@@ -127,26 +148,52 @@ class LazyRegistry(dict):
             )
         logger.debug(f"Failed to load plugin {plugin_name}: {error}")
 
+    def _emit_plugin_loaded(self, plugin_name: str, module_name: str):
+        from smonitor.integrations import emit_from_catalog, merge_extra
+
+        from .._private.smonitor.catalog import CATALOG, META, PACKAGE_ROOT
+
+        try:
+            emit_from_catalog(
+                CATALOG["plugin_loaded"],
+                package_root=PACKAGE_ROOT,
+                extra=merge_extra(
+                    META,
+                    {
+                        "plugin": plugin_name,
+                        "module": module_name,
+                        "trigger": self._load_trigger,
+                        "caller": self._load_caller,
+                    },
+                ),
+            )
+        except Exception as emit_error:
+            logger.warning(
+                "SMonitor emission failed after plugin load: plugin=%s error=%s",
+                plugin_name,
+                emit_error,
+            )
+
     def __getitem__(self, key):
-        self._ensure_initialized()
+        self._ensure_initialized(key if isinstance(key, str) else "<non-string key>")
         return super().__getitem__(key)
 
     def __contains__(self, key):
-        self._ensure_initialized()
+        self._ensure_initialized(key if isinstance(key, str) else "<non-string key>")
         return super().__contains__(key)
 
     def keys(self):
-        self._ensure_initialized()
+        self._ensure_initialized("keys()")
         return super().keys()
 
     def values(self):
-        self._ensure_initialized()
+        self._ensure_initialized("values()")
         return super().values()
 
     def items(self):
-        self._ensure_initialized()
+        self._ensure_initialized("items()")
         return super().items()
 
     def get(self, key, default=None):
-        self._ensure_initialized()
+        self._ensure_initialized(key if isinstance(key, str) else "<non-string key>")
         return super().get(key, default)
