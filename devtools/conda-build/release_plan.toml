@@ -1,6 +1,6 @@
 # Reviewed candidate decision. No public tag or promotion is authorized by this file.
-version = "0.11.0"
+version = "0.11.1"
 route = "staged"
-reason = "First Python 3.14 release needs installed Conda and consumer gates before public visibility."
-decision_by = "DepDigest release coordination, 2026-09-21"
+reason = "Verify the repaired noarch CLI launcher in clean Windows installations before any public release."
+decision_by = "DepDigest staged candidate preparation, 2026-09-26"
 required_workflows = [".github/workflows/CI_full_matrix.yaml"]

@@ -43,6 +43,7 @@ before promotion.
 
 ## Current state
 
-The recipe and staged-install gate are corrected in source, with focused local tests.
-Hosted installed-artifact evidence is pending; the existing public package is not
-considered repaired by this source change alone.
+The recipe and staged-install gate are corrected on `main`, with focused local tests.
+Version `0.11.1` is the staged candidate for installed-artifact verification. Hosted
+Windows evidence is pending; the existing public package is not considered repaired
+by this source change alone.
