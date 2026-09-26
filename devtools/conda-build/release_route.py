@@ -56,6 +56,16 @@ def read_plan(path: Path = PLAN) -> dict:
     return plan
 
 
+def select_release_route(version: str) -> str:
+    """Selecting the committed route for a release tag without publishing it."""
+    if not VERSION.fullmatch(version):
+        raise ReleaseRouteError("release tag needs a canonical X.Y.Z version")
+    plan = read_plan()
+    if plan["version"] != version:
+        raise ReleaseRouteError("release tag does not match the committed release plan")
+    return plan["route"]
+
+
 def _read_json(url: str, *, token: str | None = None) -> dict:
     headers = {"Accept": "application/json", "User-Agent": "depdigest-release-route"}
     if token is not None:
@@ -227,6 +237,8 @@ def main() -> None:
     check.add_argument("--sha", required=True)
     check.add_argument("--repository", required=True)
     check.add_argument("--receipt", required=True, type=Path)
+    select = subcommands.add_parser("select")
+    select.add_argument("--version", required=True)
     public = subcommands.add_parser("verify-public")
     public.add_argument("--version", required=True)
     public.add_argument("--built-paths", required=True)
@@ -240,6 +252,8 @@ def main() -> None:
             repository=args.repository,
             receipt=args.receipt,
         )
+    elif args.command == "select":
+        print(select_release_route(args.version))
     else:
         verify_public(
             version=args.version, built_paths=args.built_paths, receipt=args.receipt

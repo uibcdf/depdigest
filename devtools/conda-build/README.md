@@ -10,5 +10,11 @@ the committed plan chooses either a guarded direct release or an exact-file
 staging and promotion route. The workflow uses one noarch build and retains
 evidence; a local render is only a recipe check and never a publication gate.
 
+For a tagged release, `python devtools/conda-build/release_route.py select
+--version X.Y.Z` prints the route committed in that tag or fails when the
+version and plan disagree. The release workflow uses this command before any
+direct build step. Run `python devtools/conda-build/release_route.py --help`
+for the route checker and public-verification commands.
+
 Do not use `--force`, rebuild a staged filename for another label, or place the
 staging channel ahead of the public channel in ordinary consumer environments.

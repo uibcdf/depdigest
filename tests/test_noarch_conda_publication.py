@@ -40,7 +40,20 @@ def test_stable_releases_have_a_guarded_direct_route():
     assert "prereleased" not in workflow
     assert "Build, test, and upload the unstaged release" in workflow
     assert "label: main" in workflow
-    assert "id: conda_release\n        if: github.event_name == 'release'" in workflow
+    direct_condition = (
+        "if: github.event_name == 'release' && "
+        "steps.release_route.outputs.route == 'direct'"
+    )
+    assert "id: release_route" in workflow
+    assert 'release_route.py select --version "$RELEASE_VERSION"' in workflow
+    assert 'echo "route=$route" >> "$GITHUB_OUTPUT"' in workflow
+    assert "id: conda_release\n        " + direct_condition in workflow
+    assert "id: route_direct\n        " + direct_condition in workflow
+    assert workflow.count(direct_condition) == 4
+    assert (
+        "if: github.event_name == 'release' && "
+        "steps.release_route.outputs.route == 'staged'" in workflow
+    )
     assert "--route direct" in workflow
     assert workflow.index("--route direct") < workflow.index("label: main")
     assert (

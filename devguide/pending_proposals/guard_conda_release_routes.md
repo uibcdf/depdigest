@@ -80,7 +80,9 @@ the release source snapshot as record `22884369`.
 
 The direct route remains unexercised on a release candidate and is not
 claimed proven. The release-triggered direct-build workflow correctly failed
-its route guard for this staged release; this produces a visible red run even
-though the explicit promotion succeeded. Keep this proposal open until the
-direct route is exercised and the staged-release trigger is made neutral
-without weakening the guard against unsafe publication.
+its route guard for staged releases 0.11.0 and 0.11.1; this produced visible
+red runs even though explicit promotion succeeded. A later workflow change
+selects the committed route before entering the direct branch. For future
+staged tags, it skips the direct build and upload while keeping malformed or
+mismatched plans as failures. Keep this proposal open until a real direct
+release proves the hosted publication path.

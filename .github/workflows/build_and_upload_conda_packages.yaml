@@ -1,4 +1,4 @@
-name: Build and upload conda packages
+name: Select Conda route and upload packages
 
 on:
   release:
@@ -29,7 +29,7 @@ concurrency:
 
 jobs:
   conda_deployment_with_new_tag:
-    name: Conda deployment of the noarch package
+    name: Validate route and deploy the noarch package when selected
     runs-on: ubuntu-latest
 
     steps:
@@ -71,6 +71,23 @@ jobs:
         with:
           python-version: "3.13"
 
+      - name: Select the committed release route
+        id: release_route
+        if: github.event_name == 'release'
+        shell: bash
+        env:
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+        run: |
+          route="$(python devtools/conda-build/release_route.py select --version "$RELEASE_VERSION")"
+          echo "route=$route" >> "$GITHUB_OUTPUT"
+
+      - name: Defer staged release publication to exact-file promotion
+        if: github.event_name == 'release' && steps.release_route.outputs.route == 'staged'
+        shell: bash
+        run: |
+          echo 'This tag uses the committed staged route; no direct Conda upload is attempted.'
+          echo 'The separate exact-file promotion workflow owns public publication.'
+
       - name: Verify the staged candidate decision and exact CI gates
         id: route_staged
         if: github.event_name == 'workflow_dispatch'
@@ -87,7 +104,7 @@ jobs:
 
       - name: Verify the direct release decision and empty registry coordinate
         id: route_direct
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && steps.release_route.outputs.route == 'direct'
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -114,7 +131,7 @@ jobs:
             python=3.13
 
       - name: Setup the public release build environment
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && steps.release_route.outputs.route == 'direct'
         uses: mamba-org/setup-micromamba@v3.2.1
         with:
           environment-file: devtools/conda-envs/build_env.yaml
@@ -128,6 +145,7 @@ jobs:
             python=3.13
 
       - name: Info conda
+        if: github.event_name == 'workflow_dispatch' || steps.release_route.outputs.route == 'direct'
         shell: bash -l {0}
         run: |
           micromamba activate build
@@ -135,6 +153,7 @@ jobs:
           micromamba list
 
       - name: Verify the derived package version
+        if: github.event_name == 'workflow_dispatch' || steps.release_route.outputs.route == 'direct'
         shell: bash -l {0}
         env:
           EXPECTED_VERSION: ${{ inputs.version || github.event.release.tag_name }}
@@ -160,7 +179,7 @@ jobs:
 
       - name: Build, test, and upload the unstaged release
         id: conda_release
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && steps.release_route.outputs.route == 'direct'
         uses: uibcdf/action-build-and-upload-conda-packages@v2.1.0
         env:
           DEPDIGEST_CONDA_BUILD_NUMBER: 0
@@ -177,7 +196,7 @@ jobs:
           platform_win-64: false
 
       - name: Independently verify the exact public release file
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && steps.release_route.outputs.route == 'direct'
         shell: bash -l {0}
         env:
           RELEASE_VERSION: ${{ github.event.release.tag_name }}

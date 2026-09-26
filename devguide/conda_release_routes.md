@@ -67,9 +67,10 @@ import, and CLI. A failed or missing cell is not evidence of support. The
 validation workflow may be added after a staged artifact was built, provided it
 checks the immutable candidate SHA and artifact digest; do not mistake the
 validation workflow's newer HEAD for a change to the staged candidate.
-Only then tag the **same SHA** and publish its stable GitHub Release. The direct
-uploader rejects its staged plan; the release-triggered build workflow will show
-an incomplete publication until promotion succeeds. Dispatch
+Only then tag the **same SHA** and publish its stable GitHub Release. The release
+workflow validates the committed route and skips its direct build and upload
+steps for a staged plan; that successful route selection is not evidence of
+public Conda publication. Dispatch
 `.github/workflows/promote_conda_package.yaml` with the tagged SHA, exact
 version, build number and independently verified digest. The shared
 `promote@v2.2.2` Action adds `main` to that same file, keeps `staging`, emits a
@@ -124,4 +125,8 @@ file and its `staging` and `main` labels. A fresh Linux/Python 3.13
 installation from public channels verified the exact URL and digest, imported
 the installed package, and ran its launcher outside the checkout. The
 release-triggered direct uploader rejected the staged route in run
-`36230515248` as designed; the promotion run is the Conda publication path.
+`36230515248` as designed under the workflow version present in that tagged
+commit; the promotion run is the Conda publication path. Later release tags use
+the route selector to leave this workflow green for a valid staged decision
+without uploading. An invalid or mismatched decision still fails closed. The
+direct route still needs a real release to prove its hosted publication path.
