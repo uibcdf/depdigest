@@ -1,13 +1,13 @@
 ---
 summary: Review inherited Python ecosystem policy in DepDigest.
 issue: uibcdf/depdigest#18
-status: active
+status: resolved
 opened: 2026-09-24
-closed:
+closed: 2026-09-26
 verification: measured
 area: [governance, dependencies, ci]
 guard:
-normative:
+normative: devguide/python_ecosystem_review.md
 blocked_by: []
 supersedes: []
 ---
@@ -39,10 +39,11 @@ Review the inherited support-library boundaries independently:
 - SMonitor is applicable and already provides missing-dependency and plugin-load
   diagnostics. `tests/test_core.py` exercises emitted signals and the error
   behavior when emission fails.
-- ArgDigest depends on DepDigest. DepDigest has several public argument checks,
-  but adding ArgDigest to this library would create a runtime dependency cycle.
-  Resolve their contract through `uibcdf/depdigest#18` without introducing that
-  cycle; the support-library review remains partial meanwhile.
+- ArgDigest depends on DepDigest. The current public checks are routine
+  constructor and output-format errors, or optional-dependency selection, not
+  nontrivial argument certification. Their classification is recorded in
+  `devguide/python_ecosystem_review.md`; adding ArgDigest would introduce a
+  dependency cycle without an applicable boundary.
 - DepDigest itself implements the optional dependency loading and explanation
   boundary, so importing DepDigest into its own package is inapplicable.
 - No physical quantity parsing, conversion, or dimensional validation boundary
@@ -69,8 +70,10 @@ one skip). The shared policy run `36063275021` passed. Full Python/OS matrix
 run `36063283598` passed 3/3. GH Run Receptor inspected all four runs; native
 CI logs confirmed the exact package pin and command. The inherited
 developer-tools review is therefore adopted. The support-library review is
-partial while the ArgDigest boundary and dependency cycle remain unresolved
-under `uibcdf/depdigest#18`.
+also complete: `devguide/python_ecosystem_review.md` classifies each current
+public argument check against the inherited threshold, documents SMonitor
+evidence, and records the future re-review trigger. MolSysSuite's member
+inventory records support libraries as adopted without an ArgDigest cycle.
 
 ## Acceptance criteria
 
@@ -79,4 +82,4 @@ under `uibcdf/depdigest#18`.
 - The exact source commit passes routine CI, full matrix, and the shared policy
   gate; inspect hosted evidence with GH Run Receptor.
 - MolSysSuite records developer-tools adoption only after hosted validation and
-  support-libraries as partial until the ArgDigest boundary is settled.
+  support-library adoption only after the ArgDigest boundary is settled.
