@@ -1,13 +1,13 @@
 ---
 summary: Guard direct Conda releases and promote exact staged files.
 issue: uibcdf/depdigest#15
-status: active
+status: resolved
 opened: 2026-09-21
-closed:
+closed: 2026-09-26
 severity: high
-verification: inspected
+verification: measured
 area: [packaging, release, ci]
-guard:
+guard: tests/test_conda_release_route.py
 normative:
 blocked_by: []
 supersedes: []
@@ -86,3 +86,26 @@ selects the committed route before entering the direct branch. For future
 staged tags, it skips the direct build and upload while keeping malformed or
 mismatched plans as failures. Keep this proposal open until a real direct
 release proves the hosted publication path.
+
+## Resolution 2026-09-26
+
+Direct-route candidate `87f0bb1a2bd0d24532588d900c7af736b5cd1a05`
+passed exact-commit CI (`36233292727`), suite policy (`36233292965`), and
+all twelve Linux/macOS/Windows × Python 3.11–3.14 source-matrix cells
+(`36233298114`). Anaconda returned an explicit 404 for version 0.11.2
+before publication. The stable `0.11.2` tag and GitHub Release identify the
+same candidate. [Release run 36233613024](https://github.com/uibcdf/depdigest/actions/runs/36233613024)
+selected `direct`, built and tested one `noarch: python` file, uploaded it to
+`main`, and passed its independent public digest check. Its retained route
+receipt and producer event identify `depdigest-0.11.2-py_0.tar.bz2` with
+SHA-256 `9b7ec4d493930219a0982421072e432994257378d779a3e6306f37b35d850c58`.
+An independent Anaconda API query found exactly one distribution under the
+`main` label, and an independent download of the public file calculated the
+same SHA-256. No staged file or coordinate was overwritten.
+
+`tests/test_conda_release_route.py` protects the route selector, exact gates,
+absent-version preflight, and public digest equality with positive and negative
+cases. It guards the fail-closed mechanisms, while the hosted run and independent
+registry checks above prove the publication path itself. Both local routes have
+now passed hosted execution; shared suite applicability remains tracked under
+`uibcdf/molsyssuite#27`.

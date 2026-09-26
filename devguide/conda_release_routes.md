@@ -140,3 +140,13 @@ must pass the full source matrix; release automation must also confirm that
 Anaconda has no file for 0.11.2 in any label before building, testing, and
 uploading its single noarch file. A public digest comparison is required before
 calling this route proven. Committing this plan does not publish the release.
+
+The stable `0.11.2` tag and GitHub Release now identify candidate
+`87f0bb1a2bd0d24532588d900c7af736b5cd1a05`. The exact-commit source
+matrix passed all twelve cells in run `36233298114`. Direct release run
+`36233613024` checked the empty version, built and tested one noarch package,
+uploaded it to `main`, and verified the public digest. The retained route
+receipt and producer event record SHA-256
+`9b7ec4d493930219a0982421072e432994257378d779a3e6306f37b35d850c58`;
+an independent Anaconda query and fresh public-file download matched it.
+This is the first hosted proof of the direct route in DepDigest.
