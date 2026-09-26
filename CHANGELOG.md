@@ -7,6 +7,18 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+## [0.11.1] - 2026-09-26
+
+### Fixed
+
+- The noarch Conda package now installs the `depdigest` command launcher on
+  Windows. The staged installed-package gate checks the actual executable
+  across Linux, macOS, and Windows with Python 3.11–3.14.
+
+### Migration Notes
+
+- No Python API changes or migration steps.
+
 ## [0.11.0] - 2026-09-21
 
 ### Added

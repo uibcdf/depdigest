@@ -22,7 +22,8 @@ It helps maintain a "Zero-Cost Startup" by ensuring that heavy external librarie
 Understand your dependencies. Trust your code.
 
 Current release line:
-- `0.11.0` delivered with Python 3.14 support on the published noarch Conda package
+- `0.11.1` repairs the Windows `depdigest` launcher in the published noarch Conda package
+- `0.11.0` delivered Python 3.14 support
 - `1.0.0` preparation in progress
 
 ## Documentation
@@ -75,9 +76,10 @@ conda install -c uibcdf depdigest
 
 ## Requirements
 
-- Published `0.11.0`: Python `>=3.11,<3.15`. Its public Conda build was
-  independently installed on Python 3.14 after twelve-cell staged-package
-  testing on Linux, macOS, and Windows.
+- Published `0.11.1`: Python `>=3.11,<3.15`. Its exact noarch Conda file
+  passed twelve clean staging installations on Linux, macOS, and Windows,
+  then was promoted to public `uibcdf` and independently installed from that
+  channel on Linux/Python 3.13.
 - Runtime dependency: `smonitor`
 
 ## Development

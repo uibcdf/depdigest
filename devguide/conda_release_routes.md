@@ -103,3 +103,25 @@ that Zenodo archived the Conda artifact. The release-triggered *direct* uploader
 failed its route guard as designed; the separate promotion is the authoritative
 Conda publication path for this staged release. The direct route remains
 unexercised and should not be called hosted-proven.
+
+## 0.11.1 launcher repair
+
+The `0.11.1` staged candidate is commit
+`456ae6b7bcce1402c6504e2cf74d3721f2dcd39e`. Exact-commit full-matrix
+run `36229520653` passed all twelve cells on attempt 2 after one Windows
+`__pycache__` copy race in the first attempt. Staging run `36229720222`
+uploaded `depdigest-0.11.1-py_0.tar.bz2` with SHA-256
+`bc54290422dc8af90d7d9f75f64fc12ece6b5da78e04dc66a3b7ddf2882799fa`.
+Installed-package run `36229868929` verified its producer receipts and all
+twelve clean Linux/macOS/Windows × Python 3.11–3.14 cells, including the
+actual `depdigest --help` launcher in the Conda prefix.
+
+Annotated tag `0.11.1` and its stable GitHub Release identify that same
+candidate SHA. Promotion run `36230598357` verified the digest and added
+`main` to the staged file without rebuilding it. The retained promotion
+receipt and an independent Anaconda release query agree on the one noarch
+file and its `staging` and `main` labels. A fresh Linux/Python 3.13
+installation from public channels verified the exact URL and digest, imported
+the installed package, and ran its launcher outside the checkout. The
+release-triggered direct uploader rejected the staged route in run
+`36230515248` as designed; the promotion run is the Conda publication path.

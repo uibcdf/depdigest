@@ -1,7 +1,8 @@
 # Roadmap & Future Steps
 
-DepDigest is currently at public release **0.11.0**, including Python 3.14
-support. Its noarch Conda artifact and Zenodo source snapshot are verified.
+DepDigest is currently at public release **0.11.1**, including Python 3.14
+support. Its noarch Conda artifact is verified; the Zenodo source snapshot
+recorded below belongs to release 0.11.0.
 
 This roadmap captures likely next increments toward broader stable adoption.
 
@@ -60,6 +61,14 @@ This roadmap captures likely next increments toward broader stable adoption.
   macOS, and Windows; the same file was promoted to public `uibcdf`, and a clean
   Python 3.14 public installation passed. Published ArgDigest 0.12.1 also passed
   a Python 3.13 consumer smoke; its own Python 3.14 transition is next.
+
+### 0.11.1
+
+- Repaired the Windows `depdigest` launcher in the noarch Conda recipe.
+- Passed twelve clean installed-package cells across Linux, macOS, and Windows
+  before promoting the same SHA-256-verified file to the public channel.
+- Independently installed the public file on Linux/Python 3.13 and ran the
+  installed command outside the source checkout.
 
 ### 1.0.0 (in progress)
 
