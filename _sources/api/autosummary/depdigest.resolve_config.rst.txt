@@ -1,0 +1,6 @@
+﻿depdigest.resolve\_config
+=========================
+
+.. currentmodule:: depdigest
+
+.. autofunction:: resolve_config

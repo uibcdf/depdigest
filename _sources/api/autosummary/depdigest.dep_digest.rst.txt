@@ -1,0 +1,6 @@
+﻿depdigest.dep\_digest
+=====================
+
+.. currentmodule:: depdigest
+
+.. autofunction:: dep_digest

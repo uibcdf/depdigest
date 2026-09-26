@@ -1,0 +1,6 @@
+﻿depdigest.clear\_package\_configs
+=================================
+
+.. currentmodule:: depdigest
+
+.. autofunction:: clear_package_configs
