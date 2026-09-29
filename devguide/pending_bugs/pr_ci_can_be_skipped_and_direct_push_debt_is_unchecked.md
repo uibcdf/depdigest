@@ -69,4 +69,11 @@ The direct push of `d779cfa` with `[skip ci]` exercised that bypass. A
 [second probe-only dispatch](https://github.com/uibcdf/depdigest/actions/runs/36534652166)
 found exactly that skipped commit after the `0353087` full-matrix watermark
 and reported that full recovery is due. It omitted all matrix jobs because
-the dispatch was diagnostic. A full recovery run remains due.
+the dispatch was diagnostic. A
+[manual full-matrix dispatch](https://github.com/uibcdf/depdigest/actions/runs/36534834729)
+then passed all twelve jobs at `80e021e`, including the four Linux `Run tests`
+steps. The [post-matrix probe](https://github.com/uibcdf/depdigest/actions/runs/36534985790)
+recognized `80e021e` as the new executed watermark and found zero pending
+skipped commits; its matrix jobs were omitted. The actual daily schedule and
+hosted PR execution remain to be observed. Keep the issue open until those
+outcomes and the platform-claim review are recorded centrally.
