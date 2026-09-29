@@ -62,6 +62,11 @@ watermark, found zero later skipped commits, and omitted all matrix jobs.
 The `main` branch now requires the strict `Test on ubuntu-latest, Python 3.13`
 check. Administrators are exempt from the PR gate; the only current
 collaborators with push permission are `dprada` and `LMMV`, both
-administrators. The skipped-push and recovery checks are pending. Keep this
-issue open until the first actual nightly, hosted PR route, and platform-claim
-review.
+administrators. Keep this issue open until the first actual nightly, hosted
+PR route, and platform-claim review.
+
+The direct push of `d779cfa` with `[skip ci]` exercised that bypass. A
+[second probe-only dispatch](https://github.com/uibcdf/depdigest/actions/runs/36534652166)
+found exactly that skipped commit after the `0353087` full-matrix watermark
+and reported that full recovery is due. It omitted all matrix jobs because
+the dispatch was diagnostic. A full recovery run remains due.
