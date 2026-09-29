@@ -21,7 +21,13 @@ supersedes: []
 This detector now lists runs without that API filter and checks
 `head_branch=main` locally, together with commit ancestry and executed
 Linux test steps. A focused regression rejects an otherwise green run from
-a feature branch. Hosted probe evidence for this correction follows below.
+a feature branch.
+
+At `166e9c9`, routine CI `36640883666` and policy `36640884216`
+passed. The [corrected probe](https://github.com/uibcdf/depdigest/actions/runs/36640913043)
+recognized `80e021e` as the executed full-matrix watermark and found zero
+pending skipped commits. The matrix jobs were omitted. Actual daily schedule,
+hosted PR execution and platform claims still need review.
 
 ## What
 
