@@ -112,14 +112,22 @@ def dep_digest(library: str, when: Optional[Dict[str, Any]] = None):
             if should_check:
                 lib_info = cfg.libraries.get(library, {})
                 pypi_name = lib_info.get("pypi")
+                options = {}
+                for config_key, argument in (
+                    ("conda", "conda_name"),
+                    ("kind", "kind"),
+                    ("executable", "executable"),
+                ):
+                    if config_key in lib_info:
+                        options[argument] = lib_info[config_key]
                 check_dependency(
                     library,
                     pypi_name=pypi_name,
-                    conda_name=lib_info.get("conda"),
                     conda_channel=lib_info.get("channel"),
                     doc_url=cfg.doc_url,
                     caller=func.__name__,
                     exception_class=cfg.exception_class,
+                    **options,
                 )
 
             return func(*args, **kwargs)

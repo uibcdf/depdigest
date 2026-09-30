@@ -42,6 +42,7 @@ configuration.md
 hard-vs-soft.md
 integrating-your-library.md
 conditional-deps.md
+optional-engines.md
 lazy-registry.md
 introspection.md
 smonitor.md

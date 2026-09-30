@@ -5,7 +5,7 @@ from typing import Any, Iterable, Optional
 
 from smonitor import signal
 
-from .checker import is_installed
+from .checker import _is_available
 from .config import resolve_config
 
 logger = logging.getLogger(__name__)
@@ -112,7 +112,9 @@ class LazyRegistry(dict):
         lib_key = cfg.mapping.get(plugin_key)
         if lib_key and not cfg.show_all_capabilities:
             lib_info = cfg.libraries.get(lib_key, {})
-            if lib_info.get("type") == "soft" and not is_installed(lib_key):
+            if lib_info.get("type") == "soft" and not _is_available(
+                lib_key, lib_info.get("kind", "python"), lib_info.get("executable")
+            ):
                 return False
         return True
 

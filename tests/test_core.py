@@ -78,7 +78,7 @@ def test_lazy_registry_filtering():
         with patch("os.path.exists", return_value=True):
             with patch("os.scandir", return_value=[MockEntry("p1")]):
                 # Mock is_installed to return False for 'lib1'
-                with patch("depdigest.core.loader.is_installed", return_value=False):
+                with patch("depdigest.core.checker.is_installed", return_value=False):
                     registry = LazyRegistry(
                         "mylib.plugins", "/fake/path", attr_name="plugin_name"
                     )
@@ -86,7 +86,7 @@ def test_lazy_registry_filtering():
                     assert len(registry.keys()) == 0
 
                 # Mock is_installed to return True
-                with patch("depdigest.core.loader.is_installed", return_value=True):
+                with patch("depdigest.core.checker.is_installed", return_value=True):
                     # We need to mock the import too
                     import sys
                     from types import ModuleType
@@ -380,7 +380,7 @@ def test_lazy_registry_entry_points_filters_by_mapping():
         with patch(
             "depdigest.core.loader.entry_points", return_value=FakeEPCollection()
         ):
-            with patch("depdigest.core.loader.is_installed", return_value=False):
+            with patch("depdigest.core.checker.is_installed", return_value=False):
                 registry = LazyRegistry(
                     "mylib.plugins",
                     "/unused",

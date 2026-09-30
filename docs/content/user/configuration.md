@@ -43,9 +43,12 @@ SHOW_ALL_CAPABILITIES = True
   - `hard`: expected as mandatory.
   - `soft`: optional integration.
 - `conda`: Conda package name shown in missing-dependency hints; defaults to
-  the import root when omitted.
+  the import root when omitted. Set it to `None` to disable this route.
 - `channel`: Conda channel for that package; defaults to `conda-forge`.
 - `pypi`: optional PyPI package name. The pip command appears only when set.
+- `kind`: `python` (default) or `executable`.
+- `executable`: command name or path for an executable dependency; defaults to
+  the dependency key. See [Optional scientific engines](optional-engines.md).
 - `DOC_URL`: your library's dependency documentation URL, used by both the
   SMonitor event and exception. Without it, the link falls back to DepDigest.
 - `MAPPING`: connects plugin folders to dependency keys (used by `LazyRegistry`).

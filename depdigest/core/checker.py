@@ -1,11 +1,31 @@
 import json
 import logging
+import shutil
 from functools import lru_cache
 from importlib.util import find_spec
 from typing import Any
 
 logger = logging.getLogger(__name__)
 GET_INFO_SCHEMA_VERSION = "1.0"
+_DEFAULT_CONDA = object()
+
+
+def _is_available(name: str, kind: str, executable: str | None = None) -> bool:
+    if kind == "python":
+        return is_installed(name)
+    if kind == "executable":
+        # PATH and executable permissions may change during the process lifetime.
+        return shutil.which(executable or name) is not None
+    raise ValueError("Dependency kind must be 'python' or 'executable'")
+
+
+def _install_commands(pypi_name, conda_name, channel):
+    return {
+        "pypi": f"pip install {pypi_name}" if pypi_name else None,
+        "conda": f"conda install -c {channel or 'conda-forge'} {conda_name}"
+        if conda_name
+        else None,
+    }
 
 
 def _default_package_name(module_name: str) -> str:
@@ -17,8 +37,14 @@ def is_installed(module_name: str) -> bool:
     """Check if a module is installed (cached)."""
     try:
         return find_spec(module_name) is not None
-    except (ImportError, ModuleNotFoundError):
-        return False
+    except ModuleNotFoundError as exc:
+        # Dotted discovery imports the parent. Preserve failures inside that
+        # parent instead of claiming that the requested engine is absent.
+        if exc.name and (
+            module_name == exc.name or module_name.startswith(f"{exc.name}.")
+        ):
+            return False
+        raise
 
 
 def check_dependency(
@@ -27,15 +53,26 @@ def check_dependency(
     caller: str = None,
     exception_class: type = ImportError,
     *,
-    conda_name: str = None,
+    conda_name=_DEFAULT_CONDA,
     conda_channel: str = None,
     doc_url: str = None,
+    kind: str = "python",
+    executable: str | None = None,
 ):
     """
-    Check if a dependency is installed. Raises the specified exception if missing.
+    Check a Python module or executable only when its capability is requested.
+
+    ``kind='executable'`` checks PATH (or an explicit ``executable`` path)
+    without importing or running the engine. ``conda_name=None`` disables the
+    Conda installation route; an omitted name preserves the legacy default.
+    ``pypi_name=None`` omits pip. Installation remains the user's responsibility.
     """
-    if not is_installed(module_name):
-        conda_package = conda_name or _default_package_name(module_name)
+    if not _is_available(module_name, kind, executable):
+        conda_package = (
+            _default_package_name(module_name)
+            if conda_name is _DEFAULT_CONDA
+            else conda_name
+        )
         channel = conda_channel or "conda-forge"
         lib_name = pypi_name or module_name
         from smonitor.integrations import emit_from_catalog, merge_extra
@@ -43,10 +80,13 @@ def check_dependency(
         from .._private.smonitor.catalog import CATALOG, META, PACKAGE_ROOT
 
         documentation = doc_url or META.get("doc_url")
-        commands = [f"conda install -c {channel} {conda_package}"]
-        if pypi_name:
-            commands.append(f"pip install {pypi_name}")
-        install_hint = "Install with:\n  " + "\n  ".join(commands)
+        routes = _install_commands(pypi_name, conda_package, channel)
+        commands = [routes[route] for route in ("conda", "pypi") if routes[route]]
+        install_hint = (
+            "Install with:\n  " + "\n  ".join(commands)
+            if commands
+            else "Consult the provider installation instructions."
+        )
         if documentation:
             install_hint += f"\nDocumentation: {documentation}"
 
@@ -61,6 +101,10 @@ def check_dependency(
                         "caller": caller or "",
                         "doc_url": documentation,
                         "install_hint": install_hint,
+                        "kind": kind,
+                        "executable": executable or module_name
+                        if kind == "executable"
+                        else None,
                     },
                 ),
             )
@@ -72,7 +116,8 @@ def check_dependency(
                 emit_error,
             )
 
-        msg = f"The library '{module_name}' is required"
+        label = "executable" if kind == "executable" else "library"
+        msg = f"The {label} '{module_name}' is required"
         if caller:
             msg += f" for '{caller}'"
         msg += f".\n{install_hint}"
@@ -111,9 +156,13 @@ def get_info(module_path: str, format: str = "table") -> Any:
     deps = []
     for key, info in sorted(cfg.libraries.items(), key=lambda item: item[0]):
         default_name = _default_package_name(key)
-        pypi_name = info.get("pypi", default_name)
+        pypi_name = info.get(
+            "pypi", None if info.get("kind") == "executable" else default_name
+        )
         conda_name = info.get("conda", default_name)
-        installed = is_installed(key)
+        installed = _is_available(
+            key, info.get("kind", "python"), info.get("executable")
+        )
         deps.append(
             {
                 "library": key,
@@ -124,10 +173,9 @@ def get_info(module_path: str, format: str = "table") -> Any:
                     "pypi": pypi_name,
                     "conda": conda_name,
                 },
-                "install": {
-                    "pypi": f"pip install {pypi_name}",
-                    "conda": f"conda install -c conda-forge {conda_name}",
-                },
+                "install": _install_commands(
+                    pypi_name, conda_name, info.get("channel")
+                ),
             }
         )
 
