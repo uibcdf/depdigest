@@ -64,3 +64,12 @@ invent install commands, or silently substitute a scientific method.
 - Track consumer adoption and retirement of local executable compatibility checks.
 - Keep transitive imports, service state, execution failures and scientific parity
   distinct from availability.
+
+## Integration update: 2026-09-30
+
+The implementation is committed on `main` in `08f8263`; `457e72a` formats the
+owned documentation examples. The maintainer-authorized direct push was
+verified. The proposal remains open for release, canonical-guide synchronization
+and consumer adoption. TopoMT's consumer checks against this implementation
+passed 29 tests; its full suite remains non-green due to viewer-addon
+compatibility and native pyCASTA parity, independently tracked from availability.
