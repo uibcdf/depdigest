@@ -114,3 +114,18 @@ the release plan; CITATION.cff now names the 0.12.0 candidate and release date.
 HTML documentation builds with the same two existing index-heading warnings.
 The public registry returned explicit HTTP 404 for version 0.12.0 before staging;
 the producer must still verify its immutable target coordinate when uploading.
+
+Candidate `0b2175544f3ead3fca62d778d02380a006a0c751` passed routine CI
+36788218185 and suite policy 36788218727. Its full matrix 36788295286 passed
+all eight Linux/macOS cells but failed all four Windows `Run tests` steps.
+Native Windows logs identify four existing optional-engine fixture failures:
+an extensionless POSIX command was not discoverable through Windows PATHEXT,
+and chmod-based executable removal is not a Windows contract. The new installed
+release-gate tests passed in those cells. No public tag or staging upload was made.
+
+The fixture correction uses a `.exe` name on Windows and the existing POSIX
+name elsewhere. PATH changes, explicit paths and file removal are asserted on
+every platform; mode-bit assertions remain in POSIX branches. All four tests
+still execute on Windows, with no new platform skips and no provider runtime
+or scientific assertions changed. The corrected exact candidate requires a new
+complete source matrix; the prior failure remains evidence, not a waiver.

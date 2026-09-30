@@ -1,5 +1,6 @@
 """Reusable optional-engine contract for Python packages and executables."""
 
+import os
 from unittest.mock import patch
 
 import pytest
@@ -12,6 +13,16 @@ from depdigest import (
     is_installed,
     temporary_package_config,
 )
+
+
+def _executable_fixture(tmp_path):
+    # Availability checks neither execute the file nor validate its contents.
+    # Windows discovers executable suffixes through PATHEXT; POSIX uses mode bits.
+    name = "engine-command.exe" if os.name == "nt" else "engine-command"
+    executable = tmp_path / name
+    executable.write_text("#!/bin/sh\nexit 0\n")
+    executable.chmod(0o755)
+    return executable
 
 
 def test_pip_only_dependency_never_suggests_conda():
@@ -58,23 +69,28 @@ def test_inventory_respects_disabled_installers_and_declared_channel():
 
 
 def test_executable_check_does_not_import_a_python_package(tmp_path, monkeypatch):
-    executable = tmp_path / "engine-command"
-    executable.write_text("#!/bin/sh\nexit 0\n")
-    executable.chmod(0o755)
+    executable = _executable_fixture(tmp_path)
     monkeypatch.setenv("PATH", str(tmp_path))
     with patch(
         "depdigest.core.checker.is_installed",
         side_effect=AssertionError("Python probe"),
     ):
-        check_dependency("engine", kind="executable", executable="engine-command")
+        check_dependency("engine", kind="executable", executable=executable.name)
 
 
 def test_executable_availability_follows_current_path(tmp_path, monkeypatch):
-    executable = tmp_path / "engine-command"
-    executable.write_text("#!/bin/sh\nexit 0\n")
-    executable.chmod(0o755)
+    executable = _executable_fixture(tmp_path)
+    monkeypatch.setenv("PATH", str(tmp_path))
+    check_dependency("engine", kind="executable", executable=executable.name)
+    monkeypatch.setenv("PATH", str(tmp_path / "absent_directory"))
+    with pytest.raises(ImportError):
+        check_dependency("engine", kind="executable", executable=executable.name)
     check_dependency("engine", kind="executable", executable=str(executable))
-    executable.chmod(0o644)
+    if os.name != "nt":
+        executable.chmod(0o644)
+        with pytest.raises(ImportError):
+            check_dependency("engine", kind="executable", executable=str(executable))
+    executable.unlink()
     with pytest.raises(ImportError):
         check_dependency("engine", kind="executable", executable=str(executable))
 
@@ -120,15 +136,13 @@ def test_conditional_executable_dependency_guards_only_selected_backend(monkeypa
 
 
 def test_executable_inventory_uses_path_not_find_spec(tmp_path, monkeypatch):
-    executable = tmp_path / "engine-command"
-    executable.write_text("#!/bin/sh\nexit 0\n")
-    executable.chmod(0o755)
+    executable = _executable_fixture(tmp_path)
     monkeypatch.setenv("PATH", str(tmp_path))
     config = DepConfig(
         libraries={
             "engine": {
                 "kind": "executable",
-                "executable": "engine-command",
+                "executable": executable.name,
                 "pypi": None,
             }
         }
@@ -156,16 +170,14 @@ def test_registry_routes_executable_plugins_through_same_availability_probe(
 ):
     from depdigest import LazyRegistry
 
-    command = tmp_path / "engine-command"
-    command.write_text("#!/bin/sh\nexit 0\n")
-    command.chmod(0o755)
+    command = _executable_fixture(tmp_path)
     monkeypatch.setenv("PATH", str(tmp_path))
     config = DepConfig(
         libraries={
             "engine": {
                 "type": "soft",
                 "kind": "executable",
-                "executable": "engine-command",
+                "executable": command.name,
             }
         },
         mapping={"plugin": "engine"},
@@ -173,7 +185,10 @@ def test_registry_routes_executable_plugins_through_same_availability_probe(
     )
     registry = LazyRegistry("consumer.plugins", str(tmp_path))
     assert registry._plugin_allowed("plugin", config)
-    command.chmod(0o644)
+    if os.name != "nt":
+        command.chmod(0o644)
+        assert not registry._plugin_allowed("plugin", config)
+    command.unlink()
     assert not registry._plugin_allowed("plugin", config)
 
 
