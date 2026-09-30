@@ -9,6 +9,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 PACKAGE = "depdigest"
@@ -160,6 +161,76 @@ def verify_installed(
         "Imported the source checkout instead of the installed package",
     )
     verify_launcher(prefix)
+    if tuple(map(int, version.split("."))) >= (0, 12, 0):
+        verify_optional_engine_contract()
+
+
+def verify_optional_engine_contract() -> None:
+    """Exercise the 0.12.0 contract through the already verified installed import."""
+    import depdigest
+
+    with tempfile.TemporaryDirectory() as temporary:
+        missing = str(Path(temporary) / "absent_release_engine")
+        try:
+            depdigest.check_dependency(
+                "release_available",
+                kind="executable",
+                executable=sys.executable,
+                pypi_name=None,
+                conda_name=None,
+            )
+        except ImportError as error:
+            raise ValueError("Ignoring the configured executable") from error
+        libraries = {
+            "release_available": {
+                "type": "soft",
+                "kind": "executable",
+                "executable": sys.executable,
+                "pypi": None,
+                "conda": None,
+            },
+            "release_missing": {
+                "type": "soft",
+                "kind": "executable",
+                "executable": missing,
+                "pypi": None,
+                "conda": "fpocket",
+                "channel": "conda-forge",
+            },
+        }
+        with depdigest.temporary_package_config(
+            "depdigest_release_gate", depdigest.DepConfig(libraries=libraries)
+        ):
+            inventory = depdigest.get_info("depdigest_release_gate", format="dict")
+        rows = {row["library"]: row for row in inventory["dependencies"]}
+        _require(rows["release_available"]["installed"], "Wrong executable inventory")
+        _require(not rows["release_missing"]["installed"], "Wrong missing inventory")
+        _require(
+            all(row["install"]["pypi"] is None for row in rows.values())
+            and rows["release_available"]["install"]["conda"] is None,
+            "Invented disabled installer in the installed inventory",
+        )
+        command = "conda install -c conda-forge fpocket"
+        _require(
+            rows["release_missing"]["install"]["conda"] == command,
+            "Installed inventory ignored declared channel",
+        )
+        try:
+            depdigest.check_dependency(
+                "release_missing",
+                kind="executable",
+                executable=missing,
+                pypi_name=None,
+                conda_name="fpocket",
+                conda_channel="conda-forge",
+            )
+        except ImportError as error:
+            _require(
+                command in str(error) and "pip install" not in str(error),
+                "Installed diagnostic ignored disabled installer or channel",
+            )
+        else:
+            raise ValueError("Installed guard accepted a missing executable")
 
 
 def verify_launcher(prefix: Path) -> None:
@@ -215,7 +286,10 @@ def main() -> None:
             args.build_number,
             args.python_version,
         )
-        print("PASS: exact staged package, public dependency, import, and CLI")
+        print(
+            "PASS: exact staged package, public dependency, import, CLI, "
+            "and version-applicable optional-engine contract"
+        )
 
 
 if __name__ == "__main__":

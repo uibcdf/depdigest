@@ -150,3 +150,14 @@ receipt and producer event record SHA-256
 `9b7ec4d493930219a0982421072e432994257378d779a3e6306f37b35d850c58`;
 an independent Anaconda query and fresh public-file download matched it.
 This is the first hosted proof of the direct route in DepDigest.
+
+## 0.12.0 optional-engine candidate
+
+The committed plan selects `staged` for the optional-engine capability in #22.
+Run the full source matrix and suite policy on the exact candidate, then dispatch
+the existing staging producer and twelve-cell installed gate for build `py_0`.
+Verify the installed optional-executable/disabled-installer behavior separately
+before tagging that same commit. A stable release and digest-verified promotion
+publish the same file; public poststate and clean installation must agree.
+TopoMT adoption and the common contract are tracked in uibcdf/molsyssuite#62.
+This candidate plan is not a publication claim.

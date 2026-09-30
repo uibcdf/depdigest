@@ -22,6 +22,9 @@ It helps maintain a "Zero-Cost Startup" by ensuring that heavy external librarie
 Understand your dependencies. Trust your code.
 
 Current release line:
+- `0.12.0` candidate: optional executable dependencies and truthful disabled
+  installation routes; public availability follows the staged release gates
+- `0.11.2` improved dependency diagnostics and the guarded release routes
 - `0.11.1` repairs the Windows `depdigest` launcher in the published noarch Conda package
 - `0.11.0` delivered Python 3.14 support
 - `1.0.0` preparation in progress
@@ -44,6 +47,8 @@ Current release line:
 - **smonitor integration**: Structured diagnostics for missing dependencies.
 - **Runtime config discovery**: Automatically resolves package `_depdigest.py`.
 - **Manual config registration**: Supports dynamic/testing contexts via `register_package_config`.
+- **Optional engines**: Python and executable availability share declarations and
+  truthful installation routes; see `docs/content/user/optional-engines.md`.
 
 ## Quick Example
 

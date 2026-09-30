@@ -7,6 +7,35 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-09-30
+
+### Added
+
+- Optional executable dependencies with `kind="executable"` and an explicit
+  command/path, shared by guards, inventory and plugin discovery. Availability
+  follows the current PATH and permissions without executing or installing tools.
+- A provider-owned optional-engine recipe and integration guidance, coordinated
+  with MolSysSuite and the initial TopoMT consumer.
+
+### Fixed
+
+- Explicit `pypi=None` and `conda=None` installation routes no longer invent hints
+  or inventory commands. Declared Conda channels remain consistent across APIs.
+- Dotted Python discovery preserves missing transitive dependencies in an
+  imported parent instead of reporting the requested engine as absent.
+
+### Migration Notes
+
+- Declare both installer routes explicitly in new optional-engine integrations;
+  omitted routes retain legacy defaults. Existing Python keys remain import names.
+- Executable entries use capability keys and their actual command/path. A custom
+  command must be checked using the same value passed to execution.
+- Availability does not certify versions, ABI, service health or scientific
+  execution. Preserve those errors at the consumer boundary. No engine is installed
+  automatically and no alternative method is silently selected.
+- The 0.12.0 candidate follows the staged Conda route with source and installed
+  artifact gates before stable tagging and exact-file promotion.
+
 ## [0.11.2] - 2026-09-26
 
 ### Fixed

@@ -1,6 +1,6 @@
 # Reviewed candidate decision. No public tag or promotion is authorized by this file.
-version = "0.11.2"
-route = "direct"
-reason = "Routine noarch patch with no new packaging layout, support claim, staged file, or coupled consumer gate; require exact-commit full matrix, empty-version preflight, package tests, and public digest verification."
-decision_by = "DepDigest direct-route candidate review, 2026-09-26"
-required_workflows = [".github/workflows/CI_full_matrix.yaml"]
+version = "0.12.0"
+route = "staged"
+reason = "Publish optional executable availability and explicit disabled installer routes only after exact-source matrix/policy gates and clean installed-artifact verification; preserve the same immutable file for public promotion and TopoMT adoption."
+decision_by = "Maintainer-authorized optional-engine publication, 2026-09-30"
+required_workflows = [".github/workflows/CI_full_matrix.yaml", ".github/workflows/molsyssuite-policy.yml"]

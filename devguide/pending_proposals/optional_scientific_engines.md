@@ -1,7 +1,7 @@
 ---
 summary: Share optional-engine availability and truthful installation routes across scientific consumers.
 issue: uibcdf/depdigest#22
-status: open
+status: partial
 opened: 2026-09-30
 closed:
 severity: medium
@@ -69,7 +69,48 @@ invent install commands, or silently substitute a scientific method.
 
 The implementation is committed on `main` in `08f8263`; `457e72a` formats the
 owned documentation examples. The maintainer-authorized direct push was
-verified. The proposal remains open for release, canonical-guide synchronization
-and consumer adoption. TopoMT's consumer checks against this implementation
+verified. The proposal remains open for release and consumer adoption;
+canonical-guide distribution has since completed under uibcdf/molsyssuite#63.
+TopoMT's consumer checks against this implementation
 passed 29 tests; its full suite remains non-green due to viewer-addon
 compatibility and native pyCASTA parity, independently tracked from availability.
+
+## Publication candidate: 0.12.0
+
+Canonical `DEPDIGEST_GUIDE.md` distribution is resolved under
+uibcdf/molsyssuite#63. The new shared optional-engine policy and generated starter
+worksheet are recorded under uibcdf/molsyssuite#62. The component-facing
+`MOLSYSSUITE_GUIDE.md` now requires the recipe at applicable boundaries; its
+generated copy is committed locally in `b6e0238`.
+
+The maintainer authorized publishing the capability and subsequent TopoMT adoption.
+The candidate selects `0.12.0`, staged build `py_0`, and exact-source full matrix
+plus suite policy gates. The existing twelve-cell installed-artifact workflow
+verifies the exact producer receipts, file SHA-256, Python/package versions,
+public SMonitor dependency, off-checkout import and launcher. Additional installed
+optional-engine contract checks verify the new behavior before public promotion.
+Keep source, producer, installed and public evidence separate. No tag is moved and
+no occupied file is overwritten. Final SHA, runs and digest follow once measured.
+
+Release and consumer gates remain open. TopoMT must preserve custom executable
+selection, catch compatibility and internal execution failures when it replaces
+the local fpocket missing-command translation with the published provider.
+
+The installed gate now exercises the new capability in every 0.12.0-or-newer
+cell using the already verified installed import. It checks the actual configured
+Python executable and an absent command without launching either, inventory
+availability, disabled installers, the declared Conda channel and the missing-command
+diagnostic. Older recorded candidates retain their original verification scope.
+Three regression tests failed before this gate existed; they now also reject an
+invented disabled installer and ignoring the configured command. The initial gate
+draft incorrectly passed executable options to Python-only `is_installed`; it was
+corrected to the published `check_dependency` interface before committing.
+
+Local candidate verification: 133 tests passed on Linux/Python 3.13.15 with public
+Conda SMonitor 0.17.3, including the available-sibling collective contract. Ruff
+lint/format over 135 files, report indexes and central repository conformance passed.
+The first citation check correctly rejected a stale 0.11.2 citation after changing
+the release plan; CITATION.cff now names the 0.12.0 candidate and release date.
+HTML documentation builds with the same two existing index-heading warnings.
+The public registry returned explicit HTTP 404 for version 0.12.0 before staging;
+the producer must still verify its immutable target coordinate when uploading.

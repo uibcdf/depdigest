@@ -140,6 +140,43 @@ def test_installed_gate_requires_a_conda_environment_launcher(tmp_path, monkeypa
         verifier.verify_launcher(tmp_path)
 
 
+def test_optional_engine_gate_checks_real_commands_without_execution(monkeypatch):
+    def forbid_process(*args, **kwargs):
+        raise AssertionError("availability must not launch a process")
+
+    monkeypatch.setattr(verifier.subprocess, "run", forbid_process)
+    verifier.verify_optional_engine_contract()
+
+
+def test_optional_engine_gate_rejects_invented_disabled_installer(monkeypatch):
+    import depdigest
+
+    real_info = depdigest.get_info
+
+    def broken_info(*args, **kwargs):
+        payload = real_info(*args, **kwargs)
+        payload["dependencies"][0]["install"]["pypi"] = "pip install None"
+        return payload
+
+    monkeypatch.setattr(depdigest, "get_info", broken_info)
+    with pytest.raises(ValueError, match="disabled installer"):
+        verifier.verify_optional_engine_contract()
+
+
+def test_optional_engine_gate_rejects_ignoring_configured_command(monkeypatch):
+    import depdigest
+
+    real_check = depdigest.check_dependency
+
+    def broken_check(library, **kwargs):
+        kwargs["executable"] = library
+        return real_check(library, **kwargs)
+
+    monkeypatch.setattr(depdigest, "check_dependency", broken_check)
+    with pytest.raises(ValueError, match="configured executable"):
+        verifier.verify_optional_engine_contract()
+
+
 @pytest.mark.parametrize(
     ("record_name", "field", "bad_value"),
     [
