@@ -9,15 +9,21 @@ event. Neither installs software for the user.
 
 ```python
 LIBRARIES = {
-    'pocketeer': {
-        'type': 'soft', 'pypi': 'pocketeer', 'conda': None,
+    "pocketeer": {
+        "type": "soft",
+        "pypi": "pocketeer",
+        "conda": None,
     },
-    'fpocket': {
-        'type': 'soft', 'kind': 'executable', 'executable': 'fpocket',
-        'pypi': None, 'conda': 'fpocket', 'channel': 'conda-forge',
+    "fpocket": {
+        "type": "soft",
+        "kind": "executable",
+        "executable": "fpocket",
+        "pypi": None,
+        "conda": "fpocket",
+        "channel": "conda-forge",
     },
 }
-DOC_URL = 'https://your-project.example/docs/engines'
+DOC_URL = "https://your-project.example/docs/engines"
 ```
 
 `kind` defaults to `python`. Python availability uses the import name, which may
@@ -37,15 +43,19 @@ The checker, decorator, and inventory use the same declared Conda channel.
 ```python
 from depdigest import dep_digest
 
-@dep_digest('pocketeer')
+
+@dep_digest("pocketeer")
 def analyze_with_pocketeer(system):
     import pocketeer
+
     return pocketeer.find_pockets(system)
 
-@dep_digest('fpocket')
+
+@dep_digest("fpocket")
 def analyze_with_fpocket(pdb_file):
     import subprocess
-    return subprocess.run(['fpocket', '-f', str(pdb_file)], check=True)
+
+    return subprocess.run(["fpocket", "-f", str(pdb_file)], check=True)
 ```
 
 If an adapter already implements source loading through `upstream_root`, use

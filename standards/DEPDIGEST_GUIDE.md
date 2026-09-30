@@ -174,10 +174,14 @@ not Python import discovery, and never run or install the engine. For example:
 
 ```python
 LIBRARIES = {
-    'pocketeer': {'type': 'soft', 'pypi': 'pocketeer', 'conda': None},
-    'fpocket': {
-        'type': 'soft', 'kind': 'executable', 'executable': 'fpocket',
-        'pypi': None, 'conda': 'fpocket', 'channel': 'conda-forge',
+    "pocketeer": {"type": "soft", "pypi": "pocketeer", "conda": None},
+    "fpocket": {
+        "type": "soft",
+        "kind": "executable",
+        "executable": "fpocket",
+        "pypi": None,
+        "conda": "fpocket",
+        "channel": "conda-forge",
     },
 }
 ```
