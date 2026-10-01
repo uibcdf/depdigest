@@ -5,9 +5,10 @@ paths remain stable.
 
 <!-- generated: devguide_index -->
 
-### Resolved (13)
+### Resolved (14)
 
 - [`adopt_molsyssuite_policy_v1.md`](../completed_proposals/adopt_molsyssuite_policy_v1.md) — [#3](https://github.com/uibcdf/depdigest/issues/3) — Adopt the shared MolSysSuite policy and Ruff gate. *(resolved, measured)*
+- [`adopt_shared_public_conda_verifier.md`](../completed_proposals/adopt_shared_public_conda_verifier.md) — [#23](https://github.com/uibcdf/depdigest/issues/23) — Call the pinned common public Conda verifier and retain independent evidence. *(resolved, measured)*
 - [`adopt_shared_reporting_lifecycle.md`](../completed_proposals/adopt_shared_reporting_lifecycle.md) — [#5](https://github.com/uibcdf/depdigest/issues/5) — Adopt the shared issue-backed developer-guide lifecycle. *(resolved, inspected)*
 - [`doi_badge_cites_molsysmt.md`](../solved_bugs/doi_badge_cites_molsysmt.md) — [#10](https://github.com/uibcdf/depdigest/issues/10) — The README DOI badge cites the MolSysMT archive. *(resolved, reproduced)*
 - [`eager_importlib_metadata_costs_consumers.md`](../solved_bugs/eager_importlib_metadata_costs_consumers.md) — [#16](https://github.com/uibcdf/depdigest/issues/16) — Importing DepDigest eagerly imports importlib.metadata in every consumer. *(resolved, measured)*

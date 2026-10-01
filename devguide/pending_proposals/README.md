@@ -8,10 +8,6 @@ generated from report metadata.
 
 <!-- generated: devguide_index -->
 
-### Active (1)
-
-- [`adopt_shared_public_conda_verifier.md`](adopt_shared_public_conda_verifier.md) — [#23](https://github.com/uibcdf/depdigest/issues/23) — Call the pinned common public Conda verifier and retain independent evidence. *(active, inspected)*
-
 ### Open (2)
 
 - [`decorator_fast_path_and_observability_boundary.md`](decorator_fast_path_and_observability_boundary.md) — [#6](https://github.com/uibcdf/depdigest/issues/6) — Evaluate an epoch-cached decorator fast path and its observability cost. *(open, measured)*
