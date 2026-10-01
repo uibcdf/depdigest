@@ -111,6 +111,7 @@ jobs:
           token: ${{ secrets.ANACONDA_UIBCDF_TOKEN }}
 
       - name: Retain the promotion receipt
+        if: ${{ always() && steps.promotion.outputs.receipt != '' }}
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: depdigest-conda-promotion-${{ inputs.version }}-py_${{ inputs.build_number }}
@@ -120,35 +121,21 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      - name: Independently verify the public channel
-        shell: bash -l {0}
-        env:
-          RELEASE_VERSION: ${{ inputs.version }}
-          BUILD_NUMBER: ${{ inputs.build_number }}
-          EXPECTED_SHA256: ${{ inputs.sha256 }}
-        run: |
-          output="$RUNNER_TEMP/depdigest-conda-main.json"
-          conda search --json --override-channels -c uibcdf \
-            "depdigest=$RELEASE_VERSION=py_$BUILD_NUMBER" > "$output"
-          python - "$output" <<'PY'
-          import json
-          import os
-          import pathlib
-          import sys
+      - name: Independently verify the public package record
+        id: public_verification
+        uses: uibcdf/molsyssuite/.github/actions/verify-public-conda@399d33a4ee0da148571cba7cfc004e3f3a2e71e7
+        with:
+          package: depdigest
+          version: ${{ inputs.version }}
+          subdir: noarch
+          filename: depdigest-${{ inputs.version }}-py_${{ inputs.build_number }}.tar.bz2
+          sha256: ${{ inputs.sha256 }}
 
-          records = json.loads(pathlib.Path(sys.argv[1]).read_text())["depdigest"]
-          expected = os.environ["EXPECTED_SHA256"]
-          filename = f"depdigest-{os.environ['RELEASE_VERSION']}-py_{os.environ['BUILD_NUMBER']}.tar.bz2"
-          matches = [
-              record for record in records
-              if record.get("sha256") == expected and record.get("fn") == filename
-          ]
-          if len(matches) != 1:
-              raise SystemExit(
-                  f"expected one public artifact with SHA-256 {expected}, got {len(matches)}"
-              )
-          record = matches[0]
-          if record["channel"] != "https://conda.anaconda.org/uibcdf/noarch":
-              raise SystemExit(f"unexpected public channel: {record['channel']}")
-          print(record["url"])
-          PY
+      - name: Retain independent public verification evidence
+        if: ${{ always() && steps.public_verification.outputs.evidence-path != '' }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: depdigest-independent-public-conda-${{ inputs.version }}
+          path: ${{ steps.public_verification.outputs.evidence-path }}
+          if-no-files-found: error
+          retention-days: 30

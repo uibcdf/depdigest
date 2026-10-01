@@ -1,0 +1,41 @@
+name: Verify one public conda package (read-only)
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Published three-part version
+        required: true
+        type: string
+      build_number:
+        description: Exact public noarch build number
+        required: true
+        type: number
+      sha256:
+        description: Expected immutable SHA-256 digest
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify exact public file without promotion
+        id: public_verification
+        uses: uibcdf/molsyssuite/.github/actions/verify-public-conda@399d33a4ee0da148571cba7cfc004e3f3a2e71e7
+        with:
+          package: depdigest
+          version: ${{ inputs.version }}
+          subdir: noarch
+          filename: depdigest-${{ inputs.version }}-py_${{ inputs.build_number }}.tar.bz2
+          sha256: ${{ inputs.sha256 }}
+
+      - name: Retain independent public verification evidence
+        if: ${{ always() && steps.public_verification.outputs.evidence-path != '' }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: depdigest-independent-public-conda-${{ inputs.version }}
+          path: ${{ steps.public_verification.outputs.evidence-path }}
+          if-no-files-found: error
+          retention-days: 30
