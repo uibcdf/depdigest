@@ -8,10 +8,6 @@ generated from report metadata.
 
 <!-- generated: devguide_index -->
 
-### Partial (1)
-
-- [`optional_scientific_engines.md`](optional_scientific_engines.md) — [#22](https://github.com/uibcdf/depdigest/issues/22) — Share optional-engine availability and truthful installation routes across scientific consumers. *(partial, reproduced)*
-
 ### Open (2)
 
 - [`decorator_fast_path_and_observability_boundary.md`](decorator_fast_path_and_observability_boundary.md) — [#6](https://github.com/uibcdf/depdigest/issues/6) — Evaluate an epoch-cached decorator fast path and its observability cost. *(open, measured)*

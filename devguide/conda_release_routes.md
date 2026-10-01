@@ -8,7 +8,7 @@ template for native packages. Python 3.14 preparation is tracked in
 ## Decide before tagging
 
 The release owner completes `devtools/conda-build/release_plan.toml` **in the
-candidate commit**. The `0.11.0` candidate selects the `staged` route; this
+candidate commit**. The `0.12.0` candidate selects the `staged` route; this
 decision does not publish or promote a package. For a later version, reset and
 review `version`, `route`, `reason`, `decision_by`, and `required_workflows`
 before any tag or dispatch. Keep
@@ -161,3 +161,26 @@ before tagging that same commit. A stable release and digest-verified promotion
 publish the same file; public poststate and clean installation must agree.
 TopoMT adoption and the common contract are tracked in uibcdf/molsyssuite#62.
 This candidate plan is not a publication claim.
+
+
+### 0.12.0 public poststate: 2026-10-01
+
+Stable tag and GitHub Release `0.12.0` identify
+`0da46d9ff31fbe2f92e4e667a32868aebe840b39`.
+Exact-source matrix `36788849230` passed all twelve test cells and policy
+`36788753565` passed. Producer `36789413638` built the immutable staged artifact;
+installed matrix `36823713839` passed all twelve verification steps, including
+the new optional-engine contract, public SMonitor and off-checkout import/CLI.
+The release-event route selection `36824505071` passed and performed no direct
+upload; documentation publication `36824505069` passed.
+
+Promotion `36824539168` verified
+`noarch/depdigest-0.12.0-py_0.tar.bz2` with SHA-256
+`03d5aa569bfeb95bdd253a52e68e59094d9af5a6c4c7bc4ba228d3e36cfb30a3`,
+added `main` to the same file and retained `staging`. Its receipt reports
+`status=verified`; its independent public-channel query passed. An independent
+public download has that same digest. A fresh public-channel Conda environment
+on Linux/Python 3.13.15 verified version/import origin/URL/digest, installed
+optional-engine behavior and launcher. TopoMT's six availability tests and seven
+administrative tests pass against this public installation. This certifies the
+provider availability contract, not installed scientific engine parity.

@@ -5,7 +5,7 @@ paths remain stable.
 
 <!-- generated: devguide_index -->
 
-### Resolved (12)
+### Resolved (13)
 
 - [`adopt_molsyssuite_policy_v1.md`](../completed_proposals/adopt_molsyssuite_policy_v1.md) — [#3](https://github.com/uibcdf/depdigest/issues/3) — Adopt the shared MolSysSuite policy and Ruff gate. *(resolved, measured)*
 - [`adopt_shared_reporting_lifecycle.md`](../completed_proposals/adopt_shared_reporting_lifecycle.md) — [#5](https://github.com/uibcdf/depdigest/issues/5) — Adopt the shared issue-backed developer-guide lifecycle. *(resolved, inspected)*
@@ -16,6 +16,7 @@ paths remain stable.
 - [`lazy_registry_smonitor.md`](../completed_proposals/lazy_registry_smonitor.md) — [#7](https://github.com/uibcdf/depdigest/issues/7) — Instrument LazyRegistry with SMonitor without changing observable semantics. *(resolved, inspected)*
 - [`missing_dependency_hints_ignore_consumer.md`](../solved_bugs/missing_dependency_hints_ignore_consumer.md) — [#17](https://github.com/uibcdf/depdigest/issues/17) — Missing-dependency hints ignore consumer documentation and disagree on installation order. *(resolved, inspected)*
 - [`noarch_conda_launcher_missing_on_windows.md`](../solved_bugs/noarch_conda_launcher_missing_on_windows.md) — [#19](https://github.com/uibcdf/depdigest/issues/19) — The noarch Conda package omits the depdigest launcher on Windows. *(resolved, measured)*
+- [`optional_scientific_engines.md`](../completed_proposals/optional_scientific_engines.md) — [#22](https://github.com/uibcdf/depdigest/issues/22) — Share optional-engine availability and truthful installation routes across scientific consumers. *(resolved, reproduced)*
 - [`publish_one_staged_noarch_conda_artifact.md`](../completed_proposals/publish_one_staged_noarch_conda_artifact.md) — [#13](https://github.com/uibcdf/depdigest/issues/13) — Publish one staged noarch Conda artifact instead of interpreter-platform duplicates *(resolved, measured)*
 - [`receptor_misclassifies_composite_conda_publication.md`](../solved_bugs/receptor_misclassifies_composite_conda_publication.md) — [#9](https://github.com/uibcdf/depdigest/issues/9) — Use the release profile for action-internal Conda publication. *(resolved, reproduced)*
 - [`review_inherited_python_ecosystem_policy.md`](../completed_proposals/review_inherited_python_ecosystem_policy.md) — [#18](https://github.com/uibcdf/depdigest/issues/18) — Review inherited Python ecosystem policy in DepDigest. *(resolved, measured)*

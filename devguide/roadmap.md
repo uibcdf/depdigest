@@ -1,12 +1,13 @@
 # Roadmap & Future Steps
 
-DepDigest is currently at public release **0.11.2**, including Python 3.14
+DepDigest is currently at public release **0.12.0**, including Python 3.14
 support. Its noarch Conda artifact is verified; the Zenodo source snapshot
 recorded below belongs to release 0.11.0.
 
-Candidate **0.12.0** publishes optional executable discovery and explicit disabled
-installer routes under #22. It uses staged, exact-source and installed-artifact
-verification; this candidate statement does not claim public publication.
+Release **0.12.0** publishes optional executable discovery and explicit disabled
+installer routes under #22. Exact-source and installed-artifact matrices passed
+all twelve cells; promotion verified the same file in the public Conda channel.
+TopoMT adopted the released provider with its custom-command/error contract.
 
 This roadmap captures likely next increments toward broader stable adoption.
 

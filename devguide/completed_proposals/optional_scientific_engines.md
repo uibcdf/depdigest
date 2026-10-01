@@ -1,9 +1,9 @@
 ---
 summary: Share optional-engine availability and truthful installation routes across scientific consumers.
 issue: uibcdf/depdigest#22
-status: partial
+status: resolved
 opened: 2026-09-30
-closed:
+closed: 2026-10-01
 severity: medium
 verification: reproduced
 area: [dependency, integration]
@@ -129,3 +129,43 @@ every platform; mode-bit assertions remain in POSIX branches. All four tests
 still execute on Windows, with no new platform skips and no provider runtime
 or scientific assertions changed. The corrected exact candidate requires a new
 complete source matrix; the prior failure remains evidence, not a waiver.
+
+
+## Resolution: 2026-10-01
+
+DepDigest 0.12.0 is published at immutable commit
+`0da46d9ff31fbe2f92e4e667a32868aebe840b39`. Source matrix `36788849230`,
+policy `36788753565`, staging producer `36789413638`, installed matrix
+`36823713839` and promotion `36824539168` passed. Both source and installed
+matrices executed all twelve Linux/macOS/Windows × Python 3.11–3.14 cells.
+The promoted public file preserves SHA-256
+`03d5aa569bfeb95bdd253a52e68e59094d9af5a6c4c7bc4ba228d3e36cfb30a3`.
+Independent public download and clean Linux/Python 3.13.15 installation verified
+version, off-checkout import, Conda URL/digest, optional-engine contract and CLI.
+No tag moved, file overwritten, scientific assertion weakened or failure waived.
+
+TopoMT adopted the published capability in `1aa25c4`, declared the >=0.12.0 floor
+in runtime manifests and retained the exact release commit in its controlled pin.
+Its fpocket boundary uses shared discovery for the supplied command and translates
+only an explicit absence sentinel into the existing public error contract.
+Unrelated provider/import/filesystem/execution failures remain separate.
+Its six-test focused workflow `36825125490` passed on Linux/macOS and Python
+3.11–3.13, with actual public artifact origin/version/URL/digest verified in
+every cell. Seven administrative checks also passed locally. The broad consumer
+review remains under uibcdf/topomt#56/#15; scientific full suites are not certified.
+
+The provider-owned guide distribution was already resolved under
+uibcdf/molsyssuite#63. The component-facing common recipe is now distributed to
+all fifteen registered consumers under uibcdf/molsyssuite#62, with remote audits
+`36787721831` and `36788852416` passing. Guidance requires adoption whenever an
+applicable optional boundary is introduced or changed, with bounded exceptions.
+MolSysMT/MolSysViewer scientific execution reviews remain deferred.
+
+The guard `tests/test_optional_engines.py` exercises executable discovery through
+PATH and explicit commands, inventory/LazyRegistry consistency, disabled
+installers/channels and preserved transitive imports. These assertions cover the
+reported shared failure mechanisms; Windows fixtures retain PATH/absolute-path
+and file-removal checks with no new skips. Installed-gate regression tests also
+reject invented installer routes and ignoring the configured command.
+All provider proposal acceptance criteria are met; future consumer scientific
+work and broad support-library reviews retain their own issue ownership.

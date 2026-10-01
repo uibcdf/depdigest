@@ -22,8 +22,8 @@ It helps maintain a "Zero-Cost Startup" by ensuring that heavy external librarie
 Understand your dependencies. Trust your code.
 
 Current release line:
-- `0.12.0` candidate: optional executable dependencies and truthful disabled
-  installation routes; public availability follows the staged release gates
+- `0.12.0`: optional executable dependencies and truthful disabled installation
+  routes; published after exact-source and installed-artifact gates
 - `0.11.2` improved dependency diagnostics and the guarded release routes
 - `0.11.1` repairs the Windows `depdigest` launcher in the published noarch Conda package
 - `0.11.0` delivered Python 3.14 support
