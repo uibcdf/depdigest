@@ -11,6 +11,8 @@
 [![Conda](https://img.shields.io/conda/vn/uibcdf/depdigest)](https://anaconda.org/uibcdf/depdigest)
 [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22884368.svg)](https://doi.org/10.5281/zenodo.22884368)
 
+Coverage: DepDigest Python tests, uploaded by the routine Linux/Python 3.13 CI lane. The badge reflects the last uploaded report, which may lag later direct or skip-CI commits; it does not certify a full matrix or scientific correctness.
+
 *Digesting dependencies into clear, actionable insight.*
 
 ## Overview
