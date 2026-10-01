@@ -1,0 +1,6 @@
+﻿depdigest.get\_info
+===================
+
+.. currentmodule:: depdigest
+
+.. autofunction:: get_info
