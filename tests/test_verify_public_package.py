@@ -1,6 +1,7 @@
 """Protect actual adoption of the shared, read-only public Conda verifier."""
 
 from pathlib import Path
+
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,11 +17,19 @@ def test_workflows_call_the_pinned_common_verifier_and_retain_evidence():
         assert len(calls) == 1
         call = calls[0]
         assert call["id"] == "public_verification"
-        assert call["with"] == {"package": "depdigest", "version": "${{ inputs.version }}",
-                                "subdir": "noarch", "filename": "depdigest-${{ inputs.version }}-py_${{ inputs.build_number }}.tar.bz2",
-                                "sha256": "${{ inputs.sha256 }}"}
-        receipts = [step for step in steps if step.get("with", {}).get("path") ==
-                    "${{ steps.public_verification.outputs.evidence-path }}"]
+        assert call["with"] == {
+            "package": "depdigest",
+            "version": "${{ inputs.version }}",
+            "subdir": "noarch",
+            "filename": "depdigest-${{ inputs.version }}-py_${{ inputs.build_number }}.tar.bz2",
+            "sha256": "${{ inputs.sha256 }}",
+        }
+        receipts = [
+            step
+            for step in steps
+            if step.get("with", {}).get("path")
+            == "${{ steps.public_verification.outputs.evidence-path }}"
+        ]
         assert len(receipts) == 1
         assert "always()" in receipts[0]["if"]
         assert "outputs.evidence-path != ''" in receipts[0]["if"]
@@ -28,7 +37,9 @@ def test_workflows_call_the_pinned_common_verifier_and_retain_evidence():
 
 
 def test_independent_recheck_has_no_mutation_credentials_or_promotion():
-    data = yaml.safe_load((ROOT / ".github/workflows/verify_public_conda_package.yaml").read_text())
+    data = yaml.safe_load(
+        (ROOT / ".github/workflows/verify_public_conda_package.yaml").read_text()
+    )
     assert data["permissions"] == {"contents": "read"}
     steps = data["jobs"]["verify"]["steps"]
     assert all("/promote@" not in step.get("uses", "") for step in steps)
@@ -37,7 +48,14 @@ def test_independent_recheck_has_no_mutation_credentials_or_promotion():
 
 
 def test_publication_guard_is_pinned_and_runs_without_scientific_jobs():
-    data = yaml.load((ROOT / ".github/workflows/check-conda-publication.yml").read_text(), Loader=yaml.BaseLoader)
+    data = yaml.load(
+        (ROOT / ".github/workflows/check-conda-publication.yml").read_text(),
+        Loader=yaml.BaseLoader,
+    )
     assert set(data["on"]) == {"push", "pull_request", "workflow_dispatch"}
     assert data["permissions"] == {"contents": "read"}
-    assert data["jobs"] == {"publication": {"uses": "uibcdf/molsyssuite/.github/workflows/check-conda-publication.yaml@2a63a15d67d2e72724b6349e89f9f026b25e860f"}}
+    assert data["jobs"] == {
+        "publication": {
+            "uses": "uibcdf/molsyssuite/.github/workflows/check-conda-publication.yaml@2a63a15d67d2e72724b6349e89f9f026b25e860f"
+        }
+    }
