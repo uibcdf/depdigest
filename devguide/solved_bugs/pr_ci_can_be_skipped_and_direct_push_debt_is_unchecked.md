@@ -1,11 +1,11 @@
 ---
 summary: PR CI can be skipped and direct-push debt is unchecked
 issue: uibcdf/depdigest#21
-status: partial
+status: resolved
 opened: 2026-09-29
-closed:
+closed: 2026-10-03
 severity: high
-verification: inspected
+verification: measured
 area: [ci, governance]
 guard: tests/test_ci_backlog.py
 normative:
@@ -162,3 +162,27 @@ routes together. [GitHub's native commit skip directives](https://docs.github.co
 may suppress workflow creation, but the required check stays pending and
 does not authorize an external merge. Administrator direct-push permission
 remains the accepted internal route.
+
+## Closure evidence — 2026-10-03
+
+The documentation-only [PR #24](https://github.com/uibcdf/depdigest/pull/24)
+passed the full Linux/Python 3.14 `Run tests` step in
+[run 37158721627](https://github.com/uibcdf/depdigest/actions/runs/37158721627)
+at head `276845902649e6ecd322765ddf66dfcac08d1399`. Its title contains
+`[skip ci]`, its branch is `skip-ci/depdigest-21-evidence`, and its only
+changed file is Markdown. All three former local omission routes therefore
+coexist in a real passing PR test. The
+[policy run 37158722110](https://github.com/uibcdf/depdigest/actions/runs/37158722110)
+and [Conda governance run 37158722057](https://github.com/uibcdf/depdigest/actions/runs/37158722057)
+also passed for that PR head. These are PR results, separate from the
+nightly, release-candidate and installed-package results above.
+
+The scheduled recovery, hosted PR execution and platform review acceptance
+items are now met. The existing `tests/test_ci_backlog.py` guard protects
+the skipped-debt mechanism as explained above; the hosted PR demonstrates
+the unfiltered entry route and the live required-check API verifies merge
+enforcement. Archive this record and regenerate the queue/archive indexes
+in the same change. Merge of PR #24 closes the local issue; the central
+`uibcdf/molsyssuite#39` rollout remains independently owned and open. Its
+registry still records DepDigest as partial until the suite owner adopts
+this linked evidence; local closure does not assert central adoption.
