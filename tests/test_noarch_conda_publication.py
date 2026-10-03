@@ -97,7 +97,10 @@ def test_promotion_workflow_checks_exact_release_and_file_identity():
     assert "expected-sha256: ${{ inputs.sha256 }}" in workflow
     assert "from-label: staging" in workflow
     assert "to-label: main" in workflow
-    assert "uibcdf/molsyssuite/.github/actions/verify-public-conda@399d33a4ee0da148571cba7cfc004e3f3a2e71e7" in workflow
+    assert (
+        "uibcdf/molsyssuite/.github/actions/verify-public-conda@399d33a4ee0da148571cba7cfc004e3f3a2e71e7"
+        in workflow
+    )
     assert "sha256: ${{ inputs.sha256 }}" in workflow
     assert "outputs.evidence-path" in workflow
     assert "ANACONDA_UIBCDF_TOKEN" in workflow
