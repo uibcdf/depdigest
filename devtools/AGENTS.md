@@ -59,8 +59,8 @@ environment scripts, packaging utilities, and operational guidance.
 
 ## Python Scripts in devtools
 - Maintain compatibility with Python 3.11–3.14 (>=3.11,<3.15), matching the
-  authorized transition in `pyproject.toml`. Python 3.13 remains the routine
-  development interpreter until the shared policy changes.
+  authorized transition in `pyproject.toml`. Python 3.14 is the routine
+  development interpreter under MolSysSuite policy-v1.5.4.
 - Use only the standard library and dependencies already declared in the
   development profile. If you need new packages, add them to
   `requirements.yaml` first and rebroadcast.

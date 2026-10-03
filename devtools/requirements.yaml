@@ -50,7 +50,7 @@ development:
     - *production_dependencies
     - *test_dependencies
     - *docs_dependencies
-    - python =3.13
+    - python =3.14
     - ruff =0.16.5
     - mamba
 
