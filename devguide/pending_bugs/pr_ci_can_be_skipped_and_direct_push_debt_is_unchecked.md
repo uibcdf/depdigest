@@ -112,3 +112,53 @@ The development interpreter is changed in devtools/requirements.yaml and
 regenerated through the existing broadcaster. No generated dependency file
 is edited by hand.
 
+## Hosted evidence review — 2026-10-03
+
+The live classic branch protection API now requires the strict
+`Test on ubuntu-latest, Python 3.14` check from GitHub Actions (app 15368).
+Administrator enforcement remains disabled. The current push-capable
+collaborators are `dprada` and `LMMV`, both administrators. The absence of a
+repository ruleset does not mean the classic branch protection is absent.
+This supersedes the historical Python 3.13 check name above.
+
+The scheduled [run 37121680648](https://github.com/uibcdf/depdigest/actions/runs/37121680648)
+at `104661a0f4aff894420107cb9d0ccb15bbf8fd4f` exercised actual recovery:
+the detector found one skipped commit after the executed full-matrix anchor
+`2d56ef4330e36ddba421c344acf5dab0f0221c7a`, requested the matrix, and all
+twelve Linux/macOS/Windows Python 3.11–3.14 jobs passed their `Run tests`
+steps. This is scheduled execution evidence, not a probe-only dispatch.
+The cron remains 00:47 America/Mexico_City; GitHub actually started this run
+at 12:04 UTC, so this evidence does not promise punctual cron delivery.
+
+Platform review retains Linux, macOS Apple Silicon and Windows. The macOS
+Python 3.14 source job in that run identifies `macos-26-arm64` and
+`osx-arm64`; pytest reports 135 passed and one collective-integration skip
+because sibling checkouts are absent. Intel macOS is outside the support
+claim. The release 0.12.0
+[installed-artifact run 36823713839](https://github.com/uibcdf/depdigest/actions/runs/36823713839)
+at `0da46d9ff31fbe2f92e4e667a32868aebe840b39` passed all twelve clean
+installation cells, including the installed-resource and command smoke
+step outside the checkout. Its macOS Python 3.14 runner also identifies
+`macos-26-arm64`. Source tests, installed-artifact smoke and public-channel
+verification remain separate evidence; none certifies scientific behavior
+of optional consumer engines.
+
+The Python 3.14 routine [run 37122615391](https://github.com/uibcdf/depdigest/actions/runs/37122615391)
+passed at `39e581a13b44f2a7965d4e50eb7f4db9e65562aa`. The latest manually
+dispatched [policy run 37123106456](https://github.com/uibcdf/depdigest/actions/runs/37123106456)
+passed at `e38c7f35128d977772dceb2ccca856f75df798f1`; these results do not
+certify later commits.
+
+Local Python 3.14 verification of `tests/test_ci_backlog.py` and
+`tests/test_reporting_protocol.py` passed all nine tests. The backlog guard
+checks that ordinary commits do not erase skipped debt, a probe with an
+unexecuted test step cannot advance the watermark, feature-branch matrices
+cannot clear main's debt, and uncertain API evidence requests recovery.
+
+The remaining acceptance item is a hosted PR execution. A documentation-only
+PR from `skip-ci/depdigest-21-evidence`, with `[skip ci]` in its title and
+without a commit skip marker, will check the three formerly local omission
+routes together. [GitHub's native commit skip directives](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/skip-workflow-runs) are different: they
+may suppress workflow creation, but the required check stays pending and
+does not authorize an external merge. Administrator direct-push permission
+remains the accepted internal route.
