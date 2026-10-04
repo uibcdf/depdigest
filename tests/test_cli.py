@@ -49,3 +49,34 @@ def test_cli_audit_allow_violations_returns_zero(tmp_path):
         ]
     )
     assert rc == 0
+
+
+def test_cli_reports_nested_module_imports_with_source_lines(tmp_path, capsys):
+    src = tmp_path / "pkg"
+    src.mkdir()
+    path = src / "__init__.py"
+    path.write_text(
+        "from typing import TYPE_CHECKING\n"
+        "if TYPE_CHECKING:\n"
+        "    import openmm\n"
+        "try:\n"
+        "    from mdtraj import load\n"
+        "except ImportError:\n"
+        "    pass\n",
+        encoding="utf-8",
+    )
+    arguments = [
+        "audit",
+        "--src-root",
+        str(src),
+        "--soft-deps",
+        "openmm,mdtraj",
+        "--json",
+    ]
+    assert main(arguments) == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["violation_count"] == 1
+    assert payload["violations"] == {str(path): [{"line": 5, "module": "mdtraj"}]}
+    assert main([*arguments, "--allow-violations"]) == 0
+    allowed = json.loads(capsys.readouterr().out)
+    assert allowed == payload

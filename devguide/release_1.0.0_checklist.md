@@ -18,9 +18,12 @@ The current public release is 0.12.0.
 
 ## Decisions before a release candidate
 
-- [ ] Resolve or explicitly accept audit scope in
+- [x] Resolve the source audit scope in
   [#27](https://github.com/uibcdf/depdigest/issues/27), including module-level
   control flow and separate syntax-error semantics.
+- [ ] Record consumer adapter-boundary decisions in
+  [ArgDigest #22](https://github.com/uibcdf/argdigest/issues/22) and provider
+  guide/adoption tracking in [MolSysSuite #95](https://github.com/uibcdf/molsyssuite/issues/95).
 - [ ] Record the consumer-owned template decision in
   [PyUnitWizard #93](https://github.com/uibcdf/pyunitwizard/issues/93).
 - [ ] Decide whether a numerical startup budget is required; establish and

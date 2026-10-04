@@ -1,0 +1,100 @@
+{
+  "audits": {
+    "argdigest": {
+      "after_count": 1,
+      "after_exit": 1,
+      "before_count": 0,
+      "before_exit": 0,
+      "consumer_commit": "a31be2823a7575a774f02e4b8490f6af884c38b5",
+      "findings": {
+        "contrib/pyunitwizard_support.py": [
+          {
+            "line": 13,
+            "module": "pyunitwizard"
+          }
+        ]
+      }
+    },
+    "pyunitwizard": {
+      "after_count": 11,
+      "after_exit": 1,
+      "before_count": 1,
+      "before_exit": 1,
+      "consumer_commit": "d70bdffe7cfdd7685c4830330c5f75d6465878da",
+      "findings": {
+        "forms/api_astropy_unit.py": [
+          {
+            "line": 7,
+            "module": "astropy"
+          }
+        ],
+        "forms/api_openmm_unit.py": [
+          {
+            "line": 7,
+            "module": "openmm.unit"
+          }
+        ],
+        "forms/api_physipy.py": [
+          {
+            "line": 9,
+            "module": "physipy"
+          },
+          {
+            "line": 10,
+            "module": "physipy.quantity.quantity"
+          }
+        ],
+        "forms/api_quantities.py": [
+          {
+            "line": 9,
+            "module": "quantities"
+          },
+          {
+            "line": 10,
+            "module": "quantities.quantity"
+          },
+          {
+            "line": 11,
+            "module": "quantities.unitquantity"
+          }
+        ],
+        "forms/api_unyt.py": [
+          {
+            "line": 7,
+            "module": "unyt"
+          },
+          {
+            "line": 8,
+            "module": "unyt"
+          },
+          {
+            "line": 9,
+            "module": "unyt"
+          }
+        ],
+        "forms/template_api_form.py": [
+          {
+            "line": 1,
+            "module": "unyt"
+          }
+        ]
+      },
+      "template_only_exemption": {
+        "exit_code": 1,
+        "finding_count": 10
+      }
+    }
+  },
+  "date": "2026-10-04",
+  "handoffs": [
+    "uibcdf/argdigest#22",
+    "uibcdf/pyunitwizard#93"
+  ],
+  "impact_issue": "uibcdf/molsyssuite#95",
+  "previous_receipt": "pre_1_integration_2026-10-04.json",
+  "provider_base": "34d2c78aa7554ecb3209cc1d45f8990c28e1a572",
+  "provider_issue": "uibcdf/depdigest#27",
+  "qualification": "source_audit_only; pinned_clean_consumers; no_root_import_leak_inferred",
+  "scanner_sha256": "b3a9a7bb60c835163355e6d986875e045c2927db1413fbe3f12f541f8d170fef",
+  "schema": "depdigest.audit_control_flow_evidence@1"
+}

@@ -108,9 +108,11 @@ only skips the five integration cases when no workspace was requested and
 siblings are absent. No installation or sibling worktree modification occurs.
 
 Run the existing `python -m depdigest audit` separately for static source checks.
-Its direct-import findings, delayed adapters and explicit exemptions are distinct
-from root-import execution. Module-level control-flow coverage is tracked in
-`uibcdf/depdigest#27`. The dated outcomes and limitations are maintained in
+Its module/class control-flow findings, delayed function bodies, typing-only
+guards and explicit exemptions are distinct from root-import execution. The
+expanded scanner contract is documented under `uibcdf/depdigest#27`; consumer
+audit boundaries and guide adoption remain under `uibcdf/molsyssuite#95`.
+The dated outcomes and limitations are maintained in
 `devguide/collective_evidence_pack.md`; this probe qualifies neither public
 artifacts nor full scientific suites.
 

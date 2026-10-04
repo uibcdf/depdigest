@@ -99,6 +99,27 @@ traversal needs a decision in [DepDigest #27](https://github.com/uibcdf/depdiges
 The runtime probe rejects the equivalent eager-import fixture. A clean static
 audit therefore does not certify absence of runtime import leaks.
 
+### Audit correction after this checkpoint (#27, 2026-10-04)
+
+The dated table above and its receipt retain the earlier scanner's results.
+The correction under #27 now scans module/class control flow, skips delayed
+function bodies and recognizes simple explicit, unrebound typing-only guards.
+Syntax-error behavior remains unchanged and is now documented as a limit.
+
+On the same clean consumer snapshots, the expanded audit returns one finding
+for ArgDigest (`contrib/pyunitwizard_support.py:13`) and eleven for PyUnitWizard
+(the template plus ten imports across five adapter modules). The template-only
+exemption now leaves ten findings. The root-import probes still pass. These
+are source-scope findings, not evidence that the root packages load those
+adapters eagerly. The normalized follow-up is
+[`evidence/audit_control_flow_2026-10-04.json`](evidence/audit_control_flow_2026-10-04.json).
+
+Consumer decisions are owned by [ArgDigest #22](https://github.com/uibcdf/argdigest/issues/22)
+and [PyUnitWizard #93](https://github.com/uibcdf/pyunitwizard/issues/93).
+[MolSysSuite #95](https://github.com/uibcdf/molsyssuite/issues/95) tracks the
+provider/guide impact, pending guide synchronization and consumer adoption.
+The public 0.12.0 provider and the original consumer checkouts are unchanged.
+
 ## Reproduction
 
 Create clean SMonitor, ArgDigest and PyUnitWizard clones under one workspace,
@@ -122,8 +143,10 @@ skip the five integration cases and do not establish cross-library evidence.
 
 ## Remaining decisions
 
-- DepDigest #27: settle static audit coverage before broader import-safety claims.
-- PyUnitWizard #93: owner decision on the template audit scope.
+- Consumer owners: settle the adapter/template boundaries in ArgDigest #22 and
+  PyUnitWizard #93; the provider scanner contract is resolved under #27.
+- MolSysSuite #95: synchronize the updated provider guide and track consumer
+  source/installed adoption separately from provider implementation.
 - Choose a numerical startup budget if required for 1.0 and validate it.
 - Execute candidate-specific source/installed-artifact gates and record consumer
   acceptance before a 1.0 go/no-go decision. Existing 0.12.0 matrices are
