@@ -1,0 +1,195 @@
+{
+  "audits": {
+    "argdigest": {
+      "exit_code": 0,
+      "findings": {},
+      "soft_roots": [
+        "beartype",
+        "pydantic",
+        "pyunitwizard"
+      ]
+    },
+    "depdigest": {
+      "exit_code": 0,
+      "findings": {},
+      "soft_roots": [
+        "mdtraj",
+        "openmm"
+      ]
+    },
+    "pyunitwizard": {
+      "exit_code": 1,
+      "findings": {
+        "forms/template_api_form.py": [
+          {
+            "line": 1,
+            "module": "unyt"
+          }
+        ]
+      },
+      "soft_roots": [
+        "ackredit",
+        "astropy",
+        "openmm",
+        "physipy",
+        "quantities",
+        "unyt"
+      ]
+    },
+    "pyunitwizard_explicit_template_exemption": {
+      "exempt_file": "forms/template_api_form.py",
+      "exit_code": 0,
+      "findings": {},
+      "owner_decision": "uibcdf/pyunitwizard#93; not adopted by the consumer here"
+    }
+  },
+  "contracts": {
+    "body_calls": [
+      "pint"
+    ],
+    "dependency_row": {
+      "install": {
+        "conda": "conda install -c conda-forge unyt",
+        "pypi": "pip install unyt"
+      },
+      "installed": false,
+      "library": "unyt",
+      "package_name": {
+        "conda": "unyt",
+        "pypi": "unyt"
+      },
+      "status": "missing",
+      "type": "soft"
+    },
+    "dimensionality_codes": [
+      "ARG-ERR-VAL-001"
+    ],
+    "missing_codes": [
+      "DEP-ERR-MISS-001",
+      "DEP-ERR-MISS-001"
+    ],
+    "missing_contexts": [
+      {
+        "chain": [
+          "argdigest.core.decorator.wrapper"
+        ]
+      },
+      {
+        "chain": [
+          "argdigest.core.decorator.wrapper"
+        ]
+      }
+    ],
+    "missing_messages": [
+      "The library 'unyt' is required for 'accept_distance'.\nInstall with:\n  conda install -c conda-forge unyt\n  pip install unyt\nDocumentation: https://github.com/uibcdf/depdigest",
+      "The library 'unyt' is required for 'accept_distance'.\nInstall with:\n  conda install -c conda-forge unyt\n  pip install unyt\nDocumentation: https://github.com/uibcdf/depdigest"
+    ],
+    "qualification": "integrator_composition_and_real_quantity_flow; simulated_absence",
+    "quantity_angstrom": 10.0
+  },
+  "date": "2026-10-04",
+  "imports": {
+    "argdigest": {
+      "added_module_counts": [
+        122,
+        122,
+        122
+      ],
+      "eager_optional_roots": [],
+      "optional_roots_checked": [
+        "beartype",
+        "pydantic",
+        "pyunitwizard"
+      ],
+      "samples_seconds": [
+        0.0709035461768508,
+        0.07085604500025511,
+        0.06882338877767324
+      ]
+    },
+    "depdigest": {
+      "added_module_counts": [
+        60,
+        60,
+        60
+      ],
+      "eager_optional_roots": [],
+      "optional_roots_checked": [],
+      "samples_seconds": [
+        0.034625761210918427,
+        0.03448141645640135,
+        0.034878140315413475
+      ]
+    },
+    "pyunitwizard": {
+      "added_module_counts": [
+        57,
+        57,
+        57
+      ],
+      "eager_optional_roots": [],
+      "optional_roots_checked": [
+        "ackredit",
+        "astropy",
+        "openmm",
+        "physipy",
+        "quantities",
+        "unyt"
+      ],
+      "samples_seconds": [
+        0.03349446319043636,
+        0.031186253763735294,
+        0.031126175075769424
+      ]
+    },
+    "smonitor": {
+      "added_module_counts": [
+        38,
+        38,
+        38
+      ],
+      "eager_optional_roots": [],
+      "optional_roots_checked": [],
+      "samples_seconds": [
+        0.02617916464805603,
+        0.023219812661409378,
+        0.02411282528191805
+      ]
+    }
+  },
+  "issue": "uibcdf/depdigest#26",
+  "limitations": [
+    "local source evidence only; no public artifact qualification",
+    "integrator fixture with simulated absence; not a current consumer decorator stack",
+    "no accepted numerical startup budget",
+    "static audit module-level control-flow scope remains uibcdf/depdigest#27",
+    "DepDigest runtime baseline was unchanged; validation/docs files were in progress"
+  ],
+  "pint_version": "0.26.1",
+  "pip_check": "passed",
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "schema": "depdigest.pre_1_integration_evidence@1",
+  "sources": {
+    "argdigest": {
+      "clean_snapshot": true,
+      "commit": "a31be2823a7575a774f02e4b8490f6af884c38b5",
+      "origin_verified": true
+    },
+    "depdigest": {
+      "clean_snapshot": false,
+      "commit": "a056c2fa9962e21c93b7c149118b41f9bf646947",
+      "origin_verified": true
+    },
+    "pyunitwizard": {
+      "clean_snapshot": true,
+      "commit": "d70bdffe7cfdd7685c4830330c5f75d6465878da",
+      "origin_verified": true
+    },
+    "smonitor": {
+      "clean_snapshot": true,
+      "commit": "a1f5ee12bdc3065dbdc8660d48b91c8466d19d17",
+      "origin_verified": true
+    }
+  }
+}

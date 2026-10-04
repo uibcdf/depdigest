@@ -1,102 +1,63 @@
+"""Run the maintained integration probe without changing pytest's process state."""
+
 from __future__ import annotations
 
-import importlib
+import json
+import os
+import subprocess
 import sys
-from contextlib import contextmanager
 from pathlib import Path
 
 import pytest
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-SIBLING_PYW = REPO_ROOT.parent / "pyunitwizard"
-SIBLING_ARG = REPO_ROOT.parent / "argdigest"
-SIBLING_DEP = REPO_ROOT.parent / "depdigest"
-SIBLING_SMON = REPO_ROOT.parent / "smonitor"
-
-
-def _siblings_available() -> bool:
-    return all(
-        path.exists() for path in [SIBLING_PYW, SIBLING_ARG, SIBLING_DEP, SIBLING_SMON]
-    )
-
-
-@contextmanager
-def _prepend_paths(paths: list[Path]):
-    original = list(sys.path)
-    try:
-        for path in reversed(paths):
-            sys.path.insert(0, str(path))
-        yield
-    finally:
-        sys.path[:] = original
-
-
-@contextmanager
-def _force_fresh_imports(packages: list[str]):
-    removed = {}
-    before_keys = set(sys.modules)
-    try:
-        for package in packages:
-            for key in list(sys.modules):
-                if key == package or key.startswith(f"{package}."):
-                    removed[key] = sys.modules.pop(key)
-        yield
-    finally:
-        # Drop modules loaded during the context for tracked packages.
-        for package in packages:
-            for key in list(sys.modules):
-                if (
-                    key == package or key.startswith(f"{package}.")
-                ) and key not in before_keys:
-                    sys.modules.pop(key, None)
-        sys.modules.update(removed)
+ROOT = Path(__file__).resolve().parents[2]
+WORKSPACE_OVERRIDE = os.environ.get("DEPDIGEST_INTEGRATION_WORKSPACE")
+WORKSPACE = Path(WORKSPACE_OVERRIDE) if WORKSPACE_OVERRIDE else ROOT.parent
+SIBLINGS_AVAILABLE = all(
+    (WORKSPACE / name / name / "__init__.py").is_file()
+    for name in ("smonitor", "argdigest", "pyunitwizard")
+)
 
 
 @pytest.mark.skipif(
-    not _siblings_available(),
-    reason="Sibling repos are not available in this environment",
+    not SIBLINGS_AVAILABLE and not WORKSPACE_OVERRIDE,
+    reason="Sibling repos are not available; set DEPDIGEST_INTEGRATION_WORKSPACE",
 )
-def test_collective_error_path_emits_contract_signal_and_dependency_hints():
-    with (
-        _prepend_paths([SIBLING_PYW, SIBLING_ARG, SIBLING_DEP, SIBLING_SMON]),
-        _force_fresh_imports(["pyunitwizard", "argdigest", "depdigest", "smonitor"]),
-    ):
-        puw = importlib.import_module("pyunitwizard")
-        argdigest = importlib.import_module("argdigest")
-        depdigest = importlib.import_module("depdigest")
-        smonitor = importlib.import_module("smonitor")
-        puw_support = importlib.import_module("argdigest.contrib.pyunitwizard_support")
-
-        manager = smonitor.get_manager()
-        manager.configure(level="DEBUG", event_buffer_size=400)
-
-        puw.configure.reset()
-        puw.configure.load_library(["pint"])
-        puw.configure.set_default_form("pint")
-        puw.configure.set_default_parser("pint")
-
-        @argdigest.arg_digest.map(
-            distance={
-                "kind": "quantity",
-                "rules": [puw_support.check(dimensionality={"[L]": 1})],
-            }
-        )
-        def _accept_distance(distance):
-            return distance
-
-        start = len(manager.recent_events())
-        wrong_distance = puw.quantity(1.0, "picosecond", form="pint")
-
-        with pytest.raises(argdigest.DigestValueError):
-            _accept_distance(wrong_distance)
-
-        recent = manager.recent_events()[start:]
-        assert any(
-            (event.get("code") or "").startswith(("ARG-", "PUW-")) for event in recent
-        )
-
-        payload = depdigest.get_info("pyunitwizard", format="dict")
-        dependencies = payload.get("dependencies", [])
-        pint_rows = [item for item in dependencies if item.get("library") == "pint"]
-        assert pint_rows
-        assert "install" in pint_rows[0]
+@pytest.mark.parametrize(
+    "arguments",
+    [
+        ["--case", "contracts"],
+        *[
+            ["--case", "imports", "--package", name]
+            for name in ("depdigest", "smonitor", "argdigest", "pyunitwizard")
+        ],
+    ],
+)
+def test_collective_error_path_and_optional_import_boundaries(arguments, tmp_path):
+    receipt = tmp_path / "integration.json"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "-I",
+            str(ROOT / "devtools" / "integration_probe.py"),
+            "--workspace",
+            str(WORKSPACE),
+            "--output",
+            str(receipt),
+            *arguments,
+        ],
+        text=True,
+        capture_output=True,
+        timeout=60,
+        check=False,
+    )
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    assert completed.stdout == ""
+    evidence = json.loads(receipt.read_text(encoding="utf-8"))
+    assert evidence["schema"] == "depdigest.integration_probe@1"
+    assert evidence["sources"]["depdigest"]["root"] == str(ROOT.resolve())
+    package = "depdigest" if arguments[1] == "contracts" else arguments[-1]
+    package_root = ROOT if package == "depdigest" else WORKSPACE / package
+    assert evidence["sources"][package]["origin"] == str(
+        (package_root / package / "__init__.py").resolve()
+    )

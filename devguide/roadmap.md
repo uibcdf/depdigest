@@ -79,6 +79,19 @@ This roadmap captures likely next increments toward broader stable adoption.
 
 - Prepare final release narrative and final go/no-go checklist.
 - Keep contract stability and release-gate reproducibility as hard blockers.
+- The 2026-10-04 [integration checkpoint](collective_evidence_pack.md) and
+  [1.0 checklist](release_1.0.0_checklist.md) track current source evidence and
+  remaining candidate-specific gates under #26.
+- #6 remains deferred after complete-call consumer measurements; #8 remains
+  deferred without a current consumer import boundary. Neither blocks 1.0.
+
+### Delivered diagnostics before 1.0
+
+- #7 completed bounded LazyRegistry success diagnostics on 2026-09-26.
+  `DEP-DBG-LOAD-002` records plugin, module, triggering access and caller.
+  See [the completed proposal](completed_proposals/lazy_registry_smonitor.md).
+- Loading remains a whole permitted-plugin scan at first access. Per-entry
+  loading would change semantics and has no accepted implementation or date.
 
 ## Candidate priorities for next cycle
 
@@ -106,7 +119,9 @@ Should we provide a built-in strict profile for `depdigest audit` + introspectio
 
 3. Introspection schema contract
 
-Should the `dict/json` output from `get_info` be versioned as a formal public schema contract?
+The `dict/json` output already carries documented `depdigest.get_info` schema
+version `1.0`, protected by contract tests. Schema evolution needs a consumer
+requirement and an explicit compatibility decision.
 
 ## Route to 1.0.0
 
@@ -147,9 +162,8 @@ This is the working milestone path toward a stable `1.0.0` release.
 - User and developer documentation are complete and consistent.
 - CI/release workflows are considered production-stable.
 
-### 1.1.0 - Post-stable diagnostics
+### After 1.0.0
 
-- Instrument successful `LazyRegistry` loads with a catalog-driven `lazy_load` signal
-  (`devguide/pending_proposals/lazy_registry_smonitor.md`, reduced scope A).
-- Deferred out of the 1.0.0 line on purpose: useful but not blocking, and the full-fidelity
-  variant would change observable `LazyRegistry` semantics during the contract freeze.
+- Reconsider #6/#8 when a representative consumer provides a justified need.
+- Successful LazyRegistry diagnostics are already delivered under #7. Per-entry
+  loading remains a separate, unaccepted design change.

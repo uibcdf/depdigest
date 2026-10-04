@@ -5,7 +5,7 @@ paths remain stable.
 
 <!-- generated: devguide_index -->
 
-### Resolved (15)
+### Resolved (16)
 
 - [`adopt_molsyssuite_policy_v1.md`](../completed_proposals/adopt_molsyssuite_policy_v1.md) — [#3](https://github.com/uibcdf/depdigest/issues/3) — Adopt the shared MolSysSuite policy and Ruff gate. *(resolved, measured)*
 - [`adopt_shared_public_conda_verifier.md`](../completed_proposals/adopt_shared_public_conda_verifier.md) — [#23](https://github.com/uibcdf/depdigest/issues/23) — Call the pinned common public Conda verifier and retain independent evidence. *(resolved, measured)*
@@ -21,6 +21,7 @@ paths remain stable.
 - [`pr_ci_can_be_skipped_and_direct_push_debt_is_unchecked.md`](../solved_bugs/pr_ci_can_be_skipped_and_direct_push_debt_is_unchecked.md) — [#21](https://github.com/uibcdf/depdigest/issues/21) — PR CI can be skipped and direct-push debt is unchecked *(resolved, measured)*
 - [`publish_one_staged_noarch_conda_artifact.md`](../completed_proposals/publish_one_staged_noarch_conda_artifact.md) — [#13](https://github.com/uibcdf/depdigest/issues/13) — Publish one staged noarch Conda artifact instead of interpreter-platform duplicates *(resolved, measured)*
 - [`receptor_misclassifies_composite_conda_publication.md`](../solved_bugs/receptor_misclassifies_composite_conda_publication.md) — [#9](https://github.com/uibcdf/depdigest/issues/9) — Use the release profile for action-internal Conda publication. *(resolved, reproduced)*
+- [`refresh_pre_1_integration_evidence.md`](../completed_proposals/refresh_pre_1_integration_evidence.md) — [#26](https://github.com/uibcdf/depdigest/issues/26) — Refresh pre-1.0 integration evidence and verify consumer dependency diagnostics. *(resolved, measured)*
 - [`review_inherited_python_ecosystem_policy.md`](../completed_proposals/review_inherited_python_ecosystem_policy.md) — [#18](https://github.com/uibcdf/depdigest/issues/18) — Review inherited Python ecosystem policy in DepDigest. *(resolved, measured)*
 
 ### Legacy pre-adoption records (1)
