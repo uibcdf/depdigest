@@ -184,3 +184,23 @@ on Linux/Python 3.13.15 verified version/import origin/URL/digest, installed
 optional-engine behavior and launcher. TopoMT's six availability tests and seven
 administrative tests pass against this public installation. This certifies the
 provider availability contract, not installed scientific engine parity.
+
+## 0.13.0 expanded-audit public poststate: 2026-10-04
+
+Stable tag and GitHub Release 0.13.0 identify
+`df771e00e886fd9b12915adf54c1bd75c4b5476c`. Exact-source matrix
+`37192645716` and policy `37192635455` passed. Staging producer `37194076957`
+built `noarch/depdigest-0.13.0-py_0.tar.bz2`, SHA-256
+`e011d725c8a831ae46cd6b8d114185d04248e32b4d6701c70f988d19cc69f67b`.
+Archive inspection and installed matrix `37194436139` passed all twelve cells,
+including the expanded audit scope/typing/source-line/JSON/exit contract.
+
+Promotion `37194867340` verified and added main to that same file; its pinned
+independent verifier passed both registry and main solver-index checks. A separate
+public download and clean Linux/Python 3.14.7 install matched its digest, public
+dependency URLs and installed runtime/launcher/contracts. Documentation
+`37194867145` deployed 0.13.0. Zenodo `23135234` was independently verified
+with its single source ZIP's downloaded size/checksum; no Conda archival is claimed.
+The [normalized release receipt](evidence/release_0.13.0_2026-10-04.json) records
+source, artifact, closure and evidence scopes. Consumer adoption remains independent
+under MolSysSuite #95, ArgDigest #22 and PyUnitWizard #93.

@@ -2,7 +2,7 @@
 
 Updated: 2026-10-04, under [#26](https://github.com/uibcdf/depdigest/issues/26).
 This preparation checkpoint does not authorize tagging or publishing 1.0.0.
-The current public release is 0.12.0.
+The current public release is 0.13.0, published and qualified under #29.
 
 ## Current preparation evidence
 
@@ -45,5 +45,5 @@ The current public release is 0.12.0.
   required by the chosen release route.
 - [ ] Record dated go/no-go evidence and accepted limitations.
 
-Existing 0.12.0 matrices and its public artifact are historical evidence, not
+Existing 0.12.0/0.13.0 matrices and their public artifacts are historical evidence, not
 closure of future candidate gates. Follow [the release routes](conda_release_routes.md).
