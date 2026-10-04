@@ -6,7 +6,7 @@ opened: 2026-09-07
 closed:
 verification: measured
 area: [performance, observability]
-guard:
+guard: tests/test_decorator_cache_contract.py
 normative:
 blocked_by: []
 supersedes: []
@@ -190,3 +190,118 @@ overhead. These are same-host samples, not a cross-platform guarantee. The
 prototype saves roughly 0.3 microseconds but still lacks the observable
 invalidation contract and regression tests required for production. This
 proposal remains deferred rather than entering the pre-1.0 stable API now.
+
+## 2026-10-03 consumer reevaluation and compatibility boundaries
+
+**Decision:** keep the epoch-cached implementation deferred. The completed
+investigation adds a repeatable consumer probe and compatibility guards; it
+does not change runtime behavior or publish a cache. Reconsider when a
+representative caller demonstrates material end-to-end benefit and the
+invalidation/observability contract below is satisfied.
+
+The new `benchmarks/decorator_consumer_probe.py` compares complete warm calls
+against a fixed-configuration positive-Python epoch model and removal of the
+guard frame as an optimistic bound. Conditional and executable guards retain
+their current checks in the epoch model. The model deliberately lacks
+invalidation and is not a production candidate. Output identity, atom/bond
+counts and scalar conversion are checked; this is not scientific qualification.
+The normalized, intentionally retained receipt is
+`benchmarks/results/decorator_consumer_2026-10-03.json`.
+
+### Sources and method
+
+Python 3.14.7 on Linux, with `python -m pip check` passing in the qualified
+`molsyssuite@uibcdf_3.14` environment. Dependency installation did not change.
+The shared suite status tool refreshed the selected repositories. MolSysMT
+had existing uncommitted work, and ArgDigest/PyUnitWizard were behind their
+remotes; all that state was preserved. Clean temporary source clones were
+pinned to these refreshed commits, without editing the sibling worktrees:
+
+- DepDigest runtime: `ff5aa46e2b5464071533a1e86be91be202752853`;
+- MolSysMT: `033c12b341abf6e986f9ae9ddd6c84bf167222c8`;
+- PyUnitWizard: `281705999a206c680a2a824fca798c254b13763f`;
+- ArgDigest: `a0af6ffb67b972882a8799d81bfea254cf1f5f6f`;
+- SMonitor: `77365438acc7d1a532f77243288e88492a7ee01a`.
+
+The probe records actual import origins and Git state. Measurements exclude
+imports and initialization. For one water residue, each case uses 2,000 calls
+per block and seven repeats, with process order current/epoch/floor/floor/epoch/
+current; pooled medians therefore use fourteen samples per mode. For 100
+residues (300 atoms), blocks use 200 calls and seven repeats, ordered current/
+epoch/floor/current: fourteen current samples and seven per model. SMonitor
+is configured explicitly, once off and once on. No CPU-heavy validation was
+run concurrently with these measurements.
+
+Rerun each mode in a fresh process, using the pinned source roots:
+
+```bash
+python benchmarks/decorator_consumer_probe.py --snapshot-root /tmp/depdigest-6-consumers --mode current --iterations 2000 --repeats 7
+python benchmarks/decorator_consumer_probe.py --snapshot-root /tmp/depdigest-6-consumers --mode epoch --iterations 2000 --repeats 7
+python benchmarks/decorator_consumer_probe.py --snapshot-root /tmp/depdigest-6-consumers --mode floor --iterations 2000 --repeats 7
+```
+
+For the larger input add `--waters 100 --iterations 200`. Restore the stated
+process order when comparing the recorded experiment; do not turn the absolute
+timings into a portable guarantee.
+
+### Complete-call results
+
+Microseconds per warm call, SMonitor enabled, pooled medians:
+
+| Case | Current | Fixed epoch model | Guard removal |
+| --- | ---: | ---: | ---: |
+| MolSysMT adapter, reuse one-water input | 43.89 | 40.83 | 40.13 |
+| MolSysMT public extraction, reuse one-water input | 89.43 | 87.31 | 85.05 |
+| MolSysMT public extraction, copy one-water input | 101.88 | 99.34 | 97.13 |
+| PyUnitWizard scalar value conversion | 30.19 | 29.86 | 29.59 |
+| MolSysMT public extraction, copy 300-atom input | 545.85 | 548.64 | 538.36 |
+
+The public minimal-input epoch differences are about 2.4–2.5% with SMonitor
+on and 2.9–3.7% off. The direct adapter shows about 5.4–9.7%, but the public
+dispatch/digestion path reduces that benefit. These are sample differences,
+not a guaranteed application speedup. The 300-atom public copy ranges overlap:
+530.91–556.52 microseconds current, 541.46–556.06 epoch, and 528.63–549.06
+guard removal with telemetry on. Even the unqualified model does not show a
+separable improvement there. Off-mode epoch copy medians differ by about 1%,
+also within overlapping ranges.
+
+Every warmed MolSysMT extraction in the current mode records exactly one
+`openmm` dependency check. The epoch and removal modes record none for that
+call. PyUnitWizard `get_value(..., to_unit='angstrom')` records zero in every
+mode: the historical five-wrapper case no longer exists on this path. Its
+apparent 1–3% model differences are a drift control, not evidence of a
+DepDigest improvement. Disabling SMonitor does not identify a scientific
+bottleneck and is not recommended as a user optimization.
+
+The earlier scalar probe was also rerun on the current local checkout: about
+1.17–1.25 microseconds of current overhead versus 0.17 for the historical cell
+prototype. That larger toy-call saving does not establish the same saving on
+a complete consumer call with keyword forwarding and argument digestion.
+
+### Compatibility required before a runtime implementation
+
+| Boundary | Existing behavior to retain | Evidence |
+| --- | --- | --- |
+| Configuration registration and scoped overrides | New configurations take effect immediately; exiting a temporary override restores the previous one. | Existing registration/context tests in `tests/test_core.py`. |
+| Mutable dependency declarations | A warm decorator observes an in-place Python-to-executable declaration change. `DepConfig` freezes its fields, not its nested dictionaries. | `test_warm_decorator_observes_in_place_dependency_kind_change`. |
+| Explicit Python probe reset | `is_installed.cache_clear()` affects a previously successful decorated call. | `test_warm_decorator_honors_explicit_python_probe_cache_clear`. |
+| Conditional calls | Evaluate conditions on each call; a nonmatching route must not probe the optional engine. | The condition tests in `tests/test_decorator_cache_contract.py`, plus array/default/positional coverage in `tests/test_core.py`. |
+| Executable availability | A warm decorator must recheck availability; observe current PATH, permissions and file removal without a configuration epoch change. | `test_warm_executable_decorator_rechecks_availability` plus `tests/test_optional_engines.py::test_executable_availability_follows_current_path`. |
+| Missing-dependency behavior | Every missing invocation raises before the body and emits the consumer's coded diagnostic, caller and installation/documentation data. | `test_every_missing_call_retains_the_consumer_diagnostic` and existing custom-exception tests. |
+| Observability | Per-call `resolve_config.cache_info()` observations must remain available or receive an explicitly agreed replacement before skipping resolution. | The historical measurement method above and the new actual-check counts. |
+| Public contracts | Preserve `_dependencies`, the exported API, `get_info` schema and CLI semantics. | Existing metadata, API and CLI contract tests. |
+
+The six new compatibility tests preserve the current implementation's behavior.
+They preserve observed behavior rather than silently declaring a new immutable
+configuration API. A registration-only epoch does not cover nested mutation,
+explicit Python-cache reset or executable changes. The fixed-configuration
+timing model cannot satisfy those requirements and must not be promoted from
+the benchmark into product code. Missing-library diagnostics and successful
+load instrumentation remain separate from the timing comparison.
+
+Validation on 2026-10-04: all 142 tests passed in the qualified Python 3.14
+environment, including the six new guards. Repository-wide Ruff checks and
+formatting, generated report indexes and `git diff --check` passed. The HTML
+documentation build passed using the declared documentation profile in a
+temporary environment, with two heading warnings in the unchanged
+`docs/index.md`.
