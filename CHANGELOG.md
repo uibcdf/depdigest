@@ -7,6 +7,30 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-10-04
+
+### Fixed
+
+- Static optional-import audits now inspect module and class control flow,
+  including if, try/except/else/finally, loops, with and match bodies.
+- Simple explicit, unrebound `typing.TYPE_CHECKING` guards, including aliases
+  and negation, exclude only their typing branch. Delayed function bodies
+  remain excluded.
+
+### Migration Notes
+
+- Audits that previously passed can now report additional imports and exit 1.
+  Review the reported import boundary; use a documented, narrow file exemption
+  only for an intentional eager adapter. `--allow-violations` still displays
+  findings while returning 0. JSON keys and source line reporting are unchanged.
+- Unresolved, rebound or compound typing conditions are scanned conservatively.
+  The audit does not execute code or prove root-import reachability. Dynamic
+  imports remain outside its scope, and syntax-error files retain the historical
+  empty result; validate syntax separately.
+- Consumer adoption is independent of this provider release and is tracked in
+  MolSysSuite #95, ArgDigest #22 and PyUnitWizard #93. Runtime dependency guards,
+  configuration and inventory APIs retain their previous contracts.
+
 ## [0.12.0] - 2026-09-30
 
 ### Added

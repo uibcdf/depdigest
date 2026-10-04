@@ -54,6 +54,14 @@ Compatibility rule:
 - returns `1` when violations exist (unless `--allow-violations`);
 - `--json` output is machine-readable and deterministic.
 
+From 0.13.0, audits include module/class control flow. An audit can report
+additional imports and return 1 on unchanged consumer source. Function bodies
+remain delayed; simple explicit, unrebound `typing.TYPE_CHECKING` guards exclude
+their typing branch. Unresolved or compound conditions are scanned conservatively.
+The audit is neither a runtime reachability proof nor a syntax validator.
+See the [audit CLI scope](../user/audit-cli.md) and the 0.13.0 migration notes
+in `CHANGELOG.md` before upgrading an audit gate.
+
 ## Change management guidance
 
 Before changing public behavior:

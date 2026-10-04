@@ -10,8 +10,8 @@ Source of truth for integrating and using **DepDigest** in this library.
 Metadata
 - Source repository: `depdigest`
 - Source document: `standards/DEPDIGEST_GUIDE.md`
-- Source baseline: `depdigest@0.12.0`
-- Unreleased source change: expanded audit coverage under `uibcdf/depdigest#27`
+- Source version: `depdigest@0.13.0`
+- Publication tracking: `uibcdf/depdigest#29`; source audit change: `uibcdf/depdigest#27`
 - Last source update: 2026-10-04
 - Consumer synchronization: tracked separately in `uibcdf/molsyssuite#95`
 

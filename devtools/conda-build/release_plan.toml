@@ -1,6 +1,6 @@
 # Reviewed candidate decision. No public tag or promotion is authorized by this file.
-version = "0.12.0"
+version = "0.13.0"
 route = "staged"
-reason = "Publish optional executable availability and explicit disabled installer routes only after exact-source matrix/policy gates and clean installed-artifact verification; preserve the same immutable file for public promotion and TopoMT adoption."
-decision_by = "Maintainer-authorized optional-engine publication, 2026-09-30"
+reason = "Qualify expanded module/class audit findings and typing-guard behavior on the exact installed artifact before public visibility; preserve the immutable file for promotion while consumer adoption proceeds independently."
+decision_by = "Diego-authorized 0.13.0 publication, 2026-10-04 (uibcdf/depdigest#29)"
 required_workflows = [".github/workflows/CI_full_matrix.yaml", ".github/workflows/molsyssuite-policy.yml"]

@@ -11,6 +11,12 @@ TopoMT adopted the released provider with its custom-command/error contract.
 
 This roadmap captures likely next increments toward broader stable adoption.
 
+Release **0.13.0** is being qualified under #29 for the expanded module/class
+audit coverage delivered in #27. It uses staging and the exact installed audit
+gate before publication. Consumer guide/adoption decisions in MolSysSuite #95,
+ArgDigest #22 and PyUnitWizard #93 continue independently; their completion is
+not claimed by this provider release.
+
 ## Recently delivered
 
 ### 0.5.0

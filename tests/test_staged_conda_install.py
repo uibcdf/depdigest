@@ -148,6 +148,23 @@ def test_optional_engine_gate_checks_real_commands_without_execution(monkeypatch
     verifier.verify_optional_engine_contract()
 
 
+def test_audit_gate_exercises_real_cli_contract():
+    verifier.verify_audit_contract()
+
+
+def test_audit_gate_rejects_old_scanner_clean_result(monkeypatch):
+    import subprocess
+
+    def old_scanner(arguments, **kwargs):
+        return subprocess.CompletedProcess(
+            arguments, 0, json.dumps({"violation_count": 0, "violations": {}}), ""
+        )
+
+    monkeypatch.setattr(verifier.subprocess, "run", old_scanner)
+    with pytest.raises(ValueError, match="audit exit status"):
+        verifier.verify_audit_contract()
+
+
 def test_optional_engine_gate_rejects_invented_disabled_installer(monkeypatch):
     import depdigest
 

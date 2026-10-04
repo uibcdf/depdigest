@@ -133,6 +133,17 @@ off-checkout installed-package checks. The validation workflow may be newer
 than the candidate commit because it validates the immutable producer evidence,
 not its own checkout as the package under test.
 
+From candidate 0.13.0, the installed gate also exercises module/class audit
+findings, typing-only and delayed exclusions, source lines, JSON and the visible
+`--allow-violations` result. Earlier candidates retain their original gates.
+
+Release archival uses `.github/workflows/verify-zenodo-releases.yaml`, pinned to
+the shared MolSysSuite verifier. It performs one public probe after publication,
+resumes every six hours from the fixed adoption cutoff, and accepts a manual
+exact tag. Inspect the retained per-release state: a successful pending probe
+does not prove archival. The intervention deadline stays 72 hours from original
+publication, and only verified source-snapshot evidence permits a DOI claim.
+
 ## Checklist for updates
 - [ ] Make sure there is an/are issue(s) opened for your specific update
 - [ ] Create the PR, referencing the issue

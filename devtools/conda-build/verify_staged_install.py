@@ -163,6 +163,61 @@ def verify_installed(
     verify_launcher(prefix)
     if tuple(map(int, version.split("."))) >= (0, 12, 0):
         verify_optional_engine_contract()
+    if tuple(map(int, version.split("."))) >= (0, 13, 0):
+        verify_audit_contract()
+
+
+def verify_audit_contract() -> None:
+    """Check expanded scope, typing exclusion and exit behavior in installed CLI."""
+    with tempfile.TemporaryDirectory() as temporary:
+        source = Path(temporary) / "pkg"
+        source.mkdir()
+        path = source / "__init__.py"
+        path.write_text(
+            "from typing import TYPE_CHECKING\n"
+            "if TYPE_CHECKING:\n"
+            "    import release_typing_only\n"
+            "if True:\n"
+            "    import release_eager\n"
+            "class Adapter:\n"
+            "    import release_class\n"
+            "def delayed():\n"
+            "    import release_delayed\n",
+            encoding="utf-8",
+        )
+        arguments = [
+            sys.executable,
+            "-m",
+            PACKAGE,
+            "audit",
+            "--src-root",
+            str(source),
+            "--soft-deps",
+            "release_typing_only,release_eager,release_class,release_delayed",
+            "--json",
+        ]
+        expected = {
+            str(path): [
+                {"line": 5, "module": "release_eager"},
+                {"line": 7, "module": "release_class"},
+            ]
+        }
+        payloads = []
+        for options, expected_status in (([], 1), (["--allow-violations"], 0)):
+            result = subprocess.run(
+                [*arguments, *options],
+                cwd=temporary,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=30,
+            )
+            _require(result.returncode == expected_status, "Wrong audit exit status")
+            payload = json.loads(result.stdout)
+            _require(payload.get("violation_count") == 2, "Wrong audit finding count")
+            _require(payload.get("violations") == expected, "Wrong audit scope/lines")
+            payloads.append(payload)
+        _require(payloads[0] == payloads[1], "Allow-violations hid audit findings")
 
 
 def verify_optional_engine_contract() -> None:
@@ -288,7 +343,7 @@ def main() -> None:
         )
         print(
             "PASS: exact staged package, public dependency, import, CLI, "
-            "and version-applicable optional-engine contract"
+            "and version-applicable optional-engine/audit contracts"
         )
 
 
