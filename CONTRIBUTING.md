@@ -11,13 +11,17 @@ Thanks for contributing. This guide is the practical workflow for code and docs 
 - `standards/DEPDIGEST_GUIDE.md`
 - `SMONITOR_GUIDE.md`
 
-## 2. Create a focused branch
+## 2. Choose the contribution route
 
-Work in one branch per topic (feature, fix, docs, or tests). Keep scope tight so reviews are fast and safe.
+External contributions use one branch and PR per topic. Authorized internal
+maintainers `dprada` and `LMMV` may commit on `main` and push directly, following
+the checkpoints in `MOLSYSSUITE_GUIDE.md`. Keep focused commits local and batch
+pushes at useful checkpoints; do not open a PR solely for internal CI execution.
+Use a PR when an owner review is requested.
 
 ## 3. Validate locally
 
-Minimum checks before opening a PR:
+Baseline checks for a completed change (select interim checks by affected scope):
 
 ```bash
 ruff check .
@@ -45,11 +49,16 @@ make -C docs html
 
 ## 5. Open the PR
 
-Use the PR template and include:
+For the PR route, use the template and include:
 - short scope summary;
 - behavior change notes;
 - test evidence;
 - docs impact.
+
+For authorized internal direct pushes, record the outcome in the owning issue,
+finish with an unskipped head and inspect its applicable CI. A skip is conditional,
+not the default after local checks. Full recovery and release/publication gates
+retain their own requirements.
 
 ## 6. Diagnostics and contracts
 
