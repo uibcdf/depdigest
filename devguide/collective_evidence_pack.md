@@ -1,94 +1,138 @@
 # Collective Evidence Pack
 
-This document is the cross-repo handoff artifact for collective validation with:
-- `../smonitor`
-- `../argdigest`
-- `../pyunitwizard`
+Date: **2026-10-04**. Owning refresh: [DepDigest #26](https://github.com/uibcdf/depdigest/issues/26).
+Public baseline: **0.12.0**. Source runtime baseline:
+`a056c2fa9962e21c93b7c149118b41f9bf646947`.
 
-## What this is
+The current local source integration passed. This checkpoint does not establish
+collective release approval, installed-package compatibility for a future 1.0.0
+candidate, another platform or a full consumer scientific suite. The release
+decision remains pending under the [1.0 checklist](release_1.0.0_checklist.md).
 
-`collective_evidence_pack.md` is the canonical checkpoint record for DepDigest:
-- local evidence already validated in this repository,
-- required cross-library E2E evidence,
-- pending items that cannot be closed locally.
+## Sources and environment
 
-## How to use this file
+The qualified `molsyssuite@uibcdf_3.14` environment supplied Python 3.14.7,
+Pint 0.26.1 and ordinary runtime dependencies on Linux x86_64.
+`python -m pip check` passed. DepDigest was imported from this checkout; the
+three consumers/providers used clean temporary clones pinned to refreshed
+remote sources. The probe checked every loaded package's actual origin.
 
-1. Before each RC/stabilization checkpoint:
-- refresh local evidence and references.
+| Component | Source commit | State used |
+| --- | --- | --- |
+| DepDigest | `a056c2fa9962e21c93b7c149118b41f9bf646947` | Runtime baseline; only validation/docs changes during the probe |
+| SMonitor | `a1f5ee12bdc3065dbdc8660d48b91c8466d19d17` | Clean snapshot |
+| ArgDigest | `a31be2823a7575a774f02e4b8490f6af884c38b5` | Clean snapshot |
+| PyUnitWizard | `d70bdffe7cfdd7685c4830330c5f75d6465878da` | Clean snapshot |
 
-2. During cross-repo synchronization:
-- compare status notes across all four repositories.
+The shared suite-status tool refreshed these four repositories before testing.
+The original SMonitor, ArgDigest and PyUnitWizard checkouts were respectively
+one, 44 and six commits behind; their worktrees and branches were preserved.
+No consumer source, environment dependency or public artifact was changed.
 
-3. At go/no-go decisions:
-- use decision placeholders to record owner, date, blockers, and evidence links.
+## Executed contract evidence
 
-## How to update this file
+`devtools/integration_probe.py` is the maintained standalone probe. The five
+isolated cases in `tests/e2e/test_collective_error_path.py` invoke it. Two tests
+in `tests/test_integration_probe.py` protect rejection of an invalid explicit
+workspace and an eager conditional optional import.
 
-1. Update metadata (`Date`, `baseline`, `head reference`).
-2. Refresh local quality and dependency-policy evidence.
-3. Keep only reproducible, in-repo references.
-4. Do not mark collective closure from local-only evidence.
+The contracts case used the real ArgDigest quantity pipeline, PyUnitWizard
+conversion/checking and Pint engine:
 
-Date: `2026-03-04`
-DepDigest baseline: `0.10.0` delivered, `1.0.0` preparation window
-DepDigest head reference for this pack: `09b2302` (`0.10.0`)
+- A 1 nm quantity passed a length contract and returned 10 angstroms.
+- A time quantity failed before the body with `ARG-ERR-VAL-001`.
+- An **integrator fixture**, using the real PyUnitWizard declaration and a
+  conditional DepDigest guard, simulated unyt absence with an import hook.
+  Two valid-length calls selecting unyt each raised before the body and emitted
+  `DEP-ERR-MISS-001` with `library=unyt`, `caller=accept_distance`, installation
+  hints, a rendered message and an ArgDigest breadcrumb.
+- Dict and JSON introspection agreed: unyt was missing and both pip and Conda
+  routes were present. The normal Pint route did not require unyt.
 
-## 1. Local quality baseline (DepDigest)
+The composed guard is a fixture, not a current PyUnitWizard production call
+site. Absence is simulated, not a clean engine-free installation. The consumer
+declaration supplies no `DOC_URL`, so messages retain the documented DepDigest
+fallback; this test does not claim a consumer documentation override.
 
-- Source status references:
-  - `devguide/roadmap.md`
-  - `devguide/release_0.10.0_stabilization_checklist.md`
+The intentionally retained normalized receipt is
+[`evidence/pre_1_integration_2026-10-04.json`](evidence/pre_1_integration_2026-10-04.json).
+It contains controlled fixture data and measurements, not raw workflow logs.
+Public API, CLI, optional executable and cache guards remain in
+`tests/test_public_api_contract.py`, `tests/test_cli_contract.py`,
+`tests/test_optional_engines.py` and `tests/test_decorator_cache_contract.py`.
 
-## 2. Contract evidence index (DepDigest)
+## Optional imports and static audits
 
-Use this section to keep concrete, local references for:
-- shared collective error-path E2E module: `tests/e2e/test_collective_error_path.py`,
-- `_depdigest.py` hard/soft policy contract,
-- `depdigest audit` behavior and coverage,
-- `get_info` schema contract and compatibility,
-- remediation hint quality and diagnostics integration.
+Three fresh processes per package observed the first import after the probe's
+standard-library setup. No declared optional root was loaded by ArgDigest or
+PyUnitWizard. SMonitor and DepDigest have no `_depdigest.py` declaration for
+this check; their rows describe imports, not unspecified optional dependencies.
 
-## 3. Collective E2E target scenario (must be validated across repos)
+| Package | Added modules | Import duration range (ms) | Optional roots checked |
+| --- | ---: | ---: | --- |
+| DepDigest | 60 | 34.48–34.88 | No declaration |
+| SMonitor | 38 | 23.22–26.18 | No declaration |
+| ArgDigest | 122 | 68.82–70.90 | beartype, pydantic, pyunitwizard |
+| PyUnitWizard | 57 | 31.13–33.49 | ackredit, astropy, openmm, physipy, quantities, unyt |
 
-Goal:
-- dependency-related failures provide actionable remediation hints that appear in
-  the same E2E path where PyUnitWizard/ArgDigest/SMonitor propagate diagnostics.
+These same-host durations have no accepted startup budget. They do not qualify
+the full interpreter cold start or establish an application speedup. The
+separate consumer-performance investigation in #6/#25 remains deferred.
 
-Minimum acceptance evidence:
-- reproducible command/workflow,
-- captured output/events or artifact,
-- per-library references to tests/commits proving the path.
+The public audit CLI ran separately, without blanket adapter exemptions:
 
-## 4. Shared status template
+| Source tree / selection | Exit | Findings |
+| --- | ---: | --- |
+| DepDigest / openmm, mdtraj | 0 | None |
+| ArgDigest / declared optional roots | 0 | None |
+| PyUnitWizard / declared optional roots | 1 | `forms/template_api_form.py:1`, `import unyt` |
+| Same PyUnitWizard tree / explicit single-template exemption | 0 | None |
 
-```md
-Status note (YYYY-MM-DD):
-- smonitor: <done locally|in progress|blocked|pending> (<reference>)
-- depdigest: <done locally|in progress|blocked|pending> (<reference>)
-- argdigest: <done locally|in progress|blocked|pending> (<reference>)
-- pyunitwizard: <done locally|in progress|blocked|pending> (<reference>)
-- collective validation: <pending|in progress|done> (<evidence>)
+The template is a tested adapter scaffold and was not loaded at startup. The
+raw and narrowly exempted results are distinct. PyUnitWizard owns the policy
+decision in [PyUnitWizard #93](https://github.com/uibcdf/pyunitwizard/issues/93).
+DepDigest does not adopt the exemption on the consumer's behalf.
+
+A synthetic `if True: import unyt` initializer returned zero static findings.
+Direct AST imports are the current scanner's scope; conditional, try and class
+traversal needs a decision in [DepDigest #27](https://github.com/uibcdf/depdigest/issues/27).
+The runtime probe rejects the equivalent eager-import fixture. A clean static
+audit therefore does not certify absence of runtime import leaks.
+
+## Reproduction
+
+Create clean SMonitor, ArgDigest and PyUnitWizard clones under one workspace,
+pin them to the table's commits, and use the qualified Python 3.14 environment.
+The probe always uses this DepDigest checkout.
+
+```bash
+python -I devtools/integration_probe.py --workspace /tmp/depdigest-1-integration --output /tmp/contracts.json
+python -I devtools/integration_probe.py --workspace /tmp/depdigest-1-integration --case imports --package argdigest --output /tmp/argdigest-import.json
+DEPDIGEST_INTEGRATION_WORKSPACE=/tmp/depdigest-1-integration python -m pytest --receptor=llm tests/e2e/test_collective_error_path.py tests/test_integration_probe.py
+python -m depdigest audit --src-root /tmp/depdigest-1-integration/argdigest/argdigest --soft-deps beartype,pydantic,pyunitwizard --json
+python -m depdigest audit --src-root /tmp/depdigest-1-integration/pyunitwizard/pyunitwizard --soft-deps ackredit,unyt,openmm,astropy,physipy,quantities --json
 ```
 
-## 5. Status note (2026-03-04)
+Run the import command for each package three times in new processes. For the
+exempted PyUnitWizard comparison add
+`--exempt-file /tmp/depdigest-1-integration/pyunitwizard/pyunitwizard/forms/template_api_form.py`.
+Retain exit statuses: the raw PyUnitWizard audit is expected to exit 1.
+An explicitly missing workspace fails. Hosted source suites without siblings
+skip the five integration cases and do not establish cross-library evidence.
 
-- smonitor: in progress (`0.11.4-16-ge0e1a8c`, collective closure still pending)
-- depdigest: done locally (`0.10.0`, stabilization checklist closed and tagged)
-- argdigest: in progress (`0.9.0-9-gc543c1a`, remediation-hint path pending collective closure)
-- pyunitwizard: done locally (`0.21.1-1-g9fd9b46`, post-RC stabilization active)
-- collective validation: in progress (shared E2E green; collective finality criteria still pending in molsyssuite)
+## Remaining decisions
 
-## 6. Pending collective closures (from DepDigest perspective)
+- DepDigest #27: settle static audit coverage before broader import-safety claims.
+- PyUnitWizard #93: owner decision on the template audit scope.
+- Choose a numerical startup budget if required for 1.0 and validate it.
+- Execute candidate-specific source/installed-artifact gates and record consumer
+  acceptance before a 1.0 go/no-go decision. Existing 0.12.0 matrices are
+  historical evidence, not a future candidate's certificate.
 
-- collective `depdigest audit` leak checks across sibling libraries,
-- collective proof of remediation hints in E2E contract failure path,
-- startup/import-cost budget validation in ecosystem-level runs.
+## Historical checkpoint (2026-03-04)
 
-## 7. Decision log placeholders
-
-- `go/no-go owner`:
-- `date`:
-- `collective evidence links`:
-- `open blockers`:
-- `resolution plan`:
+The previous checkpoint used DepDigest 0.10.0 at `09b2302`. It recorded SMonitor
+`0.11.4-16-ge0e1a8c` and ArgDigest `0.9.0-9-gc543c1a` as in progress, and
+PyUnitWizard `0.21.1-1-g9fd9b46` and DepDigest as done locally. Collective
+closure, audit leak checks, remediation proof and startup budget remained
+pending. Those states do not describe the October snapshots.

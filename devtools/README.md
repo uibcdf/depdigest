@@ -78,6 +78,42 @@ python update_conda_env.py development_env.yaml
 - Make a PR on GitHub with your changes
 - We'll review the changes and get your code into the repo after lively discussion!
 
+## Validating source integrations
+
+Use `integration_probe.py` with the qualified Python 3.14 environment and clean,
+pinned SMonitor, ArgDigest and PyUnitWizard clones under one workspace. Every
+invocation must run in a fresh process; DepDigest always comes from this checkout.
+
+```bash
+python -I devtools/integration_probe.py --workspace /tmp/integration --output /tmp/contracts.json
+python -I devtools/integration_probe.py --workspace /tmp/integration --case imports --package argdigest --output /tmp/imports.json
+DEPDIGEST_INTEGRATION_WORKSPACE=/tmp/integration python -m pytest --receptor=llm tests/e2e/test_collective_error_path.py
+```
+
+`--case contracts` (default) checks a real Pint quantity through ArgDigest and
+PyUnitWizard, wrong dimensionality, and an integrator fixture composing their
+public APIs with DepDigest's conditional guard. An import hook simulates absent
+unyt; both missing calls must raise before the body, emit coded events with
+consumer fields and a breadcrumb, and agree with dict/JSON introspection. This
+fixture is not presented as an existing PyUnitWizard production call site.
+
+`--case imports` requires `--package`, one of the four participating packages.
+It records module counts and a local import duration, and rejects loaded optional
+roots declared in that package's `_depdigest.py`. Packages without a declaration
+have no optional-root assertions. Durations have no accepted performance budget.
+The probe verifies source origins for loaded packages and records Git state.
+The JSON receipt goes to stdout or the `--output` file; diagnostics go to stderr.
+`--help` requires no sibling imports. Invalid explicit workspaces fail; pytest
+only skips the five integration cases when no workspace was requested and
+siblings are absent. No installation or sibling worktree modification occurs.
+
+Run the existing `python -m depdigest audit` separately for static source checks.
+Its direct-import findings, delayed adapters and explicit exemptions are distinct
+from root-import execution. Module-level control-flow coverage is tracked in
+`uibcdf/depdigest#27`. The dated outcomes and limitations are maintained in
+`devguide/collective_evidence_pack.md`; this probe qualifies neither public
+artifacts nor full scientific suites.
+
 ## Validating a staged Conda package
 
 For a staged release candidate, use the exact commit, version, build number,

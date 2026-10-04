@@ -8,8 +8,9 @@ generated from report metadata.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (3)
 
+- [`audit_module_level_control_flow.md`](audit_module_level_control_flow.md) — [#27](https://github.com/uibcdf/depdigest/issues/27) — Define static audit coverage for imports inside module-level control flow. *(open, measured)*
 - [`decorator_fast_path_and_observability_boundary.md`](decorator_fast_path_and_observability_boundary.md) — [#6](https://github.com/uibcdf/depdigest/issues/6) — Evaluate an epoch-cached decorator fast path and its observability cost. *(open, measured)*
 - [`mapped_dependency_declaration.md`](mapped_dependency_declaration.md) — [#8](https://github.com/uibcdf/depdigest/issues/8) — Declare mapped optional dependencies through one conditional wrapper. *(open, measured)*
 
