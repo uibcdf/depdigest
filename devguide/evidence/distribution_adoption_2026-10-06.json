@@ -7,6 +7,7 @@
     "disposable_environment": {
       "Jinja2": "3.1.6",
       "PyYAML": "6.0.3",
+      "cleanup": "removed with owner Conda route; shared environment unchanged",
       "interpreter": "3.14.8",
       "packaging": "26.3",
       "pip_check": "pass; no broken requirements",
@@ -17,6 +18,7 @@
     "script": "devtools/broadcast_requirements.py",
     "source": "devtools/requirements.yaml"
   },
+  "implementation_sha": "739c03f860bd019c247eb617c8e8e4e8b28f91b8",
   "issue": "uibcdf/depdigest#30",
   "limits": [
     "No rebuild, retag or republication",
@@ -38,6 +40,107 @@
     "passed": 76,
     "python": "3.14.7",
     "ruff": "0.16.5 pass; 150 files formatted"
+  },
+  "native_gates": {
+    "ci": {
+      "completeness": {
+        "artifact_content": "not_requested",
+        "artifact_inventory": "complete",
+        "check_annotations": "not_requested",
+        "checks": "complete",
+        "jobs": "complete",
+        "logs": "complete",
+        "metadata": "complete",
+        "producer_events": "not_requested",
+        "workflow": "complete"
+      },
+      "coverage_upload": "success",
+      "default_audit": "20 routes; declared-and-installed-public-bounds",
+      "github": {
+        "conclusion": "success",
+        "status": "completed"
+      },
+      "job_counts": {
+        "success": 1
+      },
+      "junit_upload": "success",
+      "skip_reason": "Unavailable sibling integration workspace; all five shared-provider negative guards execute",
+      "subject": {
+        "check_suite_id": 101674908660,
+        "event": "push",
+        "head_ref": "main",
+        "head_sha": "739c03f860bd019c247eb617c8e8e4e8b28f91b8",
+        "repository": "uibcdf/depdigest",
+        "run_attempt": 1,
+        "run_id": 37533616391,
+        "url": "https://github.com/uibcdf/depdigest/actions/runs/37533616391",
+        "workflow": ".github/workflows/CI.yaml"
+      },
+      "tests_passed": 193,
+      "tests_skipped": 5
+    },
+    "policy": {
+      "completeness": {
+        "artifact_content": "not_requested",
+        "artifact_inventory": "complete",
+        "check_annotations": "not_requested",
+        "checks": "complete",
+        "jobs": "complete",
+        "logs": "complete",
+        "metadata": "complete",
+        "producer_events": "not_requested",
+        "workflow": "complete"
+      },
+      "github": {
+        "conclusion": "success",
+        "status": "completed"
+      },
+      "job_counts": {
+        "success": 1
+      },
+      "subject": {
+        "check_suite_id": 101674911760,
+        "event": "push",
+        "head_ref": "main",
+        "head_sha": "739c03f860bd019c247eb617c8e8e4e8b28f91b8",
+        "repository": "uibcdf/depdigest",
+        "run_attempt": 1,
+        "run_id": 37533617572,
+        "url": "https://github.com/uibcdf/depdigest/actions/runs/37533617572",
+        "workflow": ".github/workflows/molsyssuite-policy.yml"
+      }
+    },
+    "publication": {
+      "completeness": {
+        "artifact_content": "not_requested",
+        "artifact_inventory": "complete",
+        "check_annotations": "not_requested",
+        "checks": "complete",
+        "jobs": "complete",
+        "logs": "complete",
+        "metadata": "complete",
+        "producer_events": "not_requested",
+        "workflow": "complete"
+      },
+      "github": {
+        "conclusion": "success",
+        "status": "completed"
+      },
+      "job_counts": {
+        "success": 1
+      },
+      "subject": {
+        "check_suite_id": 101674911146,
+        "event": "push",
+        "head_ref": "main",
+        "head_sha": "739c03f860bd019c247eb617c8e8e4e8b28f91b8",
+        "repository": "uibcdf/depdigest",
+        "run_attempt": 1,
+        "run_id": 37533617359,
+        "url": "https://github.com/uibcdf/depdigest/actions/runs/37533617359",
+        "workflow": ".github/workflows/check-conda-publication.yml"
+      }
+    }
   },
   "prospective_gates": {
     "installed_jobs": 13,
@@ -460,5 +563,5 @@
     "source_dependencies": []
   },
   "schema": "depdigest.distribution-adoption@1",
-  "state": "local-verified; native implementation inspection pending"
+  "state": "adopted; applicable native implementation gates inspected"
 }

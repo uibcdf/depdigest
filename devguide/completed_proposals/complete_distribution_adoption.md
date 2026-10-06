@@ -1,11 +1,11 @@
 ---
 summary: Maintain complete dependency, resource and executed candidate guards without changing the local noarch publisher.
 issue: uibcdf/depdigest#30
-status: open
+status: resolved
 opened: 2026-10-06
-closed:
+closed: 2026-10-06
 severity: medium
-verification: reproduced
+verification: measured
 area: [governance, packaging]
 guard: tests/test_distribution_inputs.py
 normative:
@@ -97,3 +97,22 @@ coverage upload. All five existing adopted inventories still pass and their pins
 remain unchanged. The provider impact and acceptance notices were delivered before
 owner rollout in the linked central/member issues. Prospective publication paths
 are reviewed and guarded, not claimed newly exercised with a release.
+
+
+## Accepted owner closeout — 2026-10-06
+
+Implementation `739c03f860bd019c247eb617c8e8e4e8b28f91b8` is published
+unskipped. Native CI 37533616391 executes the default twenty-route installed-bound
+check and passes **193 tests / five unavailable sibling-workspace integration
+skips**. All five negative distribution mutations execute. Coverage and JUnit
+uploads succeed. Policy 37533617572 and publication governance 37533617359 pass;
+GH Run Receptor complete metadata/jobs/checks/workflow/log captures independently
+confirm the commit and successful steps. The prospective bootstrap/promotion
+route remains guarded rather than claimed newly exercised with another release.
+
+Accepted under Diego/Liliana's standing direct-commit authorization. This completes
+the owner's formal maintained route/resource review; original public artifact
+qualification remains separate in its retained receipt. Central #45 can now record
+**adopted / ready / confirmed**, with publication access bounded to the observed
+original Conda delivery. The frozen informational #39 CI profile must be explicitly
+reviewed after these workflow/parser input changes; it is not full-test debt.

@@ -5,12 +5,13 @@ paths remain stable.
 
 <!-- generated: devguide_index -->
 
-### Resolved (18)
+### Resolved (19)
 
 - [`adopt_molsyssuite_policy_v1.md`](../completed_proposals/adopt_molsyssuite_policy_v1.md) — [#3](https://github.com/uibcdf/depdigest/issues/3) — Adopt the shared MolSysSuite policy and Ruff gate. *(resolved, measured)*
 - [`adopt_shared_public_conda_verifier.md`](../completed_proposals/adopt_shared_public_conda_verifier.md) — [#23](https://github.com/uibcdf/depdigest/issues/23) — Call the pinned common public Conda verifier and retain independent evidence. *(resolved, measured)*
 - [`adopt_shared_reporting_lifecycle.md`](../completed_proposals/adopt_shared_reporting_lifecycle.md) — [#5](https://github.com/uibcdf/depdigest/issues/5) — Adopt the shared issue-backed developer-guide lifecycle. *(resolved, inspected)*
 - [`audit_module_level_control_flow.md`](../completed_proposals/audit_module_level_control_flow.md) — [#27](https://github.com/uibcdf/depdigest/issues/27) — Define static audit coverage for imports inside module-level control flow. *(resolved, measured)*
+- [`complete_distribution_adoption.md`](../completed_proposals/complete_distribution_adoption.md) — [#30](https://github.com/uibcdf/depdigest/issues/30) — Maintain complete dependency, resource and executed candidate guards without changing the local noarch publisher. *(resolved, measured)*
 - [`doi_badge_cites_molsysmt.md`](../solved_bugs/doi_badge_cites_molsysmt.md) — [#10](https://github.com/uibcdf/depdigest/issues/10) — The README DOI badge cites the MolSysMT archive. *(resolved, reproduced)*
 - [`eager_importlib_metadata_costs_consumers.md`](../solved_bugs/eager_importlib_metadata_costs_consumers.md) — [#16](https://github.com/uibcdf/depdigest/issues/16) — Importing DepDigest eagerly imports importlib.metadata in every consumer. *(resolved, measured)*
 - [`expand_python_support_to_3_14.md`](../completed_proposals/expand_python_support_to_3_14.md) — [#14](https://github.com/uibcdf/depdigest/issues/14) — Expand DepDigest support to Python 3.14 after hosted and package evidence. *(resolved, measured)*

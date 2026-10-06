@@ -8,9 +8,8 @@ generated from report metadata.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (2)
 
-- [`complete_distribution_adoption.md`](complete_distribution_adoption.md) — [#30](https://github.com/uibcdf/depdigest/issues/30) — Maintain complete dependency, resource and executed candidate guards without changing the local noarch publisher. *(open, reproduced)*
 - [`decorator_fast_path_and_observability_boundary.md`](decorator_fast_path_and_observability_boundary.md) — [#6](https://github.com/uibcdf/depdigest/issues/6) — Evaluate an epoch-cached decorator fast path and its observability cost. *(open, measured)*
 - [`mapped_dependency_declaration.md`](mapped_dependency_declaration.md) — [#8](https://github.com/uibcdf/depdigest/issues/8) — Declare mapped optional dependencies through one conditional wrapper. *(open, measured)*
 
