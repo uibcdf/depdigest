@@ -13,3 +13,6 @@ dependencies:
 - sphinx-favicon
 - sphinx-tabs
 - myst-nb
+- pyyaml
+- jinja2
+- packaging

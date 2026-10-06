@@ -69,7 +69,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.13"
+          python-version: "3.14"
 
       - name: Select the committed release route
         id: release_route
@@ -115,6 +115,36 @@ jobs:
             --sha "$(git rev-parse HEAD)" --repository "$GITHUB_REPOSITORY" \
             --receipt "$RUNNER_TEMP/depdigest-conda-route.json"
 
+      - name: Checkout the reviewed distribution provider
+        uses: actions/checkout@v6
+        if: github.event_name == 'workflow_dispatch' || steps.release_route.outputs.route == 'direct'
+        with:
+          repository: uibcdf/molsyssuite
+          ref: 1f753e318d8dfa43c5bae1fa127e30ea86fa93b6
+          path: .suite-tools/molsyssuite
+          persist-credentials: false
+
+      - name: Check candidate distribution inputs and executed source gates
+        if: github.event_name == 'workflow_dispatch' || steps.release_route.outputs.route == 'direct'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ inputs.version || github.event.release.tag_name }}
+          BUILD_NUMBER: ${{ inputs.build_number || 0 }}
+        run: |
+          set -euo pipefail
+          python -m pip install PyYAML Jinja2 packaging
+          python devtools/check_distribution_inputs.py --suite-root .suite-tools/molsyssuite \
+            --candidate-sha "$(git rev-parse HEAD)" --version "$RELEASE_VERSION" --build-number "$BUILD_NUMBER" --output "$RUNNER_TEMP/depdigest-distribution-candidate.json"
+
+      - name: Retain executed candidate distribution evidence
+        if: github.event_name == 'workflow_dispatch' || steps.release_route.outputs.route == 'direct'
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: distribution-candidate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/depdigest-distribution-candidate.json
+          if-no-files-found: error
+
       - name: Setup the candidate build environment
         if: github.event_name == 'workflow_dispatch'
         uses: mamba-org/setup-micromamba@v3.2.1
@@ -128,7 +158,7 @@ jobs:
               - conda-forge
             channel_priority: strict
           create-args: >-
-            python=3.13
+            python=3.14
 
       - name: Setup the public release build environment
         if: github.event_name == 'release' && steps.release_route.outputs.route == 'direct'
@@ -142,7 +172,7 @@ jobs:
               - conda-forge
             channel_priority: strict
           create-args: >-
-            python=3.13
+            python=3.14
 
       - name: Info conda
         if: github.event_name == 'workflow_dispatch' || steps.release_route.outputs.route == 'direct'

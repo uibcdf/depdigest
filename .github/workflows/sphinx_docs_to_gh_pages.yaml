@@ -24,7 +24,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: 3.13
+          python-version: 3.14
 
       - name: Setup conda env
         uses: mamba-org/setup-micromamba@v3.2.1
@@ -37,7 +37,7 @@ jobs:
               - conda-forge
             channel_priority: strict
           create-args: >-
-            python=3.13
+            python=3.14
 
       - name: Info conda
         shell: bash -l {0}
@@ -45,6 +45,18 @@ jobs:
           micromamba activate docs
           micromamba info
           micromamba list
+
+      - name: Checkout the reviewed distribution provider
+        uses: actions/checkout@v6
+        with:
+          repository: uibcdf/molsyssuite
+          ref: 1f753e318d8dfa43c5bae1fa127e30ea86fa93b6
+          path: .suite-tools/molsyssuite
+          persist-credentials: false
+
+      - name: Check distribution inputs
+        shell: bash -l {0}
+        run: python devtools/check_distribution_inputs.py --suite-root .suite-tools/molsyssuite
 
       - name: Installing the library
         shell: bash -l {0}

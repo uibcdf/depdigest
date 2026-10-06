@@ -8,9 +8,10 @@ template for native packages. Python 3.14 preparation is tracked in
 ## Decide before tagging
 
 The release owner completes `devtools/conda-build/release_plan.toml` **in the
-candidate commit**. The `0.12.0` candidate selects the `staged` route; this
+candidate commit**. The retained `0.13.0` plan selects the `staged` route; this
 decision does not publish or promote a package. For a later version, reset and
-review `version`, `route`, `reason`, `decision_by`, and `required_workflows`
+review `version`, `build_number`, `route`, `reason`, `decision_by`,
+`required_workflows` and their explicit `gate_jobs`
 before any tag or dispatch. Keep
 `.github/workflows/CI_full_matrix.yaml` among the gates. Run that full matrix on
 the final candidate commit; any later commit needs a new exact-commit run. The
@@ -204,3 +205,28 @@ with its single source ZIP's downloaded size/checksum; no Conda archival is clai
 The [normalized release receipt](evidence/release_0.13.0_2026-10-04.json) records
 source, artifact, closure and evidence scopes. Consumer adoption remains independent
 under MolSysSuite #95, ArgDigest #22 and PyUnitWizard #93.
+
+
+## Maintained prospective controls — 2026-10-06
+
+Under uibcdf/depdigest#30, twenty route declarations and source resources delegate
+to the fixed shared provider. Default source checks verify actual installed public
+bounds. Candidate build/promote calls require all twelve executed source jobs and
+policy steps, with version/build matching the committed recipe context. Bootstrap
+inspection alone cannot clear that debt.
+
+Future installed workflow calls also supply the independently verified `sha256`
+and run at a ref identifying the original candidate. Preparation compares it
+against original producer receipts and checks the native/checkout source. The run
+title binds exact filename/digest. Future promotion calls supply `installed_run_id`
+in addition to original source/version/build/digest; the thin provider invocation
+verifies and retains the thirteen-job evidence before the existing promoter runs.
+Historical newer-workflow qualification remains a separate explicit source/file
+binding review; it cannot silently satisfy this prospective candidate profile.
+
+Original public 0.13.0 remains candidate
+`df771e00e886fd9b12915adf54c1bd75c4b5476c`, producer `37194076957`, source
+matrix `37192645716`, policy `37192635455`, installed matrix `37194436139`
+and promotion `37194867340`. Its file `depdigest-0.13.0-py_0.tar.bz2` retains
+SHA-256 `e011d725c8a831ae46cd6b8d114185d04248e32b4d6701c70f988d19cc69f67b`.
+Do not reconstruct, overwrite or republish it to exercise new source guards.

@@ -162,3 +162,35 @@ is installed by looking at the `git` tags and how many commits ahead this versio
 If the version of this commit is the same as a `git` tag, the installed version is the same as the tag, 
 e.g. `depdigest-0.1.2`, otherwise it will be appended with `+X` where `X` is the number of commits 
 ahead from the last tag, and then `-YYYYYY` where the `Y`'s are replaced with the `git` commit hash.
+
+## Maintained distribution input checks
+
+`check_distribution_inputs.py --suite-root PATH [--root PATH] [--output JSON]`
+uses the exact MolSysSuite commit registered in `dependency_routes.toml`. The
+provider owns parsers and negative checks; DepDigest owns twenty route decisions,
+workflow hashes and its resource inventory. Run in the resolved test/development
+interpreter: default @2 qualification checks actual installed public bounds before
+source use. It does not resolve dependencies or execute scientific tests.
+
+For an exact future candidate, add `--candidate-sha FULL_SHA --version X.Y.Z
+--build-number N`. Bootstrap may review declarations, but it must also verify all
+twelve executed source jobs (including default installed-bound checks) and the
+common policy before reporting candidate qualification. Retain `--output` before
+any upload. Wrong commit, coordinate, missing/failed/skipped job or unexpected
+provider failure stops the call. Update `release_plan.toml` in the candidate.
+
+Promotion additionally requires `--installed-run-id ID --sha256 SHA256`, binding
+the original source and exact archive title to the existing thirteen successful
+producer/installed jobs and their mandatory steps. Installed checks retain the
+owner's smoke-equivalence scope; this is not a full installed pytest suite. The
+workflow retains that receipt before promoting the same bytes. Prospective calls
+use the candidate ref; historical/newer-qualification recovery needs explicit
+source/file binding and review, not an inferred head or rebuilt package.
+
+`requirements.yaml` remains authoritative. The source anchors separate runtime
+providers from test/docs tools so development selects Python 3.14 once. Jinja2,
+packaging and PyYAML are developer parser dependencies. Run
+`python devtools/broadcast_requirements.py` and commit generated changes together.
+When editing a workflow, review its actual installation route before updating its
+complete-byte hash. Never refresh hashes automatically in CI. Required public
+SMonitor is separate from optional engines and consumer source probes.

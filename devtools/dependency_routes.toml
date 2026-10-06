@@ -1,0 +1,121 @@
+schema = "molsyssuite.dependency-routes@2"
+reason = "Maintained DepDigest route controls under uibcdf/depdigest#30 and uibcdf/molsyssuite#45"
+source_routes = []
+source_reason = "Required SMonitor is resolved from public Conda; optional engine commands and consumer source probes do not replace a required provider"
+
+[shared_tool]
+repository = "uibcdf/molsyssuite"
+commit = "1f753e318d8dfa43c5bae1fa127e30ea86fa93b6"
+
+[[recipes]]
+path = "devtools/conda-build/meta.yaml"
+kind = "noarch-dependencies"
+plan = "devtools/conda-build/release_plan.toml"
+python_build_section = "build"
+resource_inventory = "devtools/conda-build/resources.toml"
+environment_from_plan = { DEPDIGEST_CONDA_BUILD_NUMBER = "build_number" }
+reason = "Generated legacy same-prefix build Python with local version/coordinate/native and installed CLI guards; no cross compilation claim"
+
+[[environments]]
+path = "devtools/conda-envs/build_env.yaml"
+kind = "build-only"
+reason = "Build bootstrap only; recipe owns its Python and runtime requirements"
+
+[[environments]]
+path = "devtools/conda-envs/setup_env.yaml"
+kind = "build-only"
+reason = "Build bootstrap only; recipe owns its Python and runtime requirements"
+
+[[environments]]
+path = "devtools/conda-envs/production_env.yaml"
+kind = "runtime"
+purpose = "production"
+channel_priority = "strict"
+reason = "Generated runtime environment retains every required public provider"
+
+[[environments]]
+path = "devtools/conda-envs/development_env.yaml"
+kind = "runtime"
+purpose = "development"
+channel_priority = "strict"
+narrowing_reason = "Routine development selects Python 3.14 within public bounds; twelve source cells cover supported minors"
+reason = "Generated runtime environment retains every required public provider"
+
+[[environments]]
+path = "devtools/conda-envs/test_env.yaml"
+kind = "runtime"
+purpose = "test"
+channel_priority = "strict"
+reason = "Generated runtime environment retains every required public provider"
+
+[[environments]]
+path = "devtools/conda-envs/docs_env.yaml"
+kind = "runtime"
+purpose = "documentation"
+channel_priority = "strict"
+reason = "Generated runtime environment retains every required public provider"
+
+[[workflows]]
+path = ".github/workflows/CI.yaml"
+sha256 = "53bfec9221fa96ab3640e78f6150e38c5f0c05d24351d4fd228ed488ce043ea9"
+reason = "Routine strict public Linux/Python 3.14, default installed-bound preflight before no-deps source installation/tests"
+
+[[workflows]]
+path = ".github/workflows/CI_full_matrix.yaml"
+sha256 = "9a4b3a38a323bf565d67ee04ed7027c76e077544295a40f26d4d9e2146bc13f9"
+reason = "Twelve strict public source cells with default preflight; separate backlog/recovery job does not replace executed scientific jobs"
+
+[[workflows]]
+path = ".github/workflows/build_and_upload_conda_packages.yaml"
+sha256 = "05fe71b433fd309818291bf8c639dc3c20a2d022a33d67a67ec71007d79fe603"
+reason = "Local single noarch producer; declarations/resources and all executed exact-source gates precede mutation; bootstrap is not installed qualification"
+
+[[workflows]]
+path = ".github/workflows/check-conda-publication.yml"
+sha256 = "be82b6eab180bc581976b7014c4ad1712ace293d6b57a78268e9ba1ea15c1214"
+reason = "Pinned publication governance validator; no component runtime installation or mutation"
+
+[[workflows]]
+path = ".github/workflows/ci_python314_feasibility.yaml"
+sha256 = "d3f8a9ed7bdcc98f774d99d5c3913fa3ef14042112cb41bf41e3b88e58024cd9"
+reason = "Manual strict public pinned compatible providers, default preflight before checkout-source tests; no installed-file qualification claim"
+
+[[workflows]]
+path = ".github/workflows/install_macos_latest.yaml"
+sha256 = "644b14f10fce0e59e82877c1154278163d3854af138c57eae9696b1af776b62b"
+reason = "Manual public resolved-package macOS arm64 convenience route, normal dependency solver and no source replacement; not candidate installed evidence"
+
+[[workflows]]
+path = ".github/workflows/install_ubuntu_latest.yaml"
+sha256 = "058cb3e29589767a342b37105e797caf0b682289f41a21b28c1370c960b05ffb"
+reason = "Manual public resolved-package Linux convenience route, normal dependency solver and no source replacement; not candidate installed evidence"
+
+[[workflows]]
+path = ".github/workflows/molsyssuite-policy.yml"
+sha256 = "6cc62208156f765ca0456e3bc5f398934263e03afc7063c69afa692c5dafdffd"
+reason = "Fixed versioned shared governance policy; no component runtime installation"
+
+[[workflows]]
+path = ".github/workflows/promote_conda_package.yaml"
+sha256 = "665a66596b86ddc4013d10906f733dabdd007da53ef47e01b365f2beafeaff64"
+reason = "Same-byte local promoter; exact source and thirteen executed exact-file installed jobs/steps/title verified and retained before mutation"
+
+[[workflows]]
+path = ".github/workflows/sphinx_docs_to_gh_pages.yaml"
+sha256 = "711f4c24ec48d729b105e7076a23f5d1060dfdb3f766be2c5e16acd4c7cdd20c"
+reason = "Strict public documentation runtime on Python 3.14, default preflight before no-deps source installation; existing docs publisher retained"
+
+[[workflows]]
+path = ".github/workflows/test_staged_conda_package.yaml"
+sha256 = "1c83d7340c336a16e1977c5bc59c6bd849d70d6d2d43a83fef63f67e71be6f36"
+reason = "Exact producer/archive SHA bound to twelve clean Linux/macOS arm64/Windows installs, checker outside source; explicit flexible staging priority prevents public SMonitor masking and installed records enforce exact provenance; smoke equivalence rather than full installed pytest"
+
+[[workflows]]
+path = ".github/workflows/verify-zenodo-releases.yaml"
+sha256 = "820e1d76a3d0f566bfaa62c64d8ec7942a7300f2e04fc28e307fbfb6669002f4"
+reason = "Pinned read-only archival release audit; no runtime installation"
+
+[[workflows]]
+path = ".github/workflows/verify_public_conda_package.yaml"
+sha256 = "a85503b6d62d2c37b849ba0bd800ac614a5c9c888d834a9b6e03ae39c0c7313c"
+reason = "Read-only exact public artifact verification with retained immutable verifier pin"

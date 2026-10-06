@@ -15,6 +15,10 @@ on:
         description: Exact verified staging build number
         required: true
         type: number
+      installed_run_id:
+        description: Successful exact-file twelve-cell installed qualification run
+        required: true
+        type: number
       sha256:
         description: SHA-256 of the independently verified staging package
         required: true
@@ -62,7 +66,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.13"
+          python-version: "3.14"
 
       - name: Verify the staged release decision and exact CI gates
         shell: bash
@@ -76,6 +80,37 @@ jobs:
             --sha "$CANDIDATE_SHA" --repository "$GITHUB_REPOSITORY" \
             --receipt "$RUNNER_TEMP/depdigest-conda-route.json"
 
+      - name: Checkout the reviewed distribution provider
+        uses: actions/checkout@v6
+        with:
+          repository: uibcdf/molsyssuite
+          ref: 1f753e318d8dfa43c5bae1fa127e30ea86fa93b6
+          path: .suite-tools/molsyssuite
+          persist-credentials: false
+
+      - name: Check candidate distribution inputs and exact installed gates
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+          RELEASE_VERSION: ${{ inputs.version }}
+          BUILD_NUMBER: ${{ inputs.build_number }}
+          INSTALLED_RUN_ID: ${{ inputs.installed_run_id }}
+          EXPECTED_SHA256: ${{ inputs.sha256 }}
+        run: |
+          set -euo pipefail
+          python -m pip install PyYAML Jinja2 packaging
+          python devtools/check_distribution_inputs.py --suite-root .suite-tools/molsyssuite \
+            --candidate-sha "$CANDIDATE_SHA" --version "$RELEASE_VERSION" --build-number "$BUILD_NUMBER" --installed-run-id "$INSTALLED_RUN_ID" \
+            --sha256 "$EXPECTED_SHA256" --output "$RUNNER_TEMP/depdigest-distribution-promotion.json"
+
+      - name: Retain exact source and installed gate evidence before promotion
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: distribution-promotion-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/depdigest-distribution-promotion.json
+          if-no-files-found: error
+
       - name: Set up the authenticated Anaconda client
         uses: mamba-org/setup-micromamba@v3.2.1
         with:
@@ -88,7 +123,7 @@ jobs:
               - conda-forge
             channel_priority: strict
           create-args: >-
-            python=3.13
+            python=3.14
 
       - name: Derive the exact package identity
         id: identity

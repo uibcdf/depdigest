@@ -36,6 +36,8 @@ jobs:
             pytest
             pytest-xdist
             pyyaml
+            jinja2
+            packaging
             numpy
             pint
 
@@ -45,6 +47,18 @@ jobs:
           python --version
           micromamba list smonitor
           micromamba list pytest-receptor
+
+      - name: Checkout the reviewed distribution provider
+        uses: actions/checkout@v6
+        with:
+          repository: uibcdf/molsyssuite
+          ref: 1f753e318d8dfa43c5bae1fa127e30ea86fa93b6
+          path: .suite-tools/molsyssuite
+          persist-credentials: false
+
+      - name: Check distribution inputs
+        shell: bash -l {0}
+        run: python devtools/check_distribution_inputs.py --suite-root .suite-tools/molsyssuite
 
       - name: Test checkout source without claiming package support
         shell: bash -l {0}

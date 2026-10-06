@@ -1,0 +1,17 @@
+reason = "DepDigest version, CLI, required diagnostic catalogs and dependency/audit payload under uibcdf/depdigest#30"
+version_file = "site-packages/depdigest/_version.py"
+required_paths = [
+  "site-packages/depdigest/_version.py",
+  "site-packages/depdigest/__init__.py",
+  "site-packages/depdigest/cli.py",
+  "site-packages/depdigest/__main__.py",
+  "site-packages/depdigest/_smonitor.py",
+  "site-packages/depdigest/_private/smonitor/catalog.py",
+  "site-packages/depdigest/_private/smonitor/meta.py",
+  "site-packages/depdigest/_private/smonitor/emitter.py",
+  "site-packages/depdigest/core/checker.py",
+  "site-packages/depdigest/core/config.py",
+  "site-packages/depdigest/core/decorator.py",
+  "site-packages/depdigest/core/loader.py",
+  "site-packages/depdigest/utils/ast_tools.py"
+]

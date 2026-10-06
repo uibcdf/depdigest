@@ -1,6 +1,25 @@
 # Reviewed candidate decision. No public tag or promotion is authorized by this file.
 version = "0.13.0"
+build_number = 0
 route = "staged"
 reason = "Qualify expanded module/class audit findings and typing-guard behavior on the exact installed artifact before public visibility; preserve the immutable file for promotion while consumer adoption proceeds independently."
 decision_by = "Diego-authorized 0.13.0 publication, 2026-10-04 (uibcdf/depdigest#29)"
 required_workflows = [".github/workflows/CI_full_matrix.yaml", ".github/workflows/molsyssuite-policy.yml"]
+
+# Prospective exact-source controls; original 0.13.0 evidence remains separate.
+[gate_jobs.".github/workflows/CI_full_matrix.yaml"]
+"Full test on ubuntu-latest, Python 3.11" = ["Check distribution inputs", "Test import module", "Run tests"]
+"Full test on ubuntu-latest, Python 3.12" = ["Check distribution inputs", "Test import module", "Run tests"]
+"Full test on ubuntu-latest, Python 3.13" = ["Check distribution inputs", "Test import module", "Run tests"]
+"Full test on ubuntu-latest, Python 3.14" = ["Check distribution inputs", "Test import module", "Run tests"]
+"Full test on macos-latest, Python 3.11" = ["Check distribution inputs", "Test import module", "Run tests"]
+"Full test on macos-latest, Python 3.12" = ["Check distribution inputs", "Test import module", "Run tests"]
+"Full test on macos-latest, Python 3.13" = ["Check distribution inputs", "Test import module", "Run tests"]
+"Full test on macos-latest, Python 3.14" = ["Check distribution inputs", "Test import module", "Run tests"]
+"Full test on windows-latest, Python 3.11" = ["Check distribution inputs", "Test import module", "Run tests"]
+"Full test on windows-latest, Python 3.12" = ["Check distribution inputs", "Test import module", "Run tests"]
+"Full test on windows-latest, Python 3.13" = ["Check distribution inputs", "Test import module", "Run tests"]
+"Full test on windows-latest, Python 3.14" = ["Check distribution inputs", "Test import module", "Run tests"]
+
+[gate_jobs.".github/workflows/molsyssuite-policy.yml"]
+"policy / conformance" = ["Check repository conformance", "Check Python lint and imports", "Check Python formatting"]

@@ -13,43 +13,51 @@ production:
     - *setup_channels
   dependencies: &production_dependencies
     - python >=3.11,<3.15
-    - smonitor >=0.13.0
+    - &runtime_dependencies
+      - smonitor >=0.13.0
 
 test:
   channels: &test_channels
     - *production_channels
   dependencies: &test_dependencies
     - *production_dependencies
-    - pytest
-    - pytest-cov
-    - pytest-xdist
-    - pytest-receptor =1.1.0
-    - pyyaml
-    - codecov
+    - &test_tools
+      - pytest
+      - pytest-cov
+      - pytest-xdist
+      - pytest-receptor =1.1.0
+      - pyyaml
+      - jinja2
+      - packaging
+      - codecov
 
 docs:
   channels: &docs_channels
     - *production_channels
   dependencies: &docs_dependencies
     - *production_dependencies
-    - sphinx
-    - pydata-sphinx-theme
-    - sphinxcontrib-bibtex
-    - sphinx-remove-toctrees
-    - sphinx-copybutton
-    - sphinx-design
-    - sphinx-favicon
-    - sphinx-tabs
-    - myst-nb
+    - &docs_tools
+      - sphinx
+      - pydata-sphinx-theme
+      - sphinxcontrib-bibtex
+      - sphinx-remove-toctrees
+      - sphinx-copybutton
+      - sphinx-design
+      - sphinx-favicon
+      - sphinx-tabs
+      - myst-nb
+      - pyyaml
+      - jinja2
+      - packaging
 
 
 development:
   channels:
     - *production_channels
   dependencies:
-    - *production_dependencies
-    - *test_dependencies
-    - *docs_dependencies
+    - *runtime_dependencies
+    - *test_tools
+    - *docs_tools
     - python =3.14
     - ruff =0.16.5
     - mamba
