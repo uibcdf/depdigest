@@ -45,3 +45,8 @@ Public API exports, CLI behavior, and `get_info` schema are validated through de
 - Integration contract: `standards/DEPDIGEST_GUIDE.md`
 
 - Collective evidence handoff: `devguide/collective_evidence_pack.md`
+
+## Temporary development resources
+
+See [the bounded resource/tool review](resource_lifecycle_review.md) for ownership,
+executed guards and remaining historical review under uibcdf/molsyssuite#104.

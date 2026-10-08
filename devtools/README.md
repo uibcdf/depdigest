@@ -49,9 +49,9 @@ Finnally, to create a conda environment use the script 'create_conda_env.py' the
 
 ```bash
 # In this case the name of the environment is also "depdigest-dev"
-# the Python version of our new environment is 3.13
+# the Python version of our new environment is 3.14
 # and the yaml file will be the one to work on the library development
-python create_conda_env.py -n depdigest-dev -p 3.13 development_env.yaml
+python create_conda_env.py -n depdigest-dev -p 3.14 development_env.yaml
 ```
 
 You can already activate the environment to start working in the library development:
@@ -67,6 +67,17 @@ script 'update_conda_env.py' with the environment activated:
 conda activate depdigest-dev
 python update_conda_env.py development_env.yaml
 ```
+
+Both helpers return the selected manager exit status. `CONDA_EXE` identifies one
+executable; arguments and file paths are passed literally without a shell. Create
+keeps its generated YAML in a private temporary directory until the manager
+finishes, then removes that directory even on failure. Update reads the supplied
+YAML directly. Input files and environments remain caller-owned; failure does not
+authorize environment deletion, rollback or an automatic retry.
+
+The optional shared environment SDK requires a reviewed dependency-routes@3
+profile. These existing local helpers retain their current interface and owner
+decisions; this failure repair does not migrate the @2 distribution inventory.
 
 ## How to contribute changes
 - Clone the repository if you have write access to the main repo, fork the repository if you are a collaborator.

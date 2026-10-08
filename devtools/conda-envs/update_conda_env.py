@@ -24,8 +24,7 @@ if conda_path is None:
 print("CONDA FILE NAME {}".format(args.conda_file))
 print("CONDA PATH      {}".format(conda_path))
 
-# Write to a temp directory which will always be cleaned up
-
-sp.call(
-    "{} env update --file {} --prune".format(conda_path, args.conda_file), shell=True
+# The active environment and the input file remain caller-owned.
+raise SystemExit(
+    sp.call([conda_path, "env", "update", "--file", args.conda_file, "--prune"])
 )
