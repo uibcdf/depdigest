@@ -12,6 +12,7 @@ Current exported symbols:
 - `get_info`
 - `dep_digest`
 - `LazyRegistry`
+- `DeclaredRegistry` (unreleased; absent from public 0.13.0)
 - `DepConfig`
 - `resolve_config`
 - `register_package_config`
@@ -63,6 +64,12 @@ See the [audit CLI scope](../user/audit-cli.md) and the 0.13.0 migration notes
 in `CHANGELOG.md` before upgrading an audit gate.
 
 ## Change management guidance
+
+`DeclaredRegistry` retains legacy registry behavior and separates metadata from
+materialization. Its ordering, mutation, filtering, discovery and cache contracts
+are defined in the [registry contract](../user/declared-registry.md). Source
+experiments must pin the implementation commit; consumer public adoption must name
+the first published version admitting this API before changing dependency floors.
 
 Before changing public behavior:
 - add/update contract tests first;

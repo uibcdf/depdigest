@@ -18,7 +18,84 @@ def entry_points():
     return discover()
 
 
-class LazyRegistry(dict):
+class _RegistrySupport:
+    """Shared dependency gates, discovery and diagnostic emission."""
+
+    def _plugin_allowed(self, plugin_key: str, cfg) -> bool:
+        lib_key = cfg.mapping.get(plugin_key)
+        if lib_key and not cfg.show_all_capabilities:
+            lib_info = cfg.libraries.get(lib_key, {})
+            if lib_info.get("type") == "soft" and not _is_available(
+                lib_key, lib_info.get("kind", "python"), lib_info.get("executable")
+            ):
+                return False
+        return True
+
+    def _resolve_entry_points(self) -> Iterable[Any]:
+        eps = entry_points()
+        if hasattr(eps, "select"):
+            return eps.select(group=self._entrypoint_group)
+        return eps.get(self._entrypoint_group, [])
+
+    def _emit_plugin_load_failed(self, plugin_name: str, error: Exception):
+        from smonitor.integrations import emit_from_catalog, merge_extra
+
+        from .._private.smonitor.catalog import CATALOG, META, PACKAGE_ROOT
+
+        try:
+            emit_from_catalog(
+                CATALOG["plugin_load_failed"],
+                package_root=PACKAGE_ROOT,
+                extra=merge_extra(
+                    META,
+                    {
+                        "plugin": plugin_name,
+                        "caller": getattr(
+                            self,
+                            "_failure_caller",
+                            "depdigest.core.loader.LazyRegistry._scan_and_load",
+                        ),
+                        "trigger": self._load_trigger,
+                        "error": str(error),
+                    },
+                ),
+            )
+        except Exception as emit_error:
+            logger.warning(
+                "SMonitor emission failed during plugin loading: signal=plugin_load_failed plugin=%s error=%s",
+                plugin_name,
+                emit_error,
+            )
+        logger.debug(f"Failed to load plugin {plugin_name}: {error}")
+
+    def _emit_plugin_loaded(self, plugin_name: str, module_name: str):
+        from smonitor.integrations import emit_from_catalog, merge_extra
+
+        from .._private.smonitor.catalog import CATALOG, META, PACKAGE_ROOT
+
+        try:
+            emit_from_catalog(
+                CATALOG["plugin_loaded"],
+                package_root=PACKAGE_ROOT,
+                extra=merge_extra(
+                    META,
+                    {
+                        "plugin": plugin_name,
+                        "module": module_name,
+                        "trigger": self._load_trigger,
+                        "caller": self._load_caller,
+                    },
+                ),
+            )
+        except Exception as emit_error:
+            logger.warning(
+                "SMonitor emission failed after plugin load: plugin=%s error=%s",
+                plugin_name,
+                emit_error,
+            )
+
+
+class LazyRegistry(_RegistrySupport, dict):
     """
     A dictionary-like registry that populates itself lazily.
     """
@@ -107,74 +184,6 @@ class LazyRegistry(dict):
                 self._emit_plugin_loaded(ep.name, getattr(ep, "value", ep.name))
             except Exception as e:
                 self._emit_plugin_load_failed(ep.name, e)
-
-    def _plugin_allowed(self, plugin_key: str, cfg) -> bool:
-        lib_key = cfg.mapping.get(plugin_key)
-        if lib_key and not cfg.show_all_capabilities:
-            lib_info = cfg.libraries.get(lib_key, {})
-            if lib_info.get("type") == "soft" and not _is_available(
-                lib_key, lib_info.get("kind", "python"), lib_info.get("executable")
-            ):
-                return False
-        return True
-
-    def _resolve_entry_points(self) -> Iterable[Any]:
-        eps = entry_points()
-        if hasattr(eps, "select"):
-            return eps.select(group=self._entrypoint_group)
-        return eps.get(self._entrypoint_group, [])
-
-    def _emit_plugin_load_failed(self, plugin_name: str, error: Exception):
-        from smonitor.integrations import emit_from_catalog, merge_extra
-
-        from .._private.smonitor.catalog import CATALOG, META, PACKAGE_ROOT
-
-        try:
-            emit_from_catalog(
-                CATALOG["plugin_load_failed"],
-                package_root=PACKAGE_ROOT,
-                extra=merge_extra(
-                    META,
-                    {
-                        "plugin": plugin_name,
-                        "caller": "depdigest.core.loader.LazyRegistry._scan_and_load",
-                        "error": str(error),
-                    },
-                ),
-            )
-        except Exception as emit_error:
-            logger.warning(
-                "SMonitor emission failed in LazyRegistry._scan_and_load: signal=plugin_load_failed plugin=%s error=%s",
-                plugin_name,
-                emit_error,
-            )
-        logger.debug(f"Failed to load plugin {plugin_name}: {error}")
-
-    def _emit_plugin_loaded(self, plugin_name: str, module_name: str):
-        from smonitor.integrations import emit_from_catalog, merge_extra
-
-        from .._private.smonitor.catalog import CATALOG, META, PACKAGE_ROOT
-
-        try:
-            emit_from_catalog(
-                CATALOG["plugin_loaded"],
-                package_root=PACKAGE_ROOT,
-                extra=merge_extra(
-                    META,
-                    {
-                        "plugin": plugin_name,
-                        "module": module_name,
-                        "trigger": self._load_trigger,
-                        "caller": self._load_caller,
-                    },
-                ),
-            )
-        except Exception as emit_error:
-            logger.warning(
-                "SMonitor emission failed after plugin load: plugin=%s error=%s",
-                plugin_name,
-                emit_error,
-            )
 
     def __getitem__(self, key):
         self._ensure_initialized(key if isinstance(key, str) else "<non-string key>")

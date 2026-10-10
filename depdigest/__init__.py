@@ -9,6 +9,7 @@ from .core.config import (
 )
 from .core.decorator import dep_digest
 from .core.loader import LazyRegistry
+from .core.registry import DeclaredRegistry
 
 try:
     from ._version import __version__
@@ -33,6 +34,7 @@ __all__ = [
     "get_info",
     "dep_digest",
     "LazyRegistry",
+    "DeclaredRegistry",
     "DepConfig",
     "resolve_config",
     "register_package_config",

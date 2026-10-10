@@ -7,6 +7,20 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+### Added
+
+- `DeclaredRegistry`: opt-in identity declarations, metadata-only enumeration,
+  selective filesystem/entry-point loading, explicit undeclared discovery, dynamic
+  overrides and bounded retry/refresh policy (#34).
+
+### Migration Notes
+
+- `LazyRegistry` retains its first-access full scan. `DeclaredRegistry` implements
+  `MutableMapping`; visible names can include implementations that fail to load.
+  Value access raises `KeyError` with the cause; successful and failed loads are
+  cached. Public adoption requires the first published admitting version; 0.13.0
+  does not provide this API. No release is authorized by #34.
+
 ## [0.13.0] - 2026-10-04
 
 ### Fixed

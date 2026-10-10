@@ -8,8 +8,9 @@ generated from report metadata.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (3)
 
+- [`declaration_based_plugin_lookup.md`](declaration_based_plugin_lookup.md) — [#34](https://github.com/uibcdf/depdigest/issues/34) — Discover declared plugin identities without importing unrelated implementations. *(open, reproduced)*
 - [`decorator_fast_path_and_observability_boundary.md`](decorator_fast_path_and_observability_boundary.md) — [#6](https://github.com/uibcdf/depdigest/issues/6) — Evaluate an epoch-cached decorator fast path and its observability cost. *(open, measured)*
 - [`mapped_dependency_declaration.md`](mapped_dependency_declaration.md) — [#8](https://github.com/uibcdf/depdigest/issues/8) — Declare mapped optional dependencies through one conditional wrapper. *(open, measured)*
 

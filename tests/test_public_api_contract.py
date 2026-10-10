@@ -11,6 +11,7 @@ def test_public_api_exports_expected_symbols():
         "get_info",
         "dep_digest",
         "LazyRegistry",
+        "DeclaredRegistry",
         "DepConfig",
         "resolve_config",
         "register_package_config",

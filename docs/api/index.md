@@ -13,6 +13,7 @@ This section is generated from DepDigest source docstrings and signatures.
 
    dep_digest
    LazyRegistry
+   DeclaredRegistry
    is_installed
    check_dependency
    get_info

@@ -44,6 +44,7 @@ integrating-your-library.md
 conditional-deps.md
 optional-engines.md
 lazy-registry.md
+declared-registry.md
 introspection.md
 smonitor.md
 edge-cases.md

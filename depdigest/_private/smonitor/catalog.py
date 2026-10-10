@@ -53,7 +53,7 @@ CODES = {
     "DEP-DBG-LOAD-002": {
         "title": "Plugin loaded",
         "dev_message": "Plugin '{plugin}' loaded from '{module}' after '{trigger}' access.",
-        "dev_hint": "The first registry scan was triggered at {caller}.",
+        "dev_hint": "The registry access was triggered at {caller}.",
     },
 }
 
