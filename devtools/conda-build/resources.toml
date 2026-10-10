@@ -13,5 +13,6 @@ required_paths = [
   "site-packages/depdigest/core/config.py",
   "site-packages/depdigest/core/decorator.py",
   "site-packages/depdigest/core/loader.py",
+  "site-packages/depdigest/core/registry.py",
   "site-packages/depdigest/utils/ast_tools.py"
 ]

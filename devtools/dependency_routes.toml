@@ -5,7 +5,7 @@ source_reason = "Required SMonitor is resolved from public Conda; optional engin
 
 [shared_tool]
 repository = "uibcdf/molsyssuite"
-commit = "1f753e318d8dfa43c5bae1fa127e30ea86fa93b6"
+commit = "6d6172d6cd00c5ac2d4ebadb71df554ec5b7fa26"
 
 [[recipes]]
 path = "devtools/conda-build/meta.yaml"
@@ -57,17 +57,17 @@ reason = "Generated runtime environment retains every required public provider"
 
 [[workflows]]
 path = ".github/workflows/CI.yaml"
-sha256 = "53bfec9221fa96ab3640e78f6150e38c5f0c05d24351d4fd228ed488ce043ea9"
+sha256 = "2ddc70376ba152c5bc66b6f3c553536d8fdedcea136c295e62d056a6cb827afe"
 reason = "Routine strict public Linux/Python 3.14, default installed-bound preflight before no-deps source installation/tests"
 
 [[workflows]]
 path = ".github/workflows/CI_full_matrix.yaml"
-sha256 = "9a4b3a38a323bf565d67ee04ed7027c76e077544295a40f26d4d9e2146bc13f9"
+sha256 = "8113ade2ccf5ad83b011650bcccdfe93002a7c5999e31e0639adf5e4550d921a"
 reason = "Twelve strict public source cells with default preflight; separate backlog/recovery job does not replace executed scientific jobs"
 
 [[workflows]]
 path = ".github/workflows/build_and_upload_conda_packages.yaml"
-sha256 = "05fe71b433fd309818291bf8c639dc3c20a2d022a33d67a67ec71007d79fe603"
+sha256 = "4bcc451e948b7bd7d6a796496ac042db14336c4c4eb5cf211b9c92fee640b91f"
 reason = "Local single noarch producer; declarations/resources and all executed exact-source gates precede mutation; bootstrap is not installed qualification"
 
 [[workflows]]
@@ -77,7 +77,7 @@ reason = "Pinned publication governance validator; no component runtime installa
 
 [[workflows]]
 path = ".github/workflows/ci_python314_feasibility.yaml"
-sha256 = "d3f8a9ed7bdcc98f774d99d5c3913fa3ef14042112cb41bf41e3b88e58024cd9"
+sha256 = "10551964b2a8a125497b114b03a74901e9a4262abc1ce16df1d64746bf78a01f"
 reason = "Manual strict public pinned compatible providers, default preflight before checkout-source tests; no installed-file qualification claim"
 
 [[workflows]]
@@ -97,12 +97,12 @@ reason = "Fixed versioned shared governance policy; no component runtime install
 
 [[workflows]]
 path = ".github/workflows/promote_conda_package.yaml"
-sha256 = "665a66596b86ddc4013d10906f733dabdd007da53ef47e01b365f2beafeaff64"
+sha256 = "e34b3f843944885cb6bb25203d8ab3d779d8a647aede966a2c1e56452441e340"
 reason = "Same-byte local promoter; exact source and thirteen executed exact-file installed jobs/steps/title verified and retained before mutation"
 
 [[workflows]]
 path = ".github/workflows/sphinx_docs_to_gh_pages.yaml"
-sha256 = "711f4c24ec48d729b105e7076a23f5d1060dfdb3f766be2c5e16acd4c7cdd20c"
+sha256 = "d68a559167f99e11aed0c97c2de1e24f77c1091c8f4353d5e5c90390e5841f88"
 reason = "Strict public documentation runtime on Python 3.14, default preflight before no-deps source installation; existing docs publisher retained"
 
 [[workflows]]

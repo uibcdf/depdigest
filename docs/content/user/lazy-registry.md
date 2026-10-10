@@ -68,7 +68,7 @@ MAPPING = {
 ## Next
 
 For opt-in metadata enumeration and selective loading, see the
-[unreleased declaration-based registry](declared-registry.md).
+[declaration-based registry (from 0.14.0)](declared-registry.md).
 
 Continue with [Introspection](introspection.md) to show dependency status to
 your users.

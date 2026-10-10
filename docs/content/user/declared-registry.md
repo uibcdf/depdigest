@@ -1,11 +1,13 @@
-# Declaration-based plugin lookup (unreleased)
+# Declaration-based plugin lookup (from 0.14.0)
 
-`DeclaredRegistry` is an additive source capability under
-[DepDigest #34](https://github.com/uibcdf/depdigest/issues/34). Public release 0.13.0
-does not provide it. Source experiments must identify the exact provider commit;
-public adoption must wait for a published version explicitly admitting this API.
-No release is authorized by this request. MolSysMT adoption and conversion parity
-remain in [MolSysMT #382](https://github.com/uibcdf/molsysmt/issues/382).
+`DeclaredRegistry` is the additive public capability implemented under
+[DepDigest #34](https://github.com/uibcdf/depdigest/issues/34) and admitted in
+**DepDigest 0.14.0**, with publication tracked in
+[DepDigest #35](https://github.com/uibcdf/depdigest/issues/35). Public consumers
+require a published DepDigest >=0.14.0; 0.13.0 does not provide this API.
+Source experiments must identify the exact provider commit. MolSysMT adoption
+and conversion parity remain in
+[MolSysMT #382](https://github.com/uibcdf/molsysmt/issues/382).
 
 The host supplies canonical identity-to-plugin declarations from its catalogue:
 

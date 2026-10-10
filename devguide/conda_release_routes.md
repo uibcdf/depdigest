@@ -8,7 +8,7 @@ template for native packages. Python 3.14 preparation is tracked in
 ## Decide before tagging
 
 The release owner completes `devtools/conda-build/release_plan.toml` **in the
-candidate commit**. The retained `0.13.0` plan selects the `staged` route; this
+candidate commit**. The current `0.14.0` plan selects the `staged` route; this
 decision does not publish or promote a package. For a later version, reset and
 review `version`, `build_number`, `route`, `reason`, `decision_by`,
 `required_workflows` and their explicit `gate_jobs`
@@ -230,3 +230,15 @@ matrix `37192645716`, policy `37192635455`, installed matrix `37194436139`
 and promotion `37194867340`. Its file `depdigest-0.13.0-py_0.tar.bz2` retains
 SHA-256 `e011d725c8a831ae46cd6b8d114185d04248e32b4d6701c70f988d19cc69f67b`.
 Do not reconstruct, overwrite or republish it to exercise new source guards.
+
+## 0.14.0 declaration-based registry candidate
+
+DepDigest #35 owns the explicitly authorized 0.14.0 publication. The staged build
+starts at `py_0`. The final candidate includes the paired portable SDK correction,
+LF workflow-byte preservation, reviewed route hashes and the new required registry
+resource. Qualify all twelve source cells and policy before staging. The installed
+verifier exercises the public `DeclaredRegistry` contract with an unrelated sentinel
+whose marker records even a suppressed import failure. Qualify all twelve installed
+cells, then tag that same source and promote exactly the digest-verified file.
+Public API admission is >=0.14.0 after publication; MolSysMT #382 owns consumer
+integration and scientific parity. Candidate preparation alone is not publication.

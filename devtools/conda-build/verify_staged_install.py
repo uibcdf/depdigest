@@ -165,6 +165,69 @@ def verify_installed(
         verify_optional_engine_contract()
     if tuple(map(int, version.split("."))) >= (0, 13, 0):
         verify_audit_contract()
+    if tuple(map(int, version.split("."))) >= (0, 14, 0):
+        verify_declared_registry_contract()
+
+
+def verify_declared_registry_contract() -> None:
+    """Verify the installed public API without touching an unrelated plugin."""
+    import uuid
+
+    import depdigest
+
+    _require(
+        "DeclaredRegistry" in depdigest.__all__, "Missing declared registry public API"
+    )
+    host = "depdigest_installed_gate_" + uuid.uuid4().hex
+    with tempfile.TemporaryDirectory() as temporary:
+        root = Path(temporary)
+        sentinel_marker = root / "sentinel-imported"
+        directory = root / host
+        directory.mkdir()
+        (directory / "__init__.py").write_text("", encoding="utf-8")
+        for plugin, source in {
+            "target": "form_name = 'Target'\n",
+            "sentinel": (
+                "from pathlib import Path\n"
+                f"Path({str(sentinel_marker)!r}).write_text('imported')\n"
+                "raise AssertionError('unrelated plugin imported')\n"
+            ),
+        }.items():
+            path = directory / plugin
+            path.mkdir()
+            (path / "__init__.py").write_text(source, encoding="utf-8")
+        sys.path.insert(0, str(root))
+        try:
+            with depdigest.temporary_package_config(host, depdigest.DepConfig()):
+                registry = depdigest.DeclaredRegistry(
+                    host, directory, {"Target": "target", "Sentinel": "sentinel"}
+                )
+                _require(
+                    list(registry.keys()) == ["Target", "Sentinel"],
+                    "Declared registry metadata mismatch",
+                )
+                _require("Target" in registry, "Declared identity absent")
+                _require(
+                    registry.loaded_keys() == ()
+                    and f"{host}.target" not in sys.modules,
+                    "Declared registry metadata imported an implementation",
+                )
+                loaded = registry["Target"]
+                _require(loaded.form_name == "Target", "Wrong requested implementation")
+                _require(registry["Target"] is loaded, "Implementation cache mismatch")
+                _require(
+                    registry.loaded_keys() == ("Target",), "Loaded identity mismatch"
+                )
+                _require(
+                    f"{host}.sentinel" not in sys.modules
+                    and not sentinel_marker.exists(),
+                    "Selective lookup touched an unrelated plugin",
+                )
+        finally:
+            sys.path.remove(str(root))
+            for name in tuple(sys.modules):
+                if name == host or name.startswith(host + "."):
+                    sys.modules.pop(name)
 
 
 def verify_audit_contract() -> None:
@@ -343,7 +406,7 @@ def main() -> None:
         )
         print(
             "PASS: exact staged package, public dependency, import, CLI, "
-            "and version-applicable optional-engine/audit contracts"
+            "and version-applicable optional-engine/audit/declared-registry contracts"
         )
 
 

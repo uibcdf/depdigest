@@ -1,0 +1,3 @@
+# Preserve the actual reviewed workflow bytes across Windows/Linux/macOS checkouts.
+.github/workflows/*.yaml text eol=lf
+.github/workflows/*.yml text eol=lf

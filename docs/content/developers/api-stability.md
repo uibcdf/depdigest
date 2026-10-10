@@ -12,7 +12,7 @@ Current exported symbols:
 - `get_info`
 - `dep_digest`
 - `LazyRegistry`
-- `DeclaredRegistry` (unreleased; absent from public 0.13.0)
+- `DeclaredRegistry` (from 0.14.0)
 - `DepConfig`
 - `resolve_config`
 - `register_package_config`
@@ -68,8 +68,9 @@ in `CHANGELOG.md` before upgrading an audit gate.
 `DeclaredRegistry` retains legacy registry behavior and separates metadata from
 materialization. Its ordering, mutation, filtering, discovery and cache contracts
 are defined in the [registry contract](../user/declared-registry.md). Source
-experiments must pin the implementation commit; consumer public adoption must name
-the first published version admitting this API before changing dependency floors.
+experiments must pin the implementation commit; consumer public adoption requires
+published DepDigest >=0.14.0 before changing dependency floors. Publication is
+tracked in DepDigest #35 and consumer qualification in MolSysMT #382.
 
 Before changing public behavior:
 - add/update contract tests first;

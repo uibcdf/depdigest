@@ -1,9 +1,9 @@
 # Reviewed candidate decision. No public tag or promotion is authorized by this file.
-version = "0.13.0"
+version = "0.14.0"
 build_number = 0
 route = "staged"
-reason = "Qualify expanded module/class audit findings and typing-guard behavior on the exact installed artifact before public visibility; preserve the immutable file for promotion while consumer adoption proceeds independently."
-decision_by = "Diego-authorized 0.13.0 publication, 2026-10-04 (uibcdf/depdigest#29)"
+reason = "Qualify the new DeclaredRegistry public API and portable Windows preflight on all source and installed cells, then promote the same verified archive while MolSysMT adoption proceeds independently."
+decision_by = "Diego-authorized 0.14.0 publication, 2026-10-10 (uibcdf/depdigest#35)"
 required_workflows = [".github/workflows/CI_full_matrix.yaml", ".github/workflows/molsyssuite-policy.yml"]
 
 # Prospective exact-source controls; original 0.13.0 evidence remains separate.

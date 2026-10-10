@@ -152,6 +152,31 @@ def test_audit_gate_exercises_real_cli_contract():
     verifier.verify_audit_contract()
 
 
+def test_declared_registry_gate_exercises_public_selective_lookup():
+    verifier.verify_declared_registry_contract()
+
+
+def test_declared_registry_gate_rejects_a_suppressed_unrelated_import(monkeypatch):
+    import importlib
+
+    import depdigest
+
+    real_registry = depdigest.DeclaredRegistry
+
+    class TouchesSentinel(real_registry):
+        def __getitem__(self, key):
+            if key == "Target":
+                try:
+                    importlib.import_module(self._package_prefix + ".sentinel")
+                except AssertionError:
+                    pass
+            return super().__getitem__(key)
+
+    monkeypatch.setattr(depdigest, "DeclaredRegistry", TouchesSentinel)
+    with pytest.raises(ValueError, match="unrelated plugin"):
+        verifier.verify_declared_registry_contract()
+
+
 def test_audit_gate_rejects_old_scanner_clean_result(monkeypatch):
     import subprocess
 

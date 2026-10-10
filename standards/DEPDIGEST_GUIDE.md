@@ -10,10 +10,8 @@ Source of truth for integrating and using **DepDigest** in this library.
 Metadata
 - Source repository: `depdigest`
 - Source document: `standards/DEPDIGEST_GUIDE.md`
-- Source version: `depdigest@0.13.0`
-- Unreleased source addition: `DeclaredRegistry`, tracked in `uibcdf/depdigest#34`;
-  absent from the released baseline above.
-- Publication tracking: `uibcdf/depdigest#29`; source audit change: `uibcdf/depdigest#27`
+- Source version: `depdigest@0.14.0`
+- Publication tracking: `uibcdf/depdigest#35`; declaration-based registry: `uibcdf/depdigest#34`
 - Last source update: 2026-10-10
 - Consumer synchronization: audit delivery in `uibcdf/molsyssuite#95`;
   declaration-based registry admission/handoff in `uibcdf/molsyssuite#115`.
@@ -109,13 +107,14 @@ registry = LazyRegistry(
 
 ## 3. Advanced Integration
 
-### Declaration-based selective loading (unreleased)
+### Declaration-based selective loading (from 0.14.0)
 
 `DeclaredRegistry` is the opt-in provider capability requested in
 `uibcdf/depdigest#34`, with adoption and scientific parity in `uibcdf/molsysmt#382`.
-It is absent from public 0.13.0. Source experiments must identify an exact provider
-commit; public consumers must wait for a published version admitting the API before
-raising their dependency floor. No release is authorized by this request.
+Public consumers require published DepDigest >=0.14.0; 0.13.0 does not provide
+this API. Source experiments must identify an exact provider commit. Publication
+is tracked separately in `uibcdf/depdigest#35`; consumers retain responsibility
+for their own integration and dependency-floor change.
 
 ```python
 from depdigest import DeclaredRegistry

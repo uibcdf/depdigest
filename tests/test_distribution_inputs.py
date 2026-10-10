@@ -15,6 +15,39 @@ preflight = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(preflight)
 
 
+def test_windows_checkout_preserves_reviewed_workflow_bytes(tmp_path):
+    """Actual Git autocrlf checkout must preserve the bytes hashed by the SDK."""
+    source = tmp_path / "source"
+    source.mkdir()
+    workflow = Path(".github/workflows/CI_full_matrix.yaml")
+    destination = source / workflow
+    destination.parent.mkdir(parents=True)
+    expected = (ROOT / workflow).read_bytes()
+    destination.write_bytes(expected)
+    (source / ".gitattributes").write_bytes((ROOT / ".gitattributes").read_bytes())
+    for args in [
+        ["init", "-q"],
+        ["add", "."],
+        [
+            "-c",
+            "user.name=Test",
+            "-c",
+            "user.email=test@example.invalid",
+            "commit",
+            "-qm",
+            "fixture",
+        ],
+    ]:
+        subprocess.run(["git", *args], cwd=source, check=True, capture_output=True)
+    checkout = tmp_path / "checkout"
+    subprocess.run(
+        ["git", "-c", "core.autocrlf=true", "clone", "-q", str(source), str(checkout)],
+        check=True,
+        capture_output=True,
+    )
+    assert (checkout / workflow).read_bytes() == expected
+
+
 def test_qualification_cannot_hide_an_incomplete_installed_check():
     with pytest.raises(ValueError, match="qualification"):
         preflight.require_qualification(
@@ -177,6 +210,7 @@ def test_installed_failure_cannot_be_reported_as_verified(monkeypatch):
             "python",
         ),
         ("depdigest/cli.py", None, None, "depdigest/cli.py"),
+        ("depdigest/core/registry.py", None, None, "depdigest/core/registry.py"),
         (
             "pyproject.toml",
             'file = "depdigest/_version.py"',

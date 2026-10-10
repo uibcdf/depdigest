@@ -7,19 +7,29 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-10-10
+
 ### Added
 
 - `DeclaredRegistry`: opt-in identity declarations, metadata-only enumeration,
   selective filesystem/entry-point loading, explicit undeclared discovery, dynamic
   overrides and bounded retry/refresh policy (#34).
 
+### Fixed
+
+- Windows distribution preflight uses the reviewed portable-path SDK, with LF
+  workflow bytes preserved so exact hash checks remain enforced (#35).
+- Installed release qualification exercises the declaration-based registry and
+  an import-failing unrelated sentinel outside the source checkout.
+
 ### Migration Notes
 
 - `LazyRegistry` retains its first-access full scan. `DeclaredRegistry` implements
   `MutableMapping`; visible names can include implementations that fail to load.
   Value access raises `KeyError` with the cause; successful and failed loads are
-  cached. Public adoption requires the first published admitting version; 0.13.0
-  does not provide this API. No release is authorized by #34.
+  cached. Public adoption requires DepDigest >=0.14.0; 0.13.0 does not provide this API.
+  Consumer integration and scientific parity remain in MolSysMT #382 and
+  MolSysSuite #115.
 
 ## [0.13.0] - 2026-10-04
 

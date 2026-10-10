@@ -205,3 +205,10 @@ packaging and PyYAML are developer parser dependencies. Run
 When editing a workflow, review its actual installation route before updating its
 complete-byte hash. Never refresh hashes automatically in CI. Required public
 SMonitor is separate from optional engines and consumer source probes.
+
+For 0.14.0, the paired inventory/workflow SDK pin adopts the portable discovery
+correction in MolSysSuite #112. Git attributes preserve actual LF workflow bytes
+across checkouts; the shared checker still rejects changed hashes and missing or
+unclassified inputs. The installed gate additionally exercises `DeclaredRegistry`
+metadata/selective loading with a marker-backed unrelated sentinel, outside source.
+Publication and exact-file promotion are tracked in DepDigest #35.

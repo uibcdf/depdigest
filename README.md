@@ -11,7 +11,7 @@
 [![Conda](https://img.shields.io/conda/vn/uibcdf/depdigest)](https://anaconda.org/uibcdf/depdigest)
 [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22884368.svg)](https://doi.org/10.5281/zenodo.22884368)
 
-Coverage: DepDigest Python tests, uploaded by the routine Linux/Python 3.13 CI lane. The badge reflects the last uploaded report, which may lag later direct or skip-CI commits; it does not certify a full matrix or scientific correctness.
+Coverage: DepDigest Python tests, uploaded by the routine Linux/Python 3.14 CI lane. The badge reflects the last uploaded report, which may lag later direct or skip-CI commits; it does not certify a full matrix or scientific correctness.
 
 *Digesting dependencies into clear, actionable insight.*
 
@@ -24,6 +24,9 @@ It helps maintain a "Zero-Cost Startup" by ensuring that heavy external librarie
 Understand your dependencies. Trust your code.
 
 Current release line:
+- `0.14.0`: declaration-based selective plugin loading; publication and exact-file
+  qualification tracked in [#35](https://github.com/uibcdf/depdigest/issues/35)
+- `0.13.0`: module/class control-flow audits and explicit typing-guard handling
 - `0.12.0`: optional executable dependencies and truthful disabled installation
   routes; published after exact-source and installed-artifact gates
 - `0.11.2` improved dependency diagnostics and the guarded release routes
