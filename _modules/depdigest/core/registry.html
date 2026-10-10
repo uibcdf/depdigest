@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>depdigest.core.registry – DepDigest 0.14.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d5ef24d1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d5ef24d1" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+    <script src="../../../_static/documentation_options.js?v=9e420a66"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/depdigest/core/registry';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.14.0" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="DepDigest 0.14.0 documentation - Home"/>
+    <img src="../../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="DepDigest 0.14.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/user/index.html">
+    User
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/developers/index.html">
+    Developers
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/depdigest" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/user/index.html">
+    User
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/developers/index.html">
+    Developers
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/depdigest" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">depdigest.core.registry</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for depdigest.core.registry</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Declaration-based plugin lookup, independent of implementation imports."""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">MutableMapping</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">inspect</span><span class="w"> </span><span class="kn">import</span> <span class="n">currentframe</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.checker</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_dependency</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">resolve_config</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">_RegistrySupport</span><span class="p">,</span> <span class="n">import_module</span>
+
+
+<div class="viewcode-block" id="DeclaredRegistry">
+<a class="viewcode-back" href="../../../api/autosummary/depdigest.DeclaredRegistry.html#depdigest.DeclaredRegistry">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DeclaredRegistry</span><span class="p">(</span><span class="n">_RegistrySupport</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Map declared identities to selectively loaded implementations.</span>
+
+<span class="sd">    ``declarations`` is a mapping or iterable of ``(identity, plugin_key)`` pairs.</span>
+<span class="sd">    Keys/iteration/membership describe visible declarations, not successful imports.</span>
+<span class="sd">    Values/items load implementations as their views are iterated. Failed imports</span>
+<span class="sd">    raise KeyError with their cause retained; use ``retry`` to attempt them again.</span>
+<span class="sd">    """</span>
+
+<div class="viewcode-block" id="DeclaredRegistry.__init__">
+<a class="viewcode-back" href="../../../api/autosummary/depdigest.DeclaredRegistry.html#depdigest.DeclaredRegistry.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">package_prefix</span><span class="p">,</span>
+        <span class="n">directory</span><span class="p">,</span>
+        <span class="n">declarations</span><span class="p">,</span>
+        <span class="n">attr_name</span><span class="o">=</span><span class="s2">"form_name"</span><span class="p">,</span>
+        <span class="n">discovery_mode</span><span class="o">=</span><span class="s2">"filesystem"</span><span class="p">,</span>
+        <span class="n">entrypoint_group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">discovery_mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"filesystem"</span><span class="p">,</span> <span class="s2">"entry_points"</span><span class="p">}:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"discovery_mode must be 'filesystem' or 'entry_points'"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">discovery_mode</span> <span class="o">==</span> <span class="s2">"entry_points"</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">entrypoint_group</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"entrypoint_group is required for entry_points"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_package_prefix</span> <span class="o">=</span> <span class="n">package_prefix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_directory</span> <span class="o">=</span> <span class="n">directory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attr_name</span> <span class="o">=</span> <span class="n">attr_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_discovery_mode</span> <span class="o">=</span> <span class="n">discovery_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_entrypoint_group</span> <span class="o">=</span> <span class="n">entrypoint_group</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">declarations</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">declarations</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">)</span> <span class="k">else</span> <span class="n">declarations</span>
+        <span class="p">)</span>
+        <span class="n">plugins</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">identity</span><span class="p">,</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">identity</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">identity</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Declared identities must be nonempty strings"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">plugin</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Plugin keys must be nonempty strings"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">discovery_mode</span> <span class="o">==</span> <span class="s2">"filesystem"</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">plugin</span><span class="o">.</span><span class="n">isidentifier</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Filesystem plugin keys must be package names"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">identity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span> <span class="ow">or</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="n">plugins</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Duplicate identity or plugin declaration"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span><span class="p">[</span><span class="n">identity</span><span class="p">]</span> <span class="o">=</span> <span class="n">plugin</span>
+            <span class="n">plugins</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">plugin</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_failures</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_discovery_failures</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loading_plugins</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_entrypoint_snapshot</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_trigger</span> <span class="o">=</span> <span class="s2">"&lt;direct load&gt;"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_caller</span> <span class="o">=</span> <span class="s2">"&lt;unknown&gt;"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_failure_caller</span> <span class="o">=</span> <span class="s2">"&lt;unknown&gt;"</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="n">resolve_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_package_prefix</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span>
+            <span class="nb">tuple</span><span class="p">(</span>
+                <span class="n">key</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">((</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span>
+                <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_allowed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">cfg</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_allowed</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">resolve_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_package_prefix</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">declared_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Return all declared identities, including currently hidden ones."""</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">loaded_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Return visible identities with a cached implementation or override."""</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="ow">or</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_failures</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">self._failures</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">currentframe</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">caller</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_back</span> <span class="k">if</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">f_lineno</span><span class="si">}</span><span class="s2">"</span>
+                <span class="k">if</span> <span class="n">caller</span>
+                <span class="k">else</span> <span class="s2">"&lt;unknown&gt;"</span>
+            <span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">frame</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_candidates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_discovery_mode</span> <span class="o">==</span> <span class="s2">"filesystem"</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_directory</span><span class="p">):</span>
+                <span class="k">return</span> <span class="p">[]</span>
+            <span class="k">with</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_directory</span><span class="p">)</span> <span class="k">as</span> <span class="n">entries</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span>
+                    <span class="n">entry</span><span class="o">.</span><span class="n">name</span>
+                    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span>
+                    <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span> <span class="ow">and</span> <span class="n">entry</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"__pycache__"</span>
+                <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entrypoint_snapshot</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_entrypoint_snapshot</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_resolve_entry_points</span><span class="p">())</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">({</span><span class="n">ep</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entrypoint_snapshot</span><span class="p">})</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_implementation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plugin</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_discovery_mode</span> <span class="o">==</span> <span class="s2">"filesystem"</span><span class="p">:</span>
+            <span class="c1"># Import only an immediate plugin of the supplied directory.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_directory</span><span class="p">,</span> <span class="n">plugin</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"No filesystem plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">module</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_package_prefix</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s2">"</span>
+            <span class="k">return</span> <span class="n">import_module</span><span class="p">(</span><span class="n">module</span><span class="p">),</span> <span class="n">module</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_candidates</span><span class="p">()</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">ep</span> <span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entrypoint_snapshot</span> <span class="k">if</span> <span class="n">ep</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">plugin</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Expected one entry point named </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s2">; found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+        <span class="n">ep</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">ep</span><span class="o">.</span><span class="n">load</span><span class="p">(),</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ep</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">,</span> <span class="n">ep</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">trigger</span><span class="p">,</span> <span class="n">caller</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">undeclared</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">plugin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">undeclared</span> <span class="k">else</span> <span class="n">key</span>
+        <span class="k">if</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loading_plugins</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Recursive load of plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_trigger</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_caller</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_failure_caller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_trigger</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_caller</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_failure_caller</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">trigger</span><span class="p">,</span>
+            <span class="n">caller</span><span class="p">,</span>
+            <span class="n">caller</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loading_plugins</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">plugin</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cfg</span> <span class="o">=</span> <span class="n">resolve_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_package_prefix</span><span class="p">)</span>
+            <span class="n">library</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">plugin</span><span class="p">)</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">libraries</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">library</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="k">if</span> <span class="n">library</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"type"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"soft"</span><span class="p">:</span>
+                <span class="n">check_dependency</span><span class="p">(</span>
+                    <span class="n">library</span><span class="p">,</span>
+                    <span class="n">pypi_name</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"pypi"</span><span class="p">),</span>
+                    <span class="n">conda_name</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"conda"</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">]),</span>
+                    <span class="n">conda_channel</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"channel"</span><span class="p">),</span>
+                    <span class="n">doc_url</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">doc_url</span><span class="p">,</span>
+                    <span class="n">exception_class</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">exception_class</span><span class="p">,</span>
+                    <span class="n">caller</span><span class="o">=</span><span class="n">caller</span><span class="p">,</span>
+                    <span class="n">kind</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"kind"</span><span class="p">,</span> <span class="s2">"python"</span><span class="p">),</span>
+                    <span class="n">executable</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"executable"</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="n">implementation</span><span class="p">,</span> <span class="n">module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_implementation</span><span class="p">(</span><span class="n">plugin</span><span class="p">)</span>
+            <span class="n">identity</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">implementation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attr_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_discovery_mode</span> <span class="o">==</span> <span class="s2">"entry_points"</span><span class="p">:</span>
+                <span class="n">identity</span> <span class="o">=</span> <span class="n">identity</span> <span class="ow">or</span> <span class="n">plugin</span>
+            <span class="k">if</span> <span class="n">undeclared</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">identity</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">identity</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s2"> has no identity"</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">identity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span> <span class="ow">or</span> <span class="n">identity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s2"> duplicates identity </span><span class="si">{</span><span class="n">identity</span><span class="si">!r}</span><span class="s2">"</span>
+                    <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span><span class="p">[</span><span class="n">identity</span><span class="p">]</span> <span class="o">=</span> <span class="n">plugin</span>
+            <span class="k">elif</span> <span class="n">identity</span> <span class="o">!=</span> <span class="n">key</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Declared identity </span><span class="si">{</span><span class="n">key</span><span class="si">!r}</span><span class="s2"> disagrees with </span><span class="si">{</span><span class="n">identity</span><span class="si">!r}</span><span class="s2">"</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">[</span><span class="n">identity</span><span class="p">]</span> <span class="o">=</span> <span class="n">implementation</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_emit_plugin_loaded</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">identity</span><span class="p">,</span> <span class="n">implementation</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">undeclared</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_discovery_failures</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">plugin</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_failures</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">error</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_emit_plugin_load_failed</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">error</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_loading_plugins</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">plugin</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_load_trigger</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_caller</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_failure_caller</span> <span class="o">=</span> <span class="n">previous</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">retry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Clear a recorded failure and request the identity again."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_failures</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Forget failed loads and entry-point metadata, retaining implementations.</span>
+
+<span class="sd">        Config overrides are resolved on every access. Python dependency discovery</span>
+<span class="sd">        still uses ``is_installed``'s cache; clear that separately after installation.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_failures</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_discovery_failures</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_entrypoint_snapshot</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">discover</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Explicitly import eligible undeclared plugins and add their identities.</span>
+
+<span class="sd">        Candidates are ordered by plugin key. The first discovered identity wins;</span>
+<span class="sd">        duplicate identities and load failures are diagnosed and skipped. Repeated</span>
+<span class="sd">        calls skip successful declarations and failures until ``refresh()``.</span>
+<span class="sd">        """</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="n">resolve_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_package_prefix</span><span class="p">)</span>
+        <span class="n">declared_plugins</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_candidates</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">plugin</span> <span class="ow">in</span> <span class="n">declared_plugins</span>
+                <span class="ow">or</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_discovery_failures</span>
+                <span class="ow">or</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loading_plugins</span>
+            <span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_allowed</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_load</span><span class="p">(</span>
+                    <span class="n">plugin</span><span class="p">,</span> <span class="s2">"discover()"</span><span class="p">,</span> <span class="s2">"DeclaredRegistry.discover"</span><span class="p">,</span> <span class="n">undeclared</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">declared_keys</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">key</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Registry identities must be nonempty strings"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_failures</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_failures</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Remove declarations, overrides and caches without importing plugins."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_declarations</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overrides</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_failures</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_discovery_failures</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/depdigest">DepDigest is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/depdigest/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.23.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
