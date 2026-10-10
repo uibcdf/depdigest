@@ -1,13 +1,13 @@
 ---
 summary: Discover declared plugin identities without importing unrelated implementations.
 issue: uibcdf/depdigest#34
-status: open
+status: resolved
 opened: 2026-10-10
-closed:
+closed: 2026-10-10
 severity: medium
 verification: reproduced
 area: [loader, public-api]
-guard:
+guard: tests/test_declared_registry.py::test_metadata_and_requested_load_leave_unrelated_sentinel_unimported
 normative:
 blocked_by: []
 supersedes: []
@@ -61,3 +61,36 @@ The shared impact record is `uibcdf/molsyssuite#115`; it will link the exact
 provider source and consumer handoff.
 The canonical guide and `docs/content/user/declared-registry.md` define the admission
 boundary. Runtime adoption and guide delivery are independent follow-up states.
+
+## Resolution — 2026-10-10
+
+Implemented in `0887c41793582603eb3b1dc3ea70c995c4e71b13`. The guard creates an
+unrelated plugin that raises on import, verifies metadata without imports, requests
+only the target and asserts that the sentinel never enters `sys.modules`. This
+protects the consumer's unnecessary whole-registry initialization mechanism.
+The remaining contracts are covered by `tests/test_declared_registry.py` and the
+unchanged legacy registry tests in `tests/test_core.py`.
+
+Qualification:
+
+- Linux Python 3.14.7: `python -m pytest --receptor=llm tests`, 235 passed,
+  no skips, against clean SDK `1f753e318d8dfa43c5bae1fa127e30ea86fa93b6`.
+- Linux Python 3.11.16, 3.12.12 and 3.13.14: 74 directed registry/core/public
+  API/import contracts passed per interpreter. Python 3.12 used native pytest
+  because the existing environment lacks pytest-receptor; its warning about
+  `receptor_rerun_command` is retained, not represented as a receptor pass.
+- Source CI `38052403367` passed on the exact implementation SHA. Conda publication
+  governance `38052403675` passed. Initial policy `38052403686` failed only on Python
+  code-block formatting in the new documentation; the closeout formats both blocks
+  and requires a subsequent policy pass before closing the GitHub issue.
+- Sphinx HTML built successfully with two existing `myst.header` warnings in
+  `docs/index.md:33,39`; strict `-W` therefore fails. Validation labels the build
+  `unreleased-issue34`, independently of the stale ignored local version file.
+- Ruff lint, full-tree formatting and report-index checks are required at closeout.
+
+Handoffs: MolSysMT #382 comment `6097540923`, ElastNetMT #26 comment `6097545003`
+and MolSysSuite #115 comment `6097541204`. They retain public-admission and consumer
+validation ownership. No consumer implementation, dependency floor, tag, release
+or candidate artifact was changed. The existing Windows preflight rejection remains
+separate in DepDigest #30 / MolSysSuite #112; these results do not certify a green
+OS matrix or installed/public artifacts.

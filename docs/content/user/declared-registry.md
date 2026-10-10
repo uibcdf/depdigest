@@ -19,9 +19,9 @@ formats = DeclaredRegistry(
     attr_name="format_name",
 )
 
-list(formats.keys())      # visible names; no implementation imports
+list(formats.keys())  # visible names; no implementation imports
 formats.declared_keys()  # all declarations, including hidden optional formats
-formats.loaded_keys()    # visible successful caches and manual overrides
+formats.loaded_keys()  # visible successful caches and manual overrides
 native = formats["native"]  # imports only native_form
 ```
 

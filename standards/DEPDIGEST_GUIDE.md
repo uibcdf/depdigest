@@ -121,11 +121,13 @@ raising their dependency floor. No release is authorized by this request.
 from depdigest import DeclaredRegistry
 
 formats = DeclaredRegistry(
-    "my_pkg.formats", "/path/to/my_pkg/formats",
-    declarations={"native": "native_form"}, attr_name="format_name",
+    "my_pkg.formats",
+    "/path/to/my_pkg/formats",
+    declarations={"native": "native_form"},
+    attr_name="format_name",
 )
 names = list(formats.keys())  # metadata; no implementation imports
-native = formats["native"]   # only the requested plugin loads
+native = formats["native"]  # only the requested plugin loads
 ```
 
 The host owns canonical declarations, aliases, catalogue parsing and argument/
