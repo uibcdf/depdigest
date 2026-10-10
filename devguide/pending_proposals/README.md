@@ -8,11 +8,10 @@ generated from report metadata.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (2)
 
 - [`decorator_fast_path_and_observability_boundary.md`](decorator_fast_path_and_observability_boundary.md) — [#6](https://github.com/uibcdf/depdigest/issues/6) — Evaluate an epoch-cached decorator fast path and its observability cost. *(open, measured)*
 - [`mapped_dependency_declaration.md`](mapped_dependency_declaration.md) — [#8](https://github.com/uibcdf/depdigest/issues/8) — Declare mapped optional dependencies through one conditional wrapper. *(open, measured)*
-- [`publish_declared_registry_0.14.0.md`](publish_declared_registry_0.14.0.md) — [#35](https://github.com/uibcdf/depdigest/issues/35) — Publish the qualified declaration-based registry as DepDigest 0.14.0. *(open, reproduced)*
 
 <!-- /generated -->
 

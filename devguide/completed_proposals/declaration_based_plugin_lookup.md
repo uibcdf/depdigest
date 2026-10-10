@@ -94,3 +94,16 @@ validation ownership. No consumer implementation, dependency floor, tag, release
 or candidate artifact was changed. The existing Windows preflight rejection remains
 separate in DepDigest #30 / MolSysSuite #112; these results do not certify a green
 OS matrix or installed/public artifacts.
+
+## Public admission update — 2026-10-10
+
+The separate, explicitly authorized publication in DepDigest #35 is complete.
+Stable `0.14.0` identifies candidate `affd73ef04070a9bf492173c0db615292a73e5d1`.
+The twelve-cell source and installed matrices passed after receiving the portable
+SDK correction with LF workflow-byte preservation. The single staging archive
+was promoted unchanged and its public main record, solver index, downloaded hash
+and clean public installation were independently verified. The
+[release receipt](../evidence/release_0.14.0_2026-10-10.json) records that later
+publication evidence; the source-only resolution above remains historical.
+The public capability floor is now DepDigest >=0.14.0. MolSysMT #382 and
+MolSysSuite #115 still own consumer adoption and scientific/performance evidence.

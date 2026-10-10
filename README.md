@@ -24,8 +24,9 @@ It helps maintain a "Zero-Cost Startup" by ensuring that heavy external librarie
 Understand your dependencies. Trust your code.
 
 Current release line:
-- `0.14.0`: declaration-based selective plugin loading; publication and exact-file
-  qualification tracked in [#35](https://github.com/uibcdf/depdigest/issues/35)
+- [`0.14.0`](https://github.com/uibcdf/depdigest/releases/tag/0.14.0): published
+  declaration-based selective plugin loading; source and installed qualification
+  recorded in [#35](https://github.com/uibcdf/depdigest/issues/35)
 - `0.13.0`: module/class control-flow audits and explicit typing-guard handling
 - `0.12.0`: optional executable dependencies and truthful disabled installation
   routes; published after exact-source and installed-artifact gates

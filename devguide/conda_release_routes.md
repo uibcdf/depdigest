@@ -231,14 +231,33 @@ and promotion `37194867340`. Its file `depdigest-0.13.0-py_0.tar.bz2` retains
 SHA-256 `e011d725c8a831ae46cd6b8d114185d04248e32b4d6701c70f988d19cc69f67b`.
 Do not reconstruct, overwrite or republish it to exercise new source guards.
 
-## 0.14.0 declaration-based registry candidate
+## 0.14.0 declaration-based registry public poststate — 2026-10-10
 
-DepDigest #35 owns the explicitly authorized 0.14.0 publication. The staged build
-starts at `py_0`. The final candidate includes the paired portable SDK correction,
-LF workflow-byte preservation, reviewed route hashes and the new required registry
-resource. Qualify all twelve source cells and policy before staging. The installed
-verifier exercises the public `DeclaredRegistry` contract with an unrelated sentinel
-whose marker records even a suppressed import failure. Qualify all twelve installed
-cells, then tag that same source and promote exactly the digest-verified file.
-Public API admission is >=0.14.0 after publication; MolSysMT #382 owns consumer
-integration and scientific parity. Candidate preparation alone is not publication.
+DepDigest #35 records the authorized publication of stable `0.14.0` at candidate
+`affd73ef04070a9bf492173c0db615292a73e5d1`. Source matrix `38059326760`
+passed all twelve cells, source policy `38059299168` and tag policy `38063810826`
+passed. The candidate pairs portable SDK `6d6172d6cd00c5ac2d4ebadb71df554ec5b7fa26`
+with actual LF workflow-byte preservation, reviewed route hashes and the new
+required registry resource. All four Windows preflight/import/test cells passed.
+
+Producer `38059892340` built `depdigest-0.14.0-py_0.tar.bz2` once in staging,
+SHA-256 `3622a95cfb45871c3eed2709b38fc3f5b683b8b73555c1d91253b4b7080737d5`.
+Installed run `38060431615` verified producer identity and all twelve clean
+off-checkout installations, including declaration metadata, selective loading,
+caching and an unrelated sentinel that exposes suppressed failed imports.
+This is the maintained installed smoke profile, rather than full installed pytest.
+
+The annotated tag and stable GitHub Release resolve to the same candidate.
+Release route selection `38063824361` correctly skipped its uploader for the
+staged plan. Promotion `38063846322` added main to the original file and retained
+staging; independent registry/main solver-index and downloaded-file checks agree
+on its digest. A clean public-only-channel Linux/Python 3.14.8 installation with
+public SMonitor 0.16.0 `py_1` passed version, provenance, CLI, engine, audit and
+new registry contracts. The [normalized release receipt](evidence/release_0.14.0_2026-10-10.json)
+retains native job/step identities and publication evidence.
+
+Documentation deployed successfully and its public guide renders 0.14.0.
+Zenodo independently verified source-snapshot DOI `10.5281/zenodo.23284363`;
+the ZIP download matched size and checksum. Public API admission is now >=0.14.0.
+MolSysMT #382 owns consumer integration and scientific/performance qualification;
+MolSysSuite #115 retains impact coordination.
