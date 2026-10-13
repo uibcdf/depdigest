@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import importlib.metadata
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -176,18 +177,22 @@ def verify_installed(
 def verify_concurrent_registry_contract() -> None:
     """Check installed concurrent readers in a process with a deadlock timeout."""
     probe = Path(__file__).with_name("concurrent_registry_probe.py")
-    result = subprocess.run(
-        [sys.executable, "-I", str(probe)],
-        capture_output=True,
-        text=True,
-        timeout=30,
-    )
-    _require(
-        result.returncode == 0,
-        "Installed concurrent registry contract failed: "
-        + result.stdout
-        + result.stderr,
-    )
+    # A killed child cannot run finalizers; the parent owns its fixture root.
+    with tempfile.TemporaryDirectory() as temporary:
+        environment = dict(os.environ, TMPDIR=temporary, TEMP=temporary, TMP=temporary)
+        result = subprocess.run(
+            [sys.executable, "-I", str(probe)],
+            capture_output=True,
+            text=True,
+            timeout=30,
+            env=environment,
+        )
+        _require(
+            result.returncode == 0,
+            "Installed concurrent registry contract failed: "
+            + result.stdout
+            + result.stderr,
+        )
 
 
 def verify_adapter_inspection_contract() -> None:

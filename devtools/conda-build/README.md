@@ -33,4 +33,5 @@ exercises strict/adapter and filesystem/entry-point readers, shared results and
 failure causes, explicit retry, real recursion and an unrelated sentinel. Events
 observe actual lock contention rather than a scheduling sleep. The subprocess
 imports the selected environment's package, never the checked-out library.
-Private fixture paths/modules are scoped to that process and retired on exit.
+The parent owns a private temporary root for child fixtures and retires it on
+success, failure or timeout, even when a killed child cannot run its finalizers.

@@ -219,6 +219,10 @@ def test_adapter_inspection_gate_rejects_suppressed_unrelated_import(monkeypatch
             verifier.verify_adapter_inspection_contract,
             "Installed adapter metadata mismatch",
         ),
+        (
+            verifier.verify_concurrent_registry_contract,
+            "Installed concurrent registry contract failed",
+        ),
     ],
 )
 @pytest.mark.parametrize("fail", [False, True])
@@ -241,7 +245,7 @@ def test_private_gate_fixture_cleanup_preserves_caller_state(
         return context
 
     def require(condition, message):
-        if fail and message == failure_point:
+        if fail and message.startswith(failure_point):
             raise ValueError("injected gate failure")
         return real_require(condition, message)
 
@@ -382,10 +386,14 @@ def test_concurrent_registry_gate_checks_installed_reader_contract():
     verifier.verify_concurrent_registry_contract()
 
 
-def test_concurrent_registry_probe_bounds_a_regressed_nonreentrant_lock():
+def test_concurrent_registry_probe_bounds_a_regressed_nonreentrant_lock(
+    tmp_path, monkeypatch
+):
     import subprocess
 
-    probe = SCRIPT.with_name("concurrent_registry_probe.py")
+    paths = []
+    real_temporary = verifier.tempfile.TemporaryDirectory
+    real_run = verifier.subprocess.run
     script = """
 import runpy
 import sys
@@ -394,10 +402,18 @@ from depdigest.core import registry
 registry.RLock = Lock
 runpy.run_path(sys.argv[1], run_name='__main__')
 """
+
+    def private_temporary(*args, **kwargs):
+        context = real_temporary(*args, dir=tmp_path, **kwargs)
+        paths.append(Path(context.name))
+        return context
+
+    def regressed_probe(arguments, **kwargs):
+        kwargs["timeout"] = 3
+        return real_run([sys.executable, "-I", "-c", script, arguments[-1]], **kwargs)
+
+    monkeypatch.setattr(verifier.tempfile, "TemporaryDirectory", private_temporary)
+    monkeypatch.setattr(verifier.subprocess, "run", regressed_probe)
     with pytest.raises(subprocess.TimeoutExpired):
-        subprocess.run(
-            [sys.executable, "-I", "-c", script, str(probe)],
-            capture_output=True,
-            text=True,
-            timeout=3,
-        )
+        verifier.verify_concurrent_registry_contract()
+    assert paths and all(not path.exists() for path in paths)

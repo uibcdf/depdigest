@@ -75,3 +75,28 @@ formatting and report indexes pass.
 The installed probe's positive contract succeeds. A non-reentrant Lock mutation
 is killed by its bounded process control, rather than hanging the test worker.
 No shared environment or primary editable version metadata was changed.
+
+
+## Qualification correction — 2026-10-13
+
+The first source candidate c90edca passes routine CI, policy and governance,
+and eight Linux/Windows full-matrix cells; four macOS cells are queued. Review
+found the bounded negative probe could leave child fixtures after killing a
+non-reentrant-lock regression. The parent now owns the child's temporary root
+and removes it after success, failure and timeout. Cleanup guards exercise
+success/injected failure and actual killed-child retirement. This is a verifier
+lifecycle correction, not a runtime change; the candidate and full matrix are
+reset before public admission. Earlier partial source evidence is superseded.
+
+
+After that correction, the complete private suite passes 300 cases with the same
+five sibling omissions. Positive/injected-failure/actual killed-child controls
+verify parent-owned retirement. The two identified local pre-correction fixture
+roots were retired after matching their unique probe signature and checking no
+active reference; caller/shared resources were preserved.
+
+A bounded local warm-getter measurement (Linux/Python 3.14.8, empty explicit
+configuration, seven repeats of 100000 calls) gives baseline median 0.417 us and
+RLock median 0.587 us, a 0.170 us increase. This small synthetic cost and coarse
+serialization are accepted for coherent initialization. It is not a consumer
+throughput/speed result; consumers own later measurements.
