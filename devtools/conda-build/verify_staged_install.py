@@ -169,6 +169,25 @@ def verify_installed(
         verify_declared_registry_contract()
     if tuple(map(int, version.split("."))) >= (0, 15, 0):
         verify_adapter_inspection_contract()
+    if tuple(map(int, version.split("."))) >= (0, 15, 1):
+        verify_concurrent_registry_contract()
+
+
+def verify_concurrent_registry_contract() -> None:
+    """Check installed concurrent readers in a process with a deadlock timeout."""
+    probe = Path(__file__).with_name("concurrent_registry_probe.py")
+    result = subprocess.run(
+        [sys.executable, "-I", str(probe)],
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    _require(
+        result.returncode == 0,
+        "Installed concurrent registry contract failed: "
+        + result.stdout
+        + result.stderr,
+    )
 
 
 def verify_adapter_inspection_contract() -> None:

@@ -8,7 +8,7 @@ template for native packages. Python 3.14 preparation is tracked in
 ## Decide before tagging
 
 The release owner completes `devtools/conda-build/release_plan.toml` **in the
-candidate commit**. The current `0.15.0` plan selects the `staged` route; this
+candidate commit**. The current `0.15.1` plan selects the `staged` route; this
 decision does not publish or promote a package. For a later version, reset and
 review `version`, `build_number`, `route`, `reason`, `decision_by`,
 `required_workflows` and their explicit `gate_jobs`

@@ -1,9 +1,9 @@
 # Reviewed candidate decision. No public tag or promotion is authorized by this file.
-version = "0.15.0"
+version = "0.15.1"
 build_number = 0
 route = "staged"
-reason = "Qualify explicit selective adapter inspection with absent engines on all source and clean installed cells, then promote the same verified archive while MolSysMT adoption remains independent."
-decision_by = "Diego-authorized 0.15.0 publication, 2026-10-13 (uibcdf/depdigest#37)"
+reason = "Qualify overlapping declared value requests, real recursion and shared failures on all source and clean installed cells; promote the same archive before MolSysMT adoption."
+decision_by = "Diego request to address #39 including its public-admission acceptance, 2026-10-13 (uibcdf/depdigest#39)"
 required_workflows = [".github/workflows/CI_full_matrix.yaml", ".github/workflows/molsyssuite-policy.yml"]
 
 # Prospective exact-source controls; original 0.13.0 evidence remains separate.

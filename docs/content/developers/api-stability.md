@@ -78,6 +78,14 @@ identity, caching and execution guards retain their contracts. Public 0.14.0 doe
 not accept this option. Public adoption requires admitted DepDigest >=0.15.0, tracked in #37; controlled
 source pins alone do not establish publication or consumer conversion parity.
 
+From 0.15.1, #39 serializes overlapping declared value requests on a shared
+`DeclaredRegistry` through initialization. Waiters share the cached value or
+failure cause; genuine recursion still fails. The constructor, defaults and
+legacy registry remain unchanged. Mutation/discovery/configuration changes and
+arbitrary cross-registry cycles require separate coordination. See the bounded
+[concurrent reader contract](../user/declared-registry.md).
+Public use requires admitted DepDigest >=0.15.1; source-only checks do not admit it.
+
 Before changing public behavior:
 - add/update contract tests first;
 - update this page and `standards/DEPDIGEST_GUIDE.md`;

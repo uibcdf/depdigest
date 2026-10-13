@@ -81,8 +81,8 @@ clears one failure and requests it again. `refresh()` clears failures and the re
 entry-point snapshot, retaining declarations, overrides and successful implementations.
 Repeat `discover()` skips failures until refresh. A removed entry point with an already
 cached implementation remains usable. Refresh does not unload/reimport modules.
-Same-plugin recursive loads raise `KeyError`; independent nested loads work. Loading
-is synchronous without concurrent-access synchronization.
+Same-plugin recursive loads raise `KeyError`; independent nested loads work.
+The supported concurrent reader scope is defined below.
 
 Each access or enumeration resolves current package configuration. Registered and
 temporary overrides affect an existing registry. Restricted soft capabilities are
@@ -148,3 +148,29 @@ This option is **not in published 0.14.0**. Public consumers require DepDigest
 publication proof. Source experiments must pin the implementation commit. Source
 checks, provider publication, MolSysMT #382 adoption/conversion parity and speed
 measurements remain separate, coordinated in MolSysSuite #115.
+
+
+## Concurrent declared value requests (from 0.15.1, #39)
+
+On one shared registry, overlapping declared value requests wait for initialization
+and share the same cached implementation or failure cause. A failed request stays
+cached until an explicit retry/refresh. The guarantee covers strict and adapter
+policies, with filesystem and entry-point discovery. Unrelated plugins stay lazy;
+load diagnostics retain the initiating request's identity and call site.
+
+A reentrant lock serializes each value request through initialization, including
+requests for different identities and cached values. Same-thread recursion into
+the loading plugin still fails with `KeyError`; independent nested loads work.
+Initialization remains synchronous. An initializer must not wait for another
+thread that needs the same registry while it holds this lock.
+
+Mutation, `discover()`, `retry()`, `refresh()`, declaration/configuration changes
+and their overlap with readers require external exclusive coordination. Metadata
+and views do not provide atomic multi-operation snapshots. Arbitrary cyclic
+cross-registry or cross-thread import interactions are outside this guarantee.
+`LazyRegistry` retains its existing contract.
+
+Public adoption requires admitted DepDigest >=0.15.1, tracked in #39. Published
+0.15.0 has no concurrent-access synchronization. Source qualification and public
+admission precede MolSysMT #382 adoption; neither establishes consumer conversion
+or scientific parity.

@@ -8,6 +8,10 @@ generated from report metadata.
 
 <!-- generated: devguide_index -->
 
+### Active (1)
+
+- [`concurrent_declared_registry_requests.md`](concurrent_declared_registry_requests.md) — [#39](https://github.com/uibcdf/depdigest/issues/39) — Serialize concurrent declared adapter requests without false recursion errors. *(active, reproduced)*
+
 ### Open (2)
 
 - [`decorator_fast_path_and_observability_boundary.md`](decorator_fast_path_and_observability_boundary.md) — [#6](https://github.com/uibcdf/depdigest/issues/6) — Evaluate an epoch-cached decorator fast path and its observability cost. *(open, measured)*

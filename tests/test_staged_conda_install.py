@@ -376,3 +376,28 @@ def test_installed_gate_rejects_wrong_artifact_or_dependency_source(
             0,
             f"{sys.version_info.major}.{sys.version_info.minor}",
         )
+
+
+def test_concurrent_registry_gate_checks_installed_reader_contract():
+    verifier.verify_concurrent_registry_contract()
+
+
+def test_concurrent_registry_probe_bounds_a_regressed_nonreentrant_lock():
+    import subprocess
+
+    probe = SCRIPT.with_name("concurrent_registry_probe.py")
+    script = """
+import runpy
+import sys
+from threading import Lock
+from depdigest.core import registry
+registry.RLock = Lock
+runpy.run_path(sys.argv[1], run_name='__main__')
+"""
+    with pytest.raises(subprocess.TimeoutExpired):
+        subprocess.run(
+            [sys.executable, "-I", "-c", script, str(probe)],
+            capture_output=True,
+            text=True,
+            timeout=3,
+        )

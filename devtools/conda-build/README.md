@@ -25,3 +25,12 @@ for the route checker and public-verification commands.
 
 Do not use `--force`, rebuild a staged filename for another label, or place the
 staging channel ahead of the public channel in ordinary consumer environments.
+
+
+From 0.15.1, the installed verifier runs `concurrent_registry_probe.py` in an
+isolated subprocess with a 30-second deadlock bound. Its reusable operation
+exercises strict/adapter and filesystem/entry-point readers, shared results and
+failure causes, explicit retry, real recursion and an unrelated sentinel. Events
+observe actual lock contention rather than a scheduling sleep. The subprocess
+imports the selected environment's package, never the checked-out library.
+Private fixture paths/modules are scoped to that process and retired on exit.

@@ -7,6 +7,26 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+## [0.15.1] - 2026-10-13
+
+### Fixed
+
+- Overlapping declared value requests on one `DeclaredRegistry` share one
+  initialization and its cached value or failure cause, instead of reporting
+  false recursion (#39). Both strict/adapter policies and filesystem/entry-point
+  discovery routes are covered. Genuine same-thread recursion still fails.
+- Conda descriptive metadata now identifies DepDigest rather than a copied
+  project (#38); dependency requirements and generated environments are unchanged.
+
+### Migration Notes
+
+- Concurrent declared value requests require admitted DepDigest >=0.15.1.
+  Initialization is serialized per registry, including requests for different
+  identities. Coordinate mutation, discovery, refresh/retry and configuration
+  changes externally. Initializers must not wait for another thread needing the
+  same registry; arbitrary cross-registry cycles are outside this contract.
+  MolSysMT owns later integration and scientific/conversion parity.
+
 ## [0.15.0] - 2026-10-13
 
 ### Added

@@ -3,6 +3,7 @@
 import os
 from collections.abc import Mapping, MutableMapping
 from inspect import currentframe
+from threading import RLock
 
 from .checker import check_dependency
 from .config import resolve_config
@@ -20,6 +21,8 @@ class DeclaredRegistry(_RegistrySupport, MutableMapping):
     Explicit ``load_policy="adapter"`` permits Python adapter inspection without
     that precheck. Visibility still follows current configuration, and execution
     checks remain the host's responsibility. Importability is not availability.
+    Concurrent value requests serialize through initialization on this registry.
+    Mutation/discovery/configuration changes require external coordination.
     """
 
     def __init__(
@@ -62,6 +65,7 @@ class DeclaredRegistry(_RegistrySupport, MutableMapping):
             self._declarations[identity] = plugin
             plugins.add(plugin)
         self._loaded = {}
+        self._access_lock = RLock()
         self._overrides = {}
         self._failures = {}
         self._discovery_failures = set()
@@ -103,25 +107,28 @@ class DeclaredRegistry(_RegistrySupport, MutableMapping):
         )
 
     def __getitem__(self, key):
-        if key in self._overrides:
-            return self._overrides[key]
-        if key not in self:
-            raise KeyError(key)
-        if key in self._loaded:
-            return self._loaded[key]
-        if key in self._failures:
-            raise KeyError(key) from self._failures[key]
-        frame = currentframe()
-        try:
-            caller = frame.f_back if frame is not None else None
-            location = (
-                f"{caller.f_code.co_filename}:{caller.f_lineno}"
-                if caller
-                else "<unknown>"
-            )
-        finally:
-            del frame
-        return self._load(key, key, location)
+        # Hold through initialization so another reader sees its value or cause.
+        # Reentrancy lets the existing loading guard reject same-thread cycles.
+        with self._access_lock:
+            if key in self._overrides:
+                return self._overrides[key]
+            if key not in self:
+                raise KeyError(key)
+            if key in self._loaded:
+                return self._loaded[key]
+            if key in self._failures:
+                raise KeyError(key) from self._failures[key]
+            frame = currentframe()
+            try:
+                caller = frame.f_back if frame is not None else None
+                location = (
+                    f"{caller.f_code.co_filename}:{caller.f_lineno}"
+                    if caller
+                    else "<unknown>"
+                )
+            finally:
+                del frame
+            return self._load(key, key, location)
 
     def _candidates(self):
         if self._discovery_mode == "filesystem":
