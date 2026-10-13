@@ -62,7 +62,7 @@ reason = "Routine strict public Linux/Python 3.14, default installed-bound prefl
 
 [[workflows]]
 path = ".github/workflows/CI_full_matrix.yaml"
-sha256 = "27da16ddcc237ac3516afe5feccabbebaa848489d0a8bcf693c21a68b2a57bc9"
+sha256 = "0e3db1225ae3641421f31f94b73d9ee7e71ef3dc14d9e06c6815135f0aedd79c"
 reason = "Twelve strict public source cells with default preflight; separate backlog/recovery job does not replace executed scientific jobs"
 
 [[workflows]]

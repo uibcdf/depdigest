@@ -122,3 +122,20 @@ All gates reset on the resulting exact candidate. Public tagging/admission still
 awaits executed source and installed matrices. Responsible maintainer: Diego;
 operational runner selection can be reviewed at the next release using actual
 queue/runtime evidence. Shared coordination is recorded in MolSysSuite #115.
+
+
+The initial runner-selection commit 1f8911d fails one existing matrix guard that
+still expects the old label (`test_python314_candidate_contract.py`); routine CI
+38458737813 records 299 passes, five omissions and that one failure. Correct the
+expected label consistently and run the whole private suite before fixing the
+next candidate. This test failure is retained and cannot qualify publication.
+
+
+The replaced matrix 38452565534 did not respond to normal cancellation. Its
+`always()` full-test condition lets queued work continue even after cancellation;
+GitHub documents force-cancel for exactly this condition. The force-cancel endpoint
+retired that superseded run. The source lane now uses `!cancelled()` so dependency
+skip/failure still permits the full matrix, while requested cancellation stops it.
+The existing required-cell guard also protects this control. This changes no
+passing-gate criteria; obsolete or cancelled jobs still cannot qualify a release.
+Official recovery reference: https://docs.github.com/en/actions/how-tos/troubleshoot-workflows.

@@ -20,11 +20,12 @@ def test_candidate_metadata_and_required_ci_cover_python314():
     )
     assert cells == {
         (operating_system, python_version)
-        for operating_system in ("ubuntu-latest", "macos-latest", "windows-latest")
+        for operating_system in ("ubuntu-latest", "macos-15", "windows-latest")
         for python_version in ("3.11", "3.12", "3.13", "3.14")
     }
     assert "python -m pytest --receptor=ci -n 4" in workflow
     assert "export PYTHONPATH" not in workflow
+    assert "!cancelled() && inputs.probe_backlog" in workflow
 
 
 def test_requirements_source_and_derived_recipe_agree():
