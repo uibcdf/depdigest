@@ -1,0 +1,38 @@
+{
+  "schema": "depdigest.task-resource-retirement@1",
+  "date": "2026-10-13",
+  "issue": "uibcdf/depdigest#39",
+  "release": "0.15.1",
+  "owner": "Diego-authorized DepDigest #39, 2026-10-13",
+  "root": "/tmp/depdigest-39-u5tyo_jd",
+  "available_process_reference_review": "no external active cwd/exe/command references; cleanup controller and ancestors excluded",
+  "sdk_review": "clean pinned 6d6172d6cd00c5ac2d4ebadb71df554ec5b7fa26",
+  "manager_operations": [
+    {
+      "prefix": "/tmp/depdigest-39-u5tyo_jd/test-env",
+      "exit_code": 0
+    },
+    {
+      "prefix": "/tmp/depdigest-39-u5tyo_jd/public-env",
+      "exit_code": 0
+    }
+  ],
+  "cleanup_errors": [],
+  "preserved": [
+    "primary checkout/editable metadata",
+    "shared environments and caches",
+    "public/historical tags/releases/Conda files",
+    "normalized release and retired-child proof"
+  ],
+  "retired_owned_resources": [
+    "test-env",
+    "public-env",
+    "private public-pkgs cache",
+    "clean SDK clone",
+    "source snapshot",
+    "private fixtures",
+    "raw read-only receipts/downloads and operator files"
+  ],
+  "exact_owned_root_removed": true,
+  "finished_at": "2026-10-13T20:40:44.247960+00:00"
+}

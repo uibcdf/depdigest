@@ -608,5 +608,24 @@
   },
   "read_only_operator_corrections": {
     "public_solver": "first attempt could not find newly promoted coordinate; private new CONDA_PKGS_DIRS cache solved and exact public installation verified; shared caches untouched"
+  },
+  "handoffs": {
+    "molsysmt": "https://github.com/uibcdf/molsysmt/issues/382#issuecomment-6154701169",
+    "molsyssuite": "https://github.com/uibcdf/molsyssuite/issues/115#issuecomment-6154701580"
+  },
+  "poststate_checks": {
+    "commit": "8a7ec95ec36713c991ab966bb11dfb26aaaeb6e2",
+    "ci": 38464003075,
+    "policy": 38464003606,
+    "governance": 38464003598
+  },
+  "resource_retirement": {
+    "receipt": "devguide/evidence/release_resource_retirement_0.15.1_2026-10-13.json",
+    "manager_exits": [
+      0,
+      0
+    ],
+    "exact_owned_root_removed": true,
+    "cleanup_errors": []
   }
 }

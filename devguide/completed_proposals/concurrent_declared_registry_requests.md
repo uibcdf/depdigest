@@ -191,3 +191,18 @@ initializers must not wait for another thread needing the same registry. Arbitra
 cross-registry/thread/import cycles are not covered. MolSysMT #382 and MolSysSuite
 #115 retain consumer adoption/floor, conversion/scientific parity and performance
 ownership. Installed smoke and source pytest are distinct evidence scopes.
+
+
+## Task resource retirement — 2026-10-13
+
+After verified publication and the owning/consumer handoffs, Conda removed both
+exact private test/public prefixes with exit 0. The task-owned new package cache,
+clean pinned SDK clone, source snapshot, fixture/download/raw receipt/operator
+files and exact manifest-owned root were retired after reviewing the available
+process references and SDK cleanliness. That root is absent; no cleanup error
+occurred. Required normalized evidence remains in this repository. Primary source
+and editable metadata, shared environments/caches and public/historical artifacts
+remain preserved. Executed proof:
+`devguide/evidence/release_resource_retirement_0.15.1_2026-10-13.json`.
+Handoffs: MolSysMT #382 comment 6154701169; MolSysSuite #115 comment 6154701580.
+The owning GitHub issue #39 is closed.
