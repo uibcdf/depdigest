@@ -74,3 +74,19 @@ in MolSysSuite #115 with motivating ElastNetMT #26.
 - Canonical guide, public contract and unreleased notes specify the admission boundary.
 - Exact provider source and scoped compatibility evidence are handed to the consumer
   and central coordination; public release and consumer adoption remain separate.
+
+## Published source closeout — 2026-10-13
+
+Implementation `4e962e8664e942a89e43da3e6819ac9cb5b5d98a` is pushed unskipped.
+Exact-head CI 38376365712, policy 38376366821 and publication governance
+38376366804 pass. Explicit source matrix 38376389645 passes all twelve Linux,
+macOS and Windows / Python 3.11–3.14 cells. Native job facts prove both distribution
+checks and test steps succeeded in each cell; its unrelated optional backlog-decision
+helper is intentionally skipped. GH Run Receptor confirms twelve executed successful
+test jobs. Clean local full source proof is 280 passed / five unavailable sibling
+integration skips. These are source gates, not new installed/public artifact gates.
+
+Issue #36 closes provider implementation, with the exact source contract and
+unreleased/public admission boundary delivered to MolSysMT #382 and MolSysSuite
+#115. Public 0.14.0 and consumer adoption remain unchanged. Final owned resource
+retirement is recorded separately in the component's lifecycle receipt.

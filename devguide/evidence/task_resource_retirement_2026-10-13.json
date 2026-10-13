@@ -1,0 +1,51 @@
+{
+  "schema": "depdigest.task-resource-retirement@1",
+  "date": "2026-10-13",
+  "issues": [
+    "uibcdf/depdigest#33",
+    "uibcdf/depdigest#31",
+    "uibcdf/depdigest#36"
+  ],
+  "useful_lifetime_ended": "all native/source checks and owning/consumer/central issue handoffs complete; normalized receipts retained in repository",
+  "exact_owned_roots": [
+    "/tmp/depdigest-31-33-5hw0_wjo",
+    "/tmp/pytest-of-diego/pytest-395"
+  ],
+  "ownership": "manifest-reviewed authorized task resources; no blanket prefix/age disposal",
+  "checkouts": {
+    "sdk": {
+      "head": "6d6172d6cd00c5ac2d4ebadb71df554ec5b7fa26",
+      "clean": true,
+      "kind": "independent task-owned clone"
+    },
+    "ackredit": {
+      "head": "4d1a1094f165a574efcb516b83cbf89351683347",
+      "clean": true,
+      "kind": "independent task-owned clone"
+    }
+  },
+  "active_reference_check": "no other process cwd/exe/argument reference to exact owned roots; all recorded test/benchmark/receptor jobs exited",
+  "environment": {
+    "manager": "conda env remove --prefix exact-task-root/test-env --yes",
+    "exit": 0,
+    "conda_metadata_remaining": false
+  },
+  "preserved": [
+    "primary repos/editable metadata",
+    "shared Conda environments",
+    "caller/tool primary caches and generated outputs",
+    "unrelated temporary roots/pytest parent",
+    "historical release evidence"
+  ],
+  "cleanup_errors": [],
+  "disposal": [
+    {
+      "path": "/tmp/pytest-of-diego/pytest-395",
+      "removed": true
+    },
+    {
+      "path": "/tmp/depdigest-31-33-5hw0_wjo",
+      "removed": true
+    }
+  ]
+}

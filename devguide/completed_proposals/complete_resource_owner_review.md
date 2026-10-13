@@ -75,3 +75,22 @@ reports an executed successful CI test job. Owning issues #33 and #31 are closed
 local resource disposition was delivered to MolSysSuite #104 and discovery ownership
 to Ackredit #117. Useful manifest-owned resources remain through the separately
 authorized #36 follow-on; final disposal is reported separately.
+
+## Owned task retirement — 2026-10-13
+
+After all source/native checks and consumer/owning issue handoffs, the useful
+lifetime of the manifest-owned #31/#33/#36 resources ended. Conda removed the exact
+private test prefix with exit 0. Reviewed clean pinned SDK/Ackredit clones,
+private source/consumer snapshots, wheel fixtures, benchmark environments and
+owned test workspaces were retired with the exact task root; the separately
+tracked first pytest fixture root was also removed. No active process reference
+to either exact root remained. Both paths are confirmed absent and no cleanup
+error occurred. Normalized proof is retained in
+`devguide/evidence/task_resource_retirement_2026-10-13.json`.
+
+Primary repos/editable metadata, shared environments, caller/tool caches and
+generated outputs, unrelated temporary resources and historical release receipts
+remain preserved. This is actual disposal of identified current-task resources;
+it does not attribute the historical #104 path absences or establish machine-wide
+cleanup. The shared Python 3.14 dependency observation was delivered to its
+existing maintenance owner MolSysSuite #82; no shared environment was repaired.

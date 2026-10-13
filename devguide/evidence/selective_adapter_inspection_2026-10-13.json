@@ -86,5 +86,105 @@
     "distribution_inputs": "20 routes, declared-and-installed-public-bounds",
     "ruff": "check and format-check pass",
     "snapshot": "private byte copy; editable 1+unknown; source proof only"
+  },
+  "published_source": {
+    "commit": "4e962e8664e942a89e43da3e6819ac9cb5b5d98a",
+    "ci": 38376365712,
+    "policy": 38376366821,
+    "publication_governance": 38376366804,
+    "conclusion": "success",
+    "source_matrix": {
+      "run_id": 38376389645,
+      "conclusion": "success",
+      "test_jobs": [
+        {
+          "os": "ubuntu-latest",
+          "python": "3.11",
+          "conclusion": "success",
+          "check_distribution_inputs": "success",
+          "run_tests": "success"
+        },
+        {
+          "os": "ubuntu-latest",
+          "python": "3.12",
+          "conclusion": "success",
+          "check_distribution_inputs": "success",
+          "run_tests": "success"
+        },
+        {
+          "os": "ubuntu-latest",
+          "python": "3.13",
+          "conclusion": "success",
+          "check_distribution_inputs": "success",
+          "run_tests": "success"
+        },
+        {
+          "os": "ubuntu-latest",
+          "python": "3.14",
+          "conclusion": "success",
+          "check_distribution_inputs": "success",
+          "run_tests": "success"
+        },
+        {
+          "os": "macos-latest",
+          "python": "3.11",
+          "conclusion": "success",
+          "check_distribution_inputs": "success",
+          "run_tests": "success"
+        },
+        {
+          "os": "macos-latest",
+          "python": "3.12",
+          "conclusion": "success",
+          "check_distribution_inputs": "success",
+          "run_tests": "success"
+        },
+        {
+          "os": "macos-latest",
+          "python": "3.13",
+          "conclusion": "success",
+          "check_distribution_inputs": "success",
+          "run_tests": "success"
+        },
+        {
+          "os": "macos-latest",
+          "python": "3.14",
+          "conclusion": "success",
+          "check_distribution_inputs": "success",
+          "run_tests": "success"
+        },
+        {
+          "os": "windows-latest",
+          "python": "3.11",
+          "conclusion": "success",
+          "check_distribution_inputs": "success",
+          "run_tests": "success"
+        },
+        {
+          "os": "windows-latest",
+          "python": "3.12",
+          "conclusion": "success",
+          "check_distribution_inputs": "success",
+          "run_tests": "success"
+        },
+        {
+          "os": "windows-latest",
+          "python": "3.13",
+          "conclusion": "success",
+          "check_distribution_inputs": "success",
+          "run_tests": "success"
+        },
+        {
+          "os": "windows-latest",
+          "python": "3.14",
+          "conclusion": "success",
+          "check_distribution_inputs": "success",
+          "run_tests": "success"
+        }
+      ],
+      "optional_backlog_decision": "intentionally skipped for explicit full-matrix dispatch",
+      "qualification": "source install/tests, not staged installed artifact"
+    },
+    "receptor": "PASS; twelve executed successful test jobs"
   }
 }

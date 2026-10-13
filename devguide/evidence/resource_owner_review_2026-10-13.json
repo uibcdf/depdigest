@@ -127,5 +127,10 @@
     "historical release receipts"
   ],
   "task_lifetime": "manifest-owned private environment/clones/fixtures retained through authorized follow-on #36 and evidence/issue handoffs; exact retirement reported separately",
-  "publication": "0.14.0 qualification remains separate; no new release or artifact mutation"
+  "publication": "0.14.0 qualification remains separate; no new release or artifact mutation",
+  "later_task_closeout": {
+    "date": "2026-10-13",
+    "receipt": "devguide/evidence/task_resource_retirement_2026-10-13.json",
+    "state": "exact current-task resources retired after #36 gates/handoffs; historical attribution unchanged"
+  }
 }
