@@ -19,7 +19,7 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/uibcdf/depdigest"
 "Source" = "https://github.com/uibcdf/depdigest/"
-"Documentation" = "https://uibcdf.org/depdigest/"
+"Documentation" = "https://www.uibcdf.org/depdigest/"
 
 [project.scripts]
 depdigest = "depdigest.cli:main"

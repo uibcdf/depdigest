@@ -4,6 +4,13 @@
 `python devtools/broadcast_requirements.py`; edit the source requirements and
 regenerate the recipe instead of changing dependency lines here by hand.
 
+The broadcaster preserves the recipe's `about` section; it does not derive
+descriptive metadata from `requirements.yaml`. Maintain those fields directly
+in `meta.yaml`, the bounded metadata case recorded in DepDigest #38. Keep the
+summary consistent with `pyproject.toml` and use this project's repository and
+documentation URLs. Run the broadcaster after editing to check that the metadata
+survives and dependency sections/generated environments stay unchanged.
+
 Publication is owned by the repository workflows, not by a local `anaconda
 upload` command. Read `devguide/conda_release_routes.md` before preparing a tag:
 the committed plan chooses either a guarded direct release or an exact-file

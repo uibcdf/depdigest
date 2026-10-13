@@ -25,11 +25,11 @@ test:
     assert md.version('depdigest') == expected; assert depdigest.__version__ == expected"
   - depdigest --help
 about:
-  home: https://www.uibcdf.org
+  home: https://github.com/uibcdf/depdigest
   license: MIT License
-  summary: ''
-  description: 'This library provides some useful methods to work with quantities
-
-    '
-  dev_url: https://www.github.com/uibcdf/depdigest
-  doc_url: https://www.uibcdf.org/depdigest
+  summary: Lightweight dependency management and lazy loading for Python libraries.
+  description: DepDigest manages optional Python libraries and external executables,
+    enforces dependency checks at execution time, supports lazy and selective plugin
+    loading, and audits optional imports.
+  dev_url: https://github.com/uibcdf/depdigest/
+  doc_url: https://www.uibcdf.org/depdigest/
