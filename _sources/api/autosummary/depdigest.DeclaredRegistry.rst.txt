@@ -1,0 +1,36 @@
+﻿depdigest.DeclaredRegistry
+==========================
+
+.. currentmodule:: depdigest
+
+.. autoclass:: DeclaredRegistry
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~DeclaredRegistry.__init__
+      ~DeclaredRegistry.clear
+      ~DeclaredRegistry.declared_keys
+      ~DeclaredRegistry.discover
+      ~DeclaredRegistry.get
+      ~DeclaredRegistry.items
+      ~DeclaredRegistry.keys
+      ~DeclaredRegistry.loaded_keys
+      ~DeclaredRegistry.pop
+      ~DeclaredRegistry.popitem
+      ~DeclaredRegistry.refresh
+      ~DeclaredRegistry.retry
+      ~DeclaredRegistry.setdefault
+      ~DeclaredRegistry.update
+      ~DeclaredRegistry.values
+   
+   
+
+   
+   
+   

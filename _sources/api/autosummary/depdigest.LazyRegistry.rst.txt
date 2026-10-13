@@ -1,0 +1,33 @@
+﻿depdigest.LazyRegistry
+======================
+
+.. currentmodule:: depdigest
+
+.. autoclass:: LazyRegistry
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~LazyRegistry.__init__
+      ~LazyRegistry.clear
+      ~LazyRegistry.copy
+      ~LazyRegistry.fromkeys
+      ~LazyRegistry.get
+      ~LazyRegistry.items
+      ~LazyRegistry.keys
+      ~LazyRegistry.pop
+      ~LazyRegistry.popitem
+      ~LazyRegistry.setdefault
+      ~LazyRegistry.update
+      ~LazyRegistry.values
+   
+   
+
+   
+   
+   
