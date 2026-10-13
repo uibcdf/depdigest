@@ -8,7 +8,7 @@ template for native packages. Python 3.14 preparation is tracked in
 ## Decide before tagging
 
 The release owner completes `devtools/conda-build/release_plan.toml` **in the
-candidate commit**. The current `0.14.0` plan selects the `staged` route; this
+candidate commit**. The current `0.15.0` plan selects the `staged` route; this
 decision does not publish or promote a package. For a later version, reset and
 review `version`, `build_number`, `route`, `reason`, `decision_by`,
 `required_workflows` and their explicit `gate_jobs`
@@ -261,3 +261,15 @@ Zenodo independently verified source-snapshot DOI `10.5281/zenodo.23284363`;
 the ZIP download matched size and checksum. Public API admission is now >=0.14.0.
 MolSysMT #382 owns consumer integration and scientific/performance qualification;
 MolSysSuite #115 retains impact coordination.
+
+## 0.15.0 adapter-inspection candidate — 2026-10-13
+
+DepDigest #37 owns the authorized staged release of #36. The committed build-0
+plan requires all twelve source cells and policy at the final candidate SHA.
+The version-applicable installed gate additionally verifies selective Python and
+executable absent-engine adapter metadata, untouched sentinel, cached visibility
+under current overrides, strict-default parity, actual inventory absence and
+execution rejection. The same original archive must pass twelve clean installed
+cells before stable tagging and exact-file promotion. Preparing this plan/docs is
+not a publication claim. MolSysMT #382 and MolSysSuite #115 retain independent
+adoption, conversion/scientific parity and performance ownership.

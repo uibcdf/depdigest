@@ -156,6 +156,56 @@ def test_declared_registry_gate_exercises_public_selective_lookup():
     verifier.verify_declared_registry_contract()
 
 
+def test_adapter_inspection_gate_checks_absent_engine_metadata_and_execution():
+    verifier.verify_adapter_inspection_contract()
+
+
+def test_adapter_inspection_gate_rejects_execution_without_engine_check(monkeypatch):
+    import depdigest
+
+    monkeypatch.setattr(
+        depdigest, "dep_digest", lambda _library: lambda function: function
+    )
+    with pytest.raises(ValueError, match="execution accepted a missing engine"):
+        verifier.verify_adapter_inspection_contract()
+
+
+def test_adapter_inspection_gate_rejects_weakened_strict_default(monkeypatch):
+    import depdigest
+
+    real_registry = depdigest.DeclaredRegistry
+
+    class WeakStrictDefault(real_registry):
+        def __init__(self, *args, **kwargs):
+            kwargs.setdefault("load_policy", "adapter")
+            super().__init__(*args, **kwargs)
+
+    monkeypatch.setattr(depdigest, "DeclaredRegistry", WeakStrictDefault)
+    with pytest.raises(ValueError, match="strict lookup accepted a missing engine"):
+        verifier.verify_adapter_inspection_contract()
+
+
+def test_adapter_inspection_gate_rejects_suppressed_unrelated_import(monkeypatch):
+    import importlib
+
+    import depdigest
+
+    real_registry = depdigest.DeclaredRegistry
+
+    class TouchesAdapterSentinel(real_registry):
+        def __getitem__(self, key):
+            if self._load_policy == "adapter":
+                try:
+                    importlib.import_module(self._package_prefix + ".sentinel")
+                except AssertionError:
+                    pass
+            return super().__getitem__(key)
+
+    monkeypatch.setattr(depdigest, "DeclaredRegistry", TouchesAdapterSentinel)
+    with pytest.raises(ValueError, match="unrelated plugin"):
+        verifier.verify_adapter_inspection_contract()
+
+
 @pytest.mark.parametrize(
     ("operation", "failure_point"),
     [
@@ -165,6 +215,10 @@ def test_declared_registry_gate_exercises_public_selective_lookup():
         ),
         (verifier.verify_audit_contract, "Wrong audit exit status"),
         (verifier.verify_optional_engine_contract, "Wrong missing inventory"),
+        (
+            verifier.verify_adapter_inspection_contract,
+            "Installed adapter metadata mismatch",
+        ),
     ],
 )
 @pytest.mark.parametrize("fail", [False, True])
@@ -202,7 +256,7 @@ def test_private_gate_fixture_cleanup_preserves_caller_state(
     assert sys.path == original_path
     assert _PACKAGE_CONFIGS == original_configs
     assert not any(
-        name.startswith("depdigest_installed_gate_")
+        name.startswith(("depdigest_installed_gate_", "depdigest_installed_adapter_"))
         for name in set(sys.modules) - original_modules
     )
     assert caller.read_text() == "retain"

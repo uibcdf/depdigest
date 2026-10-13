@@ -7,12 +7,14 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-10-13
+
 ### Added
 
 - Explicit `DeclaredRegistry(load_policy="adapter")` permits selective Python adapter
   metadata inspection with an absent optional engine (#36). The strict default,
   current visibility, identity validation and execution guards are preserved.
-  This option requires a future release; published 0.14.0 does not provide it.
+  Available from 0.15.0; published 0.14.0 does not provide it.
 
 ### Fixed
 
@@ -23,7 +25,7 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 - Adapter inspection requires explicit opt-in; successful adapter import does not
   establish engine availability or scientific execution. Keep execution-dependent
-  guards in the host. No public dependency floor or MolSysMT adoption changes yet.
+  guards in the host. Public users of this option require DepDigest >=0.15.0. MolSysMT owns its adoption and conversion/scientific parity.
 
 ## [0.14.0] - 2026-10-10
 

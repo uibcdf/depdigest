@@ -167,6 +167,141 @@ def verify_installed(
         verify_audit_contract()
     if tuple(map(int, version.split("."))) >= (0, 14, 0):
         verify_declared_registry_contract()
+    if tuple(map(int, version.split("."))) >= (0, 15, 0):
+        verify_adapter_inspection_contract()
+
+
+def verify_adapter_inspection_contract() -> None:
+    """Inspect installed adapters without confusing importability with execution."""
+    import uuid
+
+    import depdigest
+
+    host = "depdigest_installed_adapter_" + uuid.uuid4().hex
+    with tempfile.TemporaryDirectory() as temporary:
+        root = Path(temporary)
+        directory = root / host
+        directory.mkdir()
+        (directory / "__init__.py").write_text("", encoding="utf-8")
+        marker = root / "sentinel-imported"
+        for kind in ("python", "executable"):
+            plugin = directory / kind
+            plugin.mkdir()
+            (plugin / "__init__.py").write_text(
+                "from depdigest import dep_digest\n"
+                f"form_name = {kind!r}\n"
+                "form_type = 'class'\n_convert_to = {'XYZ': 'lazy conversion'}\n"
+                f"@dep_digest({(host + '_' + kind)!r})\n"
+                "def execute():\n    return 'unguarded execution'\n",
+                encoding="utf-8",
+            )
+        sentinel = directory / "sentinel"
+        sentinel.mkdir()
+        (sentinel / "__init__.py").write_text(
+            "from pathlib import Path\n"
+            f"Path({str(marker)!r}).touch()\n"
+            "raise AssertionError('unrelated adapter imported')\n",
+            encoding="utf-8",
+        )
+        libraries = {
+            host + "_python": {"type": "soft"},
+            host + "_executable": {
+                "type": "soft",
+                "kind": "executable",
+                "executable": str(root / "absent_execution_engine"),
+            },
+        }
+        mapping = {kind: host + "_" + kind for kind in ("python", "executable")}
+        declarations = {
+            "python": "python",
+            "executable": "executable",
+            "sentinel": "sentinel",
+        }
+        sys.path.insert(0, str(root))
+        try:
+            with depdigest.temporary_package_config(
+                host, depdigest.DepConfig(libraries=libraries, mapping=mapping)
+            ):
+                strict = depdigest.DeclaredRegistry(host, directory, declarations)
+                adapters = depdigest.DeclaredRegistry(
+                    host, directory, declarations, load_policy="adapter"
+                )
+                _require(
+                    list(adapters) == list(declarations)
+                    and adapters.loaded_keys() == (),
+                    "Installed adapter metadata imported a plugin",
+                )
+                for kind in ("python", "executable"):
+                    try:
+                        strict[kind]
+                    except KeyError as error:
+                        _require(
+                            isinstance(error.__cause__, ImportError),
+                            "Wrong strict adapter failure",
+                        )
+                    else:
+                        raise ValueError(
+                            "Installed strict lookup accepted a missing engine"
+                        )
+                    _require(
+                        f"{host}.{kind}" not in sys.modules,
+                        "Strict lookup imported an absent-engine adapter",
+                    )
+                    module = adapters[kind]
+                    _require(
+                        module.form_type == "class" and "XYZ" in module._convert_to,
+                        "Installed adapter metadata mismatch",
+                    )
+                    _require(
+                        adapters[kind] is module, "Installed adapter cache mismatch"
+                    )
+                    try:
+                        module.execute()
+                    except ImportError:
+                        pass
+                    else:
+                        raise ValueError(
+                            "Installed adapter execution accepted a missing engine"
+                        )
+                inventory = depdigest.get_info(host, format="dict")
+                _require(
+                    inventory["missing_count"] == 2,
+                    "Adapter inspection changed engine inventory",
+                )
+                with depdigest.temporary_package_config(
+                    host,
+                    depdigest.DepConfig(
+                        libraries=libraries,
+                        mapping=mapping,
+                        show_all_capabilities=False,
+                    ),
+                ):
+                    _require(
+                        list(adapters) == ["sentinel"] and adapters.loaded_keys() == (),
+                        "Restricted mode exposed cached absent-engine adapters",
+                    )
+                    for kind in ("python", "executable"):
+                        try:
+                            adapters[kind]
+                        except KeyError:
+                            pass
+                        else:
+                            raise ValueError(
+                                "Restricted adapter lookup ignored visibility"
+                            )
+                _require(
+                    adapters.loaded_keys() == ("python", "executable"),
+                    "Restored adapter visibility lost the cache",
+                )
+                _require(
+                    not marker.exists() and f"{host}.sentinel" not in sys.modules,
+                    "Installed adapter lookup touched an unrelated plugin",
+                )
+        finally:
+            sys.path.remove(str(root))
+            for name in tuple(sys.modules):
+                if name == host or name.startswith(host + "."):
+                    sys.modules.pop(name)
 
 
 def verify_declared_registry_contract() -> None:
@@ -406,7 +541,7 @@ def main() -> None:
         )
         print(
             "PASS: exact staged package, public dependency, import, CLI, "
-            "and version-applicable optional-engine/audit/declared-registry contracts"
+            "and version-applicable optional-engine/audit/declared-registry/adapter contracts"
         )
 
 

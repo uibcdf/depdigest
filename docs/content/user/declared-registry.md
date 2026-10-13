@@ -103,9 +103,9 @@ Load diagnostics identify the plugin, requested identity trigger and actual call
 Fallback uses the `discover()` trigger. Emission failures do not discard successful
 implementations or replace original load errors.
 
-## Explicit adapter inspection (unreleased source capability, #36)
+## Explicit adapter inspection (from 0.15.0, #36)
 
-The current source adds a keyword-only constructor policy:
+DepDigest 0.15.0 adds a keyword-only constructor policy:
 
 ```python
 adapters = DeclaredRegistry(
@@ -143,8 +143,8 @@ Importability and a successful load event certify adapter materialization only.
 requested engine still raises, and no alternative engine is selected. Adapter
 inspection is not execution, version compatibility or scientific qualification.
 
-This option is **not in published 0.14.0**. Source experiments must pin the provider
-implementation commit. Public adoption requires a later admitted release containing
-this capability; the prospective minor version is 0.15.0. Source checks, provider
-publication, MolSysMT #382 adoption/conversion parity and speed measurements remain
-separate, coordinated in MolSysSuite #115.
+This option is **not in published 0.14.0**. Public consumers require DepDigest
+>=0.15.0 after its admission under DepDigest #37; preparing these docs is not
+publication proof. Source experiments must pin the implementation commit. Source
+checks, provider publication, MolSysMT #382 adoption/conversion parity and speed
+measurements remain separate, coordinated in MolSysSuite #115.

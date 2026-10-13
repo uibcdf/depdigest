@@ -10,10 +10,10 @@ Source of truth for integrating and using **DepDigest** in this library.
 Metadata
 - Source repository: `depdigest`
 - Source document: `standards/DEPDIGEST_GUIDE.md`
-- Source version: `depdigest@0.14.0` (published baseline)
+- Source version: `depdigest@0.15.0` (release preparation; admission tracked in #37)
 - Publication tracking: `uibcdf/depdigest#35`; declaration-based registry: `uibcdf/depdigest#34`
-- Unreleased source capability: explicit adapter inspection (`uibcdf/depdigest#36`);
-  public 0.14.0 does not provide this option.
+- Adapter-inspection publication tracking: `uibcdf/depdigest#37`; implementation
+  `uibcdf/depdigest#36`. Public 0.14.0 does not provide this option.
 - Last source update: 2026-10-13
 - Consumer synchronization: audit delivery in `uibcdf/molsyssuite#95`;
   declaration-based registry admission/handoff in `uibcdf/molsyssuite#115`.
@@ -156,7 +156,7 @@ probes may have their own import effects. Loading is synchronous without concurr
 synchronization. `LazyRegistry` remains available with its existing contract.
 The complete contract is in `docs/content/user/declared-registry.md`.
 
-#### Explicit adapter inspection (unreleased, #36)
+#### Explicit adapter inspection (from 0.15.0, #36)
 
 Current source accepts keyword-only `load_policy="adapter"` on `DeclaredRegistry`.
 The default `"strict"` retains 0.14.0's soft dependency precheck. The explicit adapter
@@ -172,10 +172,11 @@ execution. Inventory remains actual availability, and hosts retain `dep_digest` 
 `check_dependency` on execution-dependent operations. Real adapter/transitive imports
 can still fail. No engine is installed or silently substituted.
 
-This is a source capability, **not published 0.14.0 behavior**. A controlled experiment
-must pin the implementation commit. A later admitted minor release (prospectively
-0.15.0) is required for a public capability floor. MolSysMT #382 adoption/parity and
-MolSysSuite #115 coordination remain separate from provider source/publication evidence.
+This is **not published 0.14.0 behavior**. Public use requires admitted DepDigest
+>=0.15.0, with publication tracked in #37; release preparation alone is not admission.
+A controlled source experiment must pin the implementation commit. MolSysMT #382
+adoption/parity and MolSysSuite #115 coordination remain separate from provider
+source/publication evidence.
 
 ### 3.1 Manual Configuration Registration
 Useful for testing or dynamic plugin systems where a root `_depdigest.py` is not feasible.
