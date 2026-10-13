@@ -116,7 +116,7 @@ def installed_jobs() -> dict:
             "Download and verify the exact staging run receipts"
         ]
     }
-    for runner in ("ubuntu-latest", "macos-latest", "windows-latest"):
+    for runner in ("ubuntu-latest", "macos-15", "windows-latest"):
         for minor in ("3.11", "3.12", "3.13", "3.14"):
             jobs[f"Install {runner} / Python {minor}"] = [
                 "Create a clean environment from the exact staged build",

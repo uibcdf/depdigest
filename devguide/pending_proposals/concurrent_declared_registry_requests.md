@@ -100,3 +100,25 @@ configuration, seven repeats of 100000 calls) gives baseline median 0.417 us and
 RLock median 0.587 us, a 0.170 us increase. This small synthetic cost and coarse
 serialization are accepted for coherent initialization. It is not a consumer
 throughput/speed result; consumers own later measurements.
+
+
+## Hosted runner recovery — 2026-10-13
+
+Candidate e275703 passes routine CI, policy/governance and nine source cells,
+including macOS/Python 3.12. Three macos-latest jobs remain queued without assigned
+runners after more than thirty minutes. Preserve this as partial, superseded
+source evidence; it cannot authorize publication.
+
+Use the supported explicit macos-15 ARM64 runner for all four source and all four
+installed macOS cells. GitHub documents it as a standard M1 runner, like
+macos-latest; MolSysSuite's current Python CI policy requires macOS ARM64 and
+permits this platform choice. This is a runner choice, not a platform exception
+or unexecuted-gate waiver. Source/installed job names, exact native profiles and
+reviewed workflow byte hashes agree on the new label. All three operating systems,
+four Python minors, full source tests and clean installed gates remain required.
+No package runtime/dependency/constructor changes accompany this recovery.
+
+All gates reset on the resulting exact candidate. Public tagging/admission still
+awaits executed source and installed matrices. Responsible maintainer: Diego;
+operational runner selection can be reviewed at the next release using actual
+queue/runtime evidence. Shared coordination is recorded in MolSysSuite #115.

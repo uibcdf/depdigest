@@ -290,3 +290,13 @@ Documentation and source-only Zenodo DOI `10.5281/zenodo.23345127` are verified,
 including ZIP size/checksum. The [release receipt](evidence/release_0.15.0_2026-10-13.json)
 retains exact native source/file/attempt identities and smoke scope. Consumer
 adoption and conversion/scientific parity remain in MolSysMT #382 / MolSysSuite #115.
+
+
+## 0.15.1 runner selection — 2026-10-13
+
+Under #39, source and installed qualification explicitly use standard GitHub
+`macos-15` ARM64 alongside Ubuntu and Windows. This recovers from macos-latest
+jobs queued without assigned runners while retaining all twelve OS/Python cells.
+Native job requirements and workflow-byte review use the actual label; pending
+or superseded runs do not qualify a release. MolSysSuite targets macOS ARM64;
+this change does not establish Intel macOS support or waive an executed gate.

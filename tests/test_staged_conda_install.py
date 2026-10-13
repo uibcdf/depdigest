@@ -114,7 +114,7 @@ def test_staged_matrix_checks_twelve_clean_installs_and_no_pip_source_install():
     jobs = workflow["jobs"]
     assert jobs["install"]["needs"] == "verify-producer"
     matrix = jobs["install"]["strategy"]["matrix"]
-    assert matrix["os"] == ["ubuntu-latest", "macos-latest", "windows-latest"]
+    assert matrix["os"] == ["ubuntu-latest", "macos-15", "windows-latest"]
     assert matrix["python"] == ["3.11", "3.12", "3.13", "3.14"]
     steps = jobs["install"]["steps"]
     setup = next(

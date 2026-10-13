@@ -62,7 +62,7 @@ reason = "Routine strict public Linux/Python 3.14, default installed-bound prefl
 
 [[workflows]]
 path = ".github/workflows/CI_full_matrix.yaml"
-sha256 = "8113ade2ccf5ad83b011650bcccdfe93002a7c5999e31e0639adf5e4550d921a"
+sha256 = "27da16ddcc237ac3516afe5feccabbebaa848489d0a8bcf693c21a68b2a57bc9"
 reason = "Twelve strict public source cells with default preflight; separate backlog/recovery job does not replace executed scientific jobs"
 
 [[workflows]]
@@ -107,7 +107,7 @@ reason = "Strict public documentation runtime on Python 3.14, default preflight 
 
 [[workflows]]
 path = ".github/workflows/test_staged_conda_package.yaml"
-sha256 = "1c83d7340c336a16e1977c5bc59c6bd849d70d6d2d43a83fef63f67e71be6f36"
+sha256 = "215148597eaa1fe6c01bdd7a67e7df3f8212411d007488754b63ff72d31feec5"
 reason = "Exact producer/archive SHA bound to twelve clean Linux/macOS arm64/Windows installs, checker outside source; explicit flexible staging priority prevents public SMonitor masking and installed records enforce exact provenance; smoke equivalence rather than full installed pytest"
 
 [[workflows]]
