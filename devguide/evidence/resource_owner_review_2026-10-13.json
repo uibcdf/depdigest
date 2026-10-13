@@ -1,0 +1,131 @@
+{
+  "schema": "depdigest.resource-owner-review@1",
+  "date": "2026-10-13",
+  "issue": "uibcdf/depdigest#33",
+  "coordination": "uibcdf/molsyssuite#104",
+  "baseline": "1b746ece24587e920e49ea20f2bfebde7c3efc24",
+  "scope": "applicable local operations; bounded inspection and controlled source proof, no blanket disposal/all-platform compliance",
+  "policy_snapshot": "125905227e56fb680694140b31284f9df196a395",
+  "pinned_sdk": "6d6172d6cd00c5ac2d4ebadb71df554ec5b7fa26",
+  "files_sha256": {
+    "devtools/start_dev_env.sh": "e0021b683fd4a7b71b60a6a31676e4eca1451c9167b5db7226e14adc684af790",
+    "tests/test_dev_env_lifecycle.py": "f5cc44deaece0693afa13942ca430f0dcd015e2946783e145f15e3f6523b9147",
+    "tests/test_staged_conda_install.py": "72d26a705f54c7faa76523996f2d84bb85e216d7fb3e606e763e9b72399fd1d1",
+    "tests/test_entry_point_discovery.py": "6e9ea5679b867a0c29efdd06ab7322f6d65cbd836c4bf3a4d36821d35ea71a6d",
+    "benchmarks/entry_point_discovery.py": "154863822d429c29ef157ad5bb4c90f35361a20ac90c75e9b77f330347db986c"
+  },
+  "bootstrap": {
+    "before": {
+      "failed": 9
+    },
+    "after": {
+      "passed": 9
+    },
+    "manager_actions": "controlled POSIX Bash children; no actual environment solver/create/update"
+  },
+  "verifier_cleanup": {
+    "passed": 6,
+    "cases": "three real private fixtures, each success/injected failure",
+    "assertions": [
+      "private directories absent",
+      "sys.path/config/modules restored",
+      "caller sentinel preserved"
+    ]
+  },
+  "source_tests": {
+    "python": "3.14.8",
+    "passed": 257,
+    "skipped": 5,
+    "skips": "unavailable sibling-workspace integration sources",
+    "sdk_guards_executed": true,
+    "source_snapshot": "private byte copy; editable 1+unknown; not an installed release artifact"
+  },
+  "directed_compatibility": {
+    "tests": 17,
+    "python": {
+      "3.11.16": "17 passed; receptor llm",
+      "3.12.12": "17 passed; native fallback, one PytestConfigWarning for unavailable receptor setting",
+      "3.13.14": "17 passed; receptor llm",
+      "3.14.8": "included in full source run"
+    }
+  },
+  "historical_exact_paths": [
+    {
+      "path": "/tmp/molsyssuite104-depdigest-after",
+      "exists_or_symlink": false,
+      "deleted_by_this_task": false,
+      "prior_issue": "uibcdf/depdigest#32",
+      "historical_disposal_attribution": "unknown"
+    },
+    {
+      "path": "/tmp/molsyssuite104-depdigest-before",
+      "exists_or_symlink": false,
+      "deleted_by_this_task": false,
+      "prior_issue": "uibcdf/depdigest#32",
+      "historical_disposal_attribution": "unknown"
+    },
+    {
+      "path": "/tmp/molsyssuite104-depdigest-final",
+      "exists_or_symlink": false,
+      "deleted_by_this_task": false,
+      "prior_issue": "uibcdf/depdigest#32",
+      "historical_disposal_attribution": "unknown"
+    },
+    {
+      "path": "/tmp/molsyssuite104-depdigest-ghr-cache",
+      "exists_or_symlink": false,
+      "deleted_by_this_task": false,
+      "prior_issue": "uibcdf/depdigest#32",
+      "historical_disposal_attribution": "unknown"
+    },
+    {
+      "path": "/tmp/molsyssuite104-depdigest-qualified",
+      "exists_or_symlink": false,
+      "deleted_by_this_task": false,
+      "prior_issue": "uibcdf/depdigest#32",
+      "historical_disposal_attribution": "unknown"
+    },
+    {
+      "path": "/tmp/molsyssuite104-depdigest-repro",
+      "exists_or_symlink": false,
+      "deleted_by_this_task": false,
+      "prior_issue": "uibcdf/depdigest#32",
+      "historical_disposal_attribution": "unknown"
+    },
+    {
+      "path": "/tmp/molsyssuite104-depdigest-review",
+      "exists_or_symlink": false,
+      "deleted_by_this_task": false,
+      "prior_issue": "uibcdf/depdigest#32",
+      "historical_disposal_attribution": "unknown"
+    },
+    {
+      "path": "/tmp/molsyssuite104-depdigest-review-sdk",
+      "exists_or_symlink": false,
+      "deleted_by_this_task": false,
+      "prior_issue": "uibcdf/depdigest#32",
+      "historical_disposal_attribution": "unknown"
+    }
+  ],
+  "retained_primary_resources": [
+    ".pytest_cache",
+    "docs/_build",
+    "build",
+    "depdigest.egg-info",
+    "docs/api/autosummary"
+  ],
+  "retained_reason": "caller/tool custody; useful/active origin not uniquely attributable to task; preserve until explicit owner disposal after activity/evidence review",
+  "absent_primary_resources": [
+    "dist",
+    ".jupyter_cache",
+    "docs/.jupyter_cache"
+  ],
+  "preserved": [
+    "primary source/editable metadata",
+    "shared Conda environments",
+    "sibling source worktrees",
+    "historical release receipts"
+  ],
+  "task_lifetime": "manifest-owned private environment/clones/fixtures retained through authorized follow-on #36 and evidence/issue handoffs; exact retirement reported separately",
+  "publication": "0.14.0 qualification remains separate; no new release or artifact mutation"
+}

@@ -3,8 +3,8 @@
 set -euo pipefail
 
 # ------------------------------------------------------------------------------
-# DepDigest development bootstrap with activation switch & flexible path discovery
-# - Creates/updates an environment from development_env.yaml
+# DepDigest development bootstrap with preview & flexible path discovery
+# - Explicit persist mode creates/updates an environment from development_env.yaml
 # - Installs DepDigest in editable mode (no deps)
 # - Optional Jupyter kernel registration
 # - Supports overriding Python version
@@ -22,7 +22,7 @@ set -euo pipefail
 # ------------------------------------------------------------------------------
 
 ENV_NAME="depdigest"
-MODE="print"                    # 'print' (default) or 'persist'
+MODE="print"                    # preview (default) or explicit sourced setup
 PYTHON_VERSION=""
 REGISTER_KERNEL=${REGISTER_KERNEL:-"1"}
 
@@ -36,7 +36,7 @@ Usage: devtools/start_dev_env.sh [OPTIONS]
 
 Options:
   --mode {print|persist}
-      - print   : Do not activate the environment; print activation instructions (default).
+      - print   : Preview the setup command; no environment changes (default).
       - persist : Activate and keep the environment active after finishing.
                   IMPORTANT: use 'source' to persist:
                       source devtools/start_dev_env.sh --mode persist
@@ -62,13 +62,13 @@ Environment variables:
   USER_ENV_YAML=<path>  Provide YAML path via env var (overridden by --env-yaml)
 
 Examples:
-  # Setup only, print activation instructions:
+  # Preview setup instructions without changing an environment:
   bash devtools/start_dev_env.sh --mode print
 
   # Setup and persist activation in current shell:
   source devtools/start_dev_env.sh --mode persist
 
-  # Setup with Python 3.12:
+  # Preview setup with Python 3.12:
   bash devtools/start_dev_env.sh --mode print --python 3.12
 EOF
 }
@@ -94,6 +94,10 @@ fi
 # --- Detect if sourced (needed for --mode persist) ------------------------------
 IS_SOURCED="0"
 if [[ "${BASH_SOURCE[0]:-}" != "$0" ]]; then IS_SOURCED="1"; fi
+if [[ "$MODE" == "persist" && "$IS_SOURCED" != "1" ]]; then
+  echo "ERROR: --mode persist must be run with source; no setup was performed."
+  exit 1
+fi
 
 # --- Utility: absolute path resolver -------------------------------------------
 abspath() { python - <<'PY' "$1"
@@ -160,16 +164,27 @@ resolve_env_yaml() {
 ENV_YAML="$(resolve_env_yaml)"
 echo "[setup] Using environment YAML: ${ENV_YAML}"
 
+# Preview before invoking managers, installers or kernel registration.
+if [[ "$MODE" == "print" ]]; then
+  echo "Preview only. Run this command to create/update and activate the environment:"
+  printf 'source %q --mode persist --env-name %q --env-yaml %q' \
+    "${SCRIPT_DIR}/start_dev_env.sh" "$ENV_NAME" "$ENV_YAML"
+  if [[ -n "$PYTHON_VERSION" ]]; then printf ' --python %q' "$PYTHON_VERSION"; fi
+  if [[ "$REGISTER_KERNEL" == "0" ]]; then printf ' --no-kernel'; fi
+  printf '\n'
+  if [[ "$IS_SOURCED" == "1" ]]; then return 0; else exit 0; fi
+fi
+
 # --- Package manager selection --------------------------------------------------
 have_cmd() { command -v "$1" >/dev/null 2>&1; }
 
-PM=""; RUN=""
+PM=""; RUN=()
 if have_cmd micromamba; then
-  PM="micromamba"; RUN="micromamba run -n ${ENV_NAME}"
+  PM="micromamba"; RUN=(micromamba run -n "$ENV_NAME")
 elif have_cmd mamba; then
-  PM="mamba"; RUN="mamba run -n ${ENV_NAME}"
+  PM="mamba"; RUN=(mamba run -n "$ENV_NAME")
 elif have_cmd conda; then
-  PM="conda"; RUN="conda run -n ${ENV_NAME}"
+  PM="conda"; RUN=(conda run -n "$ENV_NAME")
 else
   echo "[setup] No conda/mamba/micromamba found."
   echo "[setup] Please install one of them and ensure it's in your PATH."
@@ -186,8 +201,9 @@ echo "[setup] Ensuring environment '${ENV_NAME}' from YAML"
 if [[ -n "$PYTHON_VERSION" ]]; then
   echo "[setup] Overriding Python version to $PYTHON_VERSION"
   if [[ "$PM" == "micromamba" ]]; then
-    micromamba create -y -n "${ENV_NAME}" python="${PYTHON_VERSION}" -f "${ENV_YAML}" || \
-    micromamba env update -n "${ENV_NAME}" -f "${ENV_YAML}" && \
+    if ! micromamba create -y -n "${ENV_NAME}" python="${PYTHON_VERSION}" -f "${ENV_YAML}"; then
+      micromamba env update -n "${ENV_NAME}" -f "${ENV_YAML}"
+    fi
     micromamba install -y -n "${ENV_NAME}" python="${PYTHON_VERSION}"
   else
     if ! ${PM} env list | awk '{print $1}' | grep -qx "${ENV_NAME}"; then
@@ -212,17 +228,17 @@ fi
 
 # --- Editable install -----------------------------------------------------------
 echo "[setup] Installing DepDigest in editable mode (no deps)..."
-${RUN} python -m pip install --no-deps --editable .
+"${RUN[@]}" python -m pip install --no-deps --editable "$REPO_ROOT"
 
 # --- Optional kernel registration ----------------------------------------------
 if [[ "${REGISTER_KERNEL}" == "1" ]]; then
   echo "[setup] Registering Jupyter kernel 'Python (depdigest)'..."
-  ${RUN} python -m ipykernel install --user --name "${ENV_NAME}" --display-name "Python (depdigest)"
+  "${RUN[@]}" python -m ipykernel install --user --name "${ENV_NAME}" --display-name "Python (depdigest)"
 fi
 
 # --- Diagnostics ----------------------------------------------------------------
 echo "[setup] Environment ready."
-${RUN} python - <<'PY'
+"${RUN[@]}" python - <<'PY'
 import sys
 print("Python:", sys.version.split()[0])
 try:
@@ -253,12 +269,6 @@ emit_activation_instructions() {
   fi
   echo
 }
-
-if [[ "$MODE" == "print" ]]; then
-  emit_activation_instructions
-  echo "[setup] Done. Environment is NOT activated (mode=print)."
-  exit 0
-fi
 
 if [[ "$IS_SOURCED" == "1" ]]; then
   if [[ "$PM" == "micromamba" ]]; then

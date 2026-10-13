@@ -156,6 +156,58 @@ def test_declared_registry_gate_exercises_public_selective_lookup():
     verifier.verify_declared_registry_contract()
 
 
+@pytest.mark.parametrize(
+    ("operation", "failure_point"),
+    [
+        (
+            verifier.verify_declared_registry_contract,
+            "Declared registry metadata mismatch",
+        ),
+        (verifier.verify_audit_contract, "Wrong audit exit status"),
+        (verifier.verify_optional_engine_contract, "Wrong missing inventory"),
+    ],
+)
+@pytest.mark.parametrize("fail", [False, True])
+def test_private_gate_fixture_cleanup_preserves_caller_state(
+    tmp_path, monkeypatch, operation, failure_point, fail
+):
+    from depdigest.core.config import _PACKAGE_CONFIGS
+
+    caller = tmp_path / "caller-sentinel"
+    caller.write_text("retain")
+    paths, original_path = [], list(sys.path)
+    original_configs = dict(_PACKAGE_CONFIGS)
+    original_modules = set(sys.modules)
+    real_temporary = verifier.tempfile.TemporaryDirectory
+    real_require = verifier._require
+
+    def private_temporary(*args, **kwargs):
+        context = real_temporary(*args, dir=tmp_path, **kwargs)
+        paths.append(Path(context.name))
+        return context
+
+    def require(condition, message):
+        if fail and message == failure_point:
+            raise ValueError("injected gate failure")
+        return real_require(condition, message)
+
+    monkeypatch.setattr(verifier.tempfile, "TemporaryDirectory", private_temporary)
+    monkeypatch.setattr(verifier, "_require", require)
+    if fail:
+        with pytest.raises(ValueError, match="injected gate failure"):
+            operation()
+    else:
+        operation()
+    assert paths and all(not path.exists() for path in paths)
+    assert sys.path == original_path
+    assert _PACKAGE_CONFIGS == original_configs
+    assert not any(
+        name.startswith("depdigest_installed_gate_")
+        for name in set(sys.modules) - original_modules
+    )
+    assert caller.read_text() == "retain"
+
+
 def test_declared_registry_gate_rejects_a_suppressed_unrelated_import(monkeypatch):
     import importlib
 

@@ -5,17 +5,19 @@ paths remain stable.
 
 <!-- generated: devguide_index -->
 
-### Resolved (22)
+### Resolved (24)
 
 - [`adopt_molsyssuite_policy_v1.md`](../completed_proposals/adopt_molsyssuite_policy_v1.md) — [#3](https://github.com/uibcdf/depdigest/issues/3) — Adopt the shared MolSysSuite policy and Ruff gate. *(resolved, measured)*
 - [`adopt_shared_public_conda_verifier.md`](../completed_proposals/adopt_shared_public_conda_verifier.md) — [#23](https://github.com/uibcdf/depdigest/issues/23) — Call the pinned common public Conda verifier and retain independent evidence. *(resolved, measured)*
 - [`adopt_shared_reporting_lifecycle.md`](../completed_proposals/adopt_shared_reporting_lifecycle.md) — [#5](https://github.com/uibcdf/depdigest/issues/5) — Adopt the shared issue-backed developer-guide lifecycle. *(resolved, inspected)*
 - [`audit_module_level_control_flow.md`](../completed_proposals/audit_module_level_control_flow.md) — [#27](https://github.com/uibcdf/depdigest/issues/27) — Define static audit coverage for imports inside module-level control flow. *(resolved, measured)*
 - [`complete_distribution_adoption.md`](../completed_proposals/complete_distribution_adoption.md) — [#30](https://github.com/uibcdf/depdigest/issues/30) — Maintain complete dependency, resource and executed candidate guards without changing the local noarch publisher. *(resolved, measured)*
+- [`complete_resource_owner_review.md`](../completed_proposals/complete_resource_owner_review.md) — [#33](https://github.com/uibcdf/depdigest/issues/33) — Complete the owner review of applicable DepDigest resource lifecycles. *(resolved, measured)*
 - [`declaration_based_plugin_lookup.md`](../completed_proposals/declaration_based_plugin_lookup.md) — [#34](https://github.com/uibcdf/depdigest/issues/34) — Discover declared plugin identities without importing unrelated implementations. *(resolved, reproduced)*
 - [`doi_badge_cites_molsysmt.md`](../solved_bugs/doi_badge_cites_molsysmt.md) — [#10](https://github.com/uibcdf/depdigest/issues/10) — The README DOI badge cites the MolSysMT archive. *(resolved, reproduced)*
 - [`eager_importlib_metadata_costs_consumers.md`](../solved_bugs/eager_importlib_metadata_costs_consumers.md) — [#16](https://github.com/uibcdf/depdigest/issues/16) — Importing DepDigest eagerly imports importlib.metadata in every consumer. *(resolved, measured)*
 - [`expand_python_support_to_3_14.md`](../completed_proposals/expand_python_support_to_3_14.md) — [#14](https://github.com/uibcdf/depdigest/issues/14) — Expand DepDigest support to Python 3.14 after hosted and package evidence. *(resolved, measured)*
+- [`grouped_entry_point_discovery.md`](../completed_proposals/grouped_entry_point_discovery.md) — [#31](https://github.com/uibcdf/depdigest/issues/31) — Decide grouped entry-point discovery ownership and freshness from measured evidence. *(resolved, measured)*
 - [`guard_conda_release_routes.md`](../completed_proposals/guard_conda_release_routes.md) — [#15](https://github.com/uibcdf/depdigest/issues/15) — Guard direct Conda releases and promote exact staged files. *(resolved, measured)*
 - [`lazy_registry_smonitor.md`](../completed_proposals/lazy_registry_smonitor.md) — [#7](https://github.com/uibcdf/depdigest/issues/7) — Instrument LazyRegistry with SMonitor without changing observable semantics. *(resolved, inspected)*
 - [`missing_dependency_hints_ignore_consumer.md`](../solved_bugs/missing_dependency_hints_ignore_consumer.md) — [#17](https://github.com/uibcdf/depdigest/issues/17) — Missing-dependency hints ignore consumer documentation and disagree on installation order. *(resolved, inspected)*

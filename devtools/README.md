@@ -24,6 +24,28 @@ environments depending on the tasks you need to do.
 
 ## How to prepare the conda environments to work with this repository
 
+From any directory, preview the bootstrap without invoking an environment
+manager, installing packages or registering a kernel:
+
+```bash
+bash /path/to/depdigest/devtools/start_dev_env.sh --mode print --no-kernel
+```
+
+The default mode is the same preview. It prints a shell-quoted setup command
+that preserves the selected environment, YAML, Python override and kernel option.
+Run setup explicitly in the shell where activation should persist:
+
+```bash
+source /path/to/depdigest/devtools/start_dev_env.sh --mode persist --no-kernel
+```
+
+Unsourced persist mode refuses before setup. Explicit setup selects micromamba,
+mamba or conda, installs this repository by its absolute path and propagates
+manager failures before installing or activating. The requested environment,
+including any partial failed setup, belongs to the caller; this script does not
+delete it. Kernel registration is an explicit retained user resource, controlled
+by `--no-kernel` or `REGISTER_KERNEL=0`.
+
 You will find here a directory called 'conda-envs'. This directory contains all the info and
 scripts you need to create and update a conda environment. Let's first have a look to the yaml
 files:
