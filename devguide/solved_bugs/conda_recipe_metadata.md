@@ -63,3 +63,16 @@ plus byte-identical requirements input and six generated environment profiles.
 Version/build/entry-point/runtime dependency fields and scientific code are intact.
 The published 0.15.0 tag/archive/evidence are preserved; this source correction
 applies to future package builds and is not a replacement release.
+
+## Published closeout — 2026-10-13
+
+Implementation `1bb8e855c6edf6e17228a9511eafbae728ef51c8` is published directly.
+Exact-head CI 38423532253, MolSysSuite policy 38423532720 and publication governance
+38423532703 pass; GH Run Receptor confirms an executed successful test job.
+Issue #38 is closed with its outcome and archive path.
+
+After checks and owning-issue handoff, the manifest-owned exact root
+`/tmp/depdigest-metadata-9zo6o2v3` and its private broadcast/test fixtures were removed.
+No active process referred to it, its absence was confirmed and no cleanup error
+occurred. Primary generated outputs, shared environments and public artifacts are
+preserved. No environment was created or updated for this metadata-only task.
