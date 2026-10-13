@@ -24,8 +24,9 @@ It helps maintain a "Zero-Cost Startup" by ensuring that heavy external librarie
 Understand your dependencies. Trust your code.
 
 Current release line:
-- `0.15.1`: candidate for serialized concurrent declared value requests; public
-  admission tracked in [#39](https://github.com/uibcdf/depdigest/issues/39)
+- [`0.15.1`](https://github.com/uibcdf/depdigest/releases/tag/0.15.1): published
+  concurrent declared value requests; source, installed and public qualification
+  in [#39](https://github.com/uibcdf/depdigest/issues/39)
 - [`0.15.0`](https://github.com/uibcdf/depdigest/releases/tag/0.15.0): published
   selective adapter inspection; source, installed and public qualification in
   [#37](https://github.com/uibcdf/depdigest/issues/37)

@@ -300,3 +300,21 @@ jobs queued without assigned runners while retaining all twelve OS/Python cells.
 Native job requirements and workflow-byte review use the actual label; pending
 or superseded runs do not qualify a release. MolSysSuite targets macOS ARM64;
 this change does not establish Intel macOS support or waive an executed gate.
+
+
+### 0.15.1 public poststate — 2026-10-13
+
+Stable tag and Release identify candidate `13cc73780a7cb645546ae3f396177f98b86a8792`.
+Source 38459369859 passes all twelve cells; producer 38461660471 builds one
+`depdigest-0.15.1-py_0.tar.bz2`, SHA-256
+`2765c692de4e6aacff4197c4226ebb42ec1f0df9edb27e92f196ef1390cb1850`.
+Installed 38462313607 passes producer verification and all twelve cells, including
+bounded overlapping-reader/shared-cause/retry/recursion/sentinel controls.
+Promotion 38462737850 adds main to those same bytes and retains staging.
+Independent registry/main index/download and a fresh public-only Python 3.14.8
+install verify version, URLs, digest, fourteen resources and every installed
+contract. Documentation and source-only Zenodo DOI `10.5281/zenodo.23350934`
+are independently verified, including source ZIP size/MD5. The
+[normalized receipt](evidence/release_0.15.1_2026-10-13.json) preserves exact
+native identities, failed/superseded preparation and bounded evidence scopes.
+MolSysMT #382 / MolSysSuite #115 retain later consumer adoption and scientific parity.

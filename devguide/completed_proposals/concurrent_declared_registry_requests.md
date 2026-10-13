@@ -1,11 +1,11 @@
 ---
 summary: Serialize concurrent declared adapter requests without false recursion errors.
 issue: uibcdf/depdigest#39
-status: active
+status: resolved
 opened: 2026-10-13
-closed:
+closed: 2026-10-13
 severity: medium
-verification: reproduced
+verification: measured
 area: [registry, concurrency]
 guard: tests/test_concurrent_first_load.py
 normative:
@@ -139,3 +139,55 @@ skip/failure still permits the full matrix, while requested cancellation stops i
 The existing required-cell guard also protects this control. This changes no
 passing-gate criteria; obsolete or cancelled jobs still cannot qualify a release.
 Official recovery reference: https://docs.github.com/en/actions/how-tos/troubleshoot-workflows.
+
+
+## Resolution and public admission — 2026-10-13
+
+Stable annotated tag and Release 0.15.1 identify final candidate
+`13cc73780a7cb645546ae3f396177f98b86a8792`, tag object
+`5883f698c069d603c9fcc86921d33852c1034eda`. Source matrix 38459369859
+passes all twelve Linux/macOS 15 ARM64/Windows × Python 3.11–3.14 cells on
+attempt 1. Source CI 38459369601, policy 38459370795, governance 38459370467
+and tag policy 38462601066 succeed. Native source job/step/attempt inspection
+confirms executed tests and preflights. A native macOS 3.14 job reports
+`RELEASE_ARM64_VMAPPLE arm64`; no Intel admission is implied.
+
+Producer 38461660471 builds exactly one staging archive
+`depdigest-0.15.1-py_0.tar.bz2`, SHA-256
+`2765c692de4e6aacff4197c4226ebb42ec1f0df9edb27e92f196ef1390cb1850`.
+Original receipts, registry and independent staging download agree. The pinned
+SDK checks embedded version/distribution/constraints, fourteen resources and
+non-generated candidate source bytes. The packaged recipe carries the corrected
+DepDigest metadata from #38. Installed run 38462313607 passes the producer check
+and twelve off-checkout installations; native inspection binds the exact
+filename/digest/title, candidate, thirteen jobs, required steps and attempt.
+Its version-applicable bounded probe covers both policies/routes, shared values
+and original failure causes, explicit retry, true recursion and sentinel custody.
+The owning source guards reproduce false recursion before the fix and preserve
+visibility/diagnostic provenance; killed-child controls verify parent retirement.
+
+Release selector 38462736642 correctly skips rebuilding/uploading the staged
+file. Promotion 38462737850 adds main and retains staging on those same bytes;
+original promotion receipt, independent registry/solver index and public download
+agree. A fresh public-only Linux/Python 3.14.8 environment with public SMonitor
+0.16.0 py_1 passes exact version/origin/record URL/digest, fourteen resource hashes,
+launcher and all engine/audit/registry/adapter/concurrent reader contracts; pip
+check is clean. Its first solver attempt did not find the newly promoted file;
+an isolated new package cache then solved and verified the exact public install.
+Shared caches/environments and primary editable metadata remain preserved.
+
+Documentation 38462736563 passes and the canonical public www guide renders
+0.15.1 and bounded concurrency. Zenodo 38462738089 plus independent pinned-SDK
+record verification confirms source-snapshot DOI `10.5281/zenodo.23350934`.
+Downloaded ZIP `uibcdf/depdigest-0.15.1.zip` matches size 487154 and MD5
+`038c651dfaf7cbc6a4966a2fb91acb7c`; no Conda archival is claimed.
+[Normalized proof](../evidence/release_0.15.1_2026-10-13.json) retains native,
+original artifact, public, installed and superseded-preparation scopes.
+
+Public concurrent-reader admission is now DepDigest >=0.15.1. Same-registry value
+requests serialize, including different identities and cached lookups. Mutation,
+discovery, retry/refresh and configuration changes require external coordination;
+initializers must not wait for another thread needing the same registry. Arbitrary
+cross-registry/thread/import cycles are not covered. MolSysMT #382 and MolSysSuite
+#115 retain consumer adoption/floor, conversion/scientific parity and performance
+ownership. Installed smoke and source pytest are distinct evidence scopes.

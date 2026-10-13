@@ -5,7 +5,7 @@ paths remain stable.
 
 <!-- generated: devguide_index -->
 
-### Resolved (27)
+### Resolved (28)
 
 - [`adopt_molsyssuite_policy_v1.md`](../completed_proposals/adopt_molsyssuite_policy_v1.md) — [#3](https://github.com/uibcdf/depdigest/issues/3) — Adopt the shared MolSysSuite policy and Ruff gate. *(resolved, measured)*
 - [`adopt_shared_public_conda_verifier.md`](../completed_proposals/adopt_shared_public_conda_verifier.md) — [#23](https://github.com/uibcdf/depdigest/issues/23) — Call the pinned common public Conda verifier and retain independent evidence. *(resolved, measured)*
@@ -13,6 +13,7 @@ paths remain stable.
 - [`audit_module_level_control_flow.md`](../completed_proposals/audit_module_level_control_flow.md) — [#27](https://github.com/uibcdf/depdigest/issues/27) — Define static audit coverage for imports inside module-level control flow. *(resolved, measured)*
 - [`complete_distribution_adoption.md`](../completed_proposals/complete_distribution_adoption.md) — [#30](https://github.com/uibcdf/depdigest/issues/30) — Maintain complete dependency, resource and executed candidate guards without changing the local noarch publisher. *(resolved, measured)*
 - [`complete_resource_owner_review.md`](../completed_proposals/complete_resource_owner_review.md) — [#33](https://github.com/uibcdf/depdigest/issues/33) — Complete the owner review of applicable DepDigest resource lifecycles. *(resolved, measured)*
+- [`concurrent_declared_registry_requests.md`](../completed_proposals/concurrent_declared_registry_requests.md) — [#39](https://github.com/uibcdf/depdigest/issues/39) — Serialize concurrent declared adapter requests without false recursion errors. *(resolved, measured)*
 - [`conda_recipe_metadata.md`](../solved_bugs/conda_recipe_metadata.md) — [#38](https://github.com/uibcdf/depdigest/issues/38) — Correct inherited descriptive metadata and preserve it across dependency broadcasts. *(resolved, measured)*
 - [`declaration_based_plugin_lookup.md`](../completed_proposals/declaration_based_plugin_lookup.md) — [#34](https://github.com/uibcdf/depdigest/issues/34) — Discover declared plugin identities without importing unrelated implementations. *(resolved, reproduced)*
 - [`doi_badge_cites_molsysmt.md`](../solved_bugs/doi_badge_cites_molsysmt.md) — [#10](https://github.com/uibcdf/depdigest/issues/10) — The README DOI badge cites the MolSysMT archive. *(resolved, reproduced)*
