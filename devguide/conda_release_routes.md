@@ -273,3 +273,20 @@ execution rejection. The same original archive must pass twelve clean installed
 cells before stable tagging and exact-file promotion. Preparing this plan/docs is
 not a publication claim. MolSysMT #382 and MolSysSuite #115 retain independent
 adoption, conversion/scientific parity and performance ownership.
+
+### 0.15.0 public poststate — 2026-10-13
+
+Stable tag and Release identify `01d83c7b176a2b6cdcbdb42d33f3060f2eda5af7`.
+Source matrix 38415352585 passes twelve cells on attempt 2 after a first-attempt
+micromamba fetch failure before one macOS test cell. Producer 38416272276 builds
+one `depdigest-0.15.0-py_0.tar.bz2`, SHA-256
+`5b888794367e7cd2fd24eac23471b1d26bcbbdfe4d2a14cf77a53f104a110d98`.
+Installed 38416982119 verifies producer identity and all twelve cells, with the
+new absent-engine metadata/strict-default/execution/visibility/sentinel profile.
+Promotion 38417506809 adds main to those same bytes; independent registry, solver
+index, public download and a clean public-only Linux/Python 3.14.8 install agree.
+SMonitor 0.16.0 py_1 is public; launcher and fourteen resources are verified.
+Documentation and source-only Zenodo DOI `10.5281/zenodo.23345127` are verified,
+including ZIP size/checksum. The [release receipt](evidence/release_0.15.0_2026-10-13.json)
+retains exact native source/file/attempt identities and smoke scope. Consumer
+adoption and conversion/scientific parity remain in MolSysMT #382 / MolSysSuite #115.

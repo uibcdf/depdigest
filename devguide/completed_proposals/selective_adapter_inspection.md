@@ -90,3 +90,14 @@ Issue #36 closes provider implementation, with the exact source contract and
 unreleased/public admission boundary delivered to MolSysMT #382 and MolSysSuite
 #115. Public 0.14.0 and consumer adoption remain unchanged. Final owned resource
 retirement is recorded separately in the component's lifecycle receipt.
+
+## Public capability admission — 2026-10-13
+
+Release #37 publishes DepDigest 0.15.0 at candidate
+`01d83c7b176a2b6cdcbdb42d33f3060f2eda5af7`. Twelve source cells and twelve
+clean installed cells pass; the same staging archive is promoted and independently
+verified in public main/index/download/installation. The registry resource retains
+this implementation's exact bytes. Public use of `load_policy="adapter"` can now
+require DepDigest >=0.15.0. Source-only statements above remain dated historical
+checkpoints. Release proof: `devguide/evidence/release_0.15.0_2026-10-13.json`.
+MolSysMT #382 adoption/parity/performance remains separately owned.

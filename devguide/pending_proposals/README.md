@@ -8,10 +8,6 @@ generated from report metadata.
 
 <!-- generated: devguide_index -->
 
-### Active (1)
-
-- [`publish_adapter_inspection_0.15.0.md`](publish_adapter_inspection_0.15.0.md) — [#37](https://github.com/uibcdf/depdigest/issues/37) — Publish the qualified adapter-inspection capability as DepDigest 0.15.0. *(active, measured)*
-
 ### Open (2)
 
 - [`decorator_fast_path_and_observability_boundary.md`](decorator_fast_path_and_observability_boundary.md) — [#6](https://github.com/uibcdf/depdigest/issues/6) — Evaluate an epoch-cached decorator fast path and its observability cost. *(open, measured)*

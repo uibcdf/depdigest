@@ -10,8 +10,8 @@ Source of truth for integrating and using **DepDigest** in this library.
 Metadata
 - Source repository: `depdigest`
 - Source document: `standards/DEPDIGEST_GUIDE.md`
-- Source version: `depdigest@0.15.0` (release preparation; admission tracked in #37)
-- Publication tracking: `uibcdf/depdigest#35`; declaration-based registry: `uibcdf/depdigest#34`
+- Source version: `depdigest@0.15.0`
+- Publication tracking: `uibcdf/depdigest#37` (0.15.0); base registry: `uibcdf/depdigest#34`
 - Adapter-inspection publication tracking: `uibcdf/depdigest#37`; implementation
   `uibcdf/depdigest#36`. Public 0.14.0 does not provide this option.
 - Last source update: 2026-10-13
@@ -173,7 +173,7 @@ execution. Inventory remains actual availability, and hosts retain `dep_digest` 
 can still fail. No engine is installed or silently substituted.
 
 This is **not published 0.14.0 behavior**. Public use requires admitted DepDigest
->=0.15.0, with publication tracked in #37; release preparation alone is not admission.
+>=0.15.0, publicly admitted under #37. Release preparation alone is not admission.
 A controlled source experiment must pin the implementation commit. MolSysMT #382
 adoption/parity and MolSysSuite #115 coordination remain separate from provider
 source/publication evidence.

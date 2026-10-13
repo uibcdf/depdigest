@@ -24,7 +24,8 @@ It helps maintain a "Zero-Cost Startup" by ensuring that heavy external librarie
 Understand your dependencies. Trust your code.
 
 Current release line:
-- `0.15.0`: selective adapter inspection candidate; publication tracked in
+- [`0.15.0`](https://github.com/uibcdf/depdigest/releases/tag/0.15.0): published
+  selective adapter inspection; source, installed and public qualification in
   [#37](https://github.com/uibcdf/depdigest/issues/37)
 - [`0.14.0`](https://github.com/uibcdf/depdigest/releases/tag/0.14.0): published
   declaration-based selective plugin loading; source and installed qualification
