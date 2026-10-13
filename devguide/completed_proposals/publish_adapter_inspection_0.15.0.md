@@ -91,3 +91,14 @@ and the policy. Zenodo 38417508548 independently verifies source-snapshot record
 [Normalized release proof](../evidence/release_0.15.0_2026-10-13.json) retains
 source/file/native/public/installed/archival scopes. Public capability admission is
 now DepDigest >=0.15.0; MolSysMT #382 and central #115 own later receiving work.
+
+## Task resource retirement — 2026-10-13
+
+After verified publication and owning/consumer handoffs, Conda removed both exact
+private test/public prefixes with exit 0. The reviewed clean pinned SDK clone,
+source snapshot, archive/raw read-only receipts and fixtures were retired with
+the manifest-owned task root after confirming no active reference. That exact
+root is absent; no cleanup error occurred. Required normalized evidence remains
+in this repository. Shared environments, primary source/editable metadata, caller
+caches and historical releases are preserved. Executed proof:
+`devguide/evidence/release_resource_retirement_0.15.0_2026-10-13.json`.

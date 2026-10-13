@@ -1,0 +1,34 @@
+{
+  "schema": "depdigest.release-resource-retirement@1",
+  "date": "2026-10-13",
+  "issue": "uibcdf/depdigest#37",
+  "version": "0.15.0",
+  "exact_owned_root": "/tmp/depdigest-0.15.0-t77qkmi6",
+  "lifetime_ended": "publication, independent public/install/archival checks, normalized evidence and owning/consumer handoffs complete",
+  "sdk": {
+    "head": "6d6172d6cd00c5ac2d4ebadb71df554ec5b7fa26",
+    "clean": true,
+    "independent_clone": true
+  },
+  "environments": [
+    {
+      "prefix": "public-env",
+      "manager_exit": 0,
+      "conda_metadata_remaining": false
+    },
+    {
+      "prefix": "test-env",
+      "manager_exit": 0,
+      "conda_metadata_remaining": false
+    }
+  ],
+  "active_reference_check": "no other process cwd/exe/argument reference to exact owned root; all recorded test/benchmark/read-only/release operator children exited",
+  "preserved": [
+    "primary repos/editable metadata",
+    "shared Conda environments and caller/tool caches",
+    "historical source/releases/artifacts/receipts",
+    "unrelated temporary roots"
+  ],
+  "cleanup_errors": [],
+  "removed": true
+}

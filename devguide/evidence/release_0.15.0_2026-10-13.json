@@ -550,5 +550,14 @@
     "public_launcher": "select public-prefix PATH explicitly; initial caller PATH pointed to another launcher",
     "documentation": "verified canonical www.uibcdf.org URL after naked domain returned HTTP 403",
     "zenodo_download": "encoded archive key; bounded retry after an HTTP rejection/incomplete transfer; complete size/checksum matched"
+  },
+  "resource_retirement": {
+    "receipt": "devguide/evidence/release_resource_retirement_0.15.0_2026-10-13.json",
+    "manager_exits": [
+      0,
+      0
+    ],
+    "exact_owned_root_removed": true,
+    "cleanup_errors": []
   }
 }
