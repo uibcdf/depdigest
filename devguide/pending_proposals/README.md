@@ -10,7 +10,7 @@ generated from report metadata.
 
 ### Active (1)
 
-- [`publish_adapter_inspection_0.15.0.md`](publish_adapter_inspection_0.15.0.md) — [#37](https://github.com/uibcdf/depdigest/issues/37) — Publish the qualified adapter-inspection capability as DepDigest 0.15.0. *(active, inspected)*
+- [`publish_adapter_inspection_0.15.0.md`](publish_adapter_inspection_0.15.0.md) — [#37](https://github.com/uibcdf/depdigest/issues/37) — Publish the qualified adapter-inspection capability as DepDigest 0.15.0. *(active, measured)*
 
 ### Open (2)
 
