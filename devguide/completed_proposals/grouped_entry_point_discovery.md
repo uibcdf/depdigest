@@ -67,3 +67,13 @@ release qualification remain separate future work.
 - Existing discovery semantics and late-provider freshness have addressable guards.
 - Reproduction, raw bounded measurements and limitations are maintained here.
 - The decision is handed back to Ackredit #117 after published source gates pass.
+
+## Published source closeout — 2026-10-13
+
+Implementation `5744450a0778eb2d801cabd95d61ccda092a823b` was pushed directly
+without skipping CI. Exact-head native CI 38375008495, MolSysSuite policy
+38375009891 and publication governance 38375009553 pass; GH Run Receptor independently
+reports an executed successful CI test job. Owning issues #33 and #31 are closed;
+local resource disposition was delivered to MolSysSuite #104 and discovery ownership
+to Ackredit #117. Useful manifest-owned resources remain through the separately
+authorized #36 follow-on; final disposal is reported separately.

@@ -72,6 +72,13 @@ experiments must pin the implementation commit; consumer public adoption require
 published DepDigest >=0.14.0 before changing dependency floors. Publication is
 tracked in DepDigest #35 and consumer qualification in MolSysMT #382.
 
+Unreleased #36 adds keyword-only `load_policy="adapter"` for explicit adapter
+inspection. Omission or `"strict"` preserves 0.14.0's dependency precheck; visibility,
+identity, caching and execution guards retain their contracts. Public 0.14.0 does
+not accept this option. A future admitted minor release is required before a consumer
+can select a public dependency floor for it; controlled source pins alone do not
+establish publication or consumer conversion parity.
+
 Before changing public behavior:
 - add/update contract tests first;
 - update this page and `standards/DEPDIGEST_GUIDE.md`;

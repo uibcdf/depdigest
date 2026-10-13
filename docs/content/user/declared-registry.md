@@ -88,7 +88,8 @@ Each access or enumeration resolves current package configuration. Registered an
 temporary overrides affect an existing registry. Restricted soft capabilities are
 hidden, even if cached; restoring visibility exposes the same cached implementation.
 With `SHOW_ALL_CAPABILITIES=True`, names stay visible, but requesting an unavailable
-soft dependency emits existing availability diagnostics and fails before plugin import.
+soft dependency in the default strict policy emits existing availability diagnostics
+and fails before plugin import.
 Hard dependencies remain visible. Manual overrides take precedence over filtering.
 Availability does not certify versions or successful scientific execution.
 
@@ -101,3 +102,49 @@ still need retry/refresh after configuration changes.
 Load diagnostics identify the plugin, requested identity trigger and actual call site.
 Fallback uses the `discover()` trigger. Emission failures do not discard successful
 implementations or replace original load errors.
+
+## Explicit adapter inspection (unreleased source capability, #36)
+
+The current source adds a keyword-only constructor policy:
+
+```python
+adapters = DeclaredRegistry(
+    "my_package.formats",
+    "my_package/formats",
+    {"optional": "optional_form"},
+    attr_name="format_name",
+    load_policy="adapter",
+)
+adapter = adapters["optional"]  # inspect Python adapter metadata
+```
+
+`load_policy="strict"` is the default and preserves the 0.14.0 pre-import soft
+dependency check. Explicit `"adapter"` omits that check when materializing a value;
+the requested adapter must still import successfully and match its declared identity.
+Unknown policy values raise `ValueError`. This policy is selected per registry and
+does not change `LazyRegistry`, dependency configuration, engine choice or inventory.
+
+Current visibility remains authoritative: an absent soft engine is hidden with
+`SHOW_ALL_CAPABILITIES=False`, including cached adapters. With all capabilities
+shown, an importable adapter may expose metadata while its engine is absent.
+Manual caller overrides retain their existing precedence. A plugin initializer
+that eagerly imports its engine can still fail; real import and transitive errors
+remain chained causes rather than being relabeled as engine absence.
+
+The same identity, failure/success cache, retry/refresh, mutation, diagnostics and
+explicit `discover()` rules apply to both policies and discovery modes. Discovery
+in adapter policy may inspect eligible absent-engine adapters; it still imports
+only when explicitly requested and may visit many implementations. Metadata-only
+enumeration and selective indexed lookup retain their scope.
+
+Importability and a successful load event certify adapter materialization only.
+`get_info()` still reports actual engine availability. Hosts must keep
+`dep_digest`/`check_dependency` at execution-dependent operations; an absent
+requested engine still raises, and no alternative engine is selected. Adapter
+inspection is not execution, version compatibility or scientific qualification.
+
+This option is **not in published 0.14.0**. Source experiments must pin the provider
+implementation commit. Public adoption requires a later admitted release containing
+this capability; the prospective minor version is 0.15.0. Source checks, provider
+publication, MolSysMT #382 adoption/conversion parity and speed measurements remain
+separate, coordinated in MolSysSuite #115.

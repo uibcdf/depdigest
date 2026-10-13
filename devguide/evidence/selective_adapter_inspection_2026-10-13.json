@@ -1,0 +1,90 @@
+{
+  "schema": "depdigest.selective-adapter-inspection@1",
+  "date": "2026-10-13",
+  "issue": "uibcdf/depdigest#36",
+  "baseline": "5744450a0778eb2d801cabd95d61ccda092a823b",
+  "api": {
+    "keyword_only_constructor": "load_policy",
+    "default": "strict",
+    "explicit_opt_in": "adapter",
+    "public_0_14_0_contains_option": false,
+    "prospective_minor": "0.15.0"
+  },
+  "files_sha256": {
+    "depdigest/core/registry.py": "8c317af4d0d7d63727c630a377f788aac1ebd8e00576332d3bb01c8dba94c07f",
+    "tests/test_declared_registry.py": "c0110416b15e9cb2d0c3018fbc6911abba02d78c30fdf8d8132e4ad52d02aaba"
+  },
+  "before": {
+    "registry_cases": 46,
+    "failed": 15,
+    "passed": 31,
+    "cause": "new explicit-policy argument not yet implemented"
+  },
+  "after": {
+    "registry_cases_passed": 52,
+    "source_scope": "Linux Python 3.11\u20133.14"
+  },
+  "compatibility": {
+    "3.11.16": {
+      "passed": 52,
+      "receptor": "llm"
+    },
+    "3.12.12": {
+      "passed": 52,
+      "receptor": "native fallback",
+      "warning": "unknown receptor_rerun_command configuration; optional receptor absent"
+    },
+    "3.13.14": {
+      "passed": 52,
+      "receptor": "llm",
+      "control": "disabled optional pytest-rerunfailures socket plugin after sandbox permission failure; no test reruns suppressed"
+    },
+    "3.14.8": {
+      "passed": 52,
+      "receptor": "llm"
+    }
+  },
+  "consumer_control": {
+    "schema": "depdigest.adapter-inspection-consumer-control@1",
+    "date": "2026-10-13",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+    "depdigest_source": "candidate source snapshot at the retained registry file hash",
+    "molsysmt_source": "c38a2e146936fad4d199a26e9f5a5c5033377a9a",
+    "consumer_snapshot": "git archive of original request commit; no consumer source edits",
+    "cupy_available": false,
+    "strict_lookup_cause": "ImportError",
+    "adapter_form_type": "class",
+    "adapter_converter_names": [
+      "XYZ",
+      "molsysmt.Structures"
+    ],
+    "adapter_module_preexisting_after_host_import": false,
+    "checks": [
+      "explicit adapter policy returns cupy_ndarray metadata",
+      "strict policy retains missing-engine gate",
+      "restricted override hides cached adapter",
+      "restored configuration exposes same cache",
+      "cupy remains absent"
+    ],
+    "scope": "bounded metadata compatibility control; shared developer dependencies; not consumer adoption, conversion parity, scientific execution or published package qualification"
+  },
+  "boundaries": [
+    "source implementation is separate from publication",
+    "public 0.14.0 remains unchanged",
+    "no dependency-floor or controlled consumer-pin edits",
+    "no engine installed, executed or substituted",
+    "no MolSysMT adoption/conversion-parity/speed claim",
+    "primary caller repos/shared environments preserved"
+  ],
+  "full_source_suite": {
+    "python": "3.14.8",
+    "passed": 280,
+    "skipped": 5,
+    "skips": "unavailable sibling-workspace integration sources",
+    "pinned_sdk_guards_executed": true,
+    "distribution_inputs": "20 routes, declared-and-installed-public-bounds",
+    "ruff": "check and format-check pass",
+    "snapshot": "private byte copy; editable 1+unknown; source proof only"
+  }
+}

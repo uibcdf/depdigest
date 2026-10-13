@@ -16,6 +16,10 @@ class DeclaredRegistry(_RegistrySupport, MutableMapping):
     Keys/iteration/membership describe visible declarations, not successful imports.
     Values/items load implementations as their views are iterated. Failed imports
     raise KeyError with their cause retained; use ``retry`` to attempt them again.
+    ``load_policy="strict"`` checks mapped soft dependencies before import.
+    Explicit ``load_policy="adapter"`` permits Python adapter inspection without
+    that precheck. Visibility still follows current configuration, and execution
+    checks remain the host's responsibility. Importability is not availability.
     """
 
     def __init__(
@@ -26,7 +30,11 @@ class DeclaredRegistry(_RegistrySupport, MutableMapping):
         attr_name="form_name",
         discovery_mode="filesystem",
         entrypoint_group=None,
+        *,
+        load_policy="strict",
     ):
+        if load_policy not in ("strict", "adapter"):
+            raise ValueError("load_policy must be 'strict' or 'adapter'")
         if discovery_mode not in {"filesystem", "entry_points"}:
             raise ValueError("discovery_mode must be 'filesystem' or 'entry_points'")
         if discovery_mode == "entry_points" and not entrypoint_group:
@@ -36,6 +44,7 @@ class DeclaredRegistry(_RegistrySupport, MutableMapping):
         self._attr_name = attr_name
         self._discovery_mode = discovery_mode
         self._entrypoint_group = entrypoint_group
+        self._load_policy = load_policy
         self._declarations = {}
         pairs = (
             declarations.items() if isinstance(declarations, Mapping) else declarations
@@ -159,7 +168,7 @@ class DeclaredRegistry(_RegistrySupport, MutableMapping):
             cfg = resolve_config(self._package_prefix)
             library = cfg.mapping.get(plugin)
             info = cfg.libraries.get(library, {})
-            if library and info.get("type") == "soft":
+            if self._load_policy == "strict" and library and info.get("type") == "soft":
                 check_dependency(
                     library,
                     pypi_name=info.get("pypi"),

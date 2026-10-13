@@ -65,3 +65,13 @@ qualification remains in its existing release receipt.
 - Reproduced bootstrap gaps are repaired with meaningful failure guards.
 - Executed cleanup, retained resources and unknown historical attribution are distinct.
 - Owning results are reported to central #104 without closing its other work.
+
+## Published source closeout — 2026-10-13
+
+Implementation `5744450a0778eb2d801cabd95d61ccda092a823b` was pushed directly
+without skipping CI. Exact-head native CI 38375008495, MolSysSuite policy
+38375009891 and publication governance 38375009553 pass; GH Run Receptor independently
+reports an executed successful CI test job. Owning issues #33 and #31 are closed;
+local resource disposition was delivered to MolSysSuite #104 and discovery ownership
+to Ackredit #117. Useful manifest-owned resources remain through the separately
+authorized #36 follow-on; final disposal is reported separately.

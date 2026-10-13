@@ -7,6 +7,24 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+### Added
+
+- Explicit `DeclaredRegistry(load_policy="adapter")` permits selective Python adapter
+  metadata inspection with an absent optional engine (#36). The strict default,
+  current visibility, identity validation and execution guards are preserved.
+  This option requires a future release; published 0.14.0 does not provide it.
+
+### Fixed
+
+- Development bootstrap preview makes no environment changes, refuses unsourced
+  setup early, installs the owning repository and propagates manager failures (#33).
+
+### Migration Notes
+
+- Adapter inspection requires explicit opt-in; successful adapter import does not
+  establish engine availability or scientific execution. Keep execution-dependent
+  guards in the host. No public dependency floor or MolSysMT adoption changes yet.
+
 ## [0.14.0] - 2026-10-10
 
 ### Added
