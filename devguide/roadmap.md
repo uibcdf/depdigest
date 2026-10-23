@@ -1,23 +1,20 @@
 # Roadmap & Future Steps
 
-DepDigest is currently at public release **0.13.0**, including Python 3.14
-support. Its exact noarch Conda file, clean public installation, documentation
-and Zenodo source snapshot are verified under #29.
+Updated: **2026-10-22**, under [#41](https://github.com/uibcdf/depdigest/issues/41).
 
-Release **0.12.0** publishes optional executable discovery and explicit disabled
-installer routes under #22. Exact-source and installed-artifact matrices passed
-all twelve cells; promotion verified the same file in the public Conda channel.
-TopoMT adopted the released provider with its custom-command/error contract.
+DepDigest's current public release is **0.15.1**, with Python 3.11--3.14 support.
+Its exact noarch Conda file, source and installed twelve-cell matrices,
+independent public installation, documentation and Zenodo source snapshot are
+recorded in the [release receipt](evidence/release_0.15.1_2026-10-13.json).
+The installed matrix covers Linux, Windows and macOS ARM64; the independent
+public installation covers Linux/Python 3.14. These scopes do not establish
+consumer scientific or conversion parity.
 
-This roadmap captures likely next increments toward broader stable adoption.
-
-Release **0.13.0** publishes the expanded module/class audit coverage delivered
-in #27. Source and installed-artifact matrices passed all twelve cells; exact-file
-promotion and independent public verification passed. See the
-[release receipt](evidence/release_0.13.0_2026-10-04.json).
-Consumer guide/adoption decisions in MolSysSuite #95,
-ArgDigest #22 and PyUnitWizard #93 continue independently; their completion is
-not claimed by this provider release.
+The audit-boundary decisions in ArgDigest #22, PyUnitWizard #93 and MolSysSuite
+#95 are resolved; see the [1.0 preparation checklist](release_1.0.0_checklist.md)
+for outcomes and evidence. Receiving integration of `DeclaredRegistry` remains
+open in [MolSysMT #382](https://github.com/uibcdf/molsysmt/issues/382).
+Provider publication and consumer acceptance are separate milestones.
 
 ## Recently delivered
 
@@ -73,7 +70,8 @@ not claimed by this provider release.
   exact installed-package matrices passed on Python 3.11--3.14 across Ubuntu,
   macOS, and Windows; the same file was promoted to public `uibcdf`, and a clean
   Python 3.14 public installation passed. Published ArgDigest 0.12.1 also passed
-  a Python 3.13 consumer smoke; its own Python 3.14 transition is next.
+  a Python 3.13 consumer smoke; its Python 3.14 qualification was a separate
+  consumer decision.
 
 ### 0.11.1
 
@@ -83,29 +81,74 @@ not claimed by this provider release.
 - Independently installed the public file on Linux/Python 3.13 and ran the
   installed command outside the source checkout.
 
-### 1.0.0 (in progress)
+### 0.12.0 and 0.13.0
+
+- 0.12.0 published optional executable discovery and explicit disabled installer
+  routes under #22. TopoMT adopted the custom-command/error contract.
+- 0.13.0 published expanded module/class control-flow auditing under #27/#29.
+  Static findings remain distinct from runtime import reachability and syntax
+  validation. See the [release receipt](evidence/release_0.13.0_2026-10-04.json).
+- Both releases passed their exact-source and installed twelve-cell matrices
+  and promoted the same verified files to the public Conda channel.
+
+### 0.14.0
+
+- #34 introduced opt-in `DeclaredRegistry`: metadata-only identity enumeration,
+  selective filesystem/entry-point loading and explicit discovery, overrides,
+  caching and retry/refresh contracts. `LazyRegistry` retains its full scan.
+- #35 qualified and published that API, including the portable Windows
+  distribution preflight. See the [release receipt](evidence/release_0.14.0_2026-10-10.json).
+
+### 0.15.0
+
+- #36 added explicit `load_policy="adapter"` for selective adapter inspection
+  with an absent optional engine. The strict default remains unchanged;
+  inspection does not establish engine availability or authorize execution.
+- #37 qualified and published the capability. Public use of this option requires
+  DepDigest >=0.15.0; see the [release receipt](evidence/release_0.15.0_2026-10-13.json).
+- #33 repaired development bootstrap preview and failure propagation.
+
+### 0.15.1
+
+- #39 serialized overlapping declared value requests on one registry, sharing
+  initialization and the cached value or failure cause. Genuine same-thread
+  recursion still fails. Public use of this guarantee requires >=0.15.1.
+- Mutation, discovery, retry/refresh and configuration changes require external
+  coordination. Arbitrary cross-registry cycles are outside the bounded contract.
+  See the [API stability guidance](../docs/content/developers/api-stability.md)
+  and [release receipt](evidence/release_0.15.1_2026-10-13.json).
+- #38 corrected copied Conda descriptive metadata without changing dependencies.
+
+### Preparation for 1.0.0
 
 - Prepare final release narrative and final go/no-go checklist.
 - Keep contract stability and release-gate reproducibility as hard blockers.
-- The 2026-10-04 [integration checkpoint](collective_evidence_pack.md) and
-  [1.0 checklist](release_1.0.0_checklist.md) track current source evidence and
-  remaining candidate-specific gates under #26.
+- The 2026-10-04 [integration checkpoint](collective_evidence_pack.md) remains
+  dated source evidence under #26. The maintained
+  [1.0 checklist](release_1.0.0_checklist.md) tracks resolved decisions and
+  remaining candidate-specific gates, including review of the newer public APIs.
 - #6 remains deferred after complete-call consumer measurements; #8 remains
   deferred without a current consumer import boundary. Neither blocks 1.0.
+- [#40](https://github.com/uibcdf/depdigest/issues/40) records a future Python
+  3.15 lazy-import evaluation and explicitly defers implementation. It creates
+  no Python support change, 1.0 commitment or release deadline. Early 2027 is
+  a possible review checkpoint, conditional on ecosystem maturity.
 
 ### Delivered diagnostics before 1.0
 
 - #7 completed bounded LazyRegistry success diagnostics on 2026-09-26.
   `DEP-DBG-LOAD-002` records plugin, module, triggering access and caller.
   See [the completed proposal](completed_proposals/lazy_registry_smonitor.md).
-- Loading remains a whole permitted-plugin scan at first access. Per-entry
-  loading would change semantics and has no accepted implementation or date.
+- `LazyRegistry` still performs a whole permitted-plugin scan at first access.
+  Selective declared loading is available separately through `DeclaredRegistry`
+  from 0.14.0; changing legacy loading semantics has no accepted plan.
 
 ## Candidate priorities for next cycle
 
 1. 1.0.0 release narrative closure
 
-Consolidate final migration notes and ecosystem compatibility statements.
+Review the public contracts through 0.15.1, consolidate migration/support notes
+and name the release decision owner. No 1.0 candidate or publication date is set.
 
 2. Final contract verification
 
@@ -113,9 +156,14 @@ Re-validate API/CLI/schema contracts and release-gate consistency before tagging
 
 3. Ecosystem sign-off traceability
 
-Link collective evidence artifacts for final pre-1.0 confidence.
+Record relevant receiving-consumer acceptance and compatibility limitations,
+including the status of MolSysMT #382. Existing audit decisions and provider release
+receipts do not substitute for candidate-specific integration evidence.
 
 ## Open design questions
+
+These are unaccepted ideas, not scheduled features or 1.0 blockers. A concrete
+consumer requirement and an owning proposal must precede implementation.
 
 1. Version constraints policy
 
@@ -133,45 +181,18 @@ requirement and an explicit compatibility decision.
 
 ## Route to 1.0.0
 
-This is the working milestone path toward a stable `1.0.0` release.
+The versioned entries above describe delivered history. Remaining work follows
+the [1.0 checklist](release_1.0.0_checklist.md):
 
-### 0.5.0 - Contract stabilization
-
-- Finalize and document the `get_info(format="dict|json")` schema contract.
-- Improve dependency-missing remediation hints (clearer install guidance/context).
-- Publish a recommended CI profile for integrators (`depdigest audit` + key checks).
-
-### 0.6.0 - Controlled extension
-
-- Deliver non-filesystem plugin discovery evolution for `LazyRegistry` (entry points).
-- Harden dynamic config and runtime registration edge cases.
-- Expand advanced integration docs around these behaviors.
-
-### 0.7.0 - Hardening
-
-- Increase regression coverage in critical orchestration paths.
-- Lock down behavior expectations for public API surfaces.
-- Reduce technical debt that could affect stability.
-
-### 0.8.0 - Release candidate preparation
-
-- Freeze new feature intake.
-- Focus on bug fixing, API/docs consistency, and release quality.
-- Finalize deprecation/support policy notes for the stable line.
-
-### 0.10.0 - Stabilization
-
-- Run external validation and address stabilization fixes only.
-- Keep contracts stable while gathering final confidence before `1.0.0`.
-
-### 1.0.0 - Stable release
-
-- Public API and documented contracts are treated as stable.
-- User and developer documentation are complete and consistent.
-- CI/release workflows are considered production-stable.
+1. Close contract, support, migration and consumer-acceptance decisions.
+2. Select an exact candidate and reviewed release route.
+3. Execute the required source, installed-artifact and receiving-integration
+   gates for that candidate; retain their distinct scopes and evidence.
+4. Record an explicit go/no-go decision before any 1.0 tag or publication.
 
 ### After 1.0.0
 
 - Reconsider #6/#8 when a representative consumer provides a justified need.
 - Successful LazyRegistry diagnostics are already delivered under #7. Per-entry
-  loading remains a separate, unaccepted design change.
+  loading is available through the separate declared registry API; changing
+  legacy semantics remains an unaccepted design change.
