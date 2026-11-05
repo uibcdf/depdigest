@@ -5,7 +5,7 @@ paths remain stable.
 
 <!-- generated: devguide_index -->
 
-### Resolved (29)
+### Resolved (30)
 
 - [`adopt_molsyssuite_policy_v1.md`](../completed_proposals/adopt_molsyssuite_policy_v1.md) — [#3](https://github.com/uibcdf/depdigest/issues/3) — Adopt the shared MolSysSuite policy and Ruff gate. *(resolved, measured)*
 - [`adopt_shared_public_conda_verifier.md`](../completed_proposals/adopt_shared_public_conda_verifier.md) — [#23](https://github.com/uibcdf/depdigest/issues/23) — Call the pinned common public Conda verifier and retain independent evidence. *(resolved, measured)*
@@ -33,6 +33,7 @@ paths remain stable.
 - [`receptor_misclassifies_composite_conda_publication.md`](../solved_bugs/receptor_misclassifies_composite_conda_publication.md) — [#9](https://github.com/uibcdf/depdigest/issues/9) — Use the release profile for action-internal Conda publication. *(resolved, reproduced)*
 - [`reconcile_pre_1_planning_0.15.1.md`](../completed_proposals/reconcile_pre_1_planning_0.15.1.md) — [#41](https://github.com/uibcdf/depdigest/issues/41) — Reconcile pre-1.0 planning with public 0.15.1 and resolved consumer decisions. *(resolved, inspected)*
 - [`refresh_pre_1_integration_evidence.md`](../completed_proposals/refresh_pre_1_integration_evidence.md) — [#26](https://github.com/uibcdf/depdigest/issues/26) — Refresh pre-1.0 integration evidence and verify consumer dependency diagnostics. *(resolved, measured)*
+- [`relative_import_audit.md`](../solved_bugs/relative_import_audit.md) — [#47](https://github.com/uibcdf/depdigest/issues/47) — Distinguish internal relative adapters from external optional imports. *(resolved, measured)*
 - [`release_0.13.0.md`](../completed_proposals/release_0.13.0.md) — [#29](https://github.com/uibcdf/depdigest/issues/29) — Publish expanded optional-import audit coverage as DepDigest 0.13.0. *(resolved, measured)*
 - [`review_inherited_python_ecosystem_policy.md`](../completed_proposals/review_inherited_python_ecosystem_policy.md) — [#18](https://github.com/uibcdf/depdigest/issues/18) — Review inherited Python ecosystem policy in DepDigest. *(resolved, measured)*
 - [`selective_adapter_inspection.md`](../completed_proposals/selective_adapter_inspection.md) — [#36](https://github.com/uibcdf/depdigest/issues/36) — Add explicit adapter inspection while retaining strict loading and execution checks. *(resolved, measured)*
