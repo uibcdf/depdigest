@@ -12,7 +12,7 @@ requirements:
   build:
   - python >=3.11,<3.15
   - pip
-  - setuptools >=61.0
+  - setuptools >=77.0.3
   - versioningit >=3.0
   run:
   - python >=3.11,<3.15
@@ -26,7 +26,8 @@ test:
   - depdigest --help
 about:
   home: https://github.com/uibcdf/depdigest
-  license: MIT License
+  license: MIT
+  license_file: LICENSE
   summary: Lightweight dependency management and lazy loading for Python libraries.
   description: DepDigest manages optional Python libraries and external executables,
     enforces dependency checks at execution time, supports lazy and selective plugin

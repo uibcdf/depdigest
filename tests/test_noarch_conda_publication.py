@@ -66,7 +66,10 @@ def test_noarch_workflow_has_one_job_and_retains_producer_evidence():
     workflow = WORKFLOW.read_text(encoding="utf-8")
 
     assert "matrix:" not in workflow
-    assert "@v2.1.0" in workflow
+    assert (
+        "action-build-and-upload-conda-packages@87c70b1443d5f22d738ee3ddf812bdbe0152f6c2"
+        in workflow
+    )
     assert "--python" not in workflow
     assert "platform_linux-64: false" in workflow
     assert "platform_win-64: false" in workflow
@@ -92,7 +95,10 @@ def test_promotion_workflow_checks_exact_release_and_file_identity():
         "uibcdf/depdigest/$RELEASE_VERSION/noarch/depdigest-$RELEASE_VERSION-py_$BUILD_NUMBER.tar.bz2"
         in workflow
     )
-    assert "action-build-and-upload-conda-packages/promote@v2.2.2" in workflow
+    assert (
+        "action-build-and-upload-conda-packages/promote@87c70b1443d5f22d738ee3ddf812bdbe0152f6c2"
+        in workflow
+    )
     assert "--route staged" in workflow
     assert "expected-sha256: ${{ inputs.sha256 }}" in workflow
     assert "from-label: staging" in workflow

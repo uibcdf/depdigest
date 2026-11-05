@@ -48,3 +48,16 @@ This guarded resolution is proposed for owner review; main acceptance closes #47
 Shared advance impact/receiving is MolSysSuite #166. DockingMT #19 owns consumer
 inventory and receiving; other registered audit users retain their own checks.
 No public release, dependency floor, scientific gate or molecular behavior changes.
+
+## Owner acceptance — 2026-11-05
+
+PR #48 was reviewed and accepted as merge
+`02339c2917588a91ba938575be44816d706b5e27`; #47 is closed. Main independently
+reproduced the erroneous relative finding before acceptance. An isolated exact
+proposal copy passed 79 audit, CLI, API and reporting cases, including all 27
+owning controls. The merge's source CI `42072573073`, policy `42072574324` and
+publication governance `42072574288` passed, inspected through GH Run Receptor.
+This appends the receiving state to the original proposal boundary; the original
+measurements and dates above retain their scope. The correction is accepted
+source, not a new public package. Consumer receiving remains DockingMT #19 and
+shared impact remains MolSysSuite #166.

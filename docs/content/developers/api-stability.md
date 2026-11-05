@@ -63,6 +63,11 @@ The audit is neither a runtime reachability proof nor a syntax validator.
 See the [audit CLI scope](../user/audit-cli.md) and the 0.13.0 migration notes
 in `CHANGELOG.md` before upgrading an audit gate.
 
+Unreleased source correction #47/#48 excludes relative internal adapter imports
+from external optional-dependency findings. Absolute imports and the CLI schema,
+source-line and exit contracts remain unchanged. Public 0.15.1 does not include
+this correction.
+
 ## Change management guidance
 
 `DeclaredRegistry` retains legacy registry behavior and separates metadata from

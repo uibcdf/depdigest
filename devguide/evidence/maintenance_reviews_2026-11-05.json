@@ -1,0 +1,140 @@
+{
+  "conda_provider": {
+    "bindings": [
+      "build staging",
+      "build direct",
+      "same-file promotion"
+    ],
+    "central_delivery": "95f693be10c9205ab9b912cb53453710a207bf45",
+    "commit": "87c70b1443d5f22d738ee3ddf812bdbe0152f6c2",
+    "limits": "offline transports and administrative contracts; no real upload, promotion, installed Conda candidate or scientific qualification",
+    "local_governance": "passed exact frozen 2a63a15d67d2e72724b6349e89f9f026b25e860f contract",
+    "profile": "existing local noarch host build, tar.bz2, conversion flags false; automatic GitHub Release remains false by default",
+    "provider_client": "anaconda-client 1.16.0",
+    "provider_offline_tests": 26,
+    "sdk": "6d6172d6cd00c5ac2d4ebadb71df554ec5b7fa26",
+    "version": "v2.3.0"
+  },
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/depdigest#44",
+    "uibcdf/depdigest#45",
+    "uibcdf/depdigest#46"
+  ],
+  "license": {
+    "artifacts": [
+      {
+        "filename": "depdigest-1+unknown-py3-none-any.whl",
+        "license_expression": "MIT",
+        "license_file": "depdigest-1+unknown.dist-info/licenses/LICENSE",
+        "license_sha256": "201cca3f4381a6fe589d0ee2a0f88092d8d01465744df6eda0a16ac8ec2c35fc",
+        "metadata_version": "2.4",
+        "route": "minimum-direct-wheel",
+        "sha256": "d72b89342f990c5be900423d5e0f58e9c29ba96fd6640f0716c9bb324774672c",
+        "version": "1+unknown"
+      },
+      {
+        "filename": "depdigest-1+unknown.tar.gz",
+        "license_expression": "MIT",
+        "license_file": "depdigest-1+unknown/LICENSE",
+        "license_sha256": "201cca3f4381a6fe589d0ee2a0f88092d8d01465744df6eda0a16ac8ec2c35fc",
+        "metadata_version": "2.4",
+        "route": "minimum-sdist",
+        "sha256": "4dd756bb6f4a312a06a76cf73d49653aaf72e1f2e7841ec423e2f1a1999d2a18",
+        "version": "1+unknown"
+      },
+      {
+        "filename": "depdigest-1+unknown-py3-none-any.whl",
+        "license_expression": "MIT",
+        "license_file": "depdigest-1+unknown.dist-info/licenses/LICENSE",
+        "license_sha256": "201cca3f4381a6fe589d0ee2a0f88092d8d01465744df6eda0a16ac8ec2c35fc",
+        "metadata_version": "2.4",
+        "route": "minimum-sdist-rebuilt-wheel",
+        "sha256": "4828bb5ee1cca863476cd8aabefc0ca1ddc83feef43395aafadbecf90c41b4df",
+        "version": "1+unknown"
+      },
+      {
+        "filename": "depdigest-1+unknown-py3-none-any.whl",
+        "license_expression": "MIT",
+        "license_file": "depdigest-1+unknown.dist-info/licenses/LICENSE",
+        "license_sha256": "201cca3f4381a6fe589d0ee2a0f88092d8d01465744df6eda0a16ac8ec2c35fc",
+        "metadata_version": "2.4",
+        "route": "modern-direct-wheel",
+        "sha256": "69ba61888b0c57a0706ecdfc81b700f490ca8508dab2b119e52da0ce332c220a",
+        "version": "1+unknown"
+      }
+    ],
+    "limits": "private wheel/sdist and sdist-rebuilt wheel; no new Conda package or public coordinate",
+    "minimum_tools": {
+      "build": "1.6.1",
+      "python": "3.14.7",
+      "setuptools": "77.0.3",
+      "versioningit": "3.0.0"
+    },
+    "modern_tools": {
+      "build": "1.6.1",
+      "python": "3.14.7",
+      "setuptools": "84.0.0",
+      "versioningit": "3.3.0"
+    },
+    "notice": "original LICENSE retained byte-for-byte"
+  },
+  "local_final_checks": {
+    "command": "MOLSYSSUITE_TOOL_ROOT=<clean pinned SDK> python -m pytest --receptor=llm tests/test_broadcast_requirements.py tests/test_conda_recipe.py tests/test_noarch_conda_publication.py tests/test_conda_release_route.py tests/test_distribution_inputs.py tests/test_relative_import_audit.py tests/test_reporting_protocol.py",
+    "diff_check": "passed",
+    "indexes": "current",
+    "relative_links": "resolved",
+    "ruff_check": "passed",
+    "ruff_format": "176 files already formatted",
+    "selected_tests": 75,
+    "skipped": 0
+  },
+  "reviewed_base": "02339c2917588a91ba938575be44816d706b5e27",
+  "runtime": {
+    "checks": {
+      "each_prefix_selected_installed_tests": 147,
+      "pip_check": "clean in both prefixes",
+      "preflight_routes_each_prefix": 20
+    },
+    "disposition": "required SMonitor >=0.13.0 unchanged; no runtime upper bound; Python and exact CI/build pins remain separate",
+    "floor": {
+      "depdigest_origin": "private prefix site-packages",
+      "depdigest_version": "1+unknown",
+      "python": "3.13.18",
+      "smonitor": {
+        "build": "py313_1",
+        "sha256": "1a9500b12c60ebfb9b12107284d7dea3d02269bdacebb7ff8dd360f7d0b4e07b",
+        "url": "https://conda.anaconda.org/uibcdf/linux-64/smonitor-0.13.0-py313_1.tar.bz2",
+        "version": "0.13.0"
+      }
+    },
+    "limits": "Linux public SMonitor packages plus private installed DepDigest 1+unknown wheel; no full OS/minor matrix, future-provider or consumer-science claim",
+    "newer": {
+      "depdigest_origin": "private prefix site-packages",
+      "depdigest_version": "1+unknown",
+      "python": "3.14.10",
+      "smonitor": {
+        "build": "py_0",
+        "sha256": "e9ce6c77a682dddec3a6e724f9cc98cca31c4d6732453d554107ffcf61f23e7e",
+        "url": "https://conda.anaconda.org/uibcdf/noarch/smonitor-0.22.1-py_0.tar.bz2",
+        "version": "0.22.1"
+      }
+    },
+    "optional_scope": "No owned optional runtime extra; user/consumer dependency declarations and optional engines remain caller-owned. Test/docs/build tools are not product runtime requirements."
+  },
+  "schema": "depdigest.maintenance-reviews@1",
+  "scope": "owner maintenance; no tag, release or public artifact mutation",
+  "source_inputs": {
+    ".github/workflows/build_and_upload_conda_packages.yaml": "54d04ac1a27ec27039a3948a6be71437ba2b435de6cc8c33bfcc58fd4f7c69b9",
+    ".github/workflows/promote_conda_package.yaml": "91bd3f4ee091ca3d43bdda2de15095f08f4d4923504141ecaa2cd85d4bc297f1",
+    "LICENSE": "201cca3f4381a6fe589d0ee2a0f88092d8d01465744df6eda0a16ac8ec2c35fc",
+    "depdigest/utils/ast_tools.py": "cc7974ec61e04079c24a6f717d342d587fa098733c6c5211377afb264cf41585",
+    "devtools/conda-build/meta.yaml": "51c30109a5b4f423583efd55dfa56fbab97ea3683917948088251f87be72e6d9",
+    "devtools/conda-envs/build_env.yaml": "26f4aaa6444ea328c8772d6ff9fa7b6bab93e5e17e01fdebbd382e34d1217a7e",
+    "devtools/conda-envs/setup_env.yaml": "fa82981f5683cc7aa83d5b43c0c86794587f55ace1da849199b3d9ab092332f9",
+    "devtools/dependency_routes.toml": "37ce179b3d6cfbb28972e9ad9b5460dd5ce9f6d25891362f62bd58dae82ff9de",
+    "devtools/requirements.yaml": "cfe069f1233363b67732e26c18699a85fa861377a1b39bb1b4ed76b0045ecee0",
+    "pyproject.toml": "39d7c1fc7d223f74897f55949dbe9ae0d509f5796121baee50a944c7312fe942",
+    "tests/test_noarch_conda_publication.py": "54ed5db9224a9128a7b7adef6b6f92ab9613e73304cabee3ee471898e04fefe3"
+  }
+}

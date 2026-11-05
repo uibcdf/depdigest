@@ -67,7 +67,7 @@ reason = "Twelve strict public source cells with default preflight; separate bac
 
 [[workflows]]
 path = ".github/workflows/build_and_upload_conda_packages.yaml"
-sha256 = "4bcc451e948b7bd7d6a796496ac042db14336c4c4eb5cf211b9c92fee640b91f"
+sha256 = "54d04ac1a27ec27039a3948a6be71437ba2b435de6cc8c33bfcc58fd4f7c69b9"
 reason = "Local single noarch producer; declarations/resources and all executed exact-source gates precede mutation; bootstrap is not installed qualification"
 
 [[workflows]]
@@ -97,7 +97,7 @@ reason = "Fixed versioned shared governance policy; no component runtime install
 
 [[workflows]]
 path = ".github/workflows/promote_conda_package.yaml"
-sha256 = "e34b3f843944885cb6bb25203d8ab3d779d8a647aede966a2c1e56452441e340"
+sha256 = "91bd3f4ee091ca3d43bdda2de15095f08f4d4923504141ecaa2cd85d4bc297f1"
 reason = "Same-byte local promoter; exact source and thirteen executed exact-file installed jobs/steps/title verified and retained before mutation"
 
 [[workflows]]

@@ -245,6 +245,11 @@ payload = get_info("MyLibrary", format="dict")  # or format='json'
 ### 3.3 Architecture Audit in CI
 Use the audit command to detect top-level imports of soft dependencies:
 
+Unreleased source correction #47/#48 distinguishes relative internal imports
+(`from .vina import VinaBackend`) from absolute external imports (`import vina`).
+The former are excluded from external-package findings; public 0.15.1 predates
+this fix. Accepting source does not publish a new provider version.
+
 ```bash
 depdigest audit --src-root MyLibrary --soft-deps mdtraj,openmm
 ```

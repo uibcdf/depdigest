@@ -7,6 +7,19 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+### Fixed
+
+- Source audits distinguish internal relative adapter imports, such as
+  `from .vina import VinaBackend`, from absolute optional-package imports (#47/#48).
+  Absolute findings, eager scopes, source lines and CLI exit/JSON behavior remain.
+
+### Changed
+
+- MIT metadata uses an SPDX expression and explicit license-file inclusion;
+  compatible build routes now require Setuptools >=77.0.3 (#45).
+- The owned Conda build/upload and promotion operations pin reviewed v2.3.0
+  source, preserving exact-candidate and same-file qualification gates (#46).
+
 ## [0.15.1] - 2026-10-13
 
 ### Fixed

@@ -5,7 +5,7 @@ paths remain stable.
 
 <!-- generated: devguide_index -->
 
-### Resolved (30)
+### Resolved (33)
 
 - [`adopt_molsyssuite_policy_v1.md`](../completed_proposals/adopt_molsyssuite_policy_v1.md) — [#3](https://github.com/uibcdf/depdigest/issues/3) — Adopt the shared MolSysSuite policy and Ruff gate. *(resolved, measured)*
 - [`adopt_shared_public_conda_verifier.md`](../completed_proposals/adopt_shared_public_conda_verifier.md) — [#23](https://github.com/uibcdf/depdigest/issues/23) — Call the pinned common public Conda verifier and retain independent evidence. *(resolved, measured)*
@@ -14,6 +14,7 @@ paths remain stable.
 - [`complete_distribution_adoption.md`](../completed_proposals/complete_distribution_adoption.md) — [#30](https://github.com/uibcdf/depdigest/issues/30) — Maintain complete dependency, resource and executed candidate guards without changing the local noarch publisher. *(resolved, measured)*
 - [`complete_resource_owner_review.md`](../completed_proposals/complete_resource_owner_review.md) — [#33](https://github.com/uibcdf/depdigest/issues/33) — Complete the owner review of applicable DepDigest resource lifecycles. *(resolved, measured)*
 - [`concurrent_declared_registry_requests.md`](../completed_proposals/concurrent_declared_registry_requests.md) — [#39](https://github.com/uibcdf/depdigest/issues/39) — Serialize concurrent declared adapter requests without false recursion errors. *(resolved, measured)*
+- [`conda_provider_2.3_review.md`](../completed_proposals/conda_provider_2.3_review.md) — [#46](https://github.com/uibcdf/depdigest/issues/46) — Adopt immutable Conda v2.3.0 operations in the owned publisher. *(resolved, inspected)*
 - [`conda_recipe_metadata.md`](../solved_bugs/conda_recipe_metadata.md) — [#38](https://github.com/uibcdf/depdigest/issues/38) — Correct inherited descriptive metadata and preserve it across dependency broadcasts. *(resolved, measured)*
 - [`declaration_based_plugin_lookup.md`](../completed_proposals/declaration_based_plugin_lookup.md) — [#34](https://github.com/uibcdf/depdigest/issues/34) — Discover declared plugin identities without importing unrelated implementations. *(resolved, reproduced)*
 - [`doi_badge_cites_molsysmt.md`](../solved_bugs/doi_badge_cites_molsysmt.md) — [#10](https://github.com/uibcdf/depdigest/issues/10) — The README DOI badge cites the MolSysMT archive. *(resolved, reproduced)*
@@ -22,6 +23,7 @@ paths remain stable.
 - [`grouped_entry_point_discovery.md`](../completed_proposals/grouped_entry_point_discovery.md) — [#31](https://github.com/uibcdf/depdigest/issues/31) — Decide grouped entry-point discovery ownership and freshness from measured evidence. *(resolved, measured)*
 - [`guard_conda_release_routes.md`](../completed_proposals/guard_conda_release_routes.md) — [#15](https://github.com/uibcdf/depdigest/issues/15) — Guard direct Conda releases and promote exact staged files. *(resolved, measured)*
 - [`lazy_registry_smonitor.md`](../completed_proposals/lazy_registry_smonitor.md) — [#7](https://github.com/uibcdf/depdigest/issues/7) — Instrument LazyRegistry with SMonitor without changing observable semantics. *(resolved, inspected)*
+- [`license_metadata_review.md`](../completed_proposals/license_metadata_review.md) — [#45](https://github.com/uibcdf/depdigest/issues/45) — Modernize MIT license metadata and qualify compatible build minima. *(resolved, inspected)*
 - [`missing_dependency_hints_ignore_consumer.md`](../solved_bugs/missing_dependency_hints_ignore_consumer.md) — [#17](https://github.com/uibcdf/depdigest/issues/17) — Missing-dependency hints ignore consumer documentation and disagree on installation order. *(resolved, inspected)*
 - [`noarch_conda_launcher_missing_on_windows.md`](../solved_bugs/noarch_conda_launcher_missing_on_windows.md) — [#19](https://github.com/uibcdf/depdigest/issues/19) — The noarch Conda package omits the depdigest launcher on Windows. *(resolved, measured)*
 - [`optional_scientific_engines.md`](../completed_proposals/optional_scientific_engines.md) — [#22](https://github.com/uibcdf/depdigest/issues/22) — Share optional-engine availability and truthful installation routes across scientific consumers. *(resolved, reproduced)*
@@ -36,6 +38,7 @@ paths remain stable.
 - [`relative_import_audit.md`](../solved_bugs/relative_import_audit.md) — [#47](https://github.com/uibcdf/depdigest/issues/47) — Distinguish internal relative adapters from external optional imports. *(resolved, measured)*
 - [`release_0.13.0.md`](../completed_proposals/release_0.13.0.md) — [#29](https://github.com/uibcdf/depdigest/issues/29) — Publish expanded optional-import audit coverage as DepDigest 0.13.0. *(resolved, measured)*
 - [`review_inherited_python_ecosystem_policy.md`](../completed_proposals/review_inherited_python_ecosystem_policy.md) — [#18](https://github.com/uibcdf/depdigest/issues/18) — Review inherited Python ecosystem policy in DepDigest. *(resolved, measured)*
+- [`runtime_dependency_bounds_review.md`](../completed_proposals/runtime_dependency_bounds_review.md) — [#44](https://github.com/uibcdf/depdigest/issues/44) — Confirm inclusive runtime minima without speculative upper bounds. *(resolved, inspected)*
 - [`selective_adapter_inspection.md`](../completed_proposals/selective_adapter_inspection.md) — [#36](https://github.com/uibcdf/depdigest/issues/36) — Add explicit adapter inspection while retaining strict loading and execution checks. *(resolved, measured)*
 
 ### Legacy pre-adoption records (1)
