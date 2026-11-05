@@ -53,3 +53,19 @@ operation rejects an actual isolated reversal of the relative-import fix;
 license guards reject wrong expressions/declarations, missing notices and
 changed original bytes. Ruff/format/index/diff checks pass. Local source is an
 editable 1+unknown snapshot, separate from the future exact Conda artifact.
+
+## Superseded source preparation — 2026-11-05
+
+Candidate 9905afa8ab13aa821a9b426d57daf16098f213e2 passed routine source CI,
+policy and publication governance. Full matrix 42077818845 exposed a new
+Windows source-fixture failure: Git autocrlf transformed the original LICENSE
+notice to CRLF, while the release guard requires canonical LF bytes. The
+license's actual text and committed blob were unchanged. Completed Windows
+jobs 127422625686/127422625137 failed before package construction. The run
+was canceled once the mechanism was known; successful/failed/canceled cells
+retain their original outcomes and cannot qualify a later candidate.
+
+The correction pins LICENSE to LF in .gitattributes. The existing real
+autocrlf-checkout regression now also compares LICENSE bytes; it fails against
+the old rule and passes with the correction. The new candidate must rerun the
+complete exact-source matrix. No staged or public file was created at the old SHA.

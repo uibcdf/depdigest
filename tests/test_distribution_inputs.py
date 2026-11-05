@@ -24,6 +24,8 @@ def test_windows_checkout_preserves_reviewed_workflow_bytes(tmp_path):
     destination.parent.mkdir(parents=True)
     expected = (ROOT / workflow).read_bytes()
     destination.write_bytes(expected)
+    expected_license = (ROOT / "LICENSE").read_bytes()
+    (source / "LICENSE").write_bytes(expected_license)
     (source / ".gitattributes").write_bytes((ROOT / ".gitattributes").read_bytes())
     for args in [
         ["init", "-q"],
@@ -46,6 +48,7 @@ def test_windows_checkout_preserves_reviewed_workflow_bytes(tmp_path):
         capture_output=True,
     )
     assert (checkout / workflow).read_bytes() == expected
+    assert (checkout / "LICENSE").read_bytes() == expected_license
 
 
 def test_qualification_cannot_hide_an_incomplete_installed_check():
