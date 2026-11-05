@@ -91,6 +91,7 @@ def check_top_level_imports(
     Function bodies are delayed. Simple guards using explicit, unrebound typing
     TYPE_CHECKING imports (including aliases and negation) exclude their typing
     branch. Other conditions are conservatively scanned without execution.
+    Relative imports name internal modules, not external optional packages.
     Syntax-error files retain the historical empty result.
     """
     with open(file_path, "r", encoding="utf-8") as f:
@@ -108,7 +109,7 @@ def check_top_level_imports(
                 if root_module in soft_deps:
                     violations.append((node.lineno, alias.name))
         elif isinstance(node, ast.ImportFrom):
-            if node.module:
+            if node.level == 0 and node.module:
                 root_module = node.module.split(".")[0]
                 if root_module in soft_deps:
                     violations.append((node.lineno, node.module))
