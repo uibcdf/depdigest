@@ -22,11 +22,11 @@ The audit includes imports inside module-level `if`, `try` (including handlers,
 and async-function bodies, including classes defined inside those functions.
 Original source line numbers are retained in text and JSON output.
 
-Unreleased source correction (#47/#48): relative imports such as
+From 0.15.2 (#47/#48), relative imports such as
 `from .vina import VinaBackend` name an internal adapter and are excluded from
 external-package findings. Absolute `from vina import Vina` and `import vina`
-remain reportable. Public 0.15.1 predates this correction; source adoption and
-future package publication are separate.
+remain reportable. Version 0.15.1 predates this correction. Publication and
+exact-file admission are tracked in #49; source-only checks do not qualify a package.
 
 Simple type-check-only branches are excluded when their guard uses an explicit
 import from `typing`, including aliases:

@@ -152,6 +152,55 @@ def test_audit_gate_exercises_real_cli_contract():
     verifier.verify_audit_contract()
 
 
+def test_audit_gate_distinguishes_relative_adapters_and_absolute_imports():
+    verifier.verify_audit_contract(relative_imports=True)
+
+
+def test_audit_gate_rejects_relative_false_positives(monkeypatch):
+    import subprocess
+
+    def false_positive(arguments, **kwargs):
+        return subprocess.CompletedProcess(
+            arguments, 1, json.dumps({"violation_count": 4, "violations": {}}), ""
+        )
+
+    monkeypatch.setattr(verifier.subprocess, "run", false_positive)
+    with pytest.raises(ValueError, match="audit finding count"):
+        verifier.verify_audit_contract(relative_imports=True)
+
+
+@pytest.mark.parametrize(
+    "fault", [None, "expression", "declaration", "missing", "bytes"]
+)
+def test_installed_license_gate_checks_metadata_and_original_bytes(
+    tmp_path, monkeypatch, fault
+):
+    from email.message import Message
+    from types import SimpleNamespace
+
+    metadata = Message()
+    metadata["License-Expression"] = "MIT" if fault != "expression" else "BSD-3-Clause"
+    metadata["License-File"] = "LICENSE" if fault != "declaration" else "OTHER"
+    relative = Path("depdigest-0.15.2.dist-info/licenses/LICENSE")
+    notice = tmp_path / relative
+    notice.parent.mkdir(parents=True)
+    if fault != "missing":
+        notice.write_bytes(
+            b"changed notice" if fault == "bytes" else (ROOT / "LICENSE").read_bytes()
+        )
+    distribution = SimpleNamespace(
+        metadata=metadata, files=[relative], locate_file=lambda entry: tmp_path / entry
+    )
+    monkeypatch.setattr(
+        verifier.importlib.metadata, "distribution", lambda _name: distribution
+    )
+    if fault is None:
+        verifier.verify_license_contract(tmp_path)
+    else:
+        with pytest.raises(ValueError, match="license"):
+            verifier.verify_license_contract(tmp_path)
+
+
 def test_declared_registry_gate_exercises_public_selective_lookup():
     verifier.verify_declared_registry_contract()
 

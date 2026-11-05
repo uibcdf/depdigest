@@ -8,6 +8,10 @@ generated from report metadata.
 
 <!-- generated: devguide_index -->
 
+### Active (1)
+
+- [`publish_audit_fix_0.15.2.md`](publish_audit_fix_0.15.2.md) — [#49](https://github.com/uibcdf/depdigest/issues/49) — Publish the qualified relative-import audit fix as DepDigest 0.15.2. *(active, inspected)*
+
 ### Open (2)
 
 - [`decorator_fast_path_and_observability_boundary.md`](decorator_fast_path_and_observability_boundary.md) — [#6](https://github.com/uibcdf/depdigest/issues/6) — Evaluate an epoch-cached decorator fast path and its observability cost. *(open, measured)*

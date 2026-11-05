@@ -7,6 +7,8 @@ Each release should include a **Migration Notes** section when compatibility-sen
 
 ## [Unreleased]
 
+## [0.15.2] - 2026-11-05
+
 ### Fixed
 
 - Source audits distinguish internal relative adapter imports, such as
@@ -19,6 +21,12 @@ Each release should include a **Migration Notes** section when compatibility-sen
   compatible build routes now require Setuptools >=77.0.3 (#45).
 - The owned Conda build/upload and promotion operations pin reviewed v2.3.0
   source, preserving exact-candidate and same-file qualification gates (#46).
+
+### Migration Notes
+
+- The relative-import audit correction requires DepDigest >=0.15.2.
+  Runtime API and dependency bounds stay unchanged. Source builds now require
+  Setuptools >=77.0.3; the original MIT notice is preserved.
 
 ## [0.15.1] - 2026-10-13
 

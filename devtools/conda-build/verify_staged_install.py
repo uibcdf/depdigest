@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import importlib.metadata
 import json
 import os
@@ -20,6 +21,7 @@ PUBLIC_DEPENDENCY_BUILD = "py_1"
 STAGING_CHANNEL = "https://conda.anaconda.org/uibcdf/label/staging/noarch"
 PUBLIC_CHANNEL = "https://conda.anaconda.org/uibcdf/noarch"
 PRODUCER_WORKFLOW = ".github/workflows/build_and_upload_conda_packages.yaml"
+LICENSE_SHA256 = "201cca3f4381a6fe589d0ee2a0f88092d8d01465744df6eda0a16ac8ec2c35fc"
 
 
 def _require(condition: bool, message: str) -> None:
@@ -165,13 +167,43 @@ def verify_installed(
     if tuple(map(int, version.split("."))) >= (0, 12, 0):
         verify_optional_engine_contract()
     if tuple(map(int, version.split("."))) >= (0, 13, 0):
-        verify_audit_contract()
+        verify_audit_contract(
+            relative_imports=tuple(map(int, version.split("."))) >= (0, 15, 2)
+        )
     if tuple(map(int, version.split("."))) >= (0, 14, 0):
         verify_declared_registry_contract()
     if tuple(map(int, version.split("."))) >= (0, 15, 0):
         verify_adapter_inspection_contract()
     if tuple(map(int, version.split("."))) >= (0, 15, 1):
         verify_concurrent_registry_contract()
+    if tuple(map(int, version.split("."))) >= (0, 15, 2):
+        verify_license_contract(prefix)
+
+
+def verify_license_contract(prefix: Path) -> None:
+    """Require the SPDX declaration and original notice in the installed payload."""
+    distribution = importlib.metadata.distribution(PACKAGE)
+    _require(
+        distribution.metadata.get("License-Expression") == "MIT",
+        "Installed license expression is not MIT",
+    )
+    _require(
+        distribution.metadata.get_all("License-File") == ["LICENSE"],
+        "Installed license-file declaration mismatch",
+    )
+    notices = [
+        entry
+        for entry in distribution.files or []
+        if str(entry).replace("\\", "/").endswith(".dist-info/licenses/LICENSE")
+    ]
+    _require(len(notices) == 1, "Installed license notice is missing or ambiguous")
+    notice = Path(distribution.locate_file(notices[0])).resolve()
+    _require(notice.is_relative_to(prefix.resolve()), "License notice outside prefix")
+    _require(notice.is_file(), "Installed license notice is missing")
+    _require(
+        hashlib.sha256(notice.read_bytes()).hexdigest() == LICENSE_SHA256,
+        "Installed original license bytes mismatch",
+    )
 
 
 def verify_concurrent_registry_contract() -> None:
@@ -389,7 +421,7 @@ def verify_declared_registry_contract() -> None:
                     sys.modules.pop(name)
 
 
-def verify_audit_contract() -> None:
+def verify_audit_contract(*, relative_imports: bool = False) -> None:
     """Check expanded scope, typing exclusion and exit behavior in installed CLI."""
     with tempfile.TemporaryDirectory() as temporary:
         source = Path(temporary) / "pkg"
@@ -424,6 +456,13 @@ def verify_audit_contract() -> None:
                 {"line": 7, "module": "release_class"},
             ]
         }
+        if relative_imports:
+            (source / "adapter.py").write_text(
+                "from .release_eager import Adapter\n"
+                "class Local:\n"
+                "    from ..release_class import Adapter\n",
+                encoding="utf-8",
+            )
         payloads = []
         for options, expected_status in (([], 1), (["--allow-violations"], 0)):
             result = subprocess.run(
@@ -440,6 +479,22 @@ def verify_audit_contract() -> None:
             _require(payload.get("violations") == expected, "Wrong audit scope/lines")
             payloads.append(payload)
         _require(payloads[0] == payloads[1], "Allow-violations hid audit findings")
+        if relative_imports:
+            path.unlink()
+            result = subprocess.run(
+                arguments,
+                cwd=temporary,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=30,
+            )
+            _require(result.returncode == 0, "Relative-only audit exit status")
+            payload = json.loads(result.stdout)
+            _require(
+                payload.get("violation_count") == 0 and payload.get("violations") == {},
+                "Relative-only audit reported an external import",
+            )
 
 
 def verify_optional_engine_contract() -> None:

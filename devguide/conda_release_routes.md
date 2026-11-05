@@ -8,7 +8,7 @@ template for native packages. Python 3.14 preparation is tracked in
 ## Decide before tagging
 
 The release owner completes `devtools/conda-build/release_plan.toml` **in the
-candidate commit**. The current `0.15.1` plan selects the `staged` route; this
+candidate commit**. The current `0.15.2` plan selects the `staged` route; this
 decision does not publish or promote a package. For a later version, reset and
 review `version`, `build_number`, `route`, `reason`, `decision_by`,
 `required_workflows` and their explicit `gate_jobs`
@@ -74,7 +74,7 @@ steps for a staged plan; that successful route selection is not evidence of
 public Conda publication. Dispatch
 `.github/workflows/promote_conda_package.yaml` with the tagged SHA, exact
 version, build number and independently verified digest. The shared
-`promote@v2.2.2` Action adds `main` to that same file, keeps `staging`, emits a
+reviewed immutable v2.3.0 promotion Action adds `main` to that same file, keeps `staging`, emits a
 receipt, and is followed by an independent public-channel query. Do not rebuild,
 re-upload, choose a staging build implicitly, or move the tag.
 
@@ -318,3 +318,15 @@ are independently verified, including source ZIP size/MD5. The
 [normalized receipt](evidence/release_0.15.1_2026-10-13.json) preserves exact
 native identities, failed/superseded preparation and bounded evidence scopes.
 MolSysMT #382 / MolSysSuite #115 retain later consumer adoption and scientific parity.
+
+## 0.15.2 audit-fix candidate — 2026-11-05
+
+DepDigest #49 owns the authorized staged patch release of #47/#48 and the
+reviewed license/publisher maintenance from #45/#46. The committed build-0 plan
+requires the complete source matrix and policy at one final SHA. Installed
+qualification additionally checks relative-only and mixed absolute/relative CLI
+behavior, SPDX license metadata and the exact original license notice. The
+existing engine, registry, adapter, concurrency, provenance and launcher gates
+remain mandatory. The adopted v2.3.0 publisher must produce one staging file;
+all twelve installed cells must pass before tagging and same-file promotion.
+Historical 0.15.1 bytes and receipts remain unchanged.
