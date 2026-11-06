@@ -1,0 +1,6 @@
+﻿depdigest.is\_installed
+=======================
+
+.. currentmodule:: depdigest
+
+.. autofunction:: is_installed

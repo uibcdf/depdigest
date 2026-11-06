@@ -1,0 +1,6 @@
+﻿depdigest.register\_package\_config
+===================================
+
+.. currentmodule:: depdigest
+
+.. autofunction:: register_package_config
