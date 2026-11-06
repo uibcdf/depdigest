@@ -787,7 +787,7 @@
       }
     ]
   },
-  "publication_state": "public Conda main/index/download/fresh install verified; actual Pages propagation pending",
+  "publication_state": "source Release, same-byte public Conda delivery, clean public installation, actual deployed documentation and source-snapshot archival verified",
   "route_selector_retirement": {
     "run_id": 42133649968,
     "conclusion": "cancelled",
@@ -1559,17 +1559,105 @@
     "source_dependencies": []
   },
   "documentation": {
-    "state": "propagation-pending",
+    "state": "verified",
+    "observed_at": "2026-11-06T01:47:30.563610+00:00",
     "url": "https://www.uibcdf.org/depdigest/content/user/audit-cli.html",
-    "workflow_run": 42133650004,
-    "workflow_conclusion": "success",
-    "generated_version": "0.15.2",
-    "generated_correction_rendered": true,
-    "generated_page_sha256": "49ee96b4dac07072f2d9ccf63773b678442e3d1fb72678f0fd8eba1188ebebe9",
-    "pages_build_commit": "70397d2b936a5fa6b2d8a8d962d70cf2c8e41c24",
-    "pages_build_state": "building",
-    "actual_served_version": "0.15.1",
-    "owner": "uibcdf/depdigest#49"
+    "resolved_url": "https://www.uibcdf.org/depdigest/content/user/audit-cli.html",
+    "http_status": 200,
+    "version": "0.15.2",
+    "relative_import_correction_rendered": true,
+    "verified_text": [
+      "0.15.2",
+      "relative imports",
+      "from .vina import VinaBackend",
+      "excluded from external-package findings"
+    ],
+    "page_sha256": "678f7c2d9b7da16c32ce02834d28f864687b3b78cd2d4822840f528854572416",
+    "source_generation_run": 42133650004,
+    "pages_run_id": 42136997013,
+    "pages_commit": "70397d2b936a5fa6b2d8a8d962d70cf2c8e41c24",
+    "native_jobs": [
+      {
+        "job_id": 127627579959,
+        "name": "build",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Checkout",
+            "conclusion": "success"
+          },
+          {
+            "name": "Upload artifact",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Checkout",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "job_id": 127640116900,
+        "name": "report-build-status",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Report Build Status",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "job_id": 127640116909,
+        "name": "deploy",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Deploy to GitHub Pages",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ],
+    "propagation_history": [
+      {
+        "state": "propagation-pending",
+        "url": "https://www.uibcdf.org/depdigest/content/user/audit-cli.html",
+        "workflow_run": 42133650004,
+        "workflow_conclusion": "success",
+        "generated_version": "0.15.2",
+        "generated_correction_rendered": true,
+        "generated_page_sha256": "49ee96b4dac07072f2d9ccf63773b678442e3d1fb72678f0fd8eba1188ebebe9",
+        "pages_build_commit": "70397d2b936a5fa6b2d8a8d962d70cf2c8e41c24",
+        "pages_build_state": "building",
+        "actual_served_version": "0.15.1",
+        "owner": "uibcdf/depdigest#49"
+      }
+    ]
   },
   "delivery_workflows": {
     "promotion": {
@@ -1857,11 +1945,244 @@
       ]
     }
   },
-  "remaining_owner_work": [
-    "actual public documentation0.15.2 propagation verification",
-    "archive owner report and final documentary/temporary-resource closeout"
-  ],
+  "remaining_owner_work": [],
   "operator_read_corrections": {
     "documentation": "initial HTTP403 while Pages build pending; later HTTP200 canonical page still serves0.15.1, correctly retained as pending rather than deployed0.15.2"
+  },
+  "poststate_checks": [
+    {
+      "name": "CI",
+      "run_id": 42139870550,
+      "candidate_sha": "2f6faa8fa8f36ee07e5df8018463ad8321089141",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "job_id": 127637229154,
+          "name": "Test on ubuntu-latest, Python 3.14",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v6",
+              "conclusion": "success"
+            },
+            {
+              "name": "Additional info about the build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Set up Python",
+              "conclusion": "success"
+            },
+            {
+              "name": "Setup conda env",
+              "conclusion": "success"
+            },
+            {
+              "name": "Info conda",
+              "conclusion": "success"
+            },
+            {
+              "name": "Checkout the reviewed distribution provider",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check distribution inputs",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install package",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test import module",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run tests",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check coverage",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload coverage reports to Codecov",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload test results to Codecov",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Checkout the reviewed distribution provider",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Setup conda env",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Set up Python",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v6",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "governance",
+      "run_id": 42139871343,
+      "candidate_sha": "2f6faa8fa8f36ee07e5df8018463ad8321089141",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "job_id": 127637233926,
+          "name": "publication / check",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install --disable-pip-version-check PyYAML==6.0.3",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check publication workflow controls",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "policy",
+      "run_id": 42139871483,
+      "candidate_sha": "2f6faa8fa8f36ee07e5df8018463ad8321089141",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "job_id": 127637232220,
+          "name": "policy / conformance",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check out member repository",
+              "conclusion": "success"
+            },
+            {
+              "name": "Set up policy Python",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check out MolSysSuite policy",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check repository conformance",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install the policy Ruff version",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check Python lint and imports",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check Python formatting",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Check out MolSysSuite policy",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Set up policy Python",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Check out member repository",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "handoffs": {
+    "molsyssuite166": "https://github.com/uibcdf/molsyssuite/issues/166#issuecomment-6673627593",
+    "dockingmt19": "https://github.com/uibcdf/dockingmt/issues/19#issuecomment-6673627981"
+  },
+  "resource_retirement": {
+    "receipt": "devguide/evidence/release_resource_retirement_0.15.2_2026-11-05.json",
+    "manager_exits": [
+      0,
+      0
+    ],
+    "exact_owned_root_removed": true,
+    "candidate_branch_removed": true,
+    "cleanup_errors": []
+  },
+  "final_local_checks": {
+    "reporting_protocol": "6 passed",
+    "indexes": "current",
+    "policy": "exact policy-v1.5.4 conformance passed",
+    "ruff": "0.16.5 lint and format passed;177 Python files",
+    "diff": "clean",
+    "scope": "archived report and final documentation/evidence; released source and artifact unchanged"
   }
 }

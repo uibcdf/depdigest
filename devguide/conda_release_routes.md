@@ -345,7 +345,8 @@ contracts, the relative-import correction and original MIT notice. Pip check is 
 
 Source-only Zenodo DOI `10.5281/zenodo.23991553` and the ZIP bytes are independently
 verified. Documentation workflow 42133650004 generated the new HTML successfully;
-actual GitHub Pages propagation remains pending under #49. The
+Pages run 42136997013 passed build, status reporting and deployment. The actual
+public audit page renders 0.15.2 and the relative-import correction. The
 [normalized receipt](evidence/release_0.15.2_2026-11-05.json) retains these distinct
 states, the additional hosted tag-policy pass, superseded source preparation and
 the canceled redundant release selector. This staged-route no-op was retired

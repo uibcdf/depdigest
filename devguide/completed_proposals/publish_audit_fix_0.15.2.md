@@ -1,10 +1,10 @@
 ---
 summary: Publish the qualified relative-import audit fix as DepDigest 0.15.2.
 issue: uibcdf/depdigest#49
-status: active
+status: resolved
 opened: 2026-11-05
-closed:
-verification: inspected
+closed: 2026-11-05
+verification: measured
 area: [release, distribution]
 guard: tests/test_staged_conda_install.py::test_audit_gate_rejects_relative_false_positives
 normative:
@@ -89,9 +89,27 @@ smoke and consumer/scientific scopes remain distinct in the
 [normalized receipt](../evidence/release_0.15.2_2026-11-05.json).
 
 Source-only Zenodo DOI `10.5281/zenodo.23991553` and its downloaded ZIP are
-verified. Docs workflow 42133650004 generated 0.15.2 successfully, but GitHub
-Pages still builds commit `70397d2b936a5fa6b2d8a8d962d70cf2c8e41c24` and the
-actual audit page still serves 0.15.1. Keep this report active until that public
-page is verified and final documentary/resource closeout is recorded. Central
+verified. At this delivery checkpoint, docs workflow 42133650004 had generated
+0.15.2 successfully, but GitHub Pages was still building commit
+`70397d2b936a5fa6b2d8a8d962d70cf2c8e41c24` and the actual audit page served
+0.15.1. The report stayed active for that public-page check and closeout. Central
 release notice MolSysSuite #170 records actual public package delivery;
 MolSysSuite #166 / DockingMT #19 retain independent receiving ownership.
+
+## Final deployed documentation and closeout — 2026-11-05
+
+Pages run 42136997013 passes build, status reporting and deployment at the exact
+generated commit above. The actual public audit page returns HTTP 200, renders
+0.15.2 and documents the relative-import correction. The receipt preserves the
+earlier pending observation without treating the generation workflow as proof
+of deployed content. No duplicate Pages build was requested.
+
+The three hosted checks for the public documentary commit
+`2f6faa8fa8f36ee07e5df8018463ad8321089141` pass: CI 42139870550, publication
+governance 42139871343 and policy 42139871483. Public package and source archive
+receiving was handed to MolSysSuite #166 and DockingMT #19 with immutable source
+guide/evidence links. Consumer adoption and scientific acceptance remain separate.
+
+This record is archived with the normalized release receipt. Task-owned resource
+retirement is recorded separately; shared environments, primary editable version
+metadata and historical public tags/artifacts are preserved.

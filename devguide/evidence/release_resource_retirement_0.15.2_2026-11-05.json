@@ -1,0 +1,47 @@
+{
+  "schema": "depdigest.task-resource-retirement@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/depdigest#49",
+  "release": "0.15.2",
+  "owner": "Diego-authorized DepDigest 0.15.2 publication, 2026-11-05",
+  "root": "/tmp/depdigest-0152-1zgj83kw",
+  "available_process_reference_review": "no available external active cwd/exe/command references; controller and ancestors excluded",
+  "sdk_review": "clean pinned 6d6172d6cd00c5ac2d4ebadb71df554ec5b7fa26; exact policy-v1.5.4 provider clean",
+  "manager_operations": [
+    {
+      "prefix": "/tmp/depdigest-0152-1zgj83kw/test-env",
+      "exit_code": 0,
+      "prefix_exists_after_manager": false
+    },
+    {
+      "prefix": "/tmp/depdigest-0152-1zgj83kw/public-env",
+      "exit_code": 0,
+      "prefix_exists_after_manager": false
+    }
+  ],
+  "candidate_branch_retirement": {
+    "branch": "release/0.15.2-candidate",
+    "local_removed": true,
+    "remote_removed": true,
+    "preserved_tag": "0.15.2",
+    "tag_object": "af50c9ab32ec81c4df45cc33ac3aa23aef645826",
+    "tag_commit": "028f8dd8fdcdbaae4d52897deabb690383379195"
+  },
+  "cleanup_errors": [],
+  "preserved": [
+    "primary checkout and editable version metadata",
+    "shared environments and caches",
+    "public/historical tags/releases/Conda files",
+    "normalized source/producer/installed/public/docs/archive evidence"
+  ],
+  "retired_owned_resources": [
+    "test-env and public-env via Conda manager",
+    "task-private caches",
+    "pinned SDK and policy clones",
+    "unused private no-checkout clone",
+    "private source snapshot and fixtures",
+    "raw read-only receipts/downloads and operator files"
+  ],
+  "exact_owned_root_removed": true,
+  "finished_at": "2026-11-06T01:51:46.659786+00:00"
+}

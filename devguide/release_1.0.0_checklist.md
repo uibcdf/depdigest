@@ -5,8 +5,8 @@ Original integration checkpoint: 2026-10-04, under
 [#26](https://github.com/uibcdf/depdigest/issues/26).
 This preparation checkpoint does not authorize tagging or publishing 1.0.0.
 The current public release is **0.15.2**, with source, installed and public
-package qualification under #49. Its documentation propagation and final
-closeout remain recorded in that owning issue.
+package qualification under #49. Its actual deployed documentation and
+source-only archive are independently verified in the release receipt.
 No 1.0 candidate or publication date has been selected.
 
 ## Dated preparation evidence

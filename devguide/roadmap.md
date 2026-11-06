@@ -6,8 +6,8 @@ DepDigest's current public release is **0.15.2**, with Python 3.11--3.14 support
 Its exact noarch Conda file, source and installed twelve-cell matrices,
 independent public installation and verified Zenodo source snapshot are
 recorded in the [release receipt](evidence/release_0.15.2_2026-11-05.json).
-The documentation workflow generated 0.15.2, while GitHub Pages propagation
-and the final documentary closeout remain tracked in #49.
+The actual public documentation now renders 0.15.2 and the relative-import
+correction; its generation and Pages deployment are independently verified.
 The installed matrix covers Linux, Windows and macOS ARM64; the independent
 public installation covers Linux/Python 3.14. These scopes do not establish
 consumer scientific or conversion parity.
@@ -130,7 +130,7 @@ Provider publication and consumer acceptance are separate milestones.
 - #49 publishes the same original archive after twelve source and twelve installed
   cells; public registry/index/download and a fresh public installation agree.
   See the [release receipt](evidence/release_0.15.2_2026-11-05.json) for the
-  remaining documentation propagation and separate consumer-receiving scope.
+  verified documentation and separate consumer-receiving scope.
 
 ### Preparation for 1.0.0
 
