@@ -330,3 +330,28 @@ existing engine, registry, adapter, concurrency, provenance and launcher gates
 remain mandatory. The adopted v2.3.0 publisher must produce one staging file;
 all twelve installed cells must pass before tagging and same-file promotion.
 Historical 0.15.1 bytes and receipts remain unchanged.
+
+### 0.15.2 public package poststate — 2026-11-05
+
+Stable tag and Release identify `028f8dd8fdcdbaae4d52897deabb690383379195`.
+Source matrix 42079204173 and installed 42111520771 pass all twelve cells,
+including macOS ARM64. Producer 42110739688 built one
+`depdigest-0.15.2-py_0.tar.bz2`, SHA-256
+`1da96487be3c1eb870701ee53b97a6341e30a6700a75c6eef5468e9f14dc579c`.
+Promotion 42133713911 adds main to those same bytes and retains staging.
+Independent public registry/index/download and a fresh public-only Python 3.14.10
+installation with SMonitor 0.16.0 py_1 verify provenance, resources, CLI, maintained
+contracts, the relative-import correction and original MIT notice. Pip check is clean.
+
+Source-only Zenodo DOI `10.5281/zenodo.23991553` and the ZIP bytes are independently
+verified. Documentation workflow 42133650004 generated the new HTML successfully;
+actual GitHub Pages propagation remains pending under #49. The
+[normalized receipt](evidence/release_0.15.2_2026-11-05.json) retains these distinct
+states, the additional hosted tag-policy pass, superseded source preparation and
+the canceled redundant release selector. This staged-route no-op was retired
+before execution to free its same-version concurrency lock; promotion independently
+verifies the route and native gates. It is not a source or installed qualification.
+
+Shared receiving remains with MolSysSuite #166 / release notice #170 and the
+known DockingMT #19 consumer. Public provider delivery changes no consumer pins,
+dependency floors or scientific/conversion acceptance automatically.

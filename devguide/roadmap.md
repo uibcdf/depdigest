@@ -1,11 +1,13 @@
 # Roadmap & Future Steps
 
-Updated: **2026-10-22**, under [#41](https://github.com/uibcdf/depdigest/issues/41).
+Updated: **2026-11-05**, under [#49](https://github.com/uibcdf/depdigest/issues/49).
 
-DepDigest's current public release is **0.15.1**, with Python 3.11--3.14 support.
+DepDigest's current public release is **0.15.2**, with Python 3.11--3.14 support.
 Its exact noarch Conda file, source and installed twelve-cell matrices,
-independent public installation, documentation and Zenodo source snapshot are
-recorded in the [release receipt](evidence/release_0.15.1_2026-10-13.json).
+independent public installation and verified Zenodo source snapshot are
+recorded in the [release receipt](evidence/release_0.15.2_2026-11-05.json).
+The documentation workflow generated 0.15.2, while GitHub Pages propagation
+and the final documentary closeout remain tracked in #49.
 The installed matrix covers Linux, Windows and macOS ARM64; the independent
 public installation covers Linux/Python 3.14. These scopes do not establish
 consumer scientific or conversion parity.
@@ -119,6 +121,17 @@ Provider publication and consumer acceptance are separate milestones.
   and [release receipt](evidence/release_0.15.1_2026-10-13.json).
 - #38 corrected copied Conda descriptive metadata without changing dependencies.
 
+### 0.15.2
+
+- The #47/#48 correction excludes internal relative adapter imports from external optional-package
+  findings, preserving absolute findings and CLI contracts.
+- Reviews #45/#46 supply SPDX/original-license metadata and the reviewed immutable
+  publisher. Source builds require Setuptools >=77.0.3; runtime bounds are unchanged.
+- #49 publishes the same original archive after twelve source and twelve installed
+  cells; public registry/index/download and a fresh public installation agree.
+  See the [release receipt](evidence/release_0.15.2_2026-11-05.json) for the
+  remaining documentation propagation and separate consumer-receiving scope.
+
 ### Preparation for 1.0.0
 
 - Prepare final release narrative and final go/no-go checklist.
@@ -147,7 +160,7 @@ Provider publication and consumer acceptance are separate milestones.
 
 1. 1.0.0 release narrative closure
 
-Review the public contracts through 0.15.1, consolidate migration/support notes
+Review the public contracts through 0.15.2, consolidate migration/support notes
 and name the release decision owner. No 1.0 candidate or publication date is set.
 
 2. Final contract verification

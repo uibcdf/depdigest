@@ -69,3 +69,29 @@ The correction pins LICENSE to LF in .gitattributes. The existing real
 autocrlf-checkout regression now also compares LICENSE bytes; it fails against
 the old rule and passes with the correction. The new candidate must rerun the
 complete exact-source matrix. No staged or public file was created at the old SHA.
+
+## Public package delivery — 2026-11-05
+
+Candidate `028f8dd8fdcdbaae4d52897deabb690383379195` passes all twelve source
+cells in 42079204173 and all twelve exact-file installed cells in 42111520771.
+Producer 42110739688 built the original 32908-byte noarch build once. Annotated
+tag and stable Release 0.15.2 identify that same source. Promotion 42133713911
+adds main to the original archive, retaining staging and SHA-256
+`1da96487be3c1eb870701ee53b97a6341e30a6700a75c6eef5468e9f14dc579c`.
+Independent public registry/index/download and a fresh public-only Linux/Python
+3.14.10 installation verify file provenance, version, resources, CLI, maintained
+contracts, relative-import correction and original MIT notice. Pip check is clean.
+
+The guard named above rejects an actual reversal of the relative-import filter,
+protecting the reported false-positive mechanism. Adverse license cases and a
+real Windows autocrlf checkout protect the original notice. Source, installed
+smoke and consumer/scientific scopes remain distinct in the
+[normalized receipt](../evidence/release_0.15.2_2026-11-05.json).
+
+Source-only Zenodo DOI `10.5281/zenodo.23991553` and its downloaded ZIP are
+verified. Docs workflow 42133650004 generated 0.15.2 successfully, but GitHub
+Pages still builds commit `70397d2b936a5fa6b2d8a8d962d70cf2c8e41c24` and the
+actual audit page still serves 0.15.1. Keep this report active until that public
+page is verified and final documentary/resource closeout is recorded. Central
+release notice MolSysSuite #170 records actual public package delivery;
+MolSysSuite #166 / DockingMT #19 retain independent receiving ownership.

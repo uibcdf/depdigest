@@ -1,10 +1,12 @@
 # DepDigest 1.0.0 preparation checklist
 
-Updated: **2026-10-22**, under [#41](https://github.com/uibcdf/depdigest/issues/41).
+Updated: **2026-11-05**, under [#49](https://github.com/uibcdf/depdigest/issues/49).
 Original integration checkpoint: 2026-10-04, under
 [#26](https://github.com/uibcdf/depdigest/issues/26).
 This preparation checkpoint does not authorize tagging or publishing 1.0.0.
-The current public release is **0.15.1**, published and qualified under #39.
+The current public release is **0.15.2**, with source, installed and public
+package qualification under #49. Its documentation propagation and final
+closeout remain recorded in that owning issue.
 No 1.0 candidate or publication date has been selected.
 
 ## Dated preparation evidence
@@ -29,6 +31,7 @@ Subsequent public qualification is recorded separately:
 | 0.14.0 | `DeclaredRegistry` metadata and selective loading (#34/#35) | [2026-10-10 receipt](evidence/release_0.14.0_2026-10-10.json) |
 | 0.15.0 | Explicit adapter inspection with strict default preserved (#36/#37) | [2026-10-13 receipt](evidence/release_0.15.0_2026-10-13.json) |
 | 0.15.1 | Bounded concurrent declared value requests (#39) | [2026-10-13 receipt](evidence/release_0.15.1_2026-10-13.json) |
+| 0.15.2 | Relative-import audit correction and license/publisher maintenance (#47/#48/#49) | [2026-11-05 receipt](evidence/release_0.15.2_2026-11-05.json) |
 
 Each receipt separates exact source, installed artifact, public verification
 and archival evidence. None claims MolSysMT adoption or conversion/scientific
@@ -50,7 +53,7 @@ parity. Capability floors and limitations are documented in the
 - [ ] Name the release decision owner and record consumer acceptance and
   remaining compatibility limitations.
 - [ ] Finish public contract review, migration notes, changelog, support
-  narrative and release version plan, including the public API through 0.15.1.
+  narrative and release version plan, including the public API through 0.15.2.
 
 ### Resolved audit-boundary decisions (reconciled 2026-10-22)
 
@@ -98,7 +101,7 @@ The receiving owner retains scientific/conversion parity and acceptance.
   required by the chosen release route.
 - [ ] Record dated go/no-go evidence and accepted limitations.
 
-Existing 0.12.0--0.15.1 matrices and their public artifacts are historical
+Existing 0.12.0--0.15.2 matrices and their public artifacts are historical
 evidence, not closure of future candidate gates. Follow
 [the release routes](conda_release_routes.md). This documentation reconciliation
 reruns no integration or release qualification and changes no runtime contract,

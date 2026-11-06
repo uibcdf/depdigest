@@ -24,6 +24,11 @@ It helps maintain a "Zero-Cost Startup" by ensuring that heavy external librarie
 Understand your dependencies. Trust your code.
 
 Current release line:
+
+- [`0.15.2`](https://github.com/uibcdf/depdigest/releases/tag/0.15.2): published
+  relative-import audit correction and SPDX/original-license maintenance;
+  source, installed and public qualification in
+  [#49](https://github.com/uibcdf/depdigest/issues/49)
 - [`0.15.1`](https://github.com/uibcdf/depdigest/releases/tag/0.15.1): published
   concurrent declared value requests; source, installed and public qualification
   in [#39](https://github.com/uibcdf/depdigest/issues/39)
